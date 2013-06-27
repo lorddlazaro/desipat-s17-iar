@@ -12,19 +12,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import java.awt.Window.Type;
 
 public class LoginScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private ArrayList<User> userList;
-
+	private JLabel errorLabel;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					LoginScreen frame = new LoginScreen();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +40,10 @@ public class LoginScreen extends JFrame {
 
 	public LoginScreen() {
 		initUserList();
-		
+		initGUI();
+	}
+	
+	private void initGUI() {
 		setResizable(false);
 		setTitle("Login ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,56 +53,73 @@ public class LoginScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Cambria", Font.PLAIN, 15));
-		textField.setBounds(176, 29, 180, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		usernameField = new JTextField();
+		usernameField.setBackground(Color.WHITE);
+		usernameField.setFont(new Font("Calibri", Font.PLAIN, 17));
+		usernameField.setBounds(176, 29, 180, 25);
+		contentPane.add(usernameField);
+		usernameField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Username");
-		lblNewLabel.setFont(new Font("Cambria", Font.PLAIN, 16));
-		lblNewLabel.setBounds(35, 32, 90, 14);
-		contentPane.add(lblNewLabel);
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+		usernameLabel.setBounds(35, 34, 90, 14);
+		contentPane.add(usernameLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password");
-		lblNewLabel_1.setFont(new Font("Cambria", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(35, 68, 80, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+		passwordLabel.setBounds(35, 70, 80, 14);
+		contentPane.add(passwordLabel);
 		
 		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Cambria", Font.PLAIN, 15));
+		passwordField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		passwordField.setBounds(176, 65, 180, 25);
 		contentPane.add(passwordField);
 		
-		JButton btnNewButton = new JButton("Log In");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		errorLabel = new JLabel("");
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLabel.setForeground(new Color(255, 0, 0));
+		errorLabel.setFont(new Font("Calibri", Font.PLAIN, 13));
+		errorLabel.setBounds(35, 104, 321, 14);
+		contentPane.add(errorLabel);
+		
+		JButton logInButton = new JButton("Log In");
+		logInButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(String.copyValueOf(passwordField.getPassword()).isEmpty() || textField.getText().isEmpty())
-// Notify User of empty input field
-					System.out.println("Empty Input Field");
-				else
-				{
-					for(User user: userList)
-						if(user.getUsername().equals(textField.getText()) && user.getPassword().equals(String.copyValueOf(passwordField.getPassword())))
-// Instantiate and show AssetScreen here
-						{
-							System.out.println("In with clearance level " + user.getClearance());
-							DBConnection DBcon = new DBConnection();
-							Connection con = DBcon.open();
-							DBcon.executeUpdate(con, "insert into actionlog values('',);");
-							DBcon.close();
-						}
-						else
-// Notify User of wrong Username/Password
-							System.out.println("Username or Password is wrong.");
+				// Notify User of empty input field
+				if(String.copyValueOf(passwordField.getPassword()).isEmpty()){
+					passwordField.setBackground(Color.PINK);
+					errorLabel.setText("Empty input field/s.");
 				}
+				else
+					passwordField.setBackground(Color.WHITE);
+				if(usernameField.getText().isEmpty()){
+					usernameField.setBackground(Color.PINK);
+					errorLabel.setText("Empty input field/s.");
+				}
+				else
+					usernameField.setBackground(Color.WHITE);
 				
+				// Checks userList if username and password supplied is valid
+				for(User user: userList)
+					if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(String.copyValueOf(passwordField.getPassword())))
+					// Match found, showing AssetScreen
+					{
+						System.out.println("In with clearance level " + user.getClearance());
+						//DBConnection DBcon = new DBConnection();
+						//Connection con = DBcon.open();
+						//DBcon.executeUpdate(con, "insert into actionlog values('',);");
+						//DBcon.close();
+					}
+										
+					// Notify User of wrong Username/Password
+					errorLabel.setText("Invalid username or password.");
 			}
 		});
-		btnNewButton.setFont(new Font("Cambria", Font.PLAIN, 16));
-		btnNewButton.setBounds(113, 115, 170, 35);
-		contentPane.add(btnNewButton);
+		logInButton.setFont(new Font("Calibri", Font.PLAIN, 18));
+		logInButton.setBounds(112, 129, 170, 35);
+		contentPane.add(logInButton);
+		
 	}
 	
 	private void initUserList(){
@@ -103,13 +128,13 @@ public class LoginScreen extends JFrame {
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
 		ResultSet rs = DBcon.executeQuery(con, "select * from UserAccount;");
-		DBcon.close();
 		try{
-			rs.first();
-			while(!rs.isAfterLast()){
-				userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
-				rs.next();
-			}
+			if(rs.isBeforeFirst())
+				while(!rs.isAfterLast()){
+					userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+					rs.next();
+				}
+			DBcon.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
