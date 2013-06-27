@@ -5,6 +5,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
+import javax.swing.JButton;
 
 
 public class AddAssetScreen extends JPanel {
@@ -158,6 +159,10 @@ public class AddAssetScreen extends JPanel {
 		JLabel lblYear = new JLabel("Year");
 		lblYear.setBounds(219, 164, 46, 14);
 		add(lblYear);
+		
+		JButton btnAdd = new JButton("ADD");
+		btnAdd.setBounds(25, 454, 89, 23);
+		add(btnAdd);
 
 	}
 }
