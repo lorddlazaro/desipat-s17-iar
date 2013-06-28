@@ -9,7 +9,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
+import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class AddAssetScreen extends JPanel {
@@ -27,6 +31,8 @@ public class AddAssetScreen extends JPanel {
 	private JComboBox cbxStorage;
 	private JComboBox cbxClassification;
 	private JComboBox cbxMaintenance;
+	private String[]days;
+	private ArrayList<String>dayList;
 	/**
 	 * Create the panel.
 	 */
@@ -180,19 +186,41 @@ public class AddAssetScreen extends JPanel {
 		add(lblDateAcquired);
 		
 		cbxMonth = new JComboBox();
+		cbxMonth.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED)
+				{
+					String month=arg0.getItem().toString();
+					listDays(month,dayList);
+				}
+			}
+		});
 		cbxMonth.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"}));
 		cbxMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxMonth.setBounds(104, 145, 69, 20);
 		add(cbxMonth);
 		
 		cbxDay = new JComboBox();
-		//int[] days=new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28};
-		//ArrayList<int>days=new ArrayList<int>();
+		dayList=new ArrayList<String>();
+		for(int day=1;day<=28;day++)
+		{
+			dayList.add(day+"");
+		}
+		days=dayList.toArray(new String[dayList.size()]);
+		cbxDay.setModel(new DefaultComboBoxModel(days));
 		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxDay.setBounds(176, 145, 46, 20);
 		add(cbxDay);
 		
 		cbxYear = new JComboBox();
+		
+		ArrayList<String>yearList=new ArrayList<String>();
+		for(int year=1900;year<=2050;year++)
+		{
+			yearList.add(year+"");
+		}
+		String[] years=yearList.toArray(new String[yearList.size()]);
+		cbxYear.setModel(new DefaultComboBoxModel(years));
 		cbxYear.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxYear.setBounds(232, 145, 46, 20);
 		add(cbxYear);
@@ -311,5 +339,29 @@ public class AddAssetScreen extends JPanel {
 		Date date=new Date(year-1900, month-1, day);
 		return date;
 	}
+	public void listDays(String month, ArrayList<String>dayList)
+	{
 	
+	switch(month)
+	{
+		case "April":
+		case "June":
+		case "September":
+		case "November":
+			dayList.add("29");
+			dayList.add("30");
+		case "January":
+		case "March":
+		case "May":
+		case "July":
+		case "August":
+		case "October":
+		case "December":
+			dayList.add("31");
+			break;
+	}
+	days=dayList.toArray(new String[dayList.size()]);
+	cbxDay.setModel(new DefaultComboBoxModel(days));
+	
+	}
 }
