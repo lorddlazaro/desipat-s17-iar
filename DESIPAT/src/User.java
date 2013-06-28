@@ -5,6 +5,13 @@ public class User {
 	private int clearance;
 	private Person person;
 	
+	public User(int userID, String username, String password, int clearance){
+		 this.userID = userID;
+		 this.username = username;
+		 this.password = password;
+		 this.clearance = clearance;
+		 }
+	
 	public int getUserID() {
 		return userID;
 	}
