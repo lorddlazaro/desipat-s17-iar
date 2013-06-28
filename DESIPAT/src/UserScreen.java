@@ -1,18 +1,10 @@
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.sql.Connection;
 
 
 public class UserScreen extends JPanel {
 	private JTextField usernameField;
 	private JLabel lblName;
-	private JLabel label;
+	private JLabel nameLabel;
 	private JTextField firstNameTextField;
 	private JTextField lastNameTextField;
 	private JTextField middleInitialTextField;
@@ -22,11 +14,21 @@ public class UserScreen extends JPanel {
 	private JButton changeDetailsButton;
 	private JButton saveDetailsButton;
 	private JLabel newPasswordLabel;
-	
+	private JPanel userSettingsPanel;
+	private JLabel usernameLabel;
+	private JLabel lblUserSettings;
+	private JPanel namePanel;
+	private JLabel firstNameLabel;
+	private JLabel lastNameLabel;
+	private JLabel middleInitLabel;
+	private JPanel assetSummary;
+	private JLabel lblSummaryTable;
+
 	private User currUser;
 	private DBConnection dbHandler;
 	private Connection conn;
 	private JButton backButton;
+	private JButton changeNameButton;
 	
 	/**
 	 * Create the panel.
@@ -35,13 +37,13 @@ public class UserScreen extends JPanel {
 
 		setLayout(null);
 		
-		JPanel userSettingsPanel = new JPanel();
+		userSettingsPanel = new JPanel();
 		userSettingsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		userSettingsPanel.setBounds(10, 11, 368, 140);
 		add(userSettingsPanel);
 		userSettingsPanel.setLayout(null);
 		
-		JLabel usernameLabel = new JLabel("Username:");
+		usernameLabel = new JLabel("Username:");
 		usernameLabel.setBounds(5, 51, 72, 19);
 		userSettingsPanel.add(usernameLabel);
 		usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -61,13 +63,13 @@ public class UserScreen extends JPanel {
 		userSettingsPanel.add(passwordField);
 		passwordField.setColumns(10);
 		
-		JLabel lblUserSettinhd = new JLabel("User Settings");
-		lblUserSettinhd.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblUserSettinhd.setBounds(5, 11, 172, 19);
-		userSettingsPanel.add(lblUserSettinhd);
+		lblUserSettings = new JLabel("User Settings");
+		lblUserSettings.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUserSettings.setBounds(5, 11, 172, 19);
+		userSettingsPanel.add(lblUserSettings);
 		
 		changeDetailsButton = new JButton("Change Details");
-		changeDetailsButton.setBounds(253, 81, 105, 23);
+		changeDetailsButton.setBounds(254, 80, 105, 23);
 		userSettingsPanel.add(changeDetailsButton);
 		
 		newPasswordLabel = new JLabel("New Password:");
@@ -81,75 +83,81 @@ public class UserScreen extends JPanel {
 		userSettingsPanel.add(newPasswordField);
 		
 		saveDetailsButton = new JButton("Save");
-		saveDetailsButton.setBounds(253, 108, 105, 23);
+		saveDetailsButton.setBounds(254, 107, 105, 23);
 		userSettingsPanel.add(saveDetailsButton);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(388, 11, 386, 140);
-		add(panel_1);
-		panel_1.setLayout(null);
+		namePanel = new JPanel();
+		namePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		namePanel.setBounds(388, 11, 386, 140);
+		add(namePanel);
+		namePanel.setLayout(null);
 		
 		lblName = new JLabel("Name");
 		lblName.setBounds(10, 11, 63, 14);
-		panel_1.add(lblName);
+		namePanel.add(lblName);
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		label = new JLabel("<namehere>");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(10, 39, 366, 14);
-		panel_1.add(label);
-		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		nameLabel = new JLabel("<namehere>");
+		nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		nameLabel.setBounds(10, 39, 366, 14);
+		namePanel.add(nameLabel);
+		nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		firstNameTextField = new JTextField();
 		firstNameTextField.setBounds(20, 109, 141, 20);
-		panel_1.add(firstNameTextField);
+		namePanel.add(firstNameTextField);
 		firstNameTextField.setColumns(10);
 		
 		middleInitialTextField = new JTextField();
 		middleInitialTextField.setBounds(168, 109, 48, 20);
-		panel_1.add(middleInitialTextField);
+		namePanel.add(middleInitialTextField);
 		middleInitialTextField.setColumns(10);
 		
 		lastNameTextField = new JTextField();
 		lastNameTextField.setBounds(222, 109, 141, 20);
-		panel_1.add(lastNameTextField);
+		namePanel.add(lastNameTextField);
 		lastNameTextField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("First Name");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(20, 90, 141, 14);
-		panel_1.add(lblNewLabel_1);
+		firstNameLabel = new JLabel("First Name");
+		firstNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		firstNameLabel.setBounds(20, 90, 141, 14);
+		namePanel.add(firstNameLabel);
 		
-		JLabel lblLastName = new JLabel("Last Name");
-		lblLastName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLastName.setBounds(222, 90, 141, 14);
-		panel_1.add(lblLastName);
+		lastNameLabel = new JLabel("Last Name");
+		lastNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lastNameLabel.setBounds(222, 90, 141, 14);
+		namePanel.add(lastNameLabel);
 		
-		JLabel lblMi = new JLabel("MI");
-		lblMi.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMi.setBounds(168, 90, 48, 14);
-		panel_1.add(lblMi);
+		middleInitLabel = new JLabel("MI");
+		middleInitLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		middleInitLabel.setBounds(168, 90, 48, 14);
+		namePanel.add(middleInitLabel);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(10, 162, 764, 354);
-		add(panel_2);
-		panel_2.setLayout(null);
+		changeNameButton = new JButton("Change Name");
+		changeNameButton.setBounds(271, 64, 105, 23);
+		namePanel.add(changeNameButton);
 		
-		JLabel lblSummaryTable = new JLabel("Summary or whatever");
+		assetSummary = new JPanel();
+		assetSummary.setBorder(new LineBorder(new Color(0, 0, 0)));
+		assetSummary.setBounds(10, 162, 764, 354);
+		add(assetSummary);
+		assetSummary.setLayout(null);
+		
+		lblSummaryTable = new JLabel("Summary or whatever");
 		lblSummaryTable.setBounds(10, 11, 269, 22);
 		lblSummaryTable.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		panel_2.add(lblSummaryTable);
+		assetSummary.add(lblSummaryTable);
 		
 		backButton = new JButton("Back to Main");
 		backButton.setBounds(671, 527, 103, 23);
 		add(backButton);
 
 	}
+	
 	public UserScreen(User currUser) {
 		this();
 		this.currUser = currUser;
+		conn = dbHandler.open();
 	}
 	
 	public void InitSettings() {
@@ -159,6 +167,18 @@ public class UserScreen extends JPanel {
 		newPasswordField.setVisible(false);
 		newPasswordLabel.setVisible(false);
 		saveDetailsButton.setVisible(false);
+		
+		nameLabel.setText(currUser.getPerson().getFirstName() + " " + currUser.getPerson().getMiddleInit() + ". " + currUser.getPerson().getLastName());
+		firstNameTextField.setText(currUser.getPerson().getFirstName());
+		middleInitialTextField.setText(currUser.getPerson().getMiddleInit() + "");
+		lastNameTextField.setText(currUser.getPerson().getLastName());
+		
+		firstNameLabel.setVisible(false);
+		middleInitLabel.setVisible(false);
+		lastNameLabel.setVisible(false);
+
+		firstNameTextField.setVisible(false);
+		middleInitialTextField.setVisible(false);
+		lastNameTextField.setVisible(false);
 	}
-	
 }

@@ -1,16 +1,9 @@
-
 public class User {
 	private int userID;	
 	private String username;
 	private String password;
 	private int clearance;
-	
-	public User(int userID, String username, String password, int clearance){
-		this.userID = userID;
-		this.username = username;
-		this.password = password;
-		this.clearance = clearance;
-	}
+	private Person person;
 	
 	public int getUserID() {
 		return userID;
@@ -35,5 +28,11 @@ public class User {
 	}
 	public void setClearance(int clearance) {
 		this.clearance = clearance;
+	}
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 }
