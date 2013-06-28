@@ -259,6 +259,9 @@ public class AddAssetScreen extends JPanel {
 		StorageHistory newStorage= new StorageHistory();
 		CustodyHistory newCustodian= new CustodyHistory();
 		
+		newAsset.setIsActive(true);
+		//TODO: set asset ID
+		
 		newAsset.setName(txtName.getText());
 		
 		//newAsset.setType(lookUpType(cbxType.getSelectedItem().toString()));

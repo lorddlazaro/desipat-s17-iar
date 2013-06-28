@@ -1,26 +1,46 @@
 import java.awt.Font;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Date;
+import java.util.ArrayList;
 
 
 public class EditAssetScreen extends JPanel {
 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtName;
+	private JTextField txtFinancial;
+	private JTextField txtOwner;
+	private JTextField txtCustodian;
+	private JSlider sldConfidentiality;
+	private JSlider sldIntegrity;
+	private JSlider sldAvailability;
+	private JComboBox cbxMonth;
+	private JComboBox cbxDay;
+	private JComboBox cbxYear;
+	private JComboBox cbxType;
+	private JComboBox cbxStorage;
+	private JComboBox cbxClassification;
+	private JComboBox cbxMaintenance;
+	private String[]days;
+	private Asset asset;
+	private ArrayList<String>dayList;
 
 	/**
 	 * Create the panel.
 	 */
-	public EditAssetScreen() {
+	public EditAssetScreen(Asset a) {
 		setLayout(null);
-		
+		asset=a;
 		JLabel lblAddNewAsset = new JLabel("Edit Asset");
 		lblAddNewAsset.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblAddNewAsset.setBounds(26, 24, 168, 29);
@@ -96,84 +116,115 @@ public class EditAssetScreen extends JPanel {
 		lblClassification.setBounds(26, 429, 88, 14);
 		add(lblClassification);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox.setBounds(70, 114, 124, 20);
-		add(comboBox);
+		cbxType = new JComboBox();
+		cbxType.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxType.setBounds(70, 114, 124, 20);
+		add(cbxType);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Calibri", Font.PLAIN, 12));
-		textField.setBounds(70, 86, 124, 20);
-		add(textField);
-		textField.setColumns(10);
+		txtName = new JTextField();
+		txtName.setFont(new Font("Calibri", Font.PLAIN, 12));
+		txtName.setBounds(70, 86, 124, 20);
+		add(txtName);
+		txtName.setColumns(10);
 		
-		JSlider slider = new JSlider();
-		slider.setFont(new Font("Calibri", Font.PLAIN, 12));
-		slider.setBounds(107, 220, 100, 23);
-		add(slider);
+		sldConfidentiality = new JSlider();
+		sldConfidentiality.setValue(0);
+		sldConfidentiality.setMaximum(5);
+		sldConfidentiality.setFont(new Font("Calibri", Font.PLAIN, 12));
+		sldConfidentiality.setBounds(107, 220, 100, 23);
+		add(sldConfidentiality);
 		
-		JSlider slider_1 = new JSlider();
-		slider_1.setFont(new Font("Calibri", Font.PLAIN, 12));
-		slider_1.setBounds(107, 245, 100, 23);
-		add(slider_1);
+		sldIntegrity = new JSlider();
+		sldIntegrity.setMaximum(5);
+		sldIntegrity.setValue(0);
+		sldIntegrity.setFont(new Font("Calibri", Font.PLAIN, 12));
+		sldIntegrity.setBounds(107, 245, 100, 23);
+		add(sldIntegrity);
 		
-		JSlider slider_2 = new JSlider();
-		slider_2.setFont(new Font("Calibri", Font.PLAIN, 12));
-		slider_2.setBounds(107, 270, 100, 23);
-		add(slider_2);
+		sldAvailability = new JSlider();
+		sldAvailability.setValue(0);
+		sldAvailability.setMaximum(5);
+		sldAvailability.setFont(new Font("Calibri", Font.PLAIN, 12));
+		sldAvailability.setBounds(107, 270, 100, 23);
+		add(sldAvailability);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Calibri", Font.PLAIN, 12));
-		textField_1.setBounds(79, 198, 115, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
+		txtFinancial = new JTextField();
+		txtFinancial.setFont(new Font("Calibri", Font.PLAIN, 12));
+		txtFinancial.setBounds(79, 198, 115, 20);
+		add(txtFinancial);
+		txtFinancial.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Calibri", Font.PLAIN, 12));
-		textField_2.setBounds(82, 323, 112, 20);
-		add(textField_2);
-		textField_2.setColumns(10);
+		txtOwner = new JTextField();
+		txtOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
+		txtOwner.setBounds(82, 323, 112, 20);
+		add(txtOwner);
+		txtOwner.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Calibri", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(82, 351, 112, 20);
-		add(textField_3);
+		txtCustodian = new JTextField();
+		txtCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
+		txtCustodian.setColumns(10);
+		txtCustodian.setBounds(82, 351, 112, 20);
+		add(txtCustodian);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_1.setBounds(124, 373, 69, 20);
-		add(comboBox_1);
+		cbxStorage = new JComboBox();
+		cbxStorage.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxStorage.setBounds(124, 373, 69, 20);
+		add(cbxStorage);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_2.setBounds(107, 426, 87, 20);
-		add(comboBox_2);
+		cbxClassification = new JComboBox();
+		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
+		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxClassification.setBounds(107, 426, 87, 20);
+		add(cbxClassification);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_3.setBounds(138, 401, 52, 20);
-		add(comboBox_3);
+		cbxMaintenance = new JComboBox();
+		cbxMaintenance.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxMaintenance.setBounds(138, 401, 52, 20);
+		add(cbxMaintenance);
 		
 		JLabel lblDateAcquired = new JLabel("Date Acquired:");
 		lblDateAcquired.setFont(new Font("Calibri", Font.PLAIN, 12));
 		lblDateAcquired.setBounds(26, 154, 88, 14);
 		add(lblDateAcquired);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_4.setBounds(104, 145, 46, 20);
-		add(comboBox_4);
+		cbxMonth = new JComboBox();
+		cbxMonth.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange()==ItemEvent.SELECTED)
+				{
+					String month=arg0.getItem().toString();
+					listDays(month,dayList);
+				}
+			}
+		});
+		cbxMonth.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"}));
+		cbxMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxMonth.setBounds(104, 145, 46, 20);
+		add(cbxMonth);
 		
-		JComboBox comboBox_5 = new JComboBox();
-		comboBox_5.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_5.setBounds(161, 145, 46, 20);
-		add(comboBox_5);
+		cbxDay = new JComboBox();
+		dayList=new ArrayList<String>();
+		for(int day=1;day<=28;day++)
+		{
+			dayList.add(day+"");
+		}
+		days=dayList.toArray(new String[dayList.size()]);
+		cbxDay.setModel(new DefaultComboBoxModel(days));
+		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxDay.setBounds(161, 145, 46, 20);
+		add(cbxDay);
 		
-		JComboBox comboBox_6 = new JComboBox();
-		comboBox_6.setFont(new Font("Calibri", Font.PLAIN, 12));
-		comboBox_6.setBounds(219, 145, 46, 20);
-		add(comboBox_6);
+		cbxYear = new JComboBox();
+		ArrayList<String>yearList=new ArrayList<String>();
+		for(int year=1900;year<=2050;year++)
+		{
+			yearList.add(year+"");
+		}
+		String[] years=yearList.toArray(new String[yearList.size()]);
+		cbxYear.setModel(new DefaultComboBoxModel(years));
+		cbxYear.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxYear.setBounds(219, 145, 46, 20);
+		add(cbxYear);
 		
 		JLabel lblMonth = new JLabel("Month");
 		lblMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -190,16 +241,139 @@ public class EditAssetScreen extends JPanel {
 		lblYear.setBounds(219, 164, 46, 14);
 		add(lblYear);
 		
-		JButton btnEdit = new JButton("EDIT");
+		JButton btnEdit = new JButton("SAVE CHANGES");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editAsset();
+			}
+		});
 		btnEdit.setFont(new Font("Calibri", Font.PLAIN, 12));
-		btnEdit.setBounds(26, 454, 89, 23);
+		btnEdit.setBounds(26, 454, 115, 23);
 		add(btnEdit);
 		
 		JButton btnRetireAsset = new JButton("RETIRE ASSET");
+		btnRetireAsset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				asset.setIsActive(false);
+			}
+		});
 		btnRetireAsset.setFont(new Font("Calibri", Font.PLAIN, 12));
-		btnRetireAsset.setBounds(124, 454, 127, 23);
+		btnRetireAsset.setBounds(156, 454, 127, 23);
 		add(btnRetireAsset);
 
+	}
+	public Asset editAsset()
+	{
+	
+		OwnershipHistory newOwner =new OwnershipHistory();
+		StorageHistory newStorage= new StorageHistory();
+		CustodyHistory newCustodian= new CustodyHistory();
+		
+		asset.setName(txtName.getText());
+		
+		//newAsset.setType(lookUpType(cbxType.getSelectedItem().toString()));
+		asset.setDateAcquired(getDate(lookUpMonth(cbxMonth.getSelectedItem().toString()),Integer.parseInt(cbxDay.getSelectedItem().toString()),Integer.parseInt(cbxYear.getSelectedItem().toString())));
+		asset.setValueFinancial(Float.parseFloat(txtFinancial.getText()));
+		asset.setValueConfidentiality(sldConfidentiality.getValue());
+		asset.setValueIntegrity(sldIntegrity.getValue());
+		asset.setValueAvailability(sldAvailability.getValue());
+		//newAsset.setOwnershipHistory(newOwner);
+		//newAsset.setCustodyHistory(newCustodian);
+		//newAsset.setStorageHistory(newStorage);
+		asset.setClassification(lookUpClassification(cbxClassification.getSelectedItem().toString()));
+		
+		return asset;
+	
+	}
+	/*public int lookUpType(String typeName) //if user can add types, this is impossible
+	{
+		int type;
+		switch(typeName)
+		{
+		default:
+			type=0;
+		}
+		return type;
+	}*/
+	public int lookUpClassification(String className)
+	{
+		switch(className)
+		{
+		case "Public":
+			return 0;
+	
+		case "Internal":
+			return 1;
+			
+		case "Sensitive":
+			return 2;
+			
+		case "Confidential":
+			return 3;
+		default:
+			return -1;
+		}
+	}
+	public int lookUpMonth(String month)
+	{
+		switch(month)
+		{
+		case "January":
+			return 1;
+		case "February":
+			return 2;
+		case "March":
+			return 3;
+		case "April":
+			return 4;
+		case "May":
+			return 5;
+		case "June":
+			return 6;
+		case "July":
+			return 7;
+		case "August":
+			return 8;
+		case "September":
+			return 9;
+		case "October":
+			return 10;
+		case "November":
+			return 11;
+		case "December":
+			return 12;
+		}
+		return 0;
+	}
+	public Date getDate(int month, int day, int year)
+	{
+		Date date=new Date(year-1900, month-1, day);
+		return date;
+	}
+	public void listDays(String month, ArrayList<String>dayList)
+	{
+	
+	switch(month)
+	{
+		case "April":
+		case "June":
+		case "September":
+		case "November":
+			dayList.add("29");
+			dayList.add("30");
+		case "January":
+		case "March":
+		case "May":
+		case "July":
+		case "August":
+		case "October":
+		case "December":
+			dayList.add("31");
+			break;
+	}
+	days=dayList.toArray(new String[dayList.size()]);
+	cbxDay.setModel(new DefaultComboBoxModel(days));
+	
 	}
 
 }
