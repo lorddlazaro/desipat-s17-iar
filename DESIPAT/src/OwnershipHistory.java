@@ -1,7 +1,6 @@
 
 public class OwnershipHistory extends History {
 	private int ownerID;
-
 	public int getOwnerID() {
 		return ownerID;
 	}
