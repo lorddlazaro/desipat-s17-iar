@@ -19,8 +19,6 @@ public class EditAssetScreen extends JPanel {
 
 	private JTextField txtName;
 	private JTextField txtFinancial;
-	private JTextField txtOwner;
-	private JTextField txtCustodian;
 	private JSlider sldConfidentiality;
 	private JSlider sldIntegrity;
 	private JSlider sldAvailability;
@@ -92,8 +90,8 @@ public class EditAssetScreen extends JPanel {
 		add(lblFinancial);
 		
 		JLabel lblBasicInformation = new JLabel("Basic Information");
-		lblBasicInformation.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblBasicInformation.setBounds(26, 64, 124, 14);
+		lblBasicInformation.setFont(new Font("Calibri", Font.PLAIN, 18));
+		lblBasicInformation.setBounds(26, 64, 148, 14);
 		add(lblBasicInformation);
 		
 		JLabel lblStatus = new JLabel("Status");
@@ -117,6 +115,7 @@ public class EditAssetScreen extends JPanel {
 		add(lblClassification);
 		
 		cbxType = new JComboBox();
+		cbxType.setModel(new DefaultComboBoxModel(new String[] {"Document", "Equipment", "Product"}));
 		cbxType.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxType.setBounds(70, 114, 124, 20);
 		add(cbxType);
@@ -154,18 +153,6 @@ public class EditAssetScreen extends JPanel {
 		add(txtFinancial);
 		txtFinancial.setColumns(10);
 		
-		txtOwner = new JTextField();
-		txtOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
-		txtOwner.setBounds(82, 323, 112, 20);
-		add(txtOwner);
-		txtOwner.setColumns(10);
-		
-		txtCustodian = new JTextField();
-		txtCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
-		txtCustodian.setColumns(10);
-		txtCustodian.setBounds(82, 351, 112, 20);
-		add(txtCustodian);
-		
 		cbxStorage = new JComboBox();
 		cbxStorage.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxStorage.setBounds(124, 373, 69, 20);
@@ -178,6 +165,7 @@ public class EditAssetScreen extends JPanel {
 		add(cbxClassification);
 		
 		cbxMaintenance = new JComboBox();
+		cbxMaintenance.setModel(new DefaultComboBoxModel(new String[] {"Daily", "Weekly", "Monthly", "Yearly"}));
 		cbxMaintenance.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxMaintenance.setBounds(138, 401, 52, 20);
 		add(cbxMaintenance);
@@ -260,6 +248,16 @@ public class EditAssetScreen extends JPanel {
 		btnRetireAsset.setFont(new Font("Calibri", Font.PLAIN, 12));
 		btnRetireAsset.setBounds(156, 454, 127, 23);
 		add(btnRetireAsset);
+		
+		JComboBox cbxOwner = new JComboBox();
+		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxOwner.setBounds(98, 325, 96, 20);
+		add(cbxOwner);
+		
+		JComboBox cbxCustodian = new JComboBox();
+		cbxCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxCustodian.setBounds(98, 350, 96, 20);
+		add(cbxCustodian);
 
 	}
 	public Asset editAsset()
@@ -271,12 +269,13 @@ public class EditAssetScreen extends JPanel {
 		
 		asset.setName(txtName.getText());
 		
-		//newAsset.setType(lookUpType(cbxType.getSelectedItem().toString()));
+		asset.setType(lookUpType(cbxType.getSelectedItem().toString()));
 		asset.setDateAcquired(getDate(lookUpMonth(cbxMonth.getSelectedItem().toString()),Integer.parseInt(cbxDay.getSelectedItem().toString()),Integer.parseInt(cbxYear.getSelectedItem().toString())));
 		asset.setValueFinancial(Float.parseFloat(txtFinancial.getText()));
 		asset.setValueConfidentiality(sldConfidentiality.getValue());
 		asset.setValueIntegrity(sldIntegrity.getValue());
 		asset.setValueAvailability(sldAvailability.getValue());
+		asset.setMaintenanceSchedule(lookUpSchedule(cbxMaintenance.getSelectedItem().toString()));
 		//newAsset.setOwnershipHistory(newOwner);
 		//newAsset.setCustodyHistory(newCustodian);
 		//newAsset.setStorageHistory(newStorage);
@@ -285,31 +284,37 @@ public class EditAssetScreen extends JPanel {
 		return asset;
 	
 	}
-	/*public int lookUpType(String typeName) //if user can add types, this is impossible
+	public int lookUpType(String typeName)
 	{
-		int type;
+		
 		switch(typeName)
 		{
+		case "Document":
+			return 0;
+		case "Equipment":
+			return 1;
+		case "Product":
+			return 2;
 		default:
-			type=0;
+			return -1;
 		}
-		return type;
-	}*/
+	
+	}
 	public int lookUpClassification(String className)
 	{
 		switch(className)
 		{
 		case "Public":
-			return 0;
+			return 3;
 	
 		case "Internal":
-			return 1;
-			
-		case "Sensitive":
 			return 2;
 			
+		case "Sensitive":
+			return 0;
+			
 		case "Confidential":
-			return 3;
+			return 1;
 		default:
 			return -1;
 		}
@@ -350,6 +355,22 @@ public class EditAssetScreen extends JPanel {
 		Date date=new Date(year-1900, month-1, day);
 		return date;
 	}
+	public int lookUpSchedule(String schedule)
+	{
+		switch(schedule)
+		{
+		case "Daily":
+			return 0;
+		case "Weekly":
+			return 1;
+		case "Monthly":
+			return 2;
+		case "Yearly":
+			return 3;
+		default:
+			return -1;
+		}
+	}
 	public void listDays(String month, ArrayList<String>dayList)
 	{
 	
@@ -375,5 +396,4 @@ public class EditAssetScreen extends JPanel {
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 	
 	}
-
 }
