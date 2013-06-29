@@ -2,7 +2,7 @@ import java.util.List;
 import java.sql.Date;
 
 public class Asset {
-private int id;
+//private int id; //found only in DB
 private String name;
 private int type;
 private Boolean isActive;
@@ -22,12 +22,12 @@ private int custodianID;
 private int ownerID;
 private int storageID;
 
-public int getId() {
+/*public int getId() {
 	return id;
 }
 public void setId(int id) {
 	this.id = id;
-}
+}*/
 public String getName() {
 	return name;
 }
@@ -112,5 +112,23 @@ public List<StorageHistory> getStorageHistory() {
 public void setStorageHistory(List<StorageHistory> storageHistory) {
 	this.storageHistory = storageHistory;
 }*/
+public int getStorageID() {
+	return storageID;
+}
+public void setStorageID(int storageID) {
+	this.storageID = storageID;
+}
+public int getOwnerID() {
+	return ownerID;
+}
+public void setOwnerID(int ownerID) {
+	this.ownerID = ownerID;
+}
+public int getCustodianID() {
+	return custodianID;
+}
+public void setCustodianID(int custodianID) {
+	this.custodianID = custodianID;
+}
 
 }

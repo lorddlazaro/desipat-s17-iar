@@ -32,13 +32,18 @@ public class EditAssetScreen extends JPanel {
 	private String[]days;
 	private Asset asset;
 	private ArrayList<String>dayList;
+	
+	private ArrayList<String>personList;    //these lists to be populated from AssetScreen
+	private ArrayList<String>storageList;
 
 	/**
 	 * Create the panel.
 	 */
-	public EditAssetScreen(Asset a) {
+	public EditAssetScreen(Asset a, ArrayList<String>personList,ArrayList<String>storageList) {
 		setLayout(null);
 		asset=a;
+		this.personList=personList;
+		this.storageList=storageList;
 		JLabel lblAddNewAsset = new JLabel("Edit Asset");
 		lblAddNewAsset.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblAddNewAsset.setBounds(26, 24, 168, 29);
@@ -283,6 +288,14 @@ public class EditAssetScreen extends JPanel {
 		
 		return asset;
 	
+	}
+	public int lookUpPersonID(String name)
+	{
+		return 0;
+	}
+	public int lookUpStorageID(String name)
+	{
+		return 0;
 	}
 	public int lookUpType(String typeName)
 	{

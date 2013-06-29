@@ -31,11 +31,16 @@ public class AddAssetScreen extends JPanel {
 	private JComboBox cbxMaintenance;
 	private String[]days;
 	private ArrayList<String>dayList;
+	
+	private ArrayList<String>personList;    //these lists to be populated from AssetScreen
+	private ArrayList<String>storageList;
 	/**
 	 * Create the panel.
 	 */
-	public AddAssetScreen() {
+	public AddAssetScreen(/*ArrayList<String> personList, ArrayList<String>storageList*/) {
 		setLayout(null);
+		this.personList=personList;
+		this.storageList=storageList;
 		
 		JLabel lblAddNewAsset = new JLabel("Add New Asset");
 		lblAddNewAsset.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -258,7 +263,7 @@ public class AddAssetScreen extends JPanel {
 		CustodyHistory newCustodian= new CustodyHistory();
 		
 		newAsset.setIsActive(true);
-		//TODO: set asset ID
+		
 		
 		newAsset.setName(txtName.getText());
 		
@@ -268,6 +273,7 @@ public class AddAssetScreen extends JPanel {
 		newAsset.setValueConfidentiality(sldConfidentiality.getValue());
 		newAsset.setValueIntegrity(sldIntegrity.getValue());
 		newAsset.setValueAvailability(sldAvailability.getValue());
+		
 		//newAsset.setOwnershipHistory(newOwner);
 		//newAsset.setCustodyHistory(newCustodian);
 		//newAsset.setStorageHistory(newStorage);
@@ -275,6 +281,14 @@ public class AddAssetScreen extends JPanel {
 		newAsset.setClassification(lookUpClassification(cbxClassification.getSelectedItem().toString()));
 		
 		return newAsset;
+	}
+	public int lookUpPersonID(String name)
+	{
+		return 0;
+	}
+	public int lookUpStorageID(String name)
+	{
+		return 0;
 	}
 	public int lookUpType(String typeName) 
 	{
