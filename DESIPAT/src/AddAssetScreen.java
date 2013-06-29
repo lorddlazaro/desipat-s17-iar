@@ -8,7 +8,9 @@ import javax.swing.JSlider;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +31,8 @@ public class AddAssetScreen extends JPanel {
 	private JComboBox cbxStorage;
 	private JComboBox cbxClassification;
 	private JComboBox cbxMaintenance;
+	private JComboBox cbxOwner;
+	private JComboBox cbxCustodian;
 	private String[]days;
 	private ArrayList<String>dayList;
 	
@@ -243,12 +247,12 @@ public class AddAssetScreen extends JPanel {
 		btnAdd.setBounds(25, 454, 89, 23);
 		add(btnAdd);
 		
-		JComboBox cbxOwner = new JComboBox();
+		cbxOwner = new JComboBox();
 		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxOwner.setBounds(98, 325, 96, 20);
 		add(cbxOwner);
 		
-		JComboBox cbxCustodian = new JComboBox();
+		cbxCustodian = new JComboBox();
 		cbxCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxCustodian.setBounds(98, 350, 96, 20);
 		add(cbxCustodian);
@@ -274,9 +278,9 @@ public class AddAssetScreen extends JPanel {
 		newAsset.setValueIntegrity(sldIntegrity.getValue());
 		newAsset.setValueAvailability(sldAvailability.getValue());
 		
-		//newAsset.setOwnershipHistory(newOwner);
-		//newAsset.setCustodyHistory(newCustodian);
-		//newAsset.setStorageHistory(newStorage);
+		newAsset.setOwnerID(lookUpPersonID(cbxOwner.getSelectedItem().toString()));
+		newAsset.setCustodianID(lookUpPersonID(cbxCustodian.getSelectedItem().toString()));
+		newAsset.setStorageID(lookUpStorageID(cbxStorage.getSelectedItem().toString()));
 		newAsset.setMaintenanceSchedule(lookUpSchedule(cbxMaintenance.getSelectedItem().toString()));
 		newAsset.setClassification(lookUpClassification(cbxClassification.getSelectedItem().toString()));
 		
@@ -284,11 +288,34 @@ public class AddAssetScreen extends JPanel {
 	}
 	public int lookUpPersonID(String name)
 	{
-		return 0;
+	
+		int id=-1;
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select personID from Person where Name="+name+";");
+		try{
+			id=rs.getInt(1);
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return id;
 	}
 	public int lookUpStorageID(String name)
 	{
-		return 0;
+		int id=-1;
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select storageID from Storage where StorageLocation="+name+";");
+		try{
+			id=rs.getInt(1);
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return id;
 	}
 	public int lookUpType(String typeName) 
 	{
