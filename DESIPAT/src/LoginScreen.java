@@ -54,6 +54,7 @@ public class LoginScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		usernameField = new JTextField();
+		usernameField.setText("admin");
 		usernameField.setBackground(Color.WHITE);
 		usernameField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		usernameField.setBounds(176, 29, 180, 25);
@@ -71,6 +72,7 @@ public class LoginScreen extends JFrame {
 		contentPane.add(passwordLabel);
 		
 		passwordField = new JPasswordField();
+		passwordField.setName("");
 		passwordField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		passwordField.setBounds(176, 65, 180, 25);
 		contentPane.add(passwordField);
@@ -86,40 +88,54 @@ public class LoginScreen extends JFrame {
 		logInButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// Notify User of empty input field
-				if(String.copyValueOf(passwordField.getPassword()).isEmpty()){
-					passwordField.setBackground(Color.PINK);
-					errorLabel.setText("Empty input field/s.");
-				}
-				else
-					passwordField.setBackground(Color.WHITE);
-				if(usernameField.getText().isEmpty()){
-					usernameField.setBackground(Color.PINK);
-					errorLabel.setText("Empty input field/s.");
-				}
-				else
-					usernameField.setBackground(Color.WHITE);
+				boolean hasUsername = !usernameField.getText().isEmpty();
+				boolean hasPassword = !String.copyValueOf(passwordField.getPassword()).isEmpty();
 				
-				// Checks userList if username and password supplied is valid
-				for(User user: userList)
-					if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(String.copyValueOf(passwordField.getPassword())))
-					// Match found, showing AssetScreen
-					{
-						System.out.println("In with clearance level " + user.getClearance());
-						//DBConnection DBcon = new DBConnection();
-						//Connection con = DBcon.open();
-						//DBcon.executeUpdate(con, "insert into actionlog values('',);");
-						//DBcon.close();
+				if(hasUsername)
+					if(hasPassword){
+						// Case 1: both fields are filled
+						// Checks userList if username and password supplied is valid
+						usernameField.setBackground(Color.WHITE);
+						passwordField.setBackground(Color.WHITE);
+						
+						for(User user: userList)
+							if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(String.copyValueOf(passwordField.getPassword())))
+							// Match found, showing AssetScreen
+							{
+								System.out.println("Logged in");
+								//DBConnection DBcon = new DBConnection();
+								//Connection con = DBcon.open();
+								//DBcon.executeUpdate(con, "insert into actionlog values('',);");
+								//DBcon.close();
+							}
+												
+						// Notify User of wrong Username/Password
+						errorLabel.setText("Invalid username or password.");	
 					}
-										
-					// Notify User of wrong Username/Password
-					errorLabel.setText("Invalid username or password.");
+					else{
+						// Case 2: empty password field
+						usernameField.setBackground(Color.WHITE);
+						passwordField.setBackground(Color.PINK);
+						errorLabel.setText("Please enter password.");
+					}
+				else
+					if(hasPassword){
+						// Case 3: empty username field
+						passwordField.setBackground(Color.WHITE);
+						usernameField.setBackground(Color.PINK);
+						errorLabel.setText("Please enter username.");
+					}
+					else{
+						// Case 4: both fields are empty
+						usernameField.setBackground(Color.PINK);
+						passwordField.setBackground(Color.PINK);
+						errorLabel.setText("Please enter username and password.");
+					}
 			}
 		});
 		logInButton.setFont(new Font("Calibri", Font.PLAIN, 18));
 		logInButton.setBounds(112, 129, 170, 35);
 		contentPane.add(logInButton);
-		
 	}
 	
 	private void initUserList(){
@@ -129,11 +145,13 @@ public class LoginScreen extends JFrame {
 		Connection con = DBcon.open();
 		ResultSet rs = DBcon.executeQuery(con, "select * from UserAccount;");
 		try{
-			if(rs.isBeforeFirst())
+			if(rs.isBeforeFirst()){
+				rs.first();
 				while(!rs.isAfterLast()){
 					userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
 					rs.next();
 				}
+			}
 			DBcon.close();
 		}
 		catch(Exception e){
