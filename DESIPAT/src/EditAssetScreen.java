@@ -29,6 +29,8 @@ public class EditAssetScreen extends JPanel {
 	private JComboBox cbxStorage;
 	private JComboBox cbxClassification;
 	private JComboBox cbxMaintenance;
+	private JComboBox cbxOwner;
+	private JComboBox cbxCustodian;
 	private String[]days;
 	private Asset asset;
 	private ArrayList<String>dayList;
@@ -254,12 +256,12 @@ public class EditAssetScreen extends JPanel {
 		btnRetireAsset.setBounds(156, 454, 127, 23);
 		add(btnRetireAsset);
 		
-		JComboBox cbxOwner = new JComboBox();
+		cbxOwner = new JComboBox();
 		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxOwner.setBounds(98, 325, 96, 20);
 		add(cbxOwner);
 		
-		JComboBox cbxCustodian = new JComboBox();
+		cbxCustodian = new JComboBox();
 		cbxCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxCustodian.setBounds(98, 350, 96, 20);
 		add(cbxCustodian);
