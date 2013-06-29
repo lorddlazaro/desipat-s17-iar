@@ -18,9 +18,9 @@ private  int valueAvailability;
 
 private  int classification;
 
-private List<CustodyHistory> custodyHistory;
-private  List<OwnershipHistory> ownershipHistory;
-private  List<StorageHistory> storageHistory;
+private int custodianID;
+private int ownerID;
+private int storageID;
 
 public int getId() {
 	return id;
@@ -94,7 +94,7 @@ public int getClassification() {
 public void setClassification(int classification) {
 	this.classification = classification;
 }
-public List<CustodyHistory> getCustodyHistory() {
+/*public List<CustodyHistory> getCustodyHistory() {
 	return custodyHistory;
 }
 public void setCustodyHistory(List<CustodyHistory> custodyHistory) {
@@ -111,6 +111,6 @@ public List<StorageHistory> getStorageHistory() {
 }
 public void setStorageHistory(List<StorageHistory> storageHistory) {
 	this.storageHistory = storageHistory;
-}
+}*/
 
 }
