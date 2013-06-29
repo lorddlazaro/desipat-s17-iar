@@ -30,8 +30,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
-public class Suggestion extends JFrame {
+public class MainScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -43,7 +45,7 @@ public class Suggestion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Suggestion frame = new Suggestion();
+					MainScreen frame = new MainScreen();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -56,48 +58,25 @@ public class Suggestion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Suggestion() {
+	public MainScreen() {
 		setTitle("Asset Management Registry");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new CardLayout(0, 0));
 		
-		JButton btnLogOut = new JButton("Log Out");
-		btnLogOut.setBackground(new Color(255, 127, 80));
-		btnLogOut.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnLogOut.setBounds(685, 11, 89, 23);
-		contentPane.add(btnLogOut);
-		
-		JLabel lblHello = new JLabel("Hello,");
-		lblHello.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblHello.setBounds(10, 15, 46, 14);
-		contentPane.add(lblHello);
-		
-		JLabel lblUsername = new JLabel("< Username >");
-		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblUsername.setBounds(51, 15, 191, 14);
-		contentPane.add(lblUsername);
-		
-		JButton btnAccountSettings = new JButton("Account Settings");
-		btnAccountSettings.setBackground(new Color(128, 128, 128));
-		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnAccountSettings.setBounds(532, 11, 143, 23);
-		contentPane.add(btnAccountSettings);
-		
-		JLabel lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
-		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblLastLogin.setBounds(324, 15, 198, 14);
-		contentPane.add(lblLastLogin);
+		JPanel panelMain = new JPanel();
+		panelMain.setBackground(new Color(192, 192, 192));
+		contentPane.add(panelMain, "name_45360210262966");
+		panelMain.setLayout(null);
 		
 		JPanel panelMenu = new JPanel();
+		panelMenu.setBorder(null);
+		panelMenu.setBounds(10, 47, 762, 50);
+		panelMain.add(panelMenu);
 		panelMenu.setBackground(new Color(188, 143, 143));
-		panelMenu.setBounds(10, 43, 764, 50);
-		contentPane.add(panelMenu);
 		panelMenu.setLayout(null);
 		
 		JButton btnViewAssets = new JButton("View Assets");
@@ -120,19 +99,20 @@ public class Suggestion extends JFrame {
 		
 		JLabel lblViewLogs = new JLabel("Asset Management Registry");
 		lblViewLogs.setFont(new Font("Calibri", Font.PLAIN, 20));
-		lblViewLogs.setBounds(12, 12, 256, 26);
+		lblViewLogs.setBounds(12, 11, 256, 26);
 		panelMenu.add(lblViewLogs);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBounds(10, 104, 764, 450);
-		contentPane.add(panel_7);
-		panel_7.setLayout(new CardLayout(0, 0));
+		JPanel panelCards = new JPanel();
+		panelCards.setBorder(null);
+		panelCards.setBounds(10, 109, 762, 444);
+		panelMain.add(panelCards);
+		panelCards.setLayout(new CardLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setName("AddAsset");
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_7.add(panel, "name_38670646713129");
-		panel.setLayout(null);
+		JPanel viewAssetScreen_PLACEHOLDER = new JPanel();
+		panelCards.add(viewAssetScreen_PLACEHOLDER, "name_44365032430797");
+		viewAssetScreen_PLACEHOLDER.setName("AddAsset");
+		viewAssetScreen_PLACEHOLDER.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		viewAssetScreen_PLACEHOLDER.setLayout(null);
 		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
@@ -145,21 +125,21 @@ public class Suggestion extends JFrame {
 			}
 		});
 		list.setBounds(10, 77, 199, 319);
-		panel.add(list);
+		viewAssetScreen_PLACEHOLDER.add(list);
 		
 		JToggleButton tglbtnNewToggleButton = new JToggleButton("Include decomissioned assets");
 		tglbtnNewToggleButton.setBounds(10, 42, 199, 23);
-		panel.add(tglbtnNewToggleButton);
+		viewAssetScreen_PLACEHOLDER.add(tglbtnNewToggleButton);
 		
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"sort by name"}));
 		comboBox_2.setBounds(10, 11, 199, 20);
-		panel.add(comboBox_2);
+		viewAssetScreen_PLACEHOLDER.add(comboBox_2);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Asset Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setBounds(221, 11, 528, 427);
-		panel.add(panel_3);
+		panel_3.setBounds(222, 13, 528, 427);
+		viewAssetScreen_PLACEHOLDER.add(panel_3);
 		panel_3.setLayout(null);
 		
 		JLabel label = new JLabel("Availability Value");
@@ -226,67 +206,65 @@ public class Suggestion extends JFrame {
 		
 		JButton button = new JButton("Add Asset");
 		button.setBounds(10, 408, 199, 30);
-		panel.add(button);
+		viewAssetScreen_PLACEHOLDER.add(button);
 		
 		AddAssetScreen addAssetScreen = new AddAssetScreen();
-		panel_7.add(addAssetScreen, "name_38676255984210");
+		panelCards.add(addAssetScreen, "name_47486086789731");
 		
-		JPanel panel_1 = new JPanel();
-		panel_7.add(panel_1, "name_38679957106210");
-		panel_1.setLayout(null);
+		EditAssetScreen editAssetScreen = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
+		panelCards.add(editAssetScreen, "name_47508639745763");
 		
-		JTree tree_1 = new JTree();
-		tree_1.setBounds(10, 11, 179, 409);
-		panel_1.add(tree_1);
+		AdminUserScreen adminUserScreen = new AdminUserScreen();
+		panelCards.add(adminUserScreen, "name_47513502896736");
 		
-		JLabel lblNewLabel = new JLabel("Username: tomatopotatas");
-		lblNewLabel.setBounds(199, 84, 139, 14);
-		panel_1.add(lblNewLabel);
+		UserScreen userScreen = new UserScreen();
+		panelCards.add(userScreen, "name_47516357165505");
 		
-		JLabel lblNewLabel_2 = new JLabel("Clearance Level:");
-		lblNewLabel_2.setBounds(199, 128, 102, 14);
-		panel_1.add(lblNewLabel_2);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(287, 125, 130, 20);
-		panel_1.add(comboBox_1);
-		
-		JButton btnNewButton_5 = new JButton("Save Changes");
-		btnNewButton_5.setBounds(199, 201, 150, 30);
-		panel_1.add(btnNewButton_5);
-		
-		JLabel lblNewLabel_3 = new JLabel("Name: Tomato E. Potato");
-		lblNewLabel_3.setBounds(199, 42, 218, 14);
-		panel_1.add(lblNewLabel_3);
-		
-		JButton btnNewButton_6 = new JButton("Delete User");
-		btnNewButton_6.setBounds(199, 252, 150, 30);
-		panel_1.add(btnNewButton_6);
-		
-		JButton btnSuspendUser = new JButton("Suspend User");
-		btnSuspendUser.setBounds(199, 301, 150, 30);
-		panel_1.add(btnSuspendUser);
-		
-		JPanel panel_2 = new JPanel();
-		panel_7.add(panel_2, "name_38684112168376");
-		panel_2.setLayout(null);
+		JPanel logScreen_PLACEHOLDER = new JPanel();
+		panelCards.add(logScreen_PLACEHOLDER, "name_38684112168376");
+		logScreen_PLACEHOLDER.setLayout(null);
 		
 		JTree tree = new JTree();
 		tree.setBounds(10, 41, 167, 379);
-		panel_2.add(tree);
+		logScreen_PLACEHOLDER.add(tree);
 		
 		table = new JTable();
 		table.setBounds(187, 11, 562, 409);
-		panel_2.add(table);
+		logScreen_PLACEHOLDER.add(table);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(10, 11, 167, 20);
-		panel_2.add(comboBox);
+		logScreen_PLACEHOLDER.add(comboBox);
 		
-		JPanel panel_8 = new JPanel();
-		panel_7.add(panel_8, "name_38593788649255");
+		JButton btnAccountSettings = new JButton("Account Settings");
+		btnAccountSettings.setBounds(528, 12, 143, 23);
+		panelMain.add(btnAccountSettings);
+		btnAccountSettings.setBackground(new Color(128, 128, 128));
+		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
 		
-		JPanel panel_9 = new JPanel();
-		panel_7.add(panel_9, "name_38615183479534");
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.setBounds(683, 12, 89, 23);
+		panelMain.add(btnLogOut);
+		btnLogOut.setBackground(new Color(255, 127, 80));
+		btnLogOut.setFont(new Font("Calibri", Font.PLAIN, 14));
+		
+		JLabel lblHello = new JLabel("Hello,");
+		lblHello.setBounds(12, 16, 46, 14);
+		panelMain.add(lblHello);
+		lblHello.setFont(new Font("Calibri", Font.PLAIN, 13));
+		
+		JLabel lblUsername = new JLabel("< Username >");
+		lblUsername.setBounds(49, 16, 191, 14);
+		panelMain.add(lblUsername);
+		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
+		
+		JLabel lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
+		lblLastLogin.setBounds(320, 16, 198, 14);
+		panelMain.add(lblLastLogin);
+		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 13));
+		
+		LoginScreen loginScreen = new LoginScreen();
+		contentPane.add(loginScreen, "name_46906352641187");
 	}
 }

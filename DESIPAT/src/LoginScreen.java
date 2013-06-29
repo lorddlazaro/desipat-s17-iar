@@ -1,91 +1,45 @@
-import java.awt.EventQueue;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPasswordField;
 import javax.swing.JButton;
-
-import java.sql.*;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import java.awt.Window.Type;
 
-public class LoginScreen extends JFrame {
 
-	private JPanel contentPane;
+public class LoginScreen extends JPanel {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private ArrayList<User> userList;
 	private JLabel errorLabel;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginScreen frame = new LoginScreen();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JButton LoginButton;
 
 	public LoginScreen() {
-		initUserList();
 		initGUI();
 	}
 	
-	private void initGUI() {
-		setResizable(false);
-		setTitle("Login ");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 399, 200);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	private void initGUI() { 
+		setLayout(null);
 		
 		usernameField = new JTextField();
-		usernameField.setText("admin");
-		usernameField.setBackground(Color.WHITE);
-		usernameField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		usernameField.setBounds(176, 29, 180, 25);
-		contentPane.add(usernameField);
+		usernameField.setFont(new Font("Calibri", Font.PLAIN, 17));
+		add(usernameField);
 		usernameField.setColumns(10);
 		
-		JLabel usernameLabel = new JLabel("Username");
-		usernameLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		usernameLabel.setBounds(35, 34, 90, 14);
-		contentPane.add(usernameLabel);
-		
-		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		passwordLabel.setBounds(35, 70, 80, 14);
-		contentPane.add(passwordLabel);
-		
 		passwordField = new JPasswordField();
-		passwordField.setName("");
 		passwordField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		passwordField.setBounds(176, 65, 180, 25);
-		contentPane.add(passwordField);
+		add(passwordField);
 		
-		errorLabel = new JLabel("");
-		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		errorLabel.setForeground(new Color(255, 0, 0));
-		errorLabel.setFont(new Font("Calibri", Font.PLAIN, 13));
-		errorLabel.setBounds(35, 104, 321, 14);
-		contentPane.add(errorLabel);
-		
-		JButton logInButton = new JButton("Log In");
-		logInButton.addMouseListener(new MouseAdapter() {
+		LoginButton = new JButton("New button");
+		LoginButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				boolean hasUsername = !usernameField.getText().isEmpty();
@@ -133,9 +87,26 @@ public class LoginScreen extends JFrame {
 					}
 			}
 		});
-		logInButton.setFont(new Font("Calibri", Font.PLAIN, 18));
-		logInButton.setBounds(112, 129, 170, 35);
-		contentPane.add(logInButton);
+		LoginButton.setFont(new Font("Calibri", Font.PLAIN, 18));
+		LoginButton.setBounds(112, 129, 170, 35);
+		add(LoginButton);
+		
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+		usernameLabel.setBounds(35, 34, 90, 14);
+		add(usernameLabel);
+		
+		JLabel passwordLabel = new JLabel("Password");
+		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+		passwordLabel.setBounds(35, 70, 80, 14);
+		add(passwordLabel);
+		
+		errorLabel = new JLabel("");
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLabel.setForeground(new Color(255, 0, 0));
+		errorLabel.setFont(new Font("Calibri", Font.PLAIN, 13));
+		errorLabel.setBounds(35, 104, 321, 14);
+		add(errorLabel);
 	}
 	
 	private void initUserList(){
