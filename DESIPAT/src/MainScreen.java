@@ -113,9 +113,10 @@ public class MainScreen extends JFrame {
 		panelMenu.add(btnNewButton_4);
 		
 		JLabel lblViewLogs = new JLabel("Asset Management Registry");
+		lblViewLogs.setHorizontalAlignment(SwingConstants.LEFT);
 		lblViewLogs.setForeground(new Color(102, 0, 0));
-		lblViewLogs.setFont(new Font("Segoe WP", Font.PLAIN, 24));
-		lblViewLogs.setBounds(12, 0, 382, 50);
+		lblViewLogs.setFont(new Font("Segoe WP", Font.PLAIN, 23));
+		lblViewLogs.setBounds(12, -6, 339, 50);
 		panelMenu.add(lblViewLogs);
 		
 		panelCards = new JPanel();
