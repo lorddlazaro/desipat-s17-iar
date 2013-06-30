@@ -40,6 +40,7 @@ public class MainScreen extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	JLabel lblUsername;
+	JPanel panelCards;
 	
 	/**
 	 * Launch the application.
@@ -93,6 +94,11 @@ public class MainScreen extends JFrame {
 		panelMenu.add(btnViewAssets);
 		
 		JButton btnManageAccounts = new JButton("Manage Accounts");
+		btnManageAccounts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeCard(panelCards, "panelManageAccounts");
+			}
+		});
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(221, 160, 221));
 		btnManageAccounts.setBounds(462, 0, 155, 50);
@@ -109,14 +115,14 @@ public class MainScreen extends JFrame {
 		lblViewLogs.setBounds(12, 11, 256, 26);
 		panelMenu.add(lblViewLogs);
 		
-		JPanel panelCards = new JPanel();
+		panelCards = new JPanel();
 		panelCards.setBorder(null);
 		panelCards.setBounds(10, 109, 772, 454);
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
 		
 		JPanel viewAssetScreen_PLACEHOLDER = new JPanel();
-		panelCards.add(viewAssetScreen_PLACEHOLDER, "name_44365032430797");
+		panelCards.add(viewAssetScreen_PLACEHOLDER, "panelViewAssets");
 		viewAssetScreen_PLACEHOLDER.setName("AddAsset");
 		viewAssetScreen_PLACEHOLDER.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		viewAssetScreen_PLACEHOLDER.setLayout(null);
@@ -215,20 +221,20 @@ public class MainScreen extends JFrame {
 		button.setBounds(10, 408, 199, 30);
 		viewAssetScreen_PLACEHOLDER.add(button);
 		
-		AddAssetScreen addAssetScreen = new AddAssetScreen();
-		panelCards.add(addAssetScreen, "name_47486086789731");
+		AddAssetScreen panelAddAsset = new AddAssetScreen();
+		panelCards.add(panelAddAsset, "panelAddAsset");
 		
-		EditAssetScreen editAssetScreen = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
-		panelCards.add(editAssetScreen, "name_47508639745763");
+		EditAssetScreen panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
+		panelCards.add(panelEditAsset, "panelEditAsset");
 		
-		AdminUserScreen adminUserScreen = new AdminUserScreen();
-		panelCards.add(adminUserScreen, "name_47513502896736");
+		AdminUserScreen panelManageAccounts = new AdminUserScreen();
+		panelCards.add(panelManageAccounts, "panelManageAccounts");
 		
-		UserScreen userScreen = new UserScreen();
-		panelCards.add(userScreen, "name_47516357165505");
+		UserScreen panelAccountSettings = new UserScreen();
+		panelCards.add(panelAccountSettings, "panelAccountSettings");
 		
 		JPanel logScreen_PLACEHOLDER = new JPanel();
-		panelCards.add(logScreen_PLACEHOLDER, "name_38684112168376");
+		panelCards.add(logScreen_PLACEHOLDER, "panelViewLogs");
 		logScreen_PLACEHOLDER.setLayout(null);
 		
 		JTree tree = new JTree();
@@ -244,6 +250,11 @@ public class MainScreen extends JFrame {
 		logScreen_PLACEHOLDER.add(comboBox);
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
+		btnAccountSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeCard(panelCards, "panelAccountSettings");
+			}
+		});
 		btnAccountSettings.setBounds(538, 12, 143, 23);
 		panelMain.add(btnAccountSettings);
 		btnAccountSettings.setBackground(new Color(128, 128, 128));
