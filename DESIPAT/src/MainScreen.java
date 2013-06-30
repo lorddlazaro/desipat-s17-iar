@@ -44,6 +44,7 @@ public class MainScreen extends JFrame {
 	int currentUserID;
 	JLabel lblLastLogin;
 	UserScreen panelAccountSettings;
+	EditAssetScreen panelEditAsset;
 	
 	/**
 	 * Launch the application.
@@ -91,6 +92,12 @@ public class MainScreen extends JFrame {
 		panelMenu.setLayout(null);
 		
 		JButton btnViewAssets = new JButton("View Assets");
+		btnViewAssets.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				changeCard(panelCards, "panelViewAssets");
+			}
+		});
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
 		btnViewAssets.setBounds(352, 0, 140, 50);
@@ -129,11 +136,11 @@ public class MainScreen extends JFrame {
 		AddAssetScreen panelAddAsset = new AddAssetScreen();
 		panelCards.add(panelAddAsset, "panelAddAsset");
 		
-		JPanel viewAssetScreen_PLACEHOLDER = new JPanel();
-		panelCards.add(viewAssetScreen_PLACEHOLDER, "panelViewAssets");
-		viewAssetScreen_PLACEHOLDER.setName("AddAsset");
-		viewAssetScreen_PLACEHOLDER.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		viewAssetScreen_PLACEHOLDER.setLayout(null);
+		JPanel viewAssetScreen = new JPanel();
+		panelCards.add(viewAssetScreen, "panelViewAssets");
+		viewAssetScreen.setName("AddAsset");
+		viewAssetScreen.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		viewAssetScreen.setLayout(null);
 		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
@@ -146,21 +153,21 @@ public class MainScreen extends JFrame {
 			}
 		});
 		list.setBounds(10, 77, 199, 319);
-		viewAssetScreen_PLACEHOLDER.add(list);
+		viewAssetScreen.add(list);
 		
 		JToggleButton tglbtnNewToggleButton = new JToggleButton("Include decomissioned assets");
 		tglbtnNewToggleButton.setBounds(10, 42, 199, 23);
-		viewAssetScreen_PLACEHOLDER.add(tglbtnNewToggleButton);
+		viewAssetScreen.add(tglbtnNewToggleButton);
 		
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"sort by name"}));
 		comboBox_2.setBounds(10, 11, 199, 20);
-		viewAssetScreen_PLACEHOLDER.add(comboBox_2);
+		viewAssetScreen.add(comboBox_2);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Asset Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_3.setBounds(222, 13, 528, 427);
-		viewAssetScreen_PLACEHOLDER.add(panel_3);
+		viewAssetScreen.add(panel_3);
 		panel_3.setLayout(null);
 		
 		JLabel label = new JLabel("Availability Value");
@@ -204,6 +211,11 @@ public class MainScreen extends JFrame {
 		panel_3.add(label_10);
 		
 		JButton btnNewButton_7 = new JButton("Update Asset");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeCard(panelCards, "panelEditAsset");
+			}
+		});
 		btnNewButton_7.setBounds(317, 385, 199, 30);
 		panel_3.add(btnNewButton_7);
 		
@@ -226,10 +238,16 @@ public class MainScreen extends JFrame {
 		panel_3.add(lblStorage);
 		
 		JButton button = new JButton("Add Asset");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				changeCard(panelCards, "panelAddAsset");
+			}
+		});
 		button.setBounds(10, 408, 199, 30);
-		viewAssetScreen_PLACEHOLDER.add(button);
+		viewAssetScreen.add(button);
 		
-		EditAssetScreen panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
+		panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
 		panelCards.add(panelEditAsset, "panelEditAsset");
 		
 		AdminUserScreen panelManageAccounts = new AdminUserScreen();
