@@ -34,11 +34,12 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class MainScreen extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 	JLabel lblUsername;
 	JPanel panelCards;
 	int currentUserID;
@@ -92,6 +93,7 @@ public class MainScreen extends JFrame {
 		panelMenu.setLayout(null);
 		
 		JButton btnViewAssets = new JButton("View Assets");
+		btnViewAssets.setForeground(new Color(25, 25, 112));
 		btnViewAssets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -104,6 +106,7 @@ public class MainScreen extends JFrame {
 		panelMenu.add(btnViewAssets);
 		
 		JButton btnManageAccounts = new JButton("Manage Accounts");
+		btnManageAccounts.setForeground(new Color(128, 0, 128));
 		btnManageAccounts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeCard(panelCards, "panelManageAccounts");
@@ -115,6 +118,12 @@ public class MainScreen extends JFrame {
 		panelMenu.add(btnManageAccounts);
 		
 		JButton btnNewButton_4 = new JButton("View Logs");
+		btnNewButton_4.setForeground(new Color(160, 82, 45));
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changeCard(panelCards, "panelViewLogs");
+			}
+		});
 		btnNewButton_4.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnNewButton_4.setBackground(new Color(238, 232, 170));
 		btnNewButton_4.setBounds(632, 0, 140, 50);
@@ -128,18 +137,14 @@ public class MainScreen extends JFrame {
 		panelMenu.add(lblViewLogs);
 		
 		panelCards = new JPanel();
-		panelCards.setBorder(null);
+		panelCards.setBorder(UIManager.getBorder("ProgressBar.border"));
 		panelCards.setBounds(10, 109, 772, 454);
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
 		
-		AddAssetScreen panelAddAsset = new AddAssetScreen();
-		panelCards.add(panelAddAsset, "panelAddAsset");
-		
 		JPanel viewAssetScreen = new JPanel();
 		panelCards.add(viewAssetScreen, "panelViewAssets");
 		viewAssetScreen.setName("AddAsset");
-		viewAssetScreen.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		viewAssetScreen.setLayout(null);
 		
 		JList list = new JList();
@@ -247,30 +252,20 @@ public class MainScreen extends JFrame {
 		button.setBounds(10, 408, 199, 30);
 		viewAssetScreen.add(button);
 		
+		AddAssetScreen panelAddAsset = new AddAssetScreen();
+		panelCards.add(panelAddAsset, "panelAddAsset");
+		
 		panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
 		panelCards.add(panelEditAsset, "panelEditAsset");
 		
 		AdminUserScreen panelManageAccounts = new AdminUserScreen();
 		panelCards.add(panelManageAccounts, "panelManageAccounts");
 		
-		JPanel logScreen_PLACEHOLDER = new JPanel();
-		panelCards.add(logScreen_PLACEHOLDER, "panelViewLogs");
-		logScreen_PLACEHOLDER.setLayout(null);
-		
-		JTree tree = new JTree();
-		tree.setBounds(10, 41, 167, 379);
-		logScreen_PLACEHOLDER.add(tree);
-		
-		table = new JTable();
-		table.setBounds(187, 11, 562, 409);
-		logScreen_PLACEHOLDER.add(table);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(10, 11, 167, 20);
-		logScreen_PLACEHOLDER.add(comboBox);
+		LogScreen panelViewLogs = new LogScreen();
+		panelCards.add(panelViewLogs, "panelViewLogs");
 		
 		panelAccountSettings = new UserScreen();
-		panelCards.add(panelAccountSettings, "panelAccountSettings");
+		panelCards.add(panelAccountSettings, "name_19482159374026");
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {
@@ -284,6 +279,7 @@ public class MainScreen extends JFrame {
 		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
 		
 		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.setForeground(new Color(139, 0, 0));
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logOut();
@@ -297,18 +293,18 @@ public class MainScreen extends JFrame {
 		JLabel lblHello = new JLabel("Hello,");
 		lblHello.setBounds(12, 16, 46, 14);
 		panelMain.add(lblHello);
-		lblHello.setFont(new Font("Calibri", Font.PLAIN, 13));
+		lblHello.setFont(new Font("Calibri", Font.PLAIN, 16));
 		
-		lblUsername = new JLabel("< Username >");
-		lblUsername.setBounds(49, 16, 191, 14);
+		lblUsername = new JLabel("user");
+		lblUsername.setBounds(54, 16, 191, 14);
 		panelMain.add(lblUsername);
-		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblUsername.setFont(new Font("Calibri", Font.BOLD, 18));
 		
-		lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
+		lblLastLogin = new JLabel("Last Login: 04/13/2009 10:25 AM");
 		lblLastLogin.setBounds(330, 16, 198, 14);
 		panelMain.add(lblLastLogin);
 		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 13));
+		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 14));
 	}
 	
 	public void changeCard(JPanel cards, String cardName){
