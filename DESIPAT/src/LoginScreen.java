@@ -167,5 +167,9 @@ public class LoginScreen extends JPanel {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+
+		mainScreen.panelCards.remove(mainScreen.panelAccountSettings);
+		mainScreen.panelAccountSettings = new UserScreen(userID);
+		mainScreen.panelCards.add(mainScreen.panelAccountSettings, "panelAccountSettings");
 	}
 }

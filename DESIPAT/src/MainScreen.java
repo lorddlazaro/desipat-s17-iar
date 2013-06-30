@@ -43,6 +43,7 @@ public class MainScreen extends JFrame {
 	JPanel panelCards;
 	int currentUserID;
 	JLabel lblLastLogin;
+	UserScreen panelAccountSettings;
 	
 	/**
 	 * Launch the application.
@@ -234,9 +235,6 @@ public class MainScreen extends JFrame {
 		AdminUserScreen panelManageAccounts = new AdminUserScreen();
 		panelCards.add(panelManageAccounts, "panelManageAccounts");
 		
-		UserScreen panelAccountSettings = new UserScreen();
-		panelCards.add(panelAccountSettings, "panelAccountSettings");
-		
 		JPanel logScreen_PLACEHOLDER = new JPanel();
 		panelCards.add(logScreen_PLACEHOLDER, "panelViewLogs");
 		logScreen_PLACEHOLDER.setLayout(null);
@@ -253,8 +251,8 @@ public class MainScreen extends JFrame {
 		comboBox.setBounds(10, 11, 167, 20);
 		logScreen_PLACEHOLDER.add(comboBox);
 		
-		JPanel panel = new JPanel();
-		panelCards.add(panel, "name_11729529074784");
+		panelAccountSettings = new UserScreen();
+		panelCards.add(panelAccountSettings, "panelAccountSettings");
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {

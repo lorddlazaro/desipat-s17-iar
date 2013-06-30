@@ -46,7 +46,6 @@ public class UserScreen extends JPanel {
 	private int currUserID;
 	private DBConnection dbHandler;
 	private Connection conn;
-	private JButton backButton;
 	private JButton changeNameButton;
 	
 	/**
@@ -55,7 +54,7 @@ public class UserScreen extends JPanel {
 	public UserScreen() {
 
 		setLayout(null);
-		this.setBounds(0, 0, 784, 561);
+		this.setBounds(0, 0, 772, 454);
 		
 		userSettingsPanel = new JPanel();
 		userSettingsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -123,7 +122,7 @@ public class UserScreen extends JPanel {
 		
 		namePanel = new JPanel();
 		namePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		namePanel.setBounds(388, 11, 386, 140);
+		namePanel.setBounds(388, 11, 374, 140);
 		add(namePanel);
 		namePanel.setLayout(null);
 		
@@ -179,12 +178,12 @@ public class UserScreen extends JPanel {
 			}
 		});
 		changeNameButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		changeNameButton.setBounds(271, 64, 105, 23);
+		changeNameButton.setBounds(258, 64, 105, 23);
 		namePanel.add(changeNameButton);
 		
 		assetSummary = new JPanel();
 		assetSummary.setBorder(new LineBorder(new Color(0, 0, 0)));
-		assetSummary.setBounds(10, 162, 764, 354);
+		assetSummary.setBounds(10, 162, 752, 281);
 		add(assetSummary);
 		assetSummary.setLayout(null);
 		
@@ -192,11 +191,6 @@ public class UserScreen extends JPanel {
 		lblSummaryTable.setBounds(10, 11, 269, 22);
 		lblSummaryTable.setFont(new Font("Calibri", Font.PLAIN, 18));
 		assetSummary.add(lblSummaryTable);
-		
-		backButton = new JButton("Back to Main");
-		backButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		backButton.setBounds(671, 527, 103, 23);
-		add(backButton);
 
 	}
 	
