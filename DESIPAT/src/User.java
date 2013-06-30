@@ -10,8 +10,8 @@ public class User {
 		 this.username = username;
 		 this.password = password;
 		 this.clearance = clearance;
-		 }
-	
+	 }
+
 	public int getUserID() {
 		return userID;
 	}
