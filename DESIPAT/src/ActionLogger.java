@@ -34,7 +34,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	private static void insertToDatabase(String queryPart){
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
-		String query = "insert into actionlog('actionDate','actionTime','userid','actionHeader','actionDesc') values (Date(Now()),Time(Now()),";
+		String query = "insert into actionlog(actionDate,actionTime,userid,actionHeaderID,actionDesc) values (Date(Now()),Time(Now()),";
 		query += queryPart + ");";
 // TEMPORARY PRINTLINE THING
 		System.out.println(query);

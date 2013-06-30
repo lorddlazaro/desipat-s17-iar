@@ -92,7 +92,7 @@ public class MainScreen extends JFrame {
 		JButton btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
-		btnViewAssets.setBounds(307, 0, 155, 50);
+		btnViewAssets.setBounds(352, 0, 140, 50);
 		panelMenu.add(btnViewAssets);
 		
 		JButton btnManageAccounts = new JButton("Manage Accounts");
@@ -103,18 +103,19 @@ public class MainScreen extends JFrame {
 		});
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(221, 160, 221));
-		btnManageAccounts.setBounds(462, 0, 155, 50);
+		btnManageAccounts.setBounds(492, 0, 140, 50);
 		panelMenu.add(btnManageAccounts);
 		
 		JButton btnNewButton_4 = new JButton("View Logs");
 		btnNewButton_4.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnNewButton_4.setBackground(new Color(238, 232, 170));
-		btnNewButton_4.setBounds(617, 0, 155, 50);
+		btnNewButton_4.setBounds(632, 0, 140, 50);
 		panelMenu.add(btnNewButton_4);
 		
 		JLabel lblViewLogs = new JLabel("Asset Management Registry");
-		lblViewLogs.setFont(new Font("Calibri", Font.PLAIN, 20));
-		lblViewLogs.setBounds(12, 11, 256, 26);
+		lblViewLogs.setForeground(new Color(102, 0, 0));
+		lblViewLogs.setFont(new Font("Segoe WP", Font.PLAIN, 24));
+		lblViewLogs.setBounds(12, 0, 382, 50);
 		panelMenu.add(lblViewLogs);
 		
 		panelCards = new JPanel();
@@ -122,6 +123,9 @@ public class MainScreen extends JFrame {
 		panelCards.setBounds(10, 109, 772, 454);
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
+		
+		AddAssetScreen panelAddAsset = new AddAssetScreen();
+		panelCards.add(panelAddAsset, "panelAddAsset");
 		
 		JPanel viewAssetScreen_PLACEHOLDER = new JPanel();
 		panelCards.add(viewAssetScreen_PLACEHOLDER, "panelViewAssets");
@@ -223,9 +227,6 @@ public class MainScreen extends JFrame {
 		button.setBounds(10, 408, 199, 30);
 		viewAssetScreen_PLACEHOLDER.add(button);
 		
-		AddAssetScreen panelAddAsset = new AddAssetScreen();
-		panelCards.add(panelAddAsset, "panelAddAsset");
-		
 		EditAssetScreen panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
 		panelCards.add(panelEditAsset, "panelEditAsset");
 		
@@ -250,6 +251,9 @@ public class MainScreen extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(10, 11, 167, 20);
 		logScreen_PLACEHOLDER.add(comboBox);
+		
+		JPanel panel = new JPanel();
+		panelCards.add(panel, "name_11729529074784");
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {
