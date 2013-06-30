@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
@@ -283,9 +285,9 @@ public class EditAssetScreen extends JPanel {
 		asset.setValueIntegrity(sldIntegrity.getValue());
 		asset.setValueAvailability(sldAvailability.getValue());
 		asset.setMaintenanceSchedule(lookUpSchedule(cbxMaintenance.getSelectedItem().toString()));
-		//newAsset.setOwnershipHistory(newOwner);
-		//newAsset.setCustodyHistory(newCustodian);
-		//newAsset.setStorageHistory(newStorage);
+		asset.setOwnerID(lookUpPersonID(cbxOwner.getSelectedItem().toString()));
+		asset.setCustodianID(lookUpPersonID(cbxCustodian.getSelectedItem().toString()));
+		asset.setStorageID(lookUpStorageID(cbxStorage.getSelectedItem().toString()));
 		asset.setClassification(lookUpClassification(cbxClassification.getSelectedItem().toString()));
 		
 		return asset;
@@ -293,11 +295,34 @@ public class EditAssetScreen extends JPanel {
 	}
 	public int lookUpPersonID(String name)
 	{
-		return 0;
+
+		int id=-1;
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select personID from Person where Name="+name+";");
+		try{
+			id=rs.getInt(1);
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return id;
 	}
 	public int lookUpStorageID(String name)
 	{
-		return 0;
+		int id=-1;
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select storageID from Storage where StorageLocation="+name+";");
+		try{
+			id=rs.getInt(1);
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return id;
 	}
 	public int lookUpType(String typeName)
 	{
