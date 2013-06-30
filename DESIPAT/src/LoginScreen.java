@@ -1,8 +1,11 @@
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -11,6 +14,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class LoginScreen extends JPanel {
@@ -21,6 +26,7 @@ public class LoginScreen extends JPanel {
 	private JButton LoginButton;
 
 	public LoginScreen() {
+		setBackground(new Color(188, 143, 143));
 		initGUI();
 	}
 	
@@ -28,20 +34,20 @@ public class LoginScreen extends JPanel {
 		setLayout(null);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(176, 29, 180, 25);
+		usernameField.setBounds(178, 23, 180, 25);
 		usernameField.setFont(new Font("Calibri", Font.PLAIN, 17));
 		add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Calibri", Font.PLAIN, 17));
-		passwordField.setBounds(176, 65, 180, 25);
+		passwordField.setBounds(178, 60, 180, 25);
 		add(passwordField);
 		
-		LoginButton = new JButton("New button");
-		LoginButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		LoginButton = new JButton("Log in");
+		LoginButton.setBackground(new Color(192, 192, 192));
+		LoginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				boolean hasUsername = !usernameField.getText().isEmpty();
 				boolean hasPassword = !String.copyValueOf(passwordField.getPassword()).isEmpty();
 				
@@ -52,19 +58,31 @@ public class LoginScreen extends JPanel {
 						usernameField.setBackground(Color.WHITE);
 						passwordField.setBackground(Color.WHITE);
 						
+						boolean foundMatch = false;
+						
+						refreshUserList();
 						for(User user: userList)
 							if(user.getUsername().equals(usernameField.getText()) && user.getPassword().equals(String.copyValueOf(passwordField.getPassword())))
 							// Match found, showing AssetScreen
 							{
-								System.out.println("Logged in");
+								foundMatch = true;
 								//DBConnection DBcon = new DBConnection();
 								//Connection con = DBcon.open();
 								//DBcon.executeUpdate(con, "insert into actionlog values('',);");
 								//DBcon.close();
+								logIn(user.getUsername());
+								break;
 							}
 												
 						// Notify User of wrong Username/Password
-						errorLabel.setText("Invalid username or password.");	
+						if(foundMatch){
+							usernameField.setText("");
+							passwordField.setText("");		
+							errorLabel.setText("");	
+						}
+							
+						else
+							errorLabel.setText("Invalid username or password.");	
 					}
 					else{
 						// Case 2: empty password field
@@ -88,28 +106,28 @@ public class LoginScreen extends JPanel {
 			}
 		});
 		LoginButton.setFont(new Font("Calibri", Font.PLAIN, 18));
-		LoginButton.setBounds(112, 129, 170, 35);
+		LoginButton.setBounds(116, 123, 170, 35);
 		add(LoginButton);
 		
 		JLabel usernameLabel = new JLabel("Username");
 		usernameLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		usernameLabel.setBounds(35, 34, 90, 14);
+		usernameLabel.setBounds(37, 28, 90, 14);
 		add(usernameLabel);
 		
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		passwordLabel.setBounds(35, 70, 80, 14);
+		passwordLabel.setBounds(37, 65, 80, 14);
 		add(passwordLabel);
 		
 		errorLabel = new JLabel("");
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setForeground(new Color(255, 0, 0));
 		errorLabel.setFont(new Font("Calibri", Font.PLAIN, 13));
-		errorLabel.setBounds(35, 104, 321, 14);
+		errorLabel.setBounds(12, 97, 380, 14);
 		add(errorLabel);
 	}
 	
-	private void initUserList(){
+	private void refreshUserList(){
 		userList = new ArrayList<User>();
 		
 		DBConnection DBcon = new DBConnection();
@@ -128,5 +146,12 @@ public class LoginScreen extends JPanel {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	private void logIn(String username){
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		mainScreen.changeCard((JPanel)mainScreen.getContentPane(), "panelMain");
+		mainScreen.changeWindowSize(800, 600);
+		mainScreen.lblUsername.setText(username);
 	}
 }

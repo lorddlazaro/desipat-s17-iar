@@ -32,12 +32,15 @@ import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainScreen extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	JLabel lblUsername;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +49,7 @@ public class MainScreen extends JFrame {
 			public void run() {
 				try {
 					MainScreen frame = new MainScreen();
-					frame.setLocationRelativeTo(null);
+					frame.changeWindowSize(400, 200);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,22 +62,26 @@ public class MainScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public MainScreen() {
+		setResizable(false);
 		setTitle("Asset Management Registry");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		setContentPane(contentPane);
-		contentPane.setLayout(new CardLayout(0, 0));
+		contentPane.setLayout(new CardLayout());
+		
+		LoginScreen panelLogin = new LoginScreen();
+		contentPane.add(panelLogin, "panelLogin");
 		
 		JPanel panelMain = new JPanel();
 		panelMain.setBackground(new Color(192, 192, 192));
-		contentPane.add(panelMain, "name_45360210262966");
+		contentPane.add(panelMain, "panelMain");
 		panelMain.setLayout(null);
 		
 		JPanel panelMenu = new JPanel();
 		panelMenu.setBorder(null);
-		panelMenu.setBounds(10, 47, 762, 50);
+		panelMenu.setBounds(10, 47, 772, 50);
 		panelMain.add(panelMenu);
 		panelMenu.setBackground(new Color(188, 143, 143));
 		panelMenu.setLayout(null);
@@ -82,19 +89,19 @@ public class MainScreen extends JFrame {
 		JButton btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
-		btnViewAssets.setBounds(299, 0, 155, 50);
+		btnViewAssets.setBounds(307, 0, 155, 50);
 		panelMenu.add(btnViewAssets);
 		
 		JButton btnManageAccounts = new JButton("Manage Accounts");
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(221, 160, 221));
-		btnManageAccounts.setBounds(454, 0, 155, 50);
+		btnManageAccounts.setBounds(462, 0, 155, 50);
 		panelMenu.add(btnManageAccounts);
 		
 		JButton btnNewButton_4 = new JButton("View Logs");
 		btnNewButton_4.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnNewButton_4.setBackground(new Color(238, 232, 170));
-		btnNewButton_4.setBounds(609, 0, 155, 50);
+		btnNewButton_4.setBounds(617, 0, 155, 50);
 		panelMenu.add(btnNewButton_4);
 		
 		JLabel lblViewLogs = new JLabel("Asset Management Registry");
@@ -104,7 +111,7 @@ public class MainScreen extends JFrame {
 		
 		JPanel panelCards = new JPanel();
 		panelCards.setBorder(null);
-		panelCards.setBounds(10, 109, 762, 444);
+		panelCards.setBounds(10, 109, 772, 454);
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
 		
@@ -237,13 +244,18 @@ public class MainScreen extends JFrame {
 		logScreen_PLACEHOLDER.add(comboBox);
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
-		btnAccountSettings.setBounds(528, 12, 143, 23);
+		btnAccountSettings.setBounds(538, 12, 143, 23);
 		panelMain.add(btnAccountSettings);
 		btnAccountSettings.setBackground(new Color(128, 128, 128));
 		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
 		
 		JButton btnLogOut = new JButton("Log Out");
-		btnLogOut.setBounds(683, 12, 89, 23);
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logOut();
+			}
+		});
+		btnLogOut.setBounds(693, 12, 89, 23);
 		panelMain.add(btnLogOut);
 		btnLogOut.setBackground(new Color(255, 127, 80));
 		btnLogOut.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -253,18 +265,30 @@ public class MainScreen extends JFrame {
 		panelMain.add(lblHello);
 		lblHello.setFont(new Font("Calibri", Font.PLAIN, 13));
 		
-		JLabel lblUsername = new JLabel("< Username >");
+		lblUsername = new JLabel("< Username >");
 		lblUsername.setBounds(49, 16, 191, 14);
 		panelMain.add(lblUsername);
 		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
 		
 		JLabel lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
-		lblLastLogin.setBounds(320, 16, 198, 14);
+		lblLastLogin.setBounds(330, 16, 198, 14);
 		panelMain.add(lblLastLogin);
 		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 13));
-		
-		LoginScreen loginScreen = new LoginScreen();
-		contentPane.add(loginScreen, "name_46906352641187");
+	}
+	
+	public void changeCard(JPanel cards, String cardName){
+		CardLayout cl = (CardLayout)cards.getLayout();
+		cl.show(cards, cardName);
+	}
+	
+	private void logOut(){
+		this.changeCard((JPanel)this.getContentPane(), "panelLogin");
+		this.changeWindowSize(400, 200);
+	}
+	
+	public void changeWindowSize(int length, int height){
+		this.setBounds(0, 0, length, height);
+		this.setLocationRelativeTo(null);
 	}
 }
