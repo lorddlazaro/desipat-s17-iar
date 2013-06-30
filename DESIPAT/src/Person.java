@@ -5,28 +5,35 @@ public class Person {
 	private char middleInit;
 	private String lastName;
 	
-	private int getPersonID() {
+	public Person(int personID, String firstName, char middleInit, String lastName){
+		 this.personID = personID;
+		 this.firstName = firstName;
+		 this.lastName = lastName;
+		 this.middleInit = middleInit;
+	 }
+	
+	public int getPersonID() {
 		return personID;
 	}
-	private void setPersonID(int personID) {
+	public void setPersonID(int personID) {
 		this.personID = personID;
 	}
-	private String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
-	private void setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	private char getMiddleInit() {
+	public char getMiddleInit() {
 		return middleInit;
 	}
-	private void setMiddleInit(char middleInit) {
+	public void setMiddleInit(char middleInit) {
 		this.middleInit = middleInit;
 	}
-	private String getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
-	private void setLastName(String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 }
