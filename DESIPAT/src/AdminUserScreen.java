@@ -3,22 +3,34 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JComboBox;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class AdminUserScreen extends JPanel {
-	private JTable table;
+	private JTable userTable;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 
+	private DBConnection dbHandler;
+	private Connection conn;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -31,17 +43,32 @@ public class AdminUserScreen extends JPanel {
 		tablePanel.setBounds(10, 56, 692, 258);
 		add(tablePanel);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 692, 258);
+		tablePanel.add(scrollPane);
+		
+		userTable = new JTable();
+		userTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				clickedTable();
+			}
+		});
+		scrollPane.setViewportView(userTable);
+		userTable.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
 			},
 			new String[] {
-				"UserID", "Username", "Clearance", "Last Name", "First Name"
+				"UserID", "Username", "Password", "Clearance", "First Name", "Middle Initial", "Last Name"
 			}
-		));
-		table.setBounds(10, 11, 672, 236);
-		tablePanel.add(table);
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		
 		JLabel lblAdminSettings = new JLabel("Admin Settings");
 		lblAdminSettings.setBounds(10, 11, 258, 34);
@@ -134,5 +161,32 @@ public class AdminUserScreen extends JPanel {
 		btnNewButton.setBounds(597, 494, 105, 23);
 		add(btnNewButton);
 
+		InitFrame();
+	}
+	
+	public void InitFrame() {
+		dbHandler = new DBConnection();
+		conn = dbHandler.open();
+		fillTable();
+	}
+	
+	public void fillTable() {
+		DefaultTableModel model = (DefaultTableModel)userTable.getModel();
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, clearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID;");
+			if (rs.isBeforeFirst()) {
+				rs.first();
+				while (!rs.isAfterLast()) {
+					model.addRow(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7)});
+					rs.next();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickedTable() {
+		userTable.getSelectedRow();
 	}
 }
