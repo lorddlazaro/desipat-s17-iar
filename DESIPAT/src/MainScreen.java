@@ -41,6 +41,8 @@ public class MainScreen extends JFrame {
 	private JTable table;
 	JLabel lblUsername;
 	JPanel panelCards;
+	int currentUserID;
+	JLabel lblLastLogin;
 	
 	/**
 	 * Launch the application.
@@ -281,7 +283,7 @@ public class MainScreen extends JFrame {
 		panelMain.add(lblUsername);
 		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
 		
-		JLabel lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
+		lblLastLogin = new JLabel("Last Login: 12/12/1212 12:12 PM");
 		lblLastLogin.setBounds(330, 16, 198, 14);
 		panelMain.add(lblLastLogin);
 		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -294,6 +296,7 @@ public class MainScreen extends JFrame {
 	}
 	
 	private void logOut(){
+		ActionLogger.loggedOut(currentUserID);
 		this.changeCard((JPanel)this.getContentPane(), "panelLogin");
 		this.changeWindowSize(400, 200);
 	}

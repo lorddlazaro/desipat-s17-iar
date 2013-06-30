@@ -66,11 +66,7 @@ public class LoginScreen extends JPanel {
 							// Match found, showing AssetScreen
 							{
 								foundMatch = true;
-								//DBConnection DBcon = new DBConnection();
-								//Connection con = DBcon.open();
-								//DBcon.executeUpdate(con, "insert into actionlog values('',);");
-								//DBcon.close();
-								logIn(user.getUsername());
+								logIn(user.getUsername(), user.getUserID());
 								break;
 							}
 												
@@ -148,10 +144,30 @@ public class LoginScreen extends JPanel {
 		}
 	}
 	
-	private void logIn(String username){
+	private void logIn(String username, int userID){
+		ActionLogger.loggedIn(userID);
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
 		mainScreen.changeCard((JPanel)mainScreen.getContentPane(), "panelMain");
 		mainScreen.changeWindowSize(800, 600);
 		mainScreen.lblUsername.setText(username);
+		mainScreen.currentUserID = userID;DBConnection DBcon = new DBConnection();
+		
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "SELECT actionDate, actionTime FROM actionlog WHERE userid = '"+userID+"' order by actionDate, actionTime DESC;");
+		try{
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					mainScreen.lblLastLogin.setText("Last Login: "+rs.getString(1)+" "+rs.getString(2));
+					userList.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+				}
+			}
+			else
+				mainScreen.lblLastLogin.setText("");
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
