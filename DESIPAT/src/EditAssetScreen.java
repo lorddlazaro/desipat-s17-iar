@@ -185,7 +185,7 @@ public class EditAssetScreen extends JPanel {
 		add(cbxStorage);
 		
 		cbxClassification = new JComboBox();
-		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
+		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential"}));
 		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
 		cbxClassification.setBounds(114, 139, 87, 20);
 		add(cbxClassification);
@@ -326,8 +326,24 @@ public class EditAssetScreen extends JPanel {
 				cbxMaintenance.setSelectedItem((Object)rs.getString("maintSched"));
 				cbxStorage.setSelectedItem((Object)rs.getString("storageLocation"));
 				
-				//lblDateAcquired.setText(rs.getString("dateAcquired")); //TODO: Updating of date comboboxes
-
+				int month = Integer.valueOf(rs.getString("dateAcquired").split("-")[1]); 
+				switch(month){
+					case 1: cbxMonth.setSelectedItem((Object)"January");break;
+					case 2: cbxMonth.setSelectedItem((Object)"February");break;
+					case 3: cbxMonth.setSelectedItem((Object)"March");break;
+					case 4: cbxMonth.setSelectedItem((Object)"April");break;
+					case 5: cbxMonth.setSelectedItem((Object)"May");break;
+					case 6: cbxMonth.setSelectedItem((Object)"June");break;
+					case 7: cbxMonth.setSelectedItem((Object)"July");break;
+					case 8: cbxMonth.setSelectedItem((Object)"August");break;
+					case 9: cbxMonth.setSelectedItem((Object)"September");break;
+					case 10: cbxMonth.setSelectedItem((Object)"October");break;
+					case 11: cbxMonth.setSelectedItem((Object)"November");break;
+					case 12: cbxMonth.setSelectedItem((Object)"December");break;
+				}
+				
+				cbxYear.setSelectedItem((Object)rs.getString("dateAcquired").split("-")[0]);
+				cbxDay.setSelectedItem((Object)rs.getString("dateAcquired").split("-")[2]);
 				
 				switch(rs.getString("status"))
 				{
