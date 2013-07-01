@@ -28,9 +28,11 @@ public class LogScreen extends JPanel {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 50, 752, 169);
+		scrollPane.setBounds(12, 50, 748, 169);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
+
+		scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
 		
 		actionLogTable = new JTable();
 		actionLogTable.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -51,9 +53,10 @@ public class LogScreen extends JPanel {
 		}); 
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 273, 752, 169);
+		scrollPane_1.setBounds(12, 273, 748, 169);
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane_1);
+		scrollPane_1.getViewport().setBackground(Color.LIGHT_GRAY);
 		
 		assetChangeLogTable = new JTable();
 		assetChangeLogTable.setFont(new Font("Calibri", Font.PLAIN, 13));
