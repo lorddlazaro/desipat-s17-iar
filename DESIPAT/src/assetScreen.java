@@ -125,6 +125,8 @@ public class assetScreen extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		JLabel label = new JLabel("Identifier:");
@@ -193,8 +195,8 @@ public class assetScreen extends JPanel {
 		lblDateAcquired = new JLabel("");
 		panel_4.add(lblDateAcquired, "4, 12");
 		
-		JLabel label_13 = new JLabel("Storage Location:");
-		panel_4.add(label_13, "6, 12");
+		JLabel label_12 = new JLabel("Classification:");
+		panel_4.add(label_12, "6, 12");
 		
 		lblClassification = new JLabel("");
 		panel_4.add(lblClassification, "8, 12");
@@ -205,8 +207,8 @@ public class assetScreen extends JPanel {
 		lblStatus = new JLabel("");
 		panel_4.add(lblStatus, "4, 14");
 		
-		JLabel label_12 = new JLabel("Classification:");
-		panel_4.add(label_12, "6, 14");
+		JLabel label_13 = new JLabel("Storage Location:");
+		panel_4.add(label_13, "6, 14");
 		
 		lblStorageLocation = new JLabel("");
 		panel_4.add(lblStorageLocation, "8, 14");
@@ -310,7 +312,18 @@ public class assetScreen extends JPanel {
 		
 	}
 	private void goToEditAssetScreen(){
+		
+		if(table.getSelectedRow()==-1)
+			return;
+		int selectedIdentifier=(int)table.getModel().getValueAt(table.getSelectedRow(), 0);
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		
+		mainScreen.panelEditAsset.setAssetID(selectedIdentifier);
+		mainScreen.panelEditAsset.fillComboBoxPerson();
+		mainScreen.panelEditAsset.fillComboBoxStorage();
+		mainScreen.panelEditAsset.loadCurrentAssetInfo();
+		System.out.println("Selected asset's identifier: "+selectedIdentifier);
+		
 		mainScreen.changeCard((JPanel)mainScreen.panelCards, "panelEditAsset");
 	}
 }
