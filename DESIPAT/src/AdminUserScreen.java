@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -39,11 +40,10 @@ public class AdminUserScreen extends JPanel {
 	private JLabel lblFirstName;
 	private JLabel lblMiddleInitial;
 	private JLabel lblLastName;
-	private JButton btnDeleteUser;
-	private JButton btnChangeDetails;
-	private JButton btnCancelChanges;
+	private JButton deleteUserButton;
+	private JButton changeDetailsButton;
+	private JButton cancelChangesButton;
 	private JButton addUserButton;
-	private JButton btnNewButton;
 	
 	private DBConnection dbHandler;
 	private Connection conn;
@@ -57,11 +57,11 @@ public class AdminUserScreen extends JPanel {
 		tablePanel = new JPanel();
 		tablePanel.setLayout(null);
 		tablePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tablePanel.setBounds(10, 56, 692, 258);
+		tablePanel.setBounds(10, 56, 752, 240);
 		add(tablePanel);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 692, 258);
+		scrollPane.setBounds(0, 0, 752, 240);
 		tablePanel.add(scrollPane);
 		
 		userTable = new JTable();
@@ -94,7 +94,7 @@ public class AdminUserScreen extends JPanel {
 		
 		detailsPanel = new JPanel();
 		detailsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		detailsPanel.setBounds(10, 325, 692, 158);
+		detailsPanel.setBounds(10, 307, 752, 140);
 		add(detailsPanel);
 		detailsPanel.setLayout(null);
 		
@@ -134,57 +134,77 @@ public class AdminUserScreen extends JPanel {
 		
 		lblFirstName = new JLabel("First Name:");
 		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblFirstName.setBounds(292, 52, 73, 14);
+		lblFirstName.setBounds(331, 52, 73, 14);
 		detailsPanel.add(lblFirstName);
 		
 		firstNameTextField = new JTextField();
 		firstNameTextField.setColumns(10);
-		firstNameTextField.setBounds(375, 49, 181, 20);
+		firstNameTextField.setBounds(414, 49, 181, 20);
 		detailsPanel.add(firstNameTextField);
 		
 		lblMiddleInitial = new JLabel("Middle Init:");
 		lblMiddleInitial.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblMiddleInitial.setBounds(292, 80, 73, 14);
+		lblMiddleInitial.setBounds(331, 80, 73, 14);
 		detailsPanel.add(lblMiddleInitial);
 		
 		middleInitTextField = new JTextField();
 		middleInitTextField.setColumns(10);
-		middleInitTextField.setBounds(375, 77, 181, 20);
+		middleInitTextField.setBounds(414, 77, 181, 20);
 		detailsPanel.add(middleInitTextField);
 		
 		lblLastName = new JLabel("Last Name:");
 		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblLastName.setBounds(292, 111, 73, 14);
+		lblLastName.setBounds(331, 111, 73, 14);
 		detailsPanel.add(lblLastName);
 		
 		lastNameTextField = new JTextField();
 		lastNameTextField.setColumns(10);
-		lastNameTextField.setBounds(375, 108, 181, 20);
+		lastNameTextField.setBounds(414, 108, 181, 20);
 		detailsPanel.add(lastNameTextField);
 		
-		btnDeleteUser = new JButton("Delete User");
-		btnDeleteUser.setFont(new Font("Calibri", Font.PLAIN, 11));
-		btnDeleteUser.setBounds(566, 107, 116, 23);
-		detailsPanel.add(btnDeleteUser);
+		deleteUserButton = new JButton("Delete User");
+		deleteUserButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				deleteUserClicked();
+			}
+		});
+		deleteUserButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		deleteUserButton.setBounds(626, 105, 116, 23);
+		detailsPanel.add(deleteUserButton);
 		
-		btnChangeDetails = new JButton("Change Details");
-		btnChangeDetails.setFont(new Font("Calibri", Font.PLAIN, 11));
-		btnChangeDetails.setBounds(566, 76, 116, 23);
-		detailsPanel.add(btnChangeDetails);
+		changeDetailsButton = new JButton("Change Details");
+		changeDetailsButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				changeDetailsClicked();
+			}
+		});
+		changeDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		changeDetailsButton.setBounds(626, 75, 116, 23);
+		detailsPanel.add(changeDetailsButton);
 		
-		btnCancelChanges = new JButton("Cancel Changes");
-		btnCancelChanges.setFont(new Font("Calibri", Font.PLAIN, 11));
-		btnCancelChanges.setBounds(566, 48, 116, 23);
-		detailsPanel.add(btnCancelChanges);
+		cancelChangesButton = new JButton("Cancel Changes");
+		cancelChangesButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				refreshScreen();
+			}
+		});
+		cancelChangesButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		cancelChangesButton.setBounds(626, 47, 116, 23);
+		detailsPanel.add(cancelChangesButton);
 		
 		addUserButton = new JButton("Add User");
+		addUserButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				addUserClicked();
+			}
+		});
 		addUserButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		addUserButton.setBounds(566, 14, 116, 23);
+		addUserButton.setBounds(626, 13, 116, 23);
 		detailsPanel.add(addUserButton);
-		
-		btnNewButton = new JButton("Back to Main");
-		btnNewButton.setBounds(597, 494, 105, 23);
-		add(btnNewButton);
 
 		InitFrame();
 	}
@@ -192,7 +212,7 @@ public class AdminUserScreen extends JPanel {
 	public void InitFrame() {
 		dbHandler = new DBConnection();
 		conn = dbHandler.open();
-		fillTable();
+		refreshScreen();
 		
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT clearanceLevel FROM ClearanceLookUp;");
@@ -208,8 +228,26 @@ public class AdminUserScreen extends JPanel {
 		}
 	}
 	
+	public void refreshScreen() {
+		fillTable();
+		
+		usernameTextField.setEditable(false);
+		passwordTextField.setEditable(false);
+		clearanceComboBox.setEnabled(false);
+		firstNameTextField.setEditable(false);
+		middleInitTextField.setEditable(false);
+		lastNameTextField.setEditable(false);
+		
+		changeDetailsButton.setText("Change Details");
+	}
+	
 	public void fillTable() {
 		DefaultTableModel model = (DefaultTableModel)userTable.getModel();
+		
+		int rowCount = model.getRowCount();
+		for (int i = 0; i < rowCount; i++)
+			model.removeRow(0);
+		
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, ClearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID;");
 			if (rs.isBeforeFirst()) {
@@ -225,8 +263,7 @@ public class AdminUserScreen extends JPanel {
 	}
 	
 	public void clickedTable() {
-		int selectedIndex = userTable.getSelectedRow();
-		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(selectedIndex, 0) + "");
+		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
 		
 		ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, clearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID AND u.userID = " + selectedUserID + ";");
 		
@@ -244,5 +281,142 @@ public class AdminUserScreen extends JPanel {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void changeDetailsClicked() {
+		if (userTable.getSelectedRow() == -1)
+			return;
+		
+		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
+
+		if (changeDetailsButton.getText().equals("Change Details")) {
+			usernameTextField.setEditable(true);
+			passwordTextField.setEditable(true);
+			clearanceComboBox.setEnabled(true);
+			firstNameTextField.setEditable(true);
+			middleInitTextField.setEditable(true);
+			lastNameTextField.setEditable(true);
+			
+			changeDetailsButton.setText("Save Details");
+		}
+		else {
+			String username = "", password = "", middleInit = "", firstName = "", lastName = "";
+			
+			if (usernameTextField.getText().length() == 0) {
+				usernameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "No field can be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			if (passwordTextField.getText().length() == 0) {
+				passwordTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "No field can be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			if (firstNameTextField.getText().length() == 0) {
+				firstNameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "No field can be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			if (lastNameTextField.getText().length() == 0) {
+				lastNameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "No field can be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			boolean contFlag = true;
+			
+			firstName = firstNameTextField.getText();
+			for (int i = 0; i < firstName.length() && contFlag; i++) {
+				if (!((firstName.charAt(i) >= 'A' && firstName.charAt(i) <= 'Z') || (firstName.charAt(i) >= 'a' && firstName.charAt(i) <= 'z') || (firstName.charAt(i) == ' ')))
+					contFlag = false;
+			}
+
+			if (!contFlag) {
+				firstNameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			lastName = lastNameTextField.getText();
+			for (int i = 0; i < lastName.length() && contFlag; i++) {
+				if (!((lastName.charAt(i) >= 'A' && lastName.charAt(i) <= 'Z') || (lastName.charAt(i) >= 'a' && lastName.charAt(i) <= 'z') || (lastName.charAt(i) == ' ')))
+					contFlag = false;
+			}
+
+			if (!contFlag) {
+				lastNameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			username = usernameTextField.getText();
+			for (int i = 0; i < username.length() && contFlag; i++) {
+				if (!((username.charAt(i) >= 'A' && username.charAt(i) <= 'Z') || (username.charAt(i) >= 'a' && username.charAt(i) <= 'z') || (username.charAt(i) == ' ')))
+					contFlag = false;
+			}
+
+			if (!contFlag) {
+				usernameTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			password = passwordTextField.getText();
+			for (int i = 0; i < password.length() && contFlag; i++) {
+				if (!((password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') || (password.charAt(i) >= 'a' && password.charAt(i) <= 'z') || (password.charAt(i) == ' ')))
+					contFlag = false;
+			}
+
+			if (!contFlag) {
+				passwordTextField.setBackground(Color.PINK);
+				JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			middleInit = middleInitTextField.getText();
+			
+			dbHandler.executeUpdate(conn, "UPDATE UserAccount SET username = '" + username + "', password = '" + password + "' WHERE userID = " + selectedUserID + ";");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT clearanceID FROM ClearanceLookUp WHERE clearanceLevel = '" + clearanceComboBox.getSelectedItem() + "';");
+			
+			try {
+				if (rs.isBeforeFirst()) {
+					rs.first();
+					dbHandler.executeUpdate(conn, "UPDATE UserAccount SET clearanceID = " + rs.getString(1) + " WHERE userID = " + selectedUserID + ";");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			dbHandler.executeUpdate(conn, "UPDATE Person SET firstName = '" + firstName + "', middleInitial = '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', lastName = '" + lastName + "' WHERE personID = (SELECT personID FROM UserAccount WHERE userID = " + selectedUserID + ");");
+			
+			refreshScreen();
+		}
+	}
+	public void deleteUserClicked() {
+		if (userTable.getSelectedRow() == -1)
+			return;
+		
+		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
+
+		dbHandler.executeUpdate(conn, "DELETE FROM UserAccount WHERE userID = " + selectedUserID + ";");
+		refreshScreen();
+	}
+	
+	public void addUserClicked() {
+		refreshScreen();
+		
+		usernameTextField.setEditable(true);
+		usernameTextField.setText("");
+		passwordTextField.setEditable(true);
+		passwordTextField.setText("");
+		clearanceComboBox.setEnabled(true);
+		firstNameTextField.setEditable(true);
+		firstNameTextField.setText("");
+		middleInitTextField.setEditable(true);
+		middleInitTextField.setText("");
+		lastNameTextField.setEditable(true);
+		lastNameTextField.setText("");
+
+		changeDetailsButton.setText("Save Details");
 	}
 }
