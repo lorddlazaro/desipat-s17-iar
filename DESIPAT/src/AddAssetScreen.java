@@ -408,6 +408,8 @@ public class AddAssetScreen extends JPanel {
 	}
 	
 	private void fillComboBoxPerson(){
+		cbxOwner.removeAllItems();
+		cbxCustodian.removeAllItems();
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Person;");
@@ -427,6 +429,8 @@ public class AddAssetScreen extends JPanel {
 		}
 	}
 	private void fillComboBoxStorage(){
+		cbxStorage.removeAllItems();
+
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Storage;");
