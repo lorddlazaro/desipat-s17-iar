@@ -261,6 +261,8 @@ public class AdminUserScreen extends JPanel {
 		lastNameTextField.setEditable(false);
 		
 		changeDetailsButton.setText("Change Details");
+		
+		this.validate();
 	}
 	
 	public void fillTable() {
@@ -271,7 +273,7 @@ public class AdminUserScreen extends JPanel {
 			model.removeRow(0);
 		
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, ClearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, ClearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID AND u.isActive = 1;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
@@ -307,11 +309,6 @@ public class AdminUserScreen extends JPanel {
 	}
 	
 	public void changeDetailsClicked() {
-		if (userTable.getSelectedRow() == -1)
-			return;
-		
-		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
-
 		if (changeDetailsButton.getText().equals("Change Details")) {
 			usernameTextField.setEditable(true);
 			passwordTextField.setEditable(true);
@@ -398,9 +395,28 @@ public class AdminUserScreen extends JPanel {
 			
 			middleInit = middleInitTextField.getText();
 			
-			dbHandler.executeUpdate(conn, "UPDATE UserAccount SET username = '" + username + "', password = '" + password + "' WHERE userID = " + selectedUserID + ";");
+			int selectedUserID = -1;
+			if (userTable.getSelectedRow() == -1) {
+				dbHandler.executeUpdate(conn, "INSERT INTO UserAccount (username, password, isactive) values ('" + username + "', '" + password + "', 1);");
+				
+				ResultSet rs = dbHandler.executeQuery(conn, "SELECT LAST_INSERT_ID();");
+				
+				try {
+					rs.first();
+					selectedUserID = rs.getInt(1);
+					System.out.println(selectedUserID);
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			else {
+				selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
+	
+				dbHandler.executeUpdate(conn, "UPDATE UserAccount SET username = '" + username + "', password = '" + password + "', isActive = 1 WHERE userID = " + selectedUserID + ";");
+			}
+
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT clearanceID FROM ClearanceLookUp WHERE clearanceLevel = '" + clearanceComboBox.getSelectedItem() + "';");
-			
+				
 			try {
 				if (rs.isBeforeFirst()) {
 					rs.first();
@@ -410,8 +426,22 @@ public class AdminUserScreen extends JPanel {
 				e.printStackTrace();
 			}
 			
-			if (getExistingID(firstName, middleInit, lastName) == -1) {
-				dbHandler.executeUpdate(conn, "UPDATE Person SET firstName = '" + firstName + "', middleInitial = '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', lastName = '" + lastName + "' WHERE personID = (SELECT personID FROM UserAccount WHERE userID = " + selectedUserID + ");");
+			
+			rs = dbHandler.executeQuery(conn, "SELECT personID FROM UserAccount WHERE userID = " + selectedUserID + ";");
+			int personID = -1;
+			try {
+				rs.first();
+				personID = rs.getInt(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			if (personID == 0) {
+				dbHandler.executeUpdate(conn, "INSERT INTO Person (firstname, middleinitial, lastname) values ('" + firstName + "', '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', '" + lastName + "');");
+				dbHandler.executeUpdate(conn, "UPDATE UserAccount SET personID = (SELECT LAST_INSERT_ID()) WHERE userID = " + selectedUserID + ";");
+			}
+			else if (getExistingID(firstName, middleInit, lastName) == -1) {
+				dbHandler.executeUpdate(conn, "UPDATE Person SET firstName = '" + firstName + "', middleInitial = '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', lastName = '" + lastName + "' WHERE personID = " + personID + ";");
 			}
 			else {
 				dbHandler.executeUpdate(conn, "UPDATE UserAccount SET personID = " + getExistingID(firstName, middleInit, lastName) + " WHERE userID = " + selectedUserID + ";");
