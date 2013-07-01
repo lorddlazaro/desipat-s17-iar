@@ -1,5 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -298,7 +300,8 @@ public class AddAssetScreen extends JPanel {
 
 				System.out.println(cbxClassification.getSelectedItem());
 				System.out.println(cbxStorage.getSelectedItem());
-				saveAsset();
+				if(validInput())
+					saveAsset();
 			}
 		});
 		
@@ -607,5 +610,36 @@ public class AddAssetScreen extends JPanel {
 	days=dayList.toArray(new String[dayList.size()]);
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 	
+	}
+	
+	private boolean validInput(){
+		boolean hasName = !txtName.getText().isEmpty();
+		boolean hasFinancial = !txtFinancial.getText().isEmpty();
+		
+		if(hasName)
+			if(hasFinancial){
+				// Case 1: both fields are filled
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.WHITE);
+				
+				return true;
+			}
+			else{
+				// Case 2: empty password field
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.PINK);
+			}
+		else
+			if(hasFinancial){
+				// Case 3: empty username field
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.PINK);
+			}
+			else{
+				// Case 4: both fields are empty
+				txtName.setBackground(Color.PINK);
+				txtFinancial.setBackground(Color.PINK);
+			}
+		return false;
 	}
 }
