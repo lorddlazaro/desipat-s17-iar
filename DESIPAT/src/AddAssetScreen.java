@@ -573,7 +573,7 @@ public class AddAssetScreen extends JPanel {
 	}
 	public Date getDate(int month, int day, int year)
 	{
-		Date date=new Date(year-1900, month-1, day);
+		Date date=new Date(year-1899, month, day);
 		return date;
 	}
 	public int lookUpSchedule(String schedule)
