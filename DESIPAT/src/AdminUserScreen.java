@@ -17,8 +17,12 @@ import javax.swing.JComboBox;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class AdminUserScreen extends JPanel {
@@ -44,6 +48,8 @@ public class AdminUserScreen extends JPanel {
 	private JButton changeDetailsButton;
 	private JButton cancelChangesButton;
 	private JButton addUserButton;
+	private JComboBox <String> selectExistingComboBox;
+	private JLabel lblExistingPersons;
 	
 	private DBConnection dbHandler;
 	private Connection conn;
@@ -134,32 +140,32 @@ public class AdminUserScreen extends JPanel {
 		
 		lblFirstName = new JLabel("First Name:");
 		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblFirstName.setBounds(331, 52, 73, 14);
+		lblFirstName.setBounds(314, 52, 73, 14);
 		detailsPanel.add(lblFirstName);
 		
 		firstNameTextField = new JTextField();
 		firstNameTextField.setColumns(10);
-		firstNameTextField.setBounds(414, 49, 181, 20);
+		firstNameTextField.setBounds(397, 49, 181, 20);
 		detailsPanel.add(firstNameTextField);
 		
 		lblMiddleInitial = new JLabel("Middle Init:");
 		lblMiddleInitial.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblMiddleInitial.setBounds(331, 80, 73, 14);
+		lblMiddleInitial.setBounds(314, 80, 73, 14);
 		detailsPanel.add(lblMiddleInitial);
 		
 		middleInitTextField = new JTextField();
 		middleInitTextField.setColumns(10);
-		middleInitTextField.setBounds(414, 77, 181, 20);
+		middleInitTextField.setBounds(397, 77, 181, 20);
 		detailsPanel.add(middleInitTextField);
 		
 		lblLastName = new JLabel("Last Name:");
 		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblLastName.setBounds(331, 111, 73, 14);
+		lblLastName.setBounds(314, 111, 73, 14);
 		detailsPanel.add(lblLastName);
 		
 		lastNameTextField = new JTextField();
 		lastNameTextField.setColumns(10);
-		lastNameTextField.setBounds(414, 108, 181, 20);
+		lastNameTextField.setBounds(397, 108, 181, 20);
 		detailsPanel.add(lastNameTextField);
 		
 		deleteUserButton = new JButton("Delete User");
@@ -205,6 +211,21 @@ public class AdminUserScreen extends JPanel {
 		addUserButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		addUserButton.setBounds(626, 13, 116, 23);
 		detailsPanel.add(addUserButton);
+		
+		lblExistingPersons = new JLabel("Existing Persons:");
+		lblExistingPersons.setFont(new Font("Calibri", Font.PLAIN, 12));
+		lblExistingPersons.setBounds(314, 17, 97, 14);
+		detailsPanel.add(lblExistingPersons);
+		
+		selectExistingComboBox = new <String> JComboBox();
+		selectExistingComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedChanged();
+			}
+		});
+		selectExistingComboBox.setEnabled(false);
+		selectExistingComboBox.setBounds(421, 13, 157, 20);
+		detailsPanel.add(selectExistingComboBox);
 
 		InitFrame();
 	}
@@ -234,6 +255,7 @@ public class AdminUserScreen extends JPanel {
 		usernameTextField.setEditable(false);
 		passwordTextField.setEditable(false);
 		clearanceComboBox.setEnabled(false);
+		selectExistingComboBox.setEnabled(false);
 		firstNameTextField.setEditable(false);
 		middleInitTextField.setEditable(false);
 		lastNameTextField.setEditable(false);
@@ -281,6 +303,7 @@ public class AdminUserScreen extends JPanel {
 			e.printStackTrace();
 		}
 		
+		fillSelectExisting();
 	}
 	
 	public void changeDetailsClicked() {
@@ -387,11 +410,30 @@ public class AdminUserScreen extends JPanel {
 				e.printStackTrace();
 			}
 			
-			dbHandler.executeUpdate(conn, "UPDATE Person SET firstName = '" + firstName + "', middleInitial = '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', lastName = '" + lastName + "' WHERE personID = (SELECT personID FROM UserAccount WHERE userID = " + selectedUserID + ");");
+			if (getExistingID(firstName, middleInit, lastName) == -1) {
+				dbHandler.executeUpdate(conn, "UPDATE Person SET firstName = '" + firstName + "', middleInitial = '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', lastName = '" + lastName + "' WHERE personID = (SELECT personID FROM UserAccount WHERE userID = " + selectedUserID + ");");
+			}
+			else {
+				dbHandler.executeUpdate(conn, "UPDATE UserAccount SET personID = " + getExistingID(firstName, middleInit, lastName) + " WHERE userID = " + selectedUserID + ";");
+			}
 			
 			refreshScreen();
 		}
 	}
+	
+	public int getExistingID(String fn, String mi, String ln) {
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT personID FROM Person WHERE firstName = '" + fn + "' AND middleInitial = '" + mi + "' AND lastName = '" + ln + "';");
+			if (!rs.isBeforeFirst()) {
+				rs.first();
+				return rs.getInt(1);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	public void deleteUserClicked() {
 		if (userTable.getSelectedRow() == -1)
 			return;
@@ -400,6 +442,24 @@ public class AdminUserScreen extends JPanel {
 
 		dbHandler.executeUpdate(conn, "DELETE FROM UserAccount WHERE userID = " + selectedUserID + ";");
 		refreshScreen();
+	}
+	
+	public void fillSelectExisting() {
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT firstName, middleInitial, lastName FROM Person WHERE personID NOT IN (SELECT personID FROM UserAccount);");
+			if (rs.isBeforeFirst()) {
+				rs.first();
+				while (!rs.isAfterLast()) {
+					selectExistingComboBox.addItem(rs.getString(1) + " " + rs.getString(2) + ". " + rs.getString(3));
+					rs.next();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (selectExistingComboBox.getItemCount() != 0)
+			selectExistingComboBox.setEnabled(true);
 	}
 	
 	public void addUserClicked() {
@@ -418,5 +478,22 @@ public class AdminUserScreen extends JPanel {
 		lastNameTextField.setText("");
 
 		changeDetailsButton.setText("Save Details");
+	}
+	
+	public void selectedChanged() {
+		if (selectExistingComboBox.getSelectedIndex() == -1) {
+			return;
+		}
+		
+		String fullName = selectExistingComboBox.getSelectedItem() + "";
+		String[] nameArray = fullName.split("\\.");
+		
+		String lastName = nameArray[1].substring(1);
+		String middleInit = nameArray[0].charAt(nameArray[0].length()-1) + "";
+		String firstName = nameArray[0].substring(0, nameArray[0].length()-3);
+		
+		firstNameTextField.setText(firstName);
+		middleInitTextField.setText(middleInit);
+		lastNameTextField.setText(lastName);
 	}
 }
