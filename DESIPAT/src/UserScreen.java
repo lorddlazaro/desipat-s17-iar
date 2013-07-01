@@ -41,12 +41,15 @@ public class UserScreen extends JPanel {
 	private JLabel middleInitLabel;
 	private JPanel assetSummary;
 	private JLabel lblSummaryTable;
-
+	private JLabel lblNetWorthList;
+	private JLabel lblMostValuableAssetList;
+	
 	private User currUser;
 	private int currUserID;
 	private DBConnection dbHandler;
 	private Connection conn;
 	private JButton changeNameButton;
+	private JLabel lblNewestAssetList;
 	
 	/**
 	 * Create the panel.
@@ -187,10 +190,38 @@ public class UserScreen extends JPanel {
 		add(assetSummary);
 		assetSummary.setLayout(null);
 		
-		lblSummaryTable = new JLabel("Summary or whatever");
+		lblSummaryTable = new JLabel("Summary");
 		lblSummaryTable.setBounds(10, 11, 269, 22);
 		lblSummaryTable.setFont(new Font("Calibri", Font.PLAIN, 18));
 		assetSummary.add(lblSummaryTable);
+		
+		JLabel lblNetWorth = new JLabel("Net worth");
+		lblNetWorth.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNetWorth.setBounds(10, 44, 76, 14);
+		assetSummary.add(lblNetWorth);
+		
+		JLabel lblNewestAssets = new JLabel("Newest Assets");
+		lblNewestAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNewestAssets.setBounds(10, 113, 99, 14);
+		assetSummary.add(lblNewestAssets);
+		
+		JLabel lblMostValuableAssets = new JLabel("Most Valuable Assets");
+		lblMostValuableAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblMostValuableAssets.setBounds(10, 184, 139, 14);
+		assetSummary.add(lblMostValuableAssets);
+		
+		lblNetWorthList = new JLabel("");
+		lblNetWorthList.setBounds(10, 69, 99, 33);
+		assetSummary.add(lblNetWorthList);
+		
+		
+		lblNewestAssetList = new JLabel("");
+		lblNewestAssetList.setBounds(10, 138, 99, 35);
+		assetSummary.add(lblNewestAssetList);
+		
+		lblMostValuableAssetList = new JLabel("");
+		lblMostValuableAssetList.setBounds(10, 209, 99, 61);
+		assetSummary.add(lblMostValuableAssetList);
 
 	}
 	
@@ -227,6 +258,7 @@ public class UserScreen extends JPanel {
 		newPasswordLabel.setVisible(false);
 		saveDetailsButton.setVisible(false);
 		
+		
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT * FROM Person WHERE personID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ");");
 			rs.first();
@@ -247,7 +279,9 @@ public class UserScreen extends JPanel {
 		firstNameTextField.setVisible(false);
 		middleInitialTextField.setVisible(false);
 		lastNameTextField.setVisible(false);
-		
+		lookUpNetWorth();
+		lookUpNewestAssets();
+		lookUpMostValuableAssets();
 		this.validate();
 	}
 	
@@ -365,5 +399,51 @@ public class UserScreen extends JPanel {
 			
 			InitSettings();
 		}
+		
+	}
+	public void lookUpNetWorth()
+	{
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT SUM(financialValue) FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ");");
+			rs.first();
+			int count=1;
+			while (!rs.isAfterLast() && count <= 5) {
+				lblNetWorthList.setText(lblNetWorthList.getText() + "\n" + rs.getString(count));
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void lookUpNewestAssets()
+	{
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ") ORDER BY dateAcquired DESC;");
+			rs.first();
+			int count = 1;
+			while (!rs.isAfterLast() && count <= 5) {
+				lblNewestAssetList.setText(lblNewestAssetList.getText() + "\n" + rs.getString(count));
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void lookUpMostValuableAssets()
+	{
+		try {
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUserID + ") ORDER BY financialValue DESC;");
+			rs.first();
+			int count = 1;
+			while (!rs.isAfterLast() && count <= 5) {
+				System.out.println(rs.getString(count));
+				lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(count));
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
