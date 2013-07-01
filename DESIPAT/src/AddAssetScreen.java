@@ -8,6 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -45,7 +47,6 @@ public class AddAssetScreen extends JPanel {
 	
 	JCheckBox chckbxStatus;
 	private JTextField txtRetentionPeriod;
-	
 	/**
 	 * Create the panel.
 	 */
@@ -302,8 +303,13 @@ public class AddAssetScreen extends JPanel {
 				System.out.println(cbxStorage.getSelectedItem());
 				if(validInput())
 					saveAsset();
+				
+				//refresh view asset Screen tables - lordd
+				refreshViewAsset();
 			}
 		});
+		
+		
 		
 		cbxStorage = new JComboBox();
 		cbxStorage.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -642,4 +648,13 @@ public class AddAssetScreen extends JPanel {
 			}
 		return false;
 	}
+	public void refreshViewAsset(){
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		if(mainScreen!=null){
+			System.out.println("ms not null");
+			mainScreen.panelViewAsset.updateAssetTable();
+		}
+	}
 }
+
+
