@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -253,6 +255,7 @@ public class EditAssetScreen extends JPanel {
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editAsset();
+				refreshViewAsset();
 			}
 		});
 		btnEdit.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -463,4 +466,13 @@ public class EditAssetScreen extends JPanel {
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 	
 	}
+	public void refreshViewAsset(){
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		if(mainScreen!=null){
+			System.out.println("ms not null");
+			mainScreen.panelViewAsset.updateAssetTable();
+		}
+	}
+		
 }
+
