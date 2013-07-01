@@ -46,6 +46,7 @@ public class MainScreen extends JFrame {
 	JLabel lblLastLogin;
 	UserScreen panelAccountSettings;
 	EditAssetScreen panelEditAsset;
+	assetScreen panelViewAsset;
 	
 	/**
 	 * Launch the application.
@@ -141,7 +142,7 @@ public class MainScreen extends JFrame {
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
 		
-		assetScreen panelViewAsset = new assetScreen();
+		panelViewAsset = new assetScreen();
 		panelCards.add(panelViewAsset, "panelViewAssets");
 		
 		AddAssetScreen panelAddAsset = new AddAssetScreen();
