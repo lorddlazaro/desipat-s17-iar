@@ -18,6 +18,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 
 public class assetScreen extends JPanel {
@@ -44,11 +45,21 @@ public class assetScreen extends JPanel {
 	public assetScreen() {
 		setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 205, 432);
+		add(scrollPane);
+		
 		table = new JTable();
+		scrollPane.setViewportView(table);
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(10, 11, 205, 432);
-		add(table);
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				updateLabels();
+			}
+		});
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(225, 228, 537, 215);
@@ -203,18 +214,13 @@ public class assetScreen extends JPanel {
 		db = new DBConnection();
 		updateAssetTable();
 		
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				updateLabels();
-			}
-		});
-		
 	}
 	
 	public void updateAssetTable() {
+		System.out.println("before query1");
 		db.open();
-		ResultSet rs = db.executeQuery(db.c, "select identifier,name from asset;");
+		System.out.println("before query");
+		ResultSet rs = db.executeQuery(db.c, "select identifier,name,ownerID,custodianID from asset;");
 		try {
 			table.setModel(buildTableModel(rs));
 		} catch (SQLException e) {
@@ -228,13 +234,15 @@ public class assetScreen extends JPanel {
 	        throws SQLException {
 
 	    ResultSetMetaData metaData = rs.getMetaData();
-
+	    System.out.println("metadatacount: "+metaData.getColumnCount());
 	    // names of columns
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
 	    for (int column = 1; column <= columnCount; column++) {
 	        columnNames.add(metaData.getColumnName(column));
+	        System.out.println(metaData.getColumnName(column));
 	    }
+	    
 
 	    // data of the table
 	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
@@ -247,7 +255,6 @@ public class assetScreen extends JPanel {
 	    }
 
 	    return new DefaultTableModel(data, columnNames){
-
 		    @Override
 		    public boolean isCellEditable(int row, int column) {
 		       //all cells false
@@ -300,6 +307,7 @@ public class assetScreen extends JPanel {
 	private void goToAddAssetScreen(){
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
 		mainScreen.changeCard((JPanel)mainScreen.panelCards, "panelAddAsset");
+		
 	}
 	private void goToEditAssetScreen(){
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
