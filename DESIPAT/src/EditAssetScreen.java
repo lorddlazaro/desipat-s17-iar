@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.DefaultComboBoxModel;
@@ -16,6 +17,7 @@ import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import java.awt.SystemColor;
@@ -23,6 +25,7 @@ import java.awt.SystemColor;
 
 public class EditAssetScreen extends JPanel {
 
+	private int assetID;
 	private JTextField txtName;
 	private JTextField txtFinancial;
 	private JSlider sldConfidentiality;
@@ -39,20 +42,21 @@ public class EditAssetScreen extends JPanel {
 	private JComboBox cbxCustodian;
 	private String[]days;
 	private Asset asset;
+	private JCheckBox chckbxStatus;
 	private ArrayList<String>dayList;
 	
-	private ArrayList<String>personList;    //these lists to be populated from AssetScreen
-	private ArrayList<String>storageList;
+	/*private ArrayList<String>personList;    //these lists to be populated from AssetScreen
+	private ArrayList<String>storageList;*/
 	private JTextField txtRetention;
 
 	/**
 	 * Create the panel.
 	 */
-	public EditAssetScreen(Asset a, ArrayList<String>personList,ArrayList<String>storageList) {
+	public EditAssetScreen(/*Asset a, ArrayList<String>personList,ArrayList<String>storageList*/) {
 		setLayout(null);
-		asset=a;
-		this.personList=personList;
-		this.storageList=storageList;
+		//asset=a;
+		//this.personList=personList;
+		//this.storageList=storageList;
 		JLabel lblAddNewAsset = new JLabel("Edit Asset");
 		lblAddNewAsset.setFont(new Font("Segoe WP", Font.PLAIN, 23));
 		lblAddNewAsset.setBounds(26, 24, 168, 29);
@@ -254,23 +258,14 @@ public class EditAssetScreen extends JPanel {
 		JButton btnEdit = new JButton("SAVE CHANGES");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				editAsset();
+				if(validInput())
+					editAsset();
 				refreshViewAsset();
 			}
 		});
 		btnEdit.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnEdit.setBounds(390, 321, 150, 53);
+		btnEdit.setBounds(460, 326, 150, 53);
 		add(btnEdit);
-		
-		JButton btnRetireAsset = new JButton("RETIRE ASSET");
-		btnRetireAsset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				asset.setIsActive(false);
-			}
-		});
-		btnRetireAsset.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnRetireAsset.setBounds(554, 321, 150, 53);
-		add(btnRetireAsset);
 		
 		cbxOwner = new JComboBox();
 		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -292,17 +287,75 @@ public class EditAssetScreen extends JPanel {
 		add(txtRetention);
 		txtRetention.setColumns(10);
 		
-		JCheckBox checkBox = new JCheckBox("Asset is Active");
-		checkBox.setFont(new Font("Calibri", Font.PLAIN, 14));
-		checkBox.setBackground(SystemColor.inactiveCaption);
-		checkBox.setBounds(97, 107, 126, 23);
-		add(checkBox);
+		chckbxStatus = new JCheckBox("Asset is Active");
+		chckbxStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
+		chckbxStatus.setBackground(SystemColor.inactiveCaption);
+		chckbxStatus.setBounds(97, 107, 126, 23);
+		add(chckbxStatus);
+		
+		
+		
 
 	}
-	public Asset editAsset()
+	public void setAssetID(int assetID)
+	{
+		this.assetID=assetID;
+	}
+	public int getAssetID()
+	{
+		return assetID;
+	}
+	public void loadCurrentAssetInfo()
+	{
+		DBConnection db = new DBConnection();
+		
+		db.open();
+		ResultSet rs = db.executeQuery(db.c,"select identifier, name, Concat(P.firstName, ' ',P.middleInitial,' ', P.lastName) as owner, Concat(C.firstName, ' ',C.middleInitial,' ', C.lastName) as custodian, type,dateAcquired,status, M.maintSched,  financialValue, confidentialValue,integrityValue,availabilityValue, L.classification, S.storageLocation from asset A inner join person P on P.personID=A.ownerID inner join person C on C.personID=A.custodianID inner join typelookup T on T.typeID=A.typeID inner join maintenancelookup M on M.maintID=A.maintID inner join classificationlookup L on L.classID=A.classID inner join storage S on S.storageID=A.storageID where identifier="+assetID);
+		
+		System.out.println("loaded current asset");
+		try {
+			while(rs.next()){
+				System.out.println(rs.getInt("identifier"));
+				System.out.println(rs.getString("identifier"));
+			
+				txtName.setText(rs.getString("name"));
+				cbxOwner.setSelectedItem((Object)rs.getString("owner"));
+				cbxCustodian.setSelectedItem((Object)rs.getString("custodian"));
+				cbxType.setSelectedItem((Object)rs.getString("type"));
+				cbxClassification.setSelectedItem((Object)rs.getString("classification"));
+				cbxMaintenance.setSelectedItem((Object)rs.getString("maintSched"));
+				cbxStorage.setSelectedItem((Object)rs.getString("storageLocation"));
+				
+				//lblDateAcquired.setText(rs.getString("dateAcquired")); //TODO: Updating of date comboboxes
+
+				
+				switch(rs.getString("status"))
+				{
+				case "1":
+					chckbxStatus.setSelected(true);
+					break;
+				case "0":
+					chckbxStatus.setSelected(false);
+					break;
+				}
+				txtFinancial.setText(rs.getString("financialValue"));
+				sldConfidentiality.setValue(Integer.parseInt(rs.getString("confidentialValue")));
+				sldIntegrity.setValue(Integer.parseInt(rs.getString("integrityValue")));
+				sldAvailability.setValue(Integer.parseInt(rs.getString("availabilityValue")));
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db.close();
+
+	}
+	public void editAsset()
 	{
 	
-		OwnershipHistory newOwner =new OwnershipHistory();
+		/*OwnershipHistory newOwner =new OwnershipHistory();
 		StorageHistory newStorage= new StorageHistory();
 		CustodyHistory newCustodian= new CustodyHistory();
 		
@@ -320,7 +373,82 @@ public class EditAssetScreen extends JPanel {
 		asset.setStorageID(lookUpStorageID(cbxStorage.getSelectedItem().toString()));
 		asset.setClassification(lookUpClassification(cbxClassification.getSelectedItem().toString()));
 		
-		return asset;
+		return asset;*/
+
+			String ownerID = "";
+			String custodianID = "";
+			String typeID = "";
+			String maintID = "";
+			String classID = "";
+			String storageID = "";
+			String dateAcquired = cbxYear.getSelectedItem() + "-" + cbxMonth.getSelectedIndex() + "-" + cbxDay.getSelectedItem();
+			
+
+			DBConnection DBcon = new DBConnection();
+			
+			String ownerFirstName =  cbxOwner.getSelectedItem().toString().split(" ")[0];
+			String ownerMiddleInitial =  cbxOwner.getSelectedItem().toString().split(" ")[1];
+			String ownerLastName =  cbxOwner.getSelectedItem().toString().split(" ")[2];
+
+			String custodianFirstName =  cbxCustodian.getSelectedItem().toString().split(" ")[0];
+			String custodianMiddleInitial =  cbxCustodian.getSelectedItem().toString().split(" ")[1];
+			String custodianLastName =  cbxCustodian.getSelectedItem().toString().split(" ")[2];
+			
+			
+			Connection con = DBcon.open();
+			ResultSet rs;
+			try{
+				rs = DBcon.executeQuery(con, "select personID from Person where firstName = '"+ownerFirstName+"' AND middleinitial = '"+ownerMiddleInitial+"' AND lastname = '"+ownerLastName+"';");
+			
+				if(rs.isBeforeFirst()){
+					rs.first();
+					ownerID = rs.getString(1);
+				}
+				rs = DBcon.executeQuery(con, "select personID from Person where firstName = '"+custodianFirstName+"' AND middleinitial = '"+custodianMiddleInitial+"' AND lastname = '"+custodianLastName+"';");
+				
+				if(rs.isBeforeFirst()){
+					rs.first();
+					custodianID = rs.getString(1);
+				}
+				rs = DBcon.executeQuery(con, "select typeID from TypeLookUp where type = '"+cbxType.getSelectedItem()+"';");
+				
+				if(rs.isBeforeFirst()){
+					rs.first();
+					typeID = rs.getString(1);
+				}
+				rs = DBcon.executeQuery(con, "select maintID from MaintenanceLookUp where maintSched = '"+cbxMaintenance.getSelectedItem()+"';");
+				
+				if(rs.isBeforeFirst()){
+					rs.first();
+					maintID = rs.getString(1);
+				}
+				rs = DBcon.executeQuery(con, "select classID from ClassificationLookUp where classification = '"+cbxClassification.getSelectedItem()+"';");
+				
+				if(rs.isBeforeFirst()){
+					rs.first();
+					classID = rs.getString(1);
+				}
+				rs = DBcon.executeQuery(con, "select storageID from Storage where storagelocation = '"+cbxStorage.getSelectedItem()+"';");
+				
+				if(rs.isBeforeFirst()){
+					rs.first();
+					storageID = rs.getString(1);
+				}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			int status = (chckbxStatus.isSelected()?1:0);
+			String query = "UPDATE Asset SET name='"+txtName.getText()+"', ownerID='"+ownerID+"',custodianID='"+ custodianID +"',typeID='"+
+			typeID +"',dateAcquired='"+ dateAcquired +"',status='" +status+
+					"',maintID='"+maintID +"',financialValue='"+
+							txtFinancial.getText() +"',confidentialValue='"+ sldConfidentiality.getValue() +"',integrityValue='"+ sldIntegrity.getValue() +"',availabilityValue='"+sldAvailability.getValue() +"',classID='"+ classID+"',storageID='" +storageID+"' WHERE identifier='"+assetID+"';";
+			// TEMPORARY PRINTLINE THING
+			System.out.println(query);
+			DBcon.executeUpdate(con, query);
+			DBcon.close();
+		
 	
 	}
 	public int lookUpPersonID(String name)
@@ -465,6 +593,77 @@ public class EditAssetScreen extends JPanel {
 	days=dayList.toArray(new String[dayList.size()]);
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 	
+	}
+	
+	public void fillComboBoxPerson(){
+		cbxOwner.removeAllItems();
+		cbxCustodian.removeAllItems();
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select * from Person;");
+		try{
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					cbxOwner.addItem(rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4));
+					cbxCustodian.addItem(rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4));
+					rs.next();
+				}
+			}
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void fillComboBoxStorage(){
+		cbxStorage.removeAllItems();
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select * from Storage;");
+		try{
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					cbxStorage.addItem(rs.getString(2));
+					rs.next();
+				}
+			}
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	private boolean validInput(){
+		boolean hasName = !txtName.getText().isEmpty();
+		boolean hasFinancial = !txtFinancial.getText().isEmpty();
+		
+		if(hasName)
+			if(hasFinancial){
+				// Case 1: both fields are filled
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.WHITE);
+				
+				return true;
+			}
+			else{
+				// Case 2: empty password field
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.PINK);
+			}
+		else
+			if(hasFinancial){
+				// Case 3: empty username field
+				txtName.setBackground(Color.WHITE);
+				txtFinancial.setBackground(Color.PINK);
+			}
+			else{
+				// Case 4: both fields are empty
+				txtName.setBackground(Color.PINK);
+				txtFinancial.setBackground(Color.PINK);
+			}
+		return false;
 	}
 	public void refreshViewAsset(){
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
