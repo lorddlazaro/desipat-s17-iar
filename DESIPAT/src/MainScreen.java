@@ -148,7 +148,7 @@ public class MainScreen extends JFrame {
 		AddAssetScreen panelAddAsset = new AddAssetScreen();
 		panelCards.add(panelAddAsset, "panelAddAsset");
 		
-		panelEditAsset = new EditAssetScreen((Asset) null, (ArrayList) null, (ArrayList) null);
+		panelEditAsset = new EditAssetScreen();
 		panelCards.add(panelEditAsset, "panelEditAsset");
 		
 		AdminUserScreen panelManageAccounts = new AdminUserScreen();
