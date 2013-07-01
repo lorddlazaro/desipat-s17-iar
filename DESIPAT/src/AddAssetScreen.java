@@ -57,6 +57,14 @@ public class AddAssetScreen extends JPanel {
 	private JButton btnNewCustodian;
 	private JButton btnNewType;
 	private JButton btnNewStorage;
+	private JPanel panelNewItem;
+	
+	String addNewItemMode;
+	private JLabel lblNewItem2;
+	private JLabel lblNewItem1;
+	private JLabel lblNewItem3;
+	private JButton btnNewItemSave;
+	private JButton btnNewItemCancel;
 	/**
 	 * Create the panel.
 	 */
@@ -260,7 +268,6 @@ public class AddAssetScreen extends JPanel {
 		add(sldAvailability);
 		
 		cbxType = new JComboBox();
-		cbxType.setModel(new DefaultComboBoxModel(new String[] {"Document", "Equipment", "Product"}));
 		cbxType.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxType.setBounds(201, 326, 156, 20);
 		add(cbxType);
@@ -291,7 +298,7 @@ public class AddAssetScreen extends JPanel {
 		btnNewOwner = new JButton("New");
 		btnNewOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addNewItem("Owner");
+				panelNewItemChange("Owner");
 			}
 		});
 		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -301,7 +308,7 @@ public class AddAssetScreen extends JPanel {
 		btnNewCustodian = new JButton("New");
 		btnNewCustodian.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addNewItem("Custodian");
+				panelNewItemChange("Custodian");
 			}
 		});
 		btnNewCustodian.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -311,7 +318,7 @@ public class AddAssetScreen extends JPanel {
 		btnNewType = new JButton("New");
 		btnNewType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addNewItem("Type");
+				panelNewItemChange("Type");
 			}
 		});
 		btnNewType.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -321,7 +328,7 @@ public class AddAssetScreen extends JPanel {
 		btnNewStorage = new JButton("New");
 		btnNewStorage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addNewItem("Storage");
+				panelNewItemChange("Storage");
 			}
 		});
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -361,54 +368,143 @@ public class AddAssetScreen extends JPanel {
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnAdd.setBounds(570, 403, 179, 37);
+		btnAdd.setBounds(583, 406, 179, 37);
 		add(btnAdd);
 		
-		JPanel panelNewItem = new JPanel();
+		panelNewItem = new JPanel();
+		panelNewItem.setVisible(false);
 		panelNewItem.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelNewItem.setBounds(447, 248, 300, 137);
+		panelNewItem.setBounds(447, 248, 315, 137);
 		add(panelNewItem);
 		panelNewItem.setLayout(null);
 		
 		textFieldNewItem1 = new JTextField();
-		textFieldNewItem1.setBounds(113, 8, 179, 20);
+		textFieldNewItem1.setFont(new Font("Calibri", Font.PLAIN, 13));
+		textFieldNewItem1.setBounds(126, 8, 179, 20);
 		panelNewItem.add(textFieldNewItem1);
 		textFieldNewItem1.setColumns(10);
 		
 		textFieldNewItem2 = new JTextField();
-		textFieldNewItem2.setBounds(113, 39, 177, 20);
+		textFieldNewItem2.setFont(new Font("Calibri", Font.PLAIN, 13));
+		textFieldNewItem2.setBounds(126, 39, 179, 20);
 		panelNewItem.add(textFieldNewItem2);
 		textFieldNewItem2.setColumns(10);
 		
 		textFieldNewItem3 = new JTextField();
-		textFieldNewItem3.setBounds(113, 70, 179, 20);
+		textFieldNewItem3.setFont(new Font("Calibri", Font.PLAIN, 13));
+		textFieldNewItem3.setBounds(126, 70, 179, 20);
 		panelNewItem.add(textFieldNewItem3);
 		textFieldNewItem3.setColumns(10);
 		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnCancel.setBounds(141, 106, 70, 20);
-		panelNewItem.add(btnCancel);
+		btnNewItemCancel = new JButton("Cancel");
+		btnNewItemCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelNewItemChange("");
+			}
+		});
+		btnNewItemCancel.setFont(new Font("Calibri", Font.PLAIN, 13));
+		btnNewItemCancel.setBounds(126, 106, 85, 20);
+		panelNewItem.add(btnNewItemCancel);
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnSave.setBounds(222, 106, 70, 20);
-		panelNewItem.add(btnSave);
+		btnNewItemSave = new JButton("Save");
+		btnNewItemSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				boolean hasField1 = !textFieldNewItem1.getText().isEmpty();
+				boolean hasField2 = !textFieldNewItem2.getText().isEmpty();
+				boolean hasField3 = !textFieldNewItem3.getText().isEmpty();
+				
+				if(hasField1)
+					textFieldNewItem1.setBackground(Color.WHITE);
+				else
+					textFieldNewItem1.setBackground(Color.PINK);
+				
+				if(addNewItemMode.equals("Owner") || addNewItemMode.equals("Custodian"))
+					if(hasField2)
+						textFieldNewItem2.setBackground(Color.WHITE);
+					else
+						textFieldNewItem2.setBackground(Color.PINK);
+					
+					if(hasField3)
+						textFieldNewItem3.setBackground(Color.WHITE);
+					else
+						textFieldNewItem3.setBackground(Color.PINK);
+				
+
+				System.out.println(addNewItemMode);
+					
+				String query;
+				query = "INSERT INTO ";
+				DBConnection DBcon = new DBConnection();
+				Connection con = DBcon.open();
+				
+				if(addNewItemMode.equals("Owner") || addNewItemMode.equals("Custodian")){
+					if(hasField1 && hasField2 && hasField3){
+						query +=" Person(firstname,middleinitial,lastname) values ('"+textFieldNewItem1.getText()+"','"+textFieldNewItem2.getText()+"','"+textFieldNewItem3.getText()+"');";
+
+						System.out.println(query);
+						DBcon.executeUpdate(con, query);
+
+
+						panelNewItemChange("");
+						fillComboBoxPerson();
+						fillComboBoxStorage();
+						fillComboBoxType();
+					}
+				}
+				else if(addNewItemMode.equals("Type")){
+					if(hasField1){
+						query +=" TypeLookUp(type) values ('"+textFieldNewItem1.getText()+"');";
+
+						System.out.println(query);
+						DBcon.executeUpdate(con, query);	
+
+
+						panelNewItemChange("");
+						fillComboBoxPerson();
+						fillComboBoxStorage();
+						fillComboBoxType();
+					}
+				}
+				else if(addNewItemMode.equals("Storage"))
+					if(hasField1){
+						query +=" Storage(storagelocation) values ('"+textFieldNewItem1.getText()+"');";
+
+						System.out.println(query);
+						DBcon.executeUpdate(con, query);	
+
+
+						panelNewItemChange("");
+						fillComboBoxPerson();
+						fillComboBoxStorage();
+						fillComboBoxType();
+					}
+				
+				
+				DBcon.close();
+			}
+		});
+		btnNewItemSave.setFont(new Font("Calibri", Font.PLAIN, 13));
+		btnNewItemSave.setBounds(222, 106, 70, 20);
+		panelNewItem.add(btnNewItemSave);
 		
-		JLabel lblNewItem1 = new JLabel("<label>");
-		lblNewItem1.setBounds(21, 11, 46, 14);
+		lblNewItem1 = new JLabel("Storage Location");
+		lblNewItem1.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNewItem1.setBounds(10, 8, 106, 14);
 		panelNewItem.add(lblNewItem1);
 		
-		JLabel lblNewItem2 = new JLabel("<label>");
-		lblNewItem2.setBounds(21, 42, 46, 14);
+		lblNewItem2 = new JLabel("<label>");
+		lblNewItem2.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNewItem2.setBounds(10, 39, 93, 14);
 		panelNewItem.add(lblNewItem2);
 		
-		JLabel lblNewItem3 = new JLabel("<label>");
-		lblNewItem3.setBounds(21, 73, 46, 14);
+		lblNewItem3 = new JLabel("<label>");
+		lblNewItem3.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblNewItem3.setBounds(10, 70, 93, 14);
 		panelNewItem.add(lblNewItem3);
 
 		fillComboBoxPerson();
 		fillComboBoxStorage();
+		fillComboBoxType();
 	}
 	
 	private void saveAsset(){
@@ -520,6 +616,25 @@ public class AddAssetScreen extends JPanel {
 				rs.first();
 				while(!rs.isAfterLast()){
 					cbxStorage.addItem(rs.getString(2));
+					rs.next();
+				}
+			}
+			DBcon.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	private void fillComboBoxType(){
+		cbxType.removeAllItems();
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs = DBcon.executeQuery(con, "select * from TypeLookUp;");
+		try{
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					cbxType.addItem(rs.getString(2));
 					rs.next();
 				}
 			}
@@ -740,7 +855,7 @@ public class AddAssetScreen extends JPanel {
 			mainScreen.panelViewAsset.updateAssetTable();
 		}
 	}
-	private void addNewItem(String field){
+	private void panelNewItemChange(String field){
 		textFieldNewItem1.setText("");
 		textFieldNewItem2.setText("");
 		textFieldNewItem3.setText("");
@@ -750,11 +865,62 @@ public class AddAssetScreen extends JPanel {
 		btnNewType.setVisible(false);
 		btnNewStorage.setVisible(false);
 		
-		
 		if(field.equals("Owner")){
+			panelNewItem.setBounds(410, 248, 315, 137);
+			textFieldNewItem2.setVisible(true);
+			lblNewItem2.setVisible(true);
 			
-		}
+			btnNewItemCancel.setBounds(126, 106,85,20);
+			btnNewItemSave.setBounds(222, 106,70,20);
 		
+			lblNewItem1.setText("First Name");
+			lblNewItem2.setText("Middle Initial");
+			lblNewItem3.setText("Last Name");
+		}
+		else if(field.equals("Custodian")){
+			panelNewItem.setBounds(410, 248, 315, 137);
+			textFieldNewItem2.setVisible(true);
+			lblNewItem2.setVisible(true);
+			
+			btnNewItemCancel.setBounds(126, 106,85,20);
+			btnNewItemSave.setBounds(222, 106,70,20);
+			
+			lblNewItem1.setText("First Name");
+			lblNewItem2.setText("Middle Initial");
+			lblNewItem3.setText("Last Name");
+		}
+		else if(field.equals("Type")){
+			panelNewItem.setBounds(410,326,315, 59);
+			textFieldNewItem2.setVisible(false);
+			lblNewItem2.setVisible(false);
+			
+			btnNewItemCancel.setBounds(126, 36, 85,20);
+			btnNewItemSave.setBounds(222,  36, 70,20);
+			
+			lblNewItem1.setText("Type");
+		}
+		else if(field.equals("Storage")){
+			panelNewItem.setBounds(410,326,315, 59);
+			textFieldNewItem2.setVisible(false);
+			lblNewItem2.setVisible(false);
+
+			btnNewItemCancel.setBounds(126, 36, 85,20);
+			btnNewItemSave.setBounds(222,  36, 70,20);
+			
+			lblNewItem1.setText("Storage Location");
+		}
+		else{
+			btnNewOwner.setVisible(true);
+			btnNewCustodian.setVisible(true);
+			btnNewType.setVisible(true);
+			btnNewStorage.setVisible(true);
+
+			panelNewItem.setVisible(false);
+			return;
+		}
+
+		panelNewItem.setVisible(true);
+		addNewItemMode = field;
 	}
 }
 
