@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import java.awt.FlowLayout;
-import net.miginfocom.swing.MigLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
