@@ -481,8 +481,7 @@ public class AdminUserScreen extends JPanel {
 	}
 	
 	public void fillSelectExisting() {
-		while (selectExistingComboBox.getItemCount() != 0)
-			selectExistingComboBox.removeItem(0);
+		selectExistingComboBox.removeAllItems();
 		
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT firstName, middleInitial, lastName FROM Person WHERE personID NOT IN (SELECT personID FROM UserAccount);");
