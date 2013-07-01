@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +27,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class assetScreen extends JPanel {
@@ -69,10 +72,20 @@ public class assetScreen extends JPanel {
 		tabbedPane.addTab("New tab", null, panel, null);
 		
 		JButton btnAddAsset = new JButton("Add Asset");
+		btnAddAsset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				goToAddAssetScreen();
+			}
+		});
 		btnAddAsset.setBounds(225, 11, 127, 23);
 		add(btnAddAsset);
 		
 		JButton btnUpdateAsset = new JButton("Update Asset");
+		btnUpdateAsset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				goToEditAssetScreen();
+			}
+		});
 		btnUpdateAsset.setBounds(362, 11, 127, 23);
 		add(btnUpdateAsset);
 		
@@ -293,5 +306,14 @@ public class assetScreen extends JPanel {
 			e.printStackTrace();
 		}
 		db.close();
+	}
+	
+	private void goToAddAssetScreen(){
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		mainScreen.changeCard((JPanel)mainScreen.panelCards, "panelAddAsset");
+	}
+	private void goToEditAssetScreen(){
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		mainScreen.changeCard((JPanel)mainScreen.panelCards, "panelEditAsset");
 	}
 }

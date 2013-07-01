@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import java.awt.Font;
 
 
 public class LogScreen extends JPanel {
@@ -27,10 +28,10 @@ public class LogScreen extends JPanel {
 		add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
 			},
 			new String[] {
 				"User", "Date", "Time", "Header", "Description"

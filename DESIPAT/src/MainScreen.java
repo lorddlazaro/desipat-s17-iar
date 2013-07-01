@@ -96,7 +96,6 @@ public class MainScreen extends JFrame {
 		btnViewAssets.setForeground(new Color(25, 25, 112));
 		btnViewAssets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				changeCard(panelCards, "panelViewAssets");
 			}
 		});
@@ -142,115 +141,8 @@ public class MainScreen extends JFrame {
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
 		
-		JPanel viewAssetScreen = new JPanel();
-		panelCards.add(viewAssetScreen, "panelViewAssets");
-		viewAssetScreen.setName("AddAsset");
-		viewAssetScreen.setLayout(null);
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"tomatocruncher", "tomatoblender"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setBounds(10, 77, 199, 319);
-		viewAssetScreen.add(list);
-		
-		JToggleButton tglbtnNewToggleButton = new JToggleButton("Include decomissioned assets");
-		tglbtnNewToggleButton.setBounds(10, 42, 199, 23);
-		viewAssetScreen.add(tglbtnNewToggleButton);
-		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"sort by name"}));
-		comboBox_2.setBounds(10, 11, 199, 20);
-		viewAssetScreen.add(comboBox_2);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Asset Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setBounds(222, 13, 528, 427);
-		viewAssetScreen.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JLabel label = new JLabel("Availability Value");
-		label.setBounds(195, 232, 130, 14);
-		panel_3.add(label);
-		
-		JLabel label_2 = new JLabel("Date Originally Acquired");
-		label_2.setBounds(12, 196, 136, 14);
-		panel_3.add(label_2);
-		
-		JLabel label_3 = new JLabel("Integrity Value");
-		label_3.setBounds(195, 196, 130, 14);
-		panel_3.add(label_3);
-		
-		JLabel label_4 = new JLabel("Maintenance");
-		label_4.setBounds(361, 196, 130, 14);
-		panel_3.add(label_4);
-		
-		JLabel label_5 = new JLabel("Classification");
-		label_5.setBounds(361, 158, 130, 14);
-		panel_3.add(label_5);
-		
-		JLabel label_6 = new JLabel("Confidential Value");
-		label_6.setBounds(195, 158, 130, 14);
-		panel_3.add(label_6);
-		
-		JLabel label_7 = new JLabel("Custodian");
-		label_7.setBounds(12, 158, 81, 14);
-		panel_3.add(label_7);
-		
-		JLabel label_8 = new JLabel("Owner");
-		label_8.setBounds(12, 121, 46, 14);
-		panel_3.add(label_8);
-		
-		JLabel label_9 = new JLabel("Financial Value");
-		label_9.setBounds(195, 121, 130, 14);
-		panel_3.add(label_9);
-		
-		JLabel label_10 = new JLabel("Type");
-		label_10.setBounds(361, 121, 130, 14);
-		panel_3.add(label_10);
-		
-		JButton btnNewButton_7 = new JButton("Update Asset");
-		btnNewButton_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				changeCard(panelCards, "panelEditAsset");
-			}
-		});
-		btnNewButton_7.setBounds(317, 385, 199, 30);
-		panel_3.add(btnNewButton_7);
-		
-		JLabel lblNewLabel_1 = new JLabel("Asset Name");
-		lblNewLabel_1.setBounds(0, 37, 530, 36);
-		panel_3.add(lblNewLabel_1);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		
-		JLabel lblNewLabel_4 = new JLabel("Identifier");
-		lblNewLabel_4.setBounds(232, 74, 55, 16);
-		panel_3.add(lblNewLabel_4);
-		
-		JLabel lblStatus = new JLabel("status");
-		lblStatus.setBounds(12, 231, 55, 16);
-		panel_3.add(lblStatus);
-		
-		JLabel lblStorage = new JLabel("Storage");
-		lblStorage.setBounds(361, 231, 55, 16);
-		panel_3.add(lblStorage);
-		
-		JButton button = new JButton("Add Asset");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				changeCard(panelCards, "panelAddAsset");
-			}
-		});
-		button.setBounds(10, 408, 199, 30);
-		viewAssetScreen.add(button);
+		assetScreen panelViewAsset = new assetScreen();
+		panelCards.add(panelViewAsset, "panelViewAssets");
 		
 		AddAssetScreen panelAddAsset = new AddAssetScreen();
 		panelCards.add(panelAddAsset, "panelAddAsset");
@@ -265,7 +157,7 @@ public class MainScreen extends JFrame {
 		panelCards.add(panelViewLogs, "panelViewLogs");
 		
 		panelAccountSettings = new UserScreen();
-		panelCards.add(panelAccountSettings, "name_19482159374026");
+		panelCards.add(panelAccountSettings, "panelAccountSettings");
 		
 		JButton btnAccountSettings = new JButton("Account Settings");
 		btnAccountSettings.addActionListener(new ActionListener() {
