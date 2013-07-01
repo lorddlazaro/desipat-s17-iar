@@ -271,7 +271,10 @@ public class assetScreen extends JPanel {
 				//lblIdentifier.setText(rs.getString("identifier"));
 				lblIdentifier.setText(rs.getString("identifier"));
 				lblName.setText(rs.getString("name"));
-				lblOwner.setText(rs.getString("ownerID"));
+				
+				ResultSet owner = db.executeQuery(db.c, "select firstName + middleInitial + lastName as fullName from person where personID ="+rs.getInt("ownerID")+";");
+				lblOwner.setText(owner.getString("fullName"));
+				
 				lblCustodian.setText(rs.getString("custodianID"));
 				lblType.setText(rs.getString("typeID"));
 				lblDateAcquired.setText(rs.getString("dateAcquired"));
