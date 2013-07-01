@@ -424,7 +424,7 @@ public class AdminUserScreen extends JPanel {
 	public int getExistingID(String fn, String mi, String ln) {
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT personID FROM Person WHERE firstName = '" + fn + "' AND middleInitial = '" + mi + "' AND lastName = '" + ln + "';");
-			if (!rs.isBeforeFirst()) {
+			if (rs.isBeforeFirst()) {
 				rs.first();
 				return rs.getInt(1);
 			}
@@ -442,9 +442,18 @@ public class AdminUserScreen extends JPanel {
 
 		dbHandler.executeUpdate(conn, "DELETE FROM UserAccount WHERE userID = " + selectedUserID + ";");
 		refreshScreen();
+		
+		usernameTextField.setText("");
+		passwordTextField.setText("");
+		firstNameTextField.setText("");
+		middleInitTextField.setText("");
+		lastNameTextField.setText("");
 	}
 	
 	public void fillSelectExisting() {
+		while (selectExistingComboBox.getItemCount() != 0)
+			selectExistingComboBox.removeItem(0);
+		
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT firstName, middleInitial, lastName FROM Person WHERE personID NOT IN (SELECT personID FROM UserAccount);");
 			if (rs.isBeforeFirst()) {

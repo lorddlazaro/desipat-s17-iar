@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.util.regex.*;
+import javax.swing.JTextPane;
 
 public class UserScreen extends JPanel {
 	private JTextField usernameField;
@@ -41,15 +42,15 @@ public class UserScreen extends JPanel {
 	private JLabel middleInitLabel;
 	private JPanel assetSummary;
 	private JLabel lblSummaryTable;
-	private JLabel lblNetWorthList;
-	private JLabel lblMostValuableAssetList;
+	private JTextPane lblNetWorthList;
+	private JTextPane lblNewestAssetList;
+	private JTextPane lblMostValuableAssetList;
 	
 	private User currUser;
 	private int currUserID;
 	private DBConnection dbHandler;
 	private Connection conn;
 	private JButton changeNameButton;
-	private JLabel lblNewestAssetList;
 	
 	/**
 	 * Create the panel.
@@ -210,17 +211,19 @@ public class UserScreen extends JPanel {
 		lblMostValuableAssets.setBounds(10, 184, 139, 14);
 		assetSummary.add(lblMostValuableAssets);
 		
-		lblNetWorthList = new JLabel("");
-		lblNetWorthList.setBounds(10, 69, 99, 33);
+		lblNetWorthList = new JTextPane();
+		lblNetWorthList.setEditable(false);
+		lblNetWorthList.setBounds(10, 59, 139, 22);
 		assetSummary.add(lblNetWorthList);
 		
-		
-		lblNewestAssetList = new JLabel("");
-		lblNewestAssetList.setBounds(10, 138, 99, 35);
+		lblNewestAssetList = new JTextPane();
+		lblNewestAssetList.setEditable(false);
+		lblNewestAssetList.setBounds(10, 127, 172, 46);
 		assetSummary.add(lblNewestAssetList);
 		
-		lblMostValuableAssetList = new JLabel("");
-		lblMostValuableAssetList.setBounds(10, 209, 99, 61);
+		lblMostValuableAssetList = new JTextPane();
+		lblMostValuableAssetList.setEditable(false);
+		lblMostValuableAssetList.setBounds(10, 209, 172, 46);
 		assetSummary.add(lblMostValuableAssetList);
 
 	}
@@ -405,11 +408,9 @@ public class UserScreen extends JPanel {
 	{
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT SUM(financialValue) FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ");");
-			rs.first();
-			int count=1;
-			while (!rs.isAfterLast() && count <= 5) {
-				lblNetWorthList.setText(lblNetWorthList.getText() + "\n" + rs.getString(count));
-				count++;
+			if (rs.isBeforeFirst()) {
+				rs.first();
+				lblNetWorthList.setText(lblNetWorthList.getText() + "\n" + rs.getInt(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -419,11 +420,13 @@ public class UserScreen extends JPanel {
 	{
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ") ORDER BY dateAcquired DESC;");
-			rs.first();
-			int count = 1;
-			while (!rs.isAfterLast() && count <= 5) {
-				lblNewestAssetList.setText(lblNewestAssetList.getText() + "\n" + rs.getString(count));
-				count++;
+			if (rs.isBeforeFirst()) {
+				rs.first();
+				int count = 1;
+				while (!rs.isAfterLast() && count <= 5) {
+					lblNewestAssetList.setText(lblNewestAssetList.getText() + "\n" + rs.getString(1));
+					count++;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -434,12 +437,14 @@ public class UserScreen extends JPanel {
 	{
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUserID + ") ORDER BY financialValue DESC;");
-			rs.first();
-			int count = 1;
-			while (!rs.isAfterLast() && count <= 5) {
-				System.out.println(rs.getString(count));
-				lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(count));
-				count++;
+			if (rs.isBeforeFirst()) {
+				rs.first();
+				int count = 1;
+				while (!rs.isAfterLast() && count <= 5) {
+					System.out.println(rs.getString(count));
+					lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(count));
+					count++;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
