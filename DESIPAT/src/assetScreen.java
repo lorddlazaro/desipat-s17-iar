@@ -220,7 +220,7 @@ public class assetScreen extends JPanel {
 		System.out.println("before query1");
 		db.open();
 		System.out.println("before query");
-		ResultSet rs = db.executeQuery(db.c, "select identifier,name,ownerID,custodianID from asset;");
+		ResultSet rs = db.executeQuery(db.c, "select identifier,name from asset;");
 		try {
 			table.setModel(buildTableModel(rs));
 		} catch (SQLException e) {
