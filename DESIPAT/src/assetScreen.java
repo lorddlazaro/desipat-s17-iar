@@ -22,6 +22,10 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
 
 
 public class assetScreen extends JPanel {
@@ -31,7 +35,6 @@ public class assetScreen extends JPanel {
 	 */
 	DBConnection db;
 	private JTable table;
-	private JPanel panel_3;
 	private JLabel lblIdentifier;
 	private JLabel lblName;
 	private JLabel lblOwner;
@@ -52,148 +55,148 @@ public class assetScreen extends JPanel {
 		table = new JTable();
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(10, 11, 160, 539);
+		table.setBounds(10, 11, 205, 432);
 		add(table);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(323, 415, 451, 135);
+		tabbedPane.setBounds(225, 228, 537, 215);
 		add(tabbedPane);
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("New tab", null, panel_1, null);
 		
-		panel_3 = new JPanel();
-		panel_3.setBounds(518, 75, 127, 313);
-		add(panel_3);
-		panel_3.setLayout(null);
-		
-		lblIdentifier = new JLabel("Identifier:");
-		lblIdentifier.setBounds(5, 5, 90, 14);
-		panel_3.add(lblIdentifier);
-		
-		lblName = new JLabel("Name:");
-		lblName.setBounds(5, 19, 90, 14);
-		panel_3.add(lblName);
-		
-		lblOwner = new JLabel("Owner:");
-		lblOwner.setBounds(8, 32, 36, 14);
-		panel_3.add(lblOwner);
-		
-		lblCustodian = new JLabel("Custodian:");
-		lblCustodian.setBounds(6, 46, 52, 14);
-		panel_3.add(lblCustodian);
-		
-		lblType = new JLabel("Type:");
-		lblType.setBounds(7, 65, 28, 14);
-		panel_3.add(lblType);
-		
-		lblDateAcquired = new JLabel("Date acquired:");
-		lblDateAcquired.setBounds(7, 81, 71, 14);
-		panel_3.add(lblDateAcquired);
-		
-		lblStatus = new JLabel("Status:");
-		lblStatus.setBounds(43, 100, 35, 14);
-		panel_3.add(lblStatus);
-		
-		lblMaintenance = new JLabel("Maintenance Schedule:");
-		lblMaintenance.setBounds(6, 115, 111, 14);
-		panel_3.add(lblMaintenance);
-		
-		lblFinancialValue = new JLabel("Financial Value:");
-		lblFinancialValue.setBounds(6, 138, 74, 14);
-		panel_3.add(lblFinancialValue);
-		
-		lblConfidentialValue = new JLabel("Confidential Value:");
-		lblConfidentialValue.setBounds(17, 158, 90, 14);
-		panel_3.add(lblConfidentialValue);
-		
-		lblIntegrityValue = new JLabel("Integrity Value:");
-		lblIntegrityValue.setBounds(5, 176, 75, 14);
-		panel_3.add(lblIntegrityValue);
-		
-		lblAvailabilityValue = new JLabel("Availability Value:");
-		lblAvailabilityValue.setBounds(11, 195, 84, 14);
-		panel_3.add(lblAvailabilityValue);
-		
-		lblClassification = new JLabel("Classification:");
-		lblClassification.setBounds(10, 214, 66, 14);
-		panel_3.add(lblClassification);
-		
-		lblStorageLocation = new JLabel("Storage Location:");
-		lblStorageLocation.setBounds(6, 229, 85, 14);
-		panel_3.add(lblStorageLocation);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBounds(180, 45, 127, 313);
-		add(panel_2);
-		
-		JLabel label = new JLabel("Identifier:");
-		label.setBounds(5, 5, 48, 14);
-		panel_2.add(label);
-		
-		JLabel label_1 = new JLabel("Name:");
-		label_1.setBounds(5, 19, 31, 14);
-		panel_2.add(label_1);
-		
-		JLabel label_2 = new JLabel("Owner:");
-		label_2.setBounds(8, 32, 36, 14);
-		panel_2.add(label_2);
-		
-		JLabel label_3 = new JLabel("Custodian:");
-		label_3.setBounds(6, 46, 52, 14);
-		panel_2.add(label_3);
-		
-		JLabel label_4 = new JLabel("Type:");
-		label_4.setBounds(7, 65, 28, 14);
-		panel_2.add(label_4);
-		
-		JLabel label_5 = new JLabel("Date acquired:");
-		label_5.setBounds(7, 81, 71, 14);
-		panel_2.add(label_5);
-		
-		JLabel label_6 = new JLabel("Status:");
-		label_6.setBounds(43, 100, 35, 14);
-		panel_2.add(label_6);
-		
-		JLabel label_7 = new JLabel("Maintenance Schedule:");
-		label_7.setBounds(6, 115, 111, 14);
-		panel_2.add(label_7);
-		
-		JLabel label_8 = new JLabel("Financial Value:");
-		label_8.setBounds(6, 138, 74, 14);
-		panel_2.add(label_8);
-		
-		JLabel label_9 = new JLabel("Confidential Value:");
-		label_9.setBounds(17, 158, 90, 14);
-		panel_2.add(label_9);
-		
-		JLabel label_10 = new JLabel("Integrity Value:");
-		label_10.setBounds(5, 176, 75, 14);
-		panel_2.add(label_10);
-		
-		JLabel label_11 = new JLabel("Availability Value:");
-		label_11.setBounds(11, 195, 84, 14);
-		panel_2.add(label_11);
-		
-		JLabel label_12 = new JLabel("Classification:");
-		label_12.setBounds(10, 214, 66, 14);
-		panel_2.add(label_12);
-		
-		JLabel label_13 = new JLabel("Storage Location:");
-		label_13.setBounds(6, 229, 85, 14);
-		panel_2.add(label_13);
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("New tab", null, panel, null);
 		
 		JButton btnAddAsset = new JButton("Add Asset");
-		btnAddAsset.setBounds(180, 11, 89, 23);
+		btnAddAsset.setBounds(225, 11, 127, 23);
 		add(btnAddAsset);
 		
 		JButton btnUpdateAsset = new JButton("Update Asset");
-		btnUpdateAsset.setBounds(279, 11, 104, 23);
+		btnUpdateAsset.setBounds(362, 11, 127, 23);
 		add(btnUpdateAsset);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(225, 46, 537, 171);
+		add(panel_4);
+		panel_4.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(100dlu;default)"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(124dlu;default)"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		JLabel label = new JLabel("Identifier:");
+		panel_4.add(label, "2, 2");
+		
+		lblIdentifier = new JLabel("Identifier:");
+		panel_4.add(lblIdentifier, "4, 2");
+		
+		JLabel label_7 = new JLabel("Maintenance Schedule:");
+		panel_4.add(label_7, "6, 2");
+		
+		lblMaintenance = new JLabel("Maintenance Schedule:");
+		panel_4.add(lblMaintenance, "8, 2");
+		
+		JLabel label_1 = new JLabel("Name:");
+		panel_4.add(label_1, "2, 4");
+		
+		lblName = new JLabel("Name:");
+		panel_4.add(lblName, "4, 4");
+		
+		JLabel label_8 = new JLabel("Financial Value:");
+		panel_4.add(label_8, "6, 4");
+		
+		lblFinancialValue = new JLabel("Financial Value:");
+		panel_4.add(lblFinancialValue, "8, 4");
+		
+		JLabel label_2 = new JLabel("Owner:");
+		panel_4.add(label_2, "2, 6");
+		
+		lblOwner = new JLabel("Owner:");
+		panel_4.add(lblOwner, "4, 6");
+		
+		JLabel label_9 = new JLabel("Confidential Value:");
+		panel_4.add(label_9, "6, 6");
+		
+		lblConfidentialValue = new JLabel("Confidential Value:");
+		panel_4.add(lblConfidentialValue, "8, 6");
+		
+		JLabel label_3 = new JLabel("Custodian:");
+		panel_4.add(label_3, "2, 8");
+		
+		lblCustodian = new JLabel("Custodian:");
+		panel_4.add(lblCustodian, "4, 8");
+		
+		JLabel label_10 = new JLabel("Integrity Value:");
+		panel_4.add(label_10, "6, 8");
+		
+		lblIntegrityValue = new JLabel("Integrity Value:");
+		panel_4.add(lblIntegrityValue, "8, 8");
+		
+		JLabel label_4 = new JLabel("Type:");
+		panel_4.add(label_4, "2, 10");
+		
+		lblType = new JLabel("Type:");
+		panel_4.add(lblType, "4, 10");
+		
+		JLabel label_11 = new JLabel("Availability Value:");
+		panel_4.add(label_11, "6, 10");
+		
+		lblAvailabilityValue = new JLabel("Availability Value:");
+		panel_4.add(lblAvailabilityValue, "8, 10");
+		
+		JLabel label_5 = new JLabel("Date acquired:");
+		panel_4.add(label_5, "2, 12");
+		
+		lblDateAcquired = new JLabel("Date acquired:");
+		panel_4.add(lblDateAcquired, "4, 12");
+		
+		JLabel label_13 = new JLabel("Storage Location:");
+		panel_4.add(label_13, "6, 12");
+		
+		lblClassification = new JLabel("Classification:");
+		panel_4.add(lblClassification, "8, 12");
+		
+		JLabel label_6 = new JLabel("Status:");
+		panel_4.add(label_6, "2, 14");
+		
+		lblStatus = new JLabel("Status:");
+		panel_4.add(lblStatus, "4, 14");
+		
+		JLabel label_12 = new JLabel("Classification:");
+		panel_4.add(label_12, "6, 14");
+		
+		lblStorageLocation = new JLabel("Storage Location:");
+		panel_4.add(lblStorageLocation, "8, 14");
 		
 		db = new DBConnection();
 		updateAssetTable();
