@@ -53,116 +53,124 @@ public class EditAssetScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public EditAssetScreen(/*Asset a, ArrayList<String>personList,ArrayList<String>storageList*/) {
+		
+		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		//asset=a;
 		//this.personList=personList;
 		//this.storageList=storageList;
 		JLabel lblAddNewAsset = new JLabel("Edit Asset");
 		lblAddNewAsset.setFont(new Font("Segoe WP", Font.PLAIN, 23));
-		lblAddNewAsset.setBounds(26, 24, 168, 29);
+		lblAddNewAsset.setBounds(10, 11, 168, 29);
 		add(lblAddNewAsset);
-
+		
 		JLabel lblOwner = new JLabel("Owner");
 		lblOwner.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblOwner.setBounds(26, 326, 46, 14);
+		lblOwner.setBounds(50, 268, 46, 14);
 		add(lblOwner);
-
+		
 		JLabel lblName = new JLabel("Name");
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblName.setBounds(26, 87, 46, 14);
+		lblName.setBounds(50, 76, 46, 14);
 		add(lblName);
-
+		
 		JLabel lblType = new JLabel("Type");
 		lblType.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblType.setBounds(26, 264, 46, 14);
+		lblType.setBounds(50, 352, 46, 14);
 		add(lblType);
-
+		
 		JLabel lblMaintenanceSchedule = new JLabel("Maintenance Schedule");
 		lblMaintenanceSchedule.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblMaintenanceSchedule.setBounds(26, 235, 143, 14);
+		lblMaintenanceSchedule.setBounds(50, 225, 143, 14);
 		add(lblMaintenanceSchedule);
-
+		
 		JLabel lblValue = new JLabel("Value");
 		lblValue.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblValue.setBounds(410, 65, 46, 14);
+		lblValue.setBounds(410, 51, 46, 14);
 		add(lblValue);
-
+		
 		JLabel lblConfidentiality = new JLabel("Confidentiality:");
 		lblConfidentiality.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblConfidentiality.setBounds(410, 155, 88, 14);
+		lblConfidentiality.setBounds(433, 106, 88, 14);
 		add(lblConfidentiality);
-
+		
 		JLabel lblIntegrity = new JLabel("Integrity:");
 		lblIntegrity.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblIntegrity.setBounds(410, 200, 88, 14);
+		lblIntegrity.setBounds(433, 151, 88, 14);
 		add(lblIntegrity);
-
+		
 		JLabel lblAvailability = new JLabel("Availability:");
 		lblAvailability.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblAvailability.setBounds(410, 253, 88, 14);
+		lblAvailability.setBounds(431, 194, 88, 14);
 		add(lblAvailability);
-
+		
 		JLabel lblFinancial = new JLabel("Financial:");
 		lblFinancial.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblFinancial.setBounds(410, 114, 88, 14);
+		lblFinancial.setBounds(433, 76, 88, 14);
 		add(lblFinancial);
-
+		
 		JLabel lblBasicInformation = new JLabel("Basic Information");
 		lblBasicInformation.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblBasicInformation.setBounds(26, 64, 148, 14);
+		lblBasicInformation.setBounds(30, 51, 148, 14);
 		add(lblBasicInformation);
-
+		
 		JLabel lblStatus = new JLabel("Status");
 		lblStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblStatus.setBounds(26, 113, 88, 14);
+		lblStatus.setBounds(50, 111, 88, 14);
 		add(lblStatus);
-
+		
 		JLabel lblCustodian = new JLabel("Custodian");
 		lblCustodian.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblCustodian.setBounds(26, 354, 88, 14);
+		lblCustodian.setBounds(50, 310, 88, 14);
 		add(lblCustodian);
-
+		
 		JLabel lblStorageLocation = new JLabel("Storage Location");
 		lblStorageLocation.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblStorageLocation.setBounds(26, 296, 115, 14);
+		lblStorageLocation.setBounds(50, 393, 115, 14);
 		add(lblStorageLocation);
-
+		
 		JLabel lblClassification = new JLabel("Classification");
 		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblClassification.setBounds(26, 139, 88, 14);
+		lblClassification.setBounds(50, 139, 88, 14);
 		add(lblClassification);
+
 
 		cbxType = new JComboBox();
 		cbxType.setModel(new DefaultComboBoxModel(new String[] {"Document", "Equipment", "Product"}));
 		cbxType.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxType.setBounds(77, 261, 124, 20);
+		cbxType.setBounds(194, 349, 174, 20);
 		add(cbxType);
-
+		
 		txtName = new JTextField();
 		txtName.setFont(new Font("Calibri", Font.PLAIN, 14));
-		txtName.setBounds(70, 84, 124, 20);
+		txtName.setBounds(194, 73, 174, 20);
 		add(txtName);
 		txtName.setColumns(10);
-
+		
 		sldConfidentiality = new JSlider();
+		sldConfidentiality.setMajorTickSpacing(1);
+		sldConfidentiality.setBackground(SystemColor.inactiveCaption);
 		sldConfidentiality.setPaintTicks(true);
 		sldConfidentiality.setMinimum(1);
 		sldConfidentiality.setValue(0);
 		sldConfidentiality.setMaximum(5);
 		sldConfidentiality.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldConfidentiality.setBounds(510, 150, 100, 37);
+		sldConfidentiality.setBounds(531, 106, 197, 29);
 		add(sldConfidentiality);
-
+		
 		sldIntegrity = new JSlider();
+		sldIntegrity.setMajorTickSpacing(1);
+		sldIntegrity.setBackground(SystemColor.inactiveCaption);
 		sldIntegrity.setPaintTicks(true);
 		sldIntegrity.setMinimum(1);
 		sldIntegrity.setMaximum(5);
 		sldIntegrity.setValue(0);
 		sldIntegrity.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldIntegrity.setBounds(510, 200, 100, 29);
+		sldIntegrity.setBounds(531, 151, 197, 29);
 		add(sldIntegrity);
-
+		
 		sldAvailability = new JSlider();
+		sldAvailability.setBackground(SystemColor.inactiveCaption);
 		sldAvailability.setMinimum(1);
 		sldAvailability.setMajorTickSpacing(1);
 		sldAvailability.setPaintTicks(true);
@@ -170,35 +178,35 @@ public class EditAssetScreen extends JPanel {
 		sldAvailability.setValue(0);
 		sldAvailability.setMaximum(5);
 		sldAvailability.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldAvailability.setBounds(510, 253, 100, 50);
+		sldAvailability.setBounds(531, 192, 195, 47);
 		add(sldAvailability);
-
+		
 		txtFinancial = new JTextField();
 		txtFinancial.setFont(new Font("Calibri", Font.PLAIN, 12));
-		txtFinancial.setBounds(486, 112, 115, 20);
+		txtFinancial.setBounds(531, 74, 195, 20);
 		add(txtFinancial);
 		txtFinancial.setColumns(10);
-
+		
 		cbxStorage = new JComboBox();
 		cbxStorage.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxStorage.setBounds(156, 293, 124, 20);
+		cbxStorage.setBounds(194, 390, 174, 20);
 		add(cbxStorage);
-
+		
 		cbxClassification = new JComboBox();
 		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential"}));
 		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxClassification.setBounds(114, 139, 87, 20);
+		cbxClassification.setBounds(194, 133, 174, 20);
 		add(cbxClassification);
-
+		
 		cbxMaintenance = new JComboBox();
 		cbxMaintenance.setModel(new DefaultComboBoxModel(new String[] {"Daily", "Weekly", "Monthly", "Yearly"}));
 		cbxMaintenance.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxMaintenance.setBounds(165, 232, 69, 20);
+		cbxMaintenance.setBounds(194, 222, 174, 20);
 		add(cbxMaintenance);
-
+		
 		JLabel lblDateAcquired = new JLabel("Date Acquired");
 		lblDateAcquired.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblDateAcquired.setBounds(26, 169, 88, 14);
+		lblDateAcquired.setBounds(50, 170, 88, 14);
 		add(lblDateAcquired);
 
 		cbxMonth = new JComboBox();
@@ -213,9 +221,9 @@ public class EditAssetScreen extends JPanel {
 		});
 		cbxMonth.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"}));
 		cbxMonth.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxMonth.setBounds(124, 171, 100, 20);
+		cbxMonth.setBounds(136, 171, 96, 20);
 		add(cbxMonth);
-
+		
 		cbxDay = new JComboBox();
 		dayList=new ArrayList<String>();
 		for(int day=1;day<=28;day++)
@@ -225,9 +233,9 @@ public class EditAssetScreen extends JPanel {
 		days=dayList.toArray(new String[dayList.size()]);
 		cbxDay.setModel(new DefaultComboBoxModel(days));
 		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxDay.setBounds(234, 169, 46, 20);
+		cbxDay.setBounds(244, 171, 53, 20);
 		add(cbxDay);
-
+		
 		cbxYear = new JComboBox();
 		ArrayList<String>yearList=new ArrayList<String>();
 		for(int year=1900;year<=2050;year++)
@@ -237,25 +245,26 @@ public class EditAssetScreen extends JPanel {
 		String[] years=yearList.toArray(new String[yearList.size()]);
 		cbxYear.setModel(new DefaultComboBoxModel(years));
 		cbxYear.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxYear.setBounds(292, 169, 59, 20);
+		cbxYear.setBounds(309, 171, 59, 20);
 		add(cbxYear);
-
+		
 		JLabel lblMonth = new JLabel("Month");
 		lblMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblMonth.setBounds(127, 190, 46, 14);
+		lblMonth.setBounds(151, 191, 46, 14);
 		add(lblMonth);
-
+		
 		JLabel lblDay = new JLabel("Day");
 		lblDay.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblDay.setBounds(234, 188, 32, 14);
+		lblDay.setBounds(257, 191, 32, 14);
 		add(lblDay);
-
+		
 		JLabel lblYear = new JLabel("Year");
 		lblYear.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lblYear.setBounds(292, 188, 46, 14);
+		lblYear.setBounds(316, 191, 46, 14);
 		add(lblYear);
-
-		JButton btnEdit = new JButton("SAVE CHANGES");
+		
+		JButton btnEdit = new JButton("Save Changes");
+		btnEdit.setBackground(SystemColor.activeCaption);
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(validInput())
@@ -264,33 +273,23 @@ public class EditAssetScreen extends JPanel {
 			}
 		});
 		btnEdit.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnEdit.setBounds(460, 326, 150, 53);
+		btnEdit.setBounds(583, 406, 179, 37);
 		add(btnEdit);
-
+		
 		cbxOwner = new JComboBox();
 		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxOwner.setBounds(98, 322, 182, 20);
+		cbxOwner.setBounds(194, 265, 174, 20);
 		add(cbxOwner);
-
+		
 		cbxCustodian = new JComboBox();
 		cbxCustodian.setFont(new Font("Calibri", Font.PLAIN, 14));
-		cbxCustodian.setBounds(98, 350, 182, 20);
+		cbxCustodian.setBounds(194, 307, 174, 20);
 		add(cbxCustodian);
-
-		JLabel lblRetentionPeriod = new JLabel("Retention Period");
-		lblRetentionPeriod.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblRetentionPeriod.setBounds(26, 207, 100, 16);
-		add(lblRetentionPeriod);
-
-		txtRetention = new JTextField();
-		txtRetention.setBounds(138, 209, 114, 20);
-		add(txtRetention);
-		txtRetention.setColumns(10);
-
+		
 		chckbxStatus = new JCheckBox("Asset is Active");
 		chckbxStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
 		chckbxStatus.setBackground(SystemColor.inactiveCaption);
-		chckbxStatus.setBounds(97, 107, 126, 23);
+		chckbxStatus.setBounds(194, 102, 126, 23);
 		add(chckbxStatus);
 
 
