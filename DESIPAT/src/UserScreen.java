@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 
 import java.util.regex.*;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 public class UserScreen extends JPanel {
 	private JTextField usernameField;
@@ -216,16 +217,19 @@ public class UserScreen extends JPanel {
 		assetSummary.add(lblMostValuableAssets);
 		
 		lblNetWorthList = new JTextPane();
+		lblNetWorthList.setBackground(UIManager.getColor("Button.background"));
 		lblNetWorthList.setEditable(false);
 		lblNetWorthList.setBounds(10, 59, 139, 22);
 		assetSummary.add(lblNetWorthList);
 		
 		lblNewestAssetList = new JTextPane();
+		lblNewestAssetList.setBackground(UIManager.getColor("Button.background"));
 		lblNewestAssetList.setEditable(false);
 		lblNewestAssetList.setBounds(10, 127, 172, 46);
 		assetSummary.add(lblNewestAssetList);
 		
 		lblMostValuableAssetList = new JTextPane();
+		lblMostValuableAssetList.setBackground(UIManager.getColor("Button.background"));
 		lblMostValuableAssetList.setEditable(false);
 		lblMostValuableAssetList.setBounds(10, 209, 172, 46);
 		assetSummary.add(lblMostValuableAssetList);
