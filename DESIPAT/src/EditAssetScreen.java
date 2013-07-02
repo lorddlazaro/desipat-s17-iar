@@ -474,6 +474,8 @@ public class EditAssetScreen extends JPanel {
 			
 			MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
 			
+			if(custodianID.equals(""))
+				custodianID = "1";
 			
 			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "name", txtName.getText());
 			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "ownerid", ownerID);
