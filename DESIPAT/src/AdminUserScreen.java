@@ -468,7 +468,7 @@ public class AdminUserScreen extends JPanel {
 				e.printStackTrace();
 			}
 			
-			if (personID == 0) {
+			if (personID == -1) {
 				dbHandler.executeUpdate(conn, "INSERT INTO Person (firstname, middleinitial, lastname) values ('" + firstName + "', '" + ((middleInit.length() == 0)? "" : middleInit.charAt(0)) + "', '" + lastName + "');");
 				dbHandler.executeUpdate(conn, "UPDATE UserAccount SET personID = (SELECT LAST_INSERT_ID()) WHERE userID = " + selectedUserID + ";");
 			}
