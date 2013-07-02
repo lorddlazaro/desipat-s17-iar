@@ -151,6 +151,7 @@ public class LoginScreen extends JPanel {
 		mainScreen.changeWindowSize(800, 600);
 		mainScreen.lblUsername.setText(username);
 		mainScreen.currentUserID = userID;
+		int clearance=0;
 		
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
@@ -162,10 +163,30 @@ public class LoginScreen extends JPanel {
 			}
 			else
 				mainScreen.lblLastLogin.setText("");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		rs = DBcon.executeQuery(con, "SELECT clearanceid FROM useraccount where userid = '"+userID+"';");
+		try{
+			if(rs.isBeforeFirst()){
+				rs.first();
+				clearance = rs.getInt(1);
+			}
 			DBcon.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+		
+		if(clearance == 1)
+			mainScreen.btnViewAssets.setEnabled(false);
+		else if(clearance == 2 || clearance == 3)
+			mainScreen.btnManageAccounts.setEnabled(false);
+		else if(clearance == 4){
+			mainScreen.btnViewAssets.setEnabled(false);
+			mainScreen.btnManageAccounts.setEnabled(false);
 		}
 
 		mainScreen.panelCards.remove(mainScreen.panelAccountSettings);
