@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JComboBox;
@@ -409,6 +410,31 @@ public class AdminUserScreen extends JPanel {
 				} catch(SQLException e) {
 					e.printStackTrace();
 				}
+				
+				
+	// ACTIONLOGGER
+				MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+				DBConnection DBcon = new DBConnection();
+				Connection con = DBcon.open();
+				ResultSet rs2;
+				
+				String username2="";
+				try{
+					rs = DBcon.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
+				
+					if(rs.isBeforeFirst()){
+						rs.first();
+						username = rs.getString(1);
+					}
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				ActionLogger.createdAccount(mainScreen.currentUserID, username);
+	/// ACTION LOGGER END
+				
+				
 			}
 			else {
 				selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
@@ -470,9 +496,35 @@ public class AdminUserScreen extends JPanel {
 			return;
 		
 		int selectedUserID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
-
+		
+		
 		dbHandler.executeUpdate(conn, "DELETE FROM UserAccount WHERE userID = " + selectedUserID + ";");
 		refreshScreen();
+		
+		
+		
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs;
+		
+		String username="";
+		try{
+			rs = DBcon.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
+		
+			if(rs.isBeforeFirst()){
+				rs.first();
+				username = rs.getString(1);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		ActionLogger.deletedAccount(mainScreen.currentUserID, username);
+		
+		
+		
 		
 		usernameTextField.setText("");
 		passwordTextField.setText("");

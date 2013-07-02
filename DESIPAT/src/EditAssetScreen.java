@@ -454,8 +454,26 @@ public class EditAssetScreen extends JPanel {
 			catch(Exception e){
 				e.printStackTrace();
 			}
-
+			
 			int status = (chckbxStatus.isSelected()?1:0);
+			
+			MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+			
+			
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "name", txtName.getText());
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "ownerid", ownerID);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "custodianID", custodianID);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "typeID", typeID);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "dateAcquired", dateAcquired);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "status", String.valueOf(status));
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "maintID", maintID);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "financialValue", txtFinancial.getText());
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "confidentialValue", String.valueOf(sldConfidentiality.getValue()));
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "integrityValue", String.valueOf(sldIntegrity.getValue()));
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "availabilityValue", String.valueOf(sldAvailability.getValue()));
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "classID", classID);
+			ActionLogger.updatedAssetField(mainScreen.currentUserID, txtName.getText(), "storageID", storageID);
+			
 			String query = "UPDATE Asset SET name='"+txtName.getText()+"', ownerID='"+ownerID+"',custodianID='"+ custodianID +"',typeID='"+
 			typeID +"',dateAcquired='"+ dateAcquired +"',status='" +status+
 					"',maintID='"+maintID +"',financialValue='"+

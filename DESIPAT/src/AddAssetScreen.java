@@ -572,6 +572,9 @@ public class AddAssetScreen extends JPanel {
 			e.printStackTrace();
 		}
 		
+		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
+		ActionLogger.addedAsset(mainScreen.currentUserID, txtName.getText());
+		
 		int status = (chckbxStatus.isSelected()?1:0);
 		String query = "INSERT INTO Asset(name,ownerID,custodianID,typeID,dateAcquired,status" +
 				",maintID,financialValue,confidentialValue,integrityValue,availabilityValue,classID,storageID)" +
