@@ -559,6 +559,7 @@ public class AdminUserScreen extends JPanel {
 		passwordTextField.setEditable(true);
 		passwordTextField.setText("");
 		clearanceComboBox.setEnabled(true);
+		selectExistingComboBox.setEnabled(true);
 		firstNameTextField.setEditable(true);
 		firstNameTextField.setText("");
 		middleInitTextField.setEditable(true);
