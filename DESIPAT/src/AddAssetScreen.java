@@ -514,7 +514,7 @@ public class AddAssetScreen extends JPanel {
 		String maintID = "";
 		String classID = "";
 		String storageID = "";
-		String dateAcquired = cbxYear.getSelectedItem() + "-" + cbxMonth.getSelectedIndex() + "-" + cbxDay.getSelectedItem();
+		String dateAcquired = cbxYear.getSelectedItem() + "-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
 		
 
 		DBConnection DBcon = new DBConnection();
