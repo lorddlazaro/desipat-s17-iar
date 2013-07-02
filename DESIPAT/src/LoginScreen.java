@@ -128,7 +128,7 @@ public class LoginScreen extends JPanel {
 		
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
-		ResultSet rs = DBcon.executeQuery(con, "select * from UserAccount;");
+		ResultSet rs = DBcon.executeQuery(con, "select * from UserAccount where isactive = 1;");
 		try{
 			if(rs.isBeforeFirst()){
 				rs.first();
