@@ -58,7 +58,6 @@ public class AdminUserScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public AdminUserScreen() {
-		setBackground(new Color(46, 139, 87));
 		setLayout(null);
 		
 		tablePanel = new JPanel();
@@ -72,7 +71,6 @@ public class AdminUserScreen extends JPanel {
 		tablePanel.add(scrollPane);
 		
 		userTable = new JTable();
-		userTable.setFont(new Font("Calibri", Font.PLAIN, 13));
 		userTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -98,7 +96,7 @@ public class AdminUserScreen extends JPanel {
 		lblAdminSettings = new JLabel("Admin Settings");
 		lblAdminSettings.setBounds(10, 11, 258, 34);
 		add(lblAdminSettings);
-		lblAdminSettings.setFont(new Font("Segoe WP", Font.PLAIN, 23));
+		lblAdminSettings.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		
 		detailsPanel = new JPanel();
 		detailsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -107,7 +105,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.setLayout(null);
 		
 		lblUserDetails = new JLabel("User Details");
-		lblUserDetails.setFont(new Font("Segoe WP", Font.PLAIN, 19));
+		lblUserDetails.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUserDetails.setBounds(10, 11, 172, 19);
 		detailsPanel.add(lblUserDetails);
 		
@@ -171,7 +169,6 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(lastNameTextField);
 		
 		deleteUserButton = new JButton("Delete User");
-		deleteUserButton.setBackground(new Color(107, 142, 35));
 		deleteUserButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,7 +180,6 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(deleteUserButton);
 		
 		changeDetailsButton = new JButton("Change Details");
-		changeDetailsButton.setBackground(new Color(107, 142, 35));
 		changeDetailsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -195,7 +191,6 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(changeDetailsButton);
 		
 		cancelChangesButton = new JButton("Cancel Changes");
-		cancelChangesButton.setBackground(new Color(107, 142, 35));
 		cancelChangesButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -207,7 +202,6 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(cancelChangesButton);
 		
 		addUserButton = new JButton("Add User");
-		addUserButton.setBackground(new Color(107, 142, 35));
 		addUserButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -279,7 +273,7 @@ public class AdminUserScreen extends JPanel {
 			model.removeRow(0);
 		
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, ClearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID AND u.isActive = 1;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.userID, u.username, u.password, c.clearanceLevel, p.firstName, p.middleInitial, p.lastName FROM UserAccount AS u, Person AS p, ClearanceLookUp AS c WHERE u.personID = p.personID AND u.clearanceID = c.clearanceID AND u.isActive = 1 ORDER BY u.userID;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
@@ -319,6 +313,7 @@ public class AdminUserScreen extends JPanel {
 			usernameTextField.setEditable(true);
 			passwordTextField.setEditable(true);
 			clearanceComboBox.setEnabled(true);
+			selectExistingComboBox.setEnabled(true);
 			firstNameTextField.setEditable(true);
 			middleInitTextField.setEditable(true);
 			lastNameTextField.setEditable(true);
@@ -488,9 +483,10 @@ public class AdminUserScreen extends JPanel {
 	
 	public void fillSelectExisting() {
 		selectExistingComboBox.removeAllItems();
+		selectExistingComboBox.addItem("");
 		
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT firstName, middleInitial, lastName FROM Person WHERE personID NOT IN (SELECT personID FROM UserAccount);");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT firstName, middleInitial, lastName FROM Person WHERE personID NOT IN (SELECT personID FROM UserAccount) OR personID IN (SELECT personID FROM UserAccount WHERE isActive = 0);");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
@@ -501,9 +497,6 @@ public class AdminUserScreen extends JPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		if (selectExistingComboBox.getItemCount() != 0)
-			selectExistingComboBox.setEnabled(true);
 	}
 	
 	public void addUserClicked() {
@@ -528,13 +521,16 @@ public class AdminUserScreen extends JPanel {
 		if (selectExistingComboBox.getSelectedIndex() == -1) {
 			return;
 		}
+		if (selectExistingComboBox.getSelectedItem().equals("")) {
+			return;
+		}
 		
 		String fullName = selectExistingComboBox.getSelectedItem() + "";
 		String[] nameArray = fullName.split("\\.");
 		
 		String lastName = nameArray[1].substring(1);
 		String middleInit = nameArray[0].charAt(nameArray[0].length()-1) + "";
-		String firstName = nameArray[0].substring(0, nameArray[0].length()-3);
+		String firstName = nameArray[0].substring(0, nameArray[0].length()-2);
 		
 		firstNameTextField.setText(firstName);
 		middleInitTextField.setText(middleInit);
