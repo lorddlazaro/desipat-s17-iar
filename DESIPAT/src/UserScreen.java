@@ -225,13 +225,13 @@ public class UserScreen extends JPanel {
 		lblNewestAssetList = new JTextPane();
 		lblNewestAssetList.setBackground(UIManager.getColor("Button.background"));
 		lblNewestAssetList.setEditable(false);
-		lblNewestAssetList.setBounds(10, 127, 172, 46);
+		lblNewestAssetList.setBounds(10, 127, 172, 55);
 		assetSummary.add(lblNewestAssetList);
 		
 		lblMostValuableAssetList = new JTextPane();
 		lblMostValuableAssetList.setBackground(UIManager.getColor("Button.background"));
 		lblMostValuableAssetList.setEditable(false);
-		lblMostValuableAssetList.setBounds(10, 209, 172, 46);
+		lblMostValuableAssetList.setBounds(10, 209, 172, 55);
 		assetSummary.add(lblMostValuableAssetList);
 
 	}

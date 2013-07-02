@@ -28,7 +28,7 @@ public class LogScreen extends JPanel {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 50, 748, 169);
+		scrollPane.setBounds(12, 50, 748, 162);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane);
 
@@ -92,7 +92,7 @@ public class LogScreen extends JPanel {
 		conn = dbHandler.open();
 		DefaultTableModel model = (DefaultTableModel)assetChangeLogTable.getModel();
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, a.name, acl.assetfield, acl.oldvalue, acl.newvalue  FROM UserAccount AS u, ActionLog AS al, assetchangelog as acl, asset as a WHERE u.userID = al.userID and acl.actionid = al.actionid and a.identifier = acl.assetid;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, a.name, acl.assetfield, acl.oldvalue, acl.newvalue  FROM UserAccount AS u, ActionLog AS al, assetchangelog as acl, asset as a WHERE u.userID = al.userID and acl.actionid = al.actionid and a.identifier = acl.assetid order by al.actionDate, al.actionTime;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
@@ -112,7 +112,7 @@ public class LogScreen extends JPanel {
 		conn = dbHandler.open();
 		DefaultTableModel model = (DefaultTableModel)actionLogTable.getModel();
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, alu.actionHeader, al.actiondesc FROM UserAccount AS u, ActionLog AS al, ActionHeaderLookup alu WHERE u.userID = al.userID AND al.actionheaderid = alu.actionheaderid;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, alu.actionHeader, al.actiondesc FROM UserAccount AS u, ActionLog AS al, ActionHeaderLookup alu WHERE u.userID = al.userID AND al.actionheaderid = alu.actionheaderid order by al.actionDate, al.actionTime;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
