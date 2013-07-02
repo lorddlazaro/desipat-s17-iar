@@ -369,8 +369,10 @@ public class assetScreen extends JPanel {
 		DefaultTableModel model = (DefaultTableModel)changeLogTable.getModel();
 		while(model.getRowCount() > 0)
 			model.removeRow(0);
+		String query="";
 		try {
-			ResultSet rs = db.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, acl.assetfield, acl.oldvalue, acl.newvalue  FROM UserAccount AS u, ActionLog AS al, assetchangelog as acl, asset as a WHERE u.userID = al.userID and acl.actionid = al.actionid and a.identifier = "+selectedIdentifier+";");
+			query = "SELECT u.username, al.actionDate, al.actionTime, acl.assetfield, acl.oldvalue, acl.newvalue  FROM UserAccount AS u, ActionLog AS al, assetchangelog as acl, asset as a WHERE u.userID = al.userID and acl.actionid = al.actionid and a.identifier = acl.assetid and  a.identifier ="+selectedIdentifier+";";
+			ResultSet rs = db.executeQuery(conn, query);
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				while (!rs.isAfterLast()) {
@@ -383,5 +385,6 @@ public class assetScreen extends JPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(query);
 	}
 }

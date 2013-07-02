@@ -99,6 +99,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	public static void insertToChangeLog(String assetname, String field,String newvalue){
 		int actionid = 0;
 		String oldvalue = "";
+		int assetid = 0;
 
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
@@ -110,11 +111,12 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 				rs.first();
 				actionid = Integer.valueOf(rs.getString(1));
 			}
-			rs = DBcon.executeQuery(con, "select "+field+" from Asset where name = '"+assetname+"';");
+			rs = DBcon.executeQuery(con, "select "+field+",identifier from Asset where name = '"+assetname+"';");
 			
 			if(rs.isBeforeFirst()){
 				rs.first();
 				oldvalue = rs.getString(1);
+				assetid = Integer.valueOf(rs.getString(2));
 			}
 		}
 		catch(Exception e){
@@ -122,10 +124,10 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 		}
 		
 		
-		String query = "insert into assetchangelog(actionid,assetfield,oldvalue,newvalue) values ('"+actionid+"','"+field+"','"+oldvalue+"','"+newvalue+"'),";
+		String query = "insert into assetchangelog(actionid,assetid,assetfield,oldvalue,newvalue) values ('"+actionid+"','"+assetid+"','"+field+"','"+oldvalue+"','"+newvalue+"');";
 // TEMPORARY PRINTLINE THING
 		System.out.println(query);
-		DBcon.executeUpdate(con, query);
+		//DBcon.executeUpdate(con, query);
 		DBcon.close();
 	}
 }
