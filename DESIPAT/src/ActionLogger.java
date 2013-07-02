@@ -1,4 +1,5 @@
-import java.sql.Connection;;
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 public class ActionLogger {
 /*
@@ -31,7 +32,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	static final int UpdateAsset = 7;
 	}
 	
-	private static void insertToDatabase(String queryPart){
+	private static void insertToActionLog(String queryPart){
 		DBConnection DBcon = new DBConnection();
 		Connection con = DBcon.open();
 		String query = "insert into actionlog(actionDate,actionTime,userid,actionHeaderID,actionDesc) values (Date(Now()),Time(Now()),";
@@ -46,51 +47,85 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	public static void loggedIn(int userID){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.LogIn + "', 'Logged in'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void loggedOut(int userID){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.LogOut + "', 'Logged out'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void editedAccountUsername(int userID){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.EditAccount + "', 'Changed username'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void editedAccountPassword(int userID){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.EditAccount + "', 'Changed password'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void editedAccountName(int userID){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.EditAccount + "', 'Corrected name'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void editedAccountClearance(int userID){		
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.EditAccount + "', 'Changed clearance level'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void deletedAccount(int userID, String username){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.DeleteAccount + "', 'Deleted account " + username + "'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void createdAccount(int userID, String username){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.CreateAccount + "', 'Created account " + username + "'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void addedAsset(int userID, String assetname){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.AddAsset + "', 'Added asset " + assetname + " to registry'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
 	}
 	public static void updatedAssetField(int userID, String assetname, String field,String newvalue){
 		String queryPart = "'" + userID + "', ";
 		queryPart += "'" + Header.UpdateAsset + "', 'Updated " + assetname + "'s " + field + " to " + newvalue + "'";
-		insertToDatabase(queryPart);
+		insertToActionLog(queryPart);
+		insertToChangeLog(assetname, field, newvalue);
+	}
+	
+	public static void insertToChangeLog(String assetname, String field,String newvalue){
+		int actionid = 0;
+		String oldvalue = "";
+
+		DBConnection DBcon = new DBConnection();
+		Connection con = DBcon.open();
+		ResultSet rs;
+		try{
+			rs = DBcon.executeQuery(con, "select max(actionID) from actionlog;");
+		
+			if(rs.isBeforeFirst()){
+				rs.first();
+				actionid = Integer.valueOf(rs.getString(1));
+			}
+			rs = DBcon.executeQuery(con, "select "+field+" from Asset where name = '"+assetname+"';");
+			
+			if(rs.isBeforeFirst()){
+				rs.first();
+				oldvalue = rs.getString(1);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+		String query = "insert into assetchangelog(actionid,assetfield,oldvalue,newvalue) values ('"+actionid+"','"+field+"','"+oldvalue+"','"+newvalue+"'),";
+// TEMPORARY PRINTLINE THING
+		System.out.println(query);
+		DBcon.executeUpdate(con, query);
+		DBcon.close();
 	}
 }
