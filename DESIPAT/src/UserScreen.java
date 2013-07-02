@@ -449,8 +449,8 @@ public class UserScreen extends JPanel {
 				rs.first();
 				int count = 1;
 				while (!rs.isAfterLast() && count <= 5) {
-					System.out.println(rs.getString(count));
-					lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(count));
+					System.out.println(rs.getString(1));
+					lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(1));
 					count++;
 				}
 			}
