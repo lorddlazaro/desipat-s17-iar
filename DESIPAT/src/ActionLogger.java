@@ -91,7 +91,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	}
 	public static void updatedAssetField(int userID, String assetname, String field,String newvalue){
 		String queryPart = "'" + userID + "', ";
-		queryPart += "'" + Header.UpdateAsset + "', 'Updated " + assetname + "'s " + field + " to " + newvalue + "'";
+		queryPart += "'" + Header.UpdateAsset + "', 'Updated " + assetname + " " + field + " to " + newvalue + "'";
 		insertToActionLog(queryPart);
 		insertToChangeLog(assetname, field, newvalue);
 	}
