@@ -56,6 +56,7 @@ public class UserScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public UserScreen() {
+		setBackground(new Color(128, 128, 128));
 
 		setLayout(null);
 		this.setBounds(0, 0, 772, 454);
@@ -93,6 +94,7 @@ public class UserScreen extends JPanel {
 		userSettingsPanel.add(lblUserSettings);
 		
 		changeDetailsButton = new JButton("Change Details");
+		changeDetailsButton.setBackground(new Color(220, 220, 220));
 		changeDetailsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -114,6 +116,7 @@ public class UserScreen extends JPanel {
 		userSettingsPanel.add(newPasswordField);
 		
 		saveDetailsButton = new JButton("Save");
+		saveDetailsButton.setBackground(new Color(220, 220, 220));
 		saveDetailsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -175,6 +178,7 @@ public class UserScreen extends JPanel {
 		namePanel.add(middleInitLabel);
 		
 		changeNameButton = new JButton("Update Name");
+		changeNameButton.setBackground(new Color(220, 220, 220));
 		changeNameButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

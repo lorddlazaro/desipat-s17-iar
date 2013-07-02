@@ -58,6 +58,7 @@ public class AdminUserScreen extends JPanel {
 	 * Create the panel.
 	 */
 	public AdminUserScreen() {
+		setBackground(new Color(46, 139, 87));
 		setLayout(null);
 		
 		tablePanel = new JPanel();
@@ -71,6 +72,7 @@ public class AdminUserScreen extends JPanel {
 		tablePanel.add(scrollPane);
 		
 		userTable = new JTable();
+		userTable.setFont(new Font("Calibri", Font.PLAIN, 13));
 		userTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -96,7 +98,7 @@ public class AdminUserScreen extends JPanel {
 		lblAdminSettings = new JLabel("Admin Settings");
 		lblAdminSettings.setBounds(10, 11, 258, 34);
 		add(lblAdminSettings);
-		lblAdminSettings.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblAdminSettings.setFont(new Font("Segoe WP", Font.PLAIN, 23));
 		
 		detailsPanel = new JPanel();
 		detailsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -105,7 +107,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.setLayout(null);
 		
 		lblUserDetails = new JLabel("User Details");
-		lblUserDetails.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUserDetails.setFont(new Font("Segoe WP", Font.PLAIN, 19));
 		lblUserDetails.setBounds(10, 11, 172, 19);
 		detailsPanel.add(lblUserDetails);
 		
@@ -169,6 +171,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(lastNameTextField);
 		
 		deleteUserButton = new JButton("Delete User");
+		deleteUserButton.setBackground(new Color(107, 142, 35));
 		deleteUserButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -180,6 +183,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(deleteUserButton);
 		
 		changeDetailsButton = new JButton("Change Details");
+		changeDetailsButton.setBackground(new Color(107, 142, 35));
 		changeDetailsButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -191,6 +195,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(changeDetailsButton);
 		
 		cancelChangesButton = new JButton("Cancel Changes");
+		cancelChangesButton.setBackground(new Color(107, 142, 35));
 		cancelChangesButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -202,6 +207,7 @@ public class AdminUserScreen extends JPanel {
 		detailsPanel.add(cancelChangesButton);
 		
 		addUserButton = new JButton("Add User");
+		addUserButton.setBackground(new Color(107, 142, 35));
 		addUserButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
