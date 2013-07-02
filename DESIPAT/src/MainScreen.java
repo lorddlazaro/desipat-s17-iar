@@ -47,6 +47,10 @@ public class MainScreen extends JFrame {
 	UserScreen panelAccountSettings;
 	EditAssetScreen panelEditAsset;
 	assetScreen panelViewAsset;
+	JButton btnViewAssets;
+	JButton btnManageAccounts;
+	JButton btnViewLogs;
+	private JPanel panelStart;
 	
 	/**
 	 * Launch the application.
@@ -93,7 +97,7 @@ public class MainScreen extends JFrame {
 		panelMenu.setBackground(new Color(188, 143, 143));
 		panelMenu.setLayout(null);
 		
-		JButton btnViewAssets = new JButton("View Assets");
+		btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setForeground(new Color(25, 25, 112));
 		btnViewAssets.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,7 +109,7 @@ public class MainScreen extends JFrame {
 		btnViewAssets.setBounds(352, 0, 140, 50);
 		panelMenu.add(btnViewAssets);
 		
-		JButton btnManageAccounts = new JButton("Manage Accounts");
+		btnManageAccounts = new JButton("Manage Accounts");
 		btnManageAccounts.setForeground(new Color(0, 100, 0));
 		btnManageAccounts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -117,17 +121,17 @@ public class MainScreen extends JFrame {
 		btnManageAccounts.setBounds(492, 0, 140, 50);
 		panelMenu.add(btnManageAccounts);
 		
-		JButton btnNewButton_4 = new JButton("View Logs");
-		btnNewButton_4.setForeground(new Color(160, 82, 45));
-		btnNewButton_4.addActionListener(new ActionListener() {
+		btnViewLogs = new JButton("View Logs");
+		btnViewLogs.setForeground(new Color(160, 82, 45));
+		btnViewLogs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				changeCard(panelCards, "panelViewLogs");
 			}
 		});
-		btnNewButton_4.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnNewButton_4.setBackground(new Color(238, 232, 170));
-		btnNewButton_4.setBounds(632, 0, 140, 50);
-		panelMenu.add(btnNewButton_4);
+		btnViewLogs.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btnViewLogs.setBackground(new Color(238, 232, 170));
+		btnViewLogs.setBounds(632, 0, 140, 50);
+		panelMenu.add(btnViewLogs);
 		
 		JLabel lblViewLogs = new JLabel("Asset Management Registry");
 		lblViewLogs.setHorizontalAlignment(SwingConstants.LEFT);
@@ -141,6 +145,9 @@ public class MainScreen extends JFrame {
 		panelCards.setBounds(10, 109, 772, 454);
 		panelMain.add(panelCards);
 		panelCards.setLayout(new CardLayout(0, 0));
+		
+		panelStart = new JPanel();
+		panelCards.add(panelStart, "Start");
 		
 		panelViewAsset = new assetScreen();
 		panelCards.add(panelViewAsset, "panelViewAssets");
@@ -207,6 +214,8 @@ public class MainScreen extends JFrame {
 	
 	private void logOut(){
 		ActionLogger.loggedOut(currentUserID);
+
+		this.changeCard(panelCards, "Start");
 		this.changeCard((JPanel)this.getContentPane(), "panelLogin");
 		this.changeWindowSize(400, 200);
 	}
