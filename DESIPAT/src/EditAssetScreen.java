@@ -618,7 +618,7 @@ public class EditAssetScreen extends JPanel {
 			return -1;
 		}
 	}
-	public void listDays(String month, ArrayList<String>dayList)
+	public void listDays(int year, String month, ArrayList<String>dayList)
 	{
 
 		while (!dayList.isEmpty())
