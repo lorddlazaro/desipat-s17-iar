@@ -106,14 +106,14 @@ public class MainScreen extends JFrame {
 		panelMenu.add(btnViewAssets);
 		
 		JButton btnManageAccounts = new JButton("Manage Accounts");
-		btnManageAccounts.setForeground(new Color(128, 0, 128));
+		btnManageAccounts.setForeground(new Color(0, 100, 0));
 		btnManageAccounts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeCard(panelCards, "panelManageAccounts");
 			}
 		});
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
-		btnManageAccounts.setBackground(new Color(221, 160, 221));
+		btnManageAccounts.setBackground(new Color(60, 179, 113));
 		btnManageAccounts.setBounds(492, 0, 140, 50);
 		panelMenu.add(btnManageAccounts);
 		
