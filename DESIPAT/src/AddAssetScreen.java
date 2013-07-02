@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ItemListener;
@@ -111,12 +112,12 @@ public class AddAssetScreen extends JPanel {
 		
 		JLabel lblDay = new JLabel("Day");
 		lblDay.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblDay.setBounds(254, 201, 32, 14);
+		lblDay.setBounds(272, 201, 32, 14);
 		add(lblDay);
 		
 		JLabel lblYear = new JLabel("Year");
 		lblYear.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblYear.setBounds(311, 201, 46, 14);
+		lblYear.setBounds(329, 201, 46, 14);
 		add(lblYear);
 		
 		JLabel lblMaintenanceSchedule = new JLabel("Maintenance Schedule");
@@ -192,26 +193,24 @@ public class AddAssetScreen extends JPanel {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED)
 				{
-					String month=arg0.getItem().toString();
-					listDays(month,dayList);
+					String year=cbxYear.getSelectedItem().toString(), month=arg0.getItem().toString();
+					listDays(Integer.parseInt(year),month,dayList);
 				}
 			}
 		});
 		cbxMonth.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"}));
 		cbxMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxMonth.setBounds(183, 182, 70, 20);
+		cbxMonth.setBounds(183, 182, 88, 20);
 		add(cbxMonth);
 		
 		cbxDay = new JComboBox();
 		dayList=new ArrayList<String>();
-		for(int day=1;day<=28;day++)
-		{
-			dayList.add(day+"");
-		}
+		for (int i = 1; i <= 31; i++)
+			dayList.add(i+"");
 		days=dayList.toArray(new String[dayList.size()]);
 		cbxDay.setModel(new DefaultComboBoxModel(days));
 		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxDay.setBounds(255, 182, 55, 20);
+		cbxDay.setBounds(272, 182, 55, 20);
 		add(cbxDay);
 		
 		cbxYear = new JComboBox();
@@ -224,7 +223,7 @@ public class AddAssetScreen extends JPanel {
 		String[] years=yearList.toArray(new String[yearList.size()]);
 		cbxYear.setModel(new DefaultComboBoxModel(years));
 		cbxYear.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxYear.setBounds(311, 182, 46, 20);
+		cbxYear.setBounds(328, 182, 64, 20);
 		add(cbxYear);
 		
 		cbxMaintenance = new JComboBox();
@@ -795,9 +794,9 @@ public class AddAssetScreen extends JPanel {
 			return -1;
 		}
 	}
-	public void listDays(String month, ArrayList<String>dayList)
+	public void listDays(int year, String month, ArrayList<String>dayList)
 	{
-	
+	/*
 	switch(month)
 	{
 		case "April":
@@ -816,6 +815,36 @@ public class AddAssetScreen extends JPanel {
 			dayList.add("31");
 			break;
 	}
+	*/
+		while (!dayList.isEmpty())
+			dayList.remove(0);
+		
+		int[] monthDayCount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		
+		if ((year % 400 == 0) || (year % 4 == 0 && year % 100 == 0))
+			monthDayCount[1]++;
+			
+		ArrayList<String> monthList = new ArrayList<String> ();
+		
+		monthList.add("January");
+		monthList.add("February");
+		monthList.add("March");
+		monthList.add("April");
+		monthList.add("May");
+		monthList.add("June");
+		monthList.add("July");
+		monthList.add("August");
+		monthList.add("September");
+		monthList.add("October");
+		monthList.add("November");
+		monthList.add("December");
+		
+		for (int i = 1; i <= monthDayCount[monthList.indexOf(month)]; i++) {
+			dayList.add(i + "");
+		}
+		
+		
+		
 	days=dayList.toArray(new String[dayList.size()]);
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 	
