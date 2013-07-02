@@ -214,8 +214,8 @@ public class EditAssetScreen extends JPanel {
 			public void itemStateChanged(ItemEvent arg0) {
 				if(arg0.getStateChange()==ItemEvent.SELECTED)
 				{
-					String month=arg0.getItem().toString();
-					listDays(month,dayList);
+					String year=cbxYear.getSelectedItem().toString(), month=arg0.getItem().toString();
+					listDays(Integer.parseInt(year),month,dayList);
 				}
 			}
 		});
@@ -226,10 +226,6 @@ public class EditAssetScreen extends JPanel {
 		
 		cbxDay = new JComboBox();
 		dayList=new ArrayList<String>();
-		for(int day=1;day<=28;day++)
-		{
-			dayList.add(day+"");
-		}
 		days=dayList.toArray(new String[dayList.size()]);
 		cbxDay.setModel(new DefaultComboBoxModel(days));
 		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -401,13 +397,33 @@ public class EditAssetScreen extends JPanel {
 
 			DBConnection DBcon = new DBConnection();
 
-			String ownerFirstName =  cbxOwner.getSelectedItem().toString().split(" ")[0];
-			String ownerMiddleInitial =  cbxOwner.getSelectedItem().toString().split(" ")[1];
-			String ownerLastName =  cbxOwner.getSelectedItem().toString().split(" ")[2];
+			String ownerFirstName = "", ownerMiddleInitial = "", ownerLastName = "", custodianFirstName = "", custodianMiddleInitial = "", custodianLastName = "";
+			String[] ownerName = cbxOwner.getSelectedItem().toString().split(" ");
+			int middleInitIndex = 0;
+			
+			for (; middleInitIndex < ownerName.length && ownerName[middleInitIndex].length() != 1; middleInitIndex++);
+			
+			for (int i = 0; i < middleInitIndex; i++) {
+				ownerFirstName += ownerName[i] + ((i == middleInitIndex - 1)? "" : " ");
+			}
+			ownerMiddleInitial = ownerName[middleInitIndex];
+			for (int i = middleInitIndex+1; i < ownerName.length; i++) {
+				ownerLastName += ownerName[i] + ((i == ownerName.length - 1)? "" : " ");
+			}
 
-			String custodianFirstName =  cbxCustodian.getSelectedItem().toString().split(" ")[0];
-			String custodianMiddleInitial =  cbxCustodian.getSelectedItem().toString().split(" ")[1];
-			String custodianLastName =  cbxCustodian.getSelectedItem().toString().split(" ")[2];
+			String[] custodianName = cbxCustodian.getSelectedItem().toString().split(" ");
+
+			middleInitIndex = 0;
+			
+			for (; middleInitIndex < custodianName.length && custodianName[middleInitIndex].length() != 1; middleInitIndex++);
+			
+			for (int i = 0; i < middleInitIndex; i++) {
+				custodianFirstName += custodianName[i] + ((i == middleInitIndex - 1)? "" : " ");
+			}
+			custodianMiddleInitial = custodianName[middleInitIndex];
+			for (int i = middleInitIndex+1; i < custodianName.length; i++) {
+				custodianLastName += custodianName[i] + ((i == custodianName.length - 1)? "" : " ");
+			}
 
 
 			Connection con = DBcon.open();
@@ -605,24 +621,33 @@ public class EditAssetScreen extends JPanel {
 	public void listDays(String month, ArrayList<String>dayList)
 	{
 
-	switch(month)
-	{
-		case "April":
-		case "June":
-		case "September":
-		case "November":
-			dayList.add("29");
-			dayList.add("30");
-		case "January":
-		case "March":
-		case "May":
-		case "July":
-		case "August":
-		case "October":
-		case "December":
-			dayList.add("31");
-			break;
-	}
+		while (!dayList.isEmpty())
+			dayList.remove(0);
+		
+		int[] monthDayCount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		
+		if ((year % 400 == 0) || (year % 4 == 0 && year % 100 == 0))
+			monthDayCount[1]++;
+			
+		ArrayList<String> monthList = new ArrayList<String> ();
+		
+		monthList.add("January");
+		monthList.add("February");
+		monthList.add("March");
+		monthList.add("April");
+		monthList.add("May");
+		monthList.add("June");
+		monthList.add("July");
+		monthList.add("August");
+		monthList.add("September");
+		monthList.add("October");
+		monthList.add("November");
+		monthList.add("December");
+		
+		for (int i = 1; i <= monthDayCount[monthList.indexOf(month)]; i++) {
+			dayList.add(i + "");
+		}
+		
 	days=dayList.toArray(new String[dayList.size()]);
 	cbxDay.setModel(new DefaultComboBoxModel(days));
 
