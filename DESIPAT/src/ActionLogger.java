@@ -127,7 +127,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 		String query = "insert into assetchangelog(actionid,assetid,assetfield,oldvalue,newvalue) values ('"+actionid+"','"+assetid+"','"+field+"','"+oldvalue+"','"+newvalue+"');";
 // TEMPORARY PRINTLINE THING
 		System.out.println(query);
-		//DBcon.executeUpdate(con, query);
+		DBcon.executeUpdate(con, query);
 		DBcon.close();
 	}
 }

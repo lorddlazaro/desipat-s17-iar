@@ -180,10 +180,14 @@ public class LoginScreen extends JPanel {
 			e.printStackTrace();
 		}
 		
-		if(clearance == 1)
+		if(clearance == 1){
 			mainScreen.btnViewAssets.setEnabled(false);
-		else if(clearance == 2 || clearance == 3)
+			mainScreen.btnManageAccounts.setEnabled(true);
+			}
+		else if(clearance == 2 || clearance == 3){
+			mainScreen.btnViewAssets.setEnabled(true);
 			mainScreen.btnManageAccounts.setEnabled(false);
+		}
 		else if(clearance == 4){
 			mainScreen.btnViewAssets.setEnabled(false);
 			mainScreen.btnManageAccounts.setEnabled(false);
