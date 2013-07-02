@@ -418,7 +418,7 @@ public class UserScreen extends JPanel {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT SUM(financialValue) FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ");");
 			if (rs.isBeforeFirst()) {
 				rs.first();
-				lblNetWorthList.setText(lblNetWorthList.getText() + "\n" + rs.getInt(1));
+				lblNetWorthList.setText(rs.getInt(1) + "");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -427,12 +427,13 @@ public class UserScreen extends JPanel {
 	public void lookUpNewestAssets()
 	{
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ") ORDER BY dateAcquired DESC;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUser.getUserID() + ") ORDER BY dateAcquired ASC;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				int count = 1;
 				while (!rs.isAfterLast() && count <= 5) {
-					lblNewestAssetList.setText(lblNewestAssetList.getText() + "\n" + rs.getString(1));
+					lblNewestAssetList.setText(rs.getString(1) + "\n" + lblNewestAssetList.getText());
+					rs.next();
 					count++;
 				}
 			}
@@ -444,13 +445,13 @@ public class UserScreen extends JPanel {
 	public void lookUpMostValuableAssets()
 	{
 		try {
-			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUserID + ") ORDER BY financialValue DESC;");
+			ResultSet rs = dbHandler.executeQuery(conn, "SELECT name FROM Asset WHERE ownerID IN (SELECT personID FROM UserAccount WHERE userID = " + currUserID + ") ORDER BY financialValue ASC;");
 			if (rs.isBeforeFirst()) {
 				rs.first();
 				int count = 1;
 				while (!rs.isAfterLast() && count <= 5) {
-					System.out.println(rs.getString(1));
-					lblMostValuableAssetList.setText(lblMostValuableAssetList.getText() + "\n" + rs.getString(1));
+					lblMostValuableAssetList.setText(rs.getString(1) + "\n" + lblMostValuableAssetList.getText());
+					rs.next();
 					count++;
 				}
 			}
