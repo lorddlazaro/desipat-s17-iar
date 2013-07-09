@@ -89,7 +89,7 @@ public class LogScreen extends JPanel {
 
 	public void fillTableAssetChangeLog(){
 		dbHandler = new DBConnection();
-		conn = dbHandler.open();
+		conn = dbHandler.openConnection();
 		DefaultTableModel model = (DefaultTableModel)assetChangeLogTable.getModel();
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, a.name, acl.assetfield, acl.oldvalue, acl.newvalue  FROM UserAccount AS u, ActionLog AS al, assetchangelog as acl, asset as a WHERE u.userID = al.userID and acl.actionid = al.actionid and a.identifier = acl.assetid order by al.actionDate, al.actionTime;");
@@ -101,7 +101,7 @@ public class LogScreen extends JPanel {
 				}
 			}
 
-			dbHandler.close();
+			dbHandler.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +109,7 @@ public class LogScreen extends JPanel {
 	
 	public void fillTableActionLog() {
 		dbHandler = new DBConnection();
-		conn = dbHandler.open();
+		conn = dbHandler.openConnection();
 		DefaultTableModel model = (DefaultTableModel)actionLogTable.getModel();
 		try {
 			ResultSet rs = dbHandler.executeQuery(conn, "SELECT u.username, al.actionDate, al.actionTime, alu.actionHeader, al.actiondesc FROM UserAccount AS u, ActionLog AS al, ActionHeaderLookup alu WHERE u.userID = al.userID AND al.actionheaderid = alu.actionheaderid order by al.actionDate, al.actionTime;");
@@ -121,7 +121,7 @@ public class LogScreen extends JPanel {
 				}
 			}
 
-			dbHandler.close();
+			dbHandler.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

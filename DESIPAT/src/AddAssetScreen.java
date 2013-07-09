@@ -433,8 +433,8 @@ public class AddAssetScreen extends JPanel {
 					
 				String query;
 				query = "INSERT INTO ";
-				DBConnection DBcon = new DBConnection();
-				Connection con = DBcon.open();
+				DBConnectionFactory DBcon = new DBConnection();
+				Connection con = DBcon.openConnection();
 				
 				if(addNewItemMode.equals("Owner") || addNewItemMode.equals("Custodian")){
 					if(hasField1 && hasField2 && hasField3){
@@ -479,7 +479,7 @@ public class AddAssetScreen extends JPanel {
 					}
 				
 				
-				DBcon.close();
+				DBcon.closeConnection();
 			}
 		});
 		btnNewItemSave.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -527,7 +527,7 @@ public class AddAssetScreen extends JPanel {
 		String custodianLastName =  cbxCustodian.getSelectedItem().toString().split(" ")[2];
 		
 		
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs;
 		try{
 			rs = DBcon.executeQuery(con, "select personID from Person where firstName = '"+ownerFirstName+"' AND middleinitial = '"+ownerMiddleInitial+"' AND lastname = '"+ownerLastName+"';");
@@ -584,14 +584,14 @@ public class AddAssetScreen extends JPanel {
 		// TEMPORARY PRINTLINE THING
 		System.out.println(query);
 		DBcon.executeUpdate(con, query);
-		DBcon.close();
+		DBcon.closeConnection();
 	}
 	
 	private void fillComboBoxPerson(){
 		cbxOwner.removeAllItems();
 		cbxCustodian.removeAllItems();
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Person;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -602,7 +602,7 @@ public class AddAssetScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -610,8 +610,8 @@ public class AddAssetScreen extends JPanel {
 	}
 	private void fillComboBoxStorage(){
 		cbxStorage.removeAllItems();
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Storage;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -621,7 +621,7 @@ public class AddAssetScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -629,8 +629,8 @@ public class AddAssetScreen extends JPanel {
 	}
 	private void fillComboBoxType(){
 		cbxType.removeAllItems();
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from TypeLookUp;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -640,7 +640,7 @@ public class AddAssetScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -678,12 +678,12 @@ public class AddAssetScreen extends JPanel {
 	{
 	
 		int id=-1;
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select personID from Person where Name="+name+";");
 		try{
 			id=rs.getInt(1);
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -693,12 +693,12 @@ public class AddAssetScreen extends JPanel {
 	public int lookUpStorageID(String name)
 	{
 		int id=-1;
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select storageID from Storage where StorageLocation="+name+";");
 		try{
 			id=rs.getInt(1);
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();

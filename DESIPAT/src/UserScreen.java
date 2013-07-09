@@ -240,7 +240,7 @@ public class UserScreen extends JPanel {
 		this();
 		this.currUserID = currUserID;
 		dbHandler = new DBConnection();
-		conn = dbHandler.open();
+		conn = dbHandler.openConnection();
 		updateUser();
 		InitSettings();
 	}

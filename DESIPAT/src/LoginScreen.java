@@ -127,7 +127,7 @@ public class LoginScreen extends JPanel {
 		userList = new ArrayList<User>();
 		
 		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from UserAccount where isactive = 1;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -137,7 +137,7 @@ public class LoginScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -154,7 +154,7 @@ public class LoginScreen extends JPanel {
 		int clearance=0;
 		
 		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "SELECT actionDate, actionTime FROM actionlog WHERE userid = '"+userID+"' order by actionDate, actionTime DESC;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -174,7 +174,7 @@ public class LoginScreen extends JPanel {
 				rs.first();
 				clearance = rs.getInt(1);
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();

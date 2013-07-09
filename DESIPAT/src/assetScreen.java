@@ -29,7 +29,7 @@ public class assetScreen extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	DBConnection db;
+	DBConnectionFactory db;
 	private Connection conn;
 	private JTable table;
 	private JLabel lblIdentifier;
@@ -251,16 +251,16 @@ public class assetScreen extends JPanel {
 	
 	public void updateAssetTable() {
 		System.out.println("before query1");
-		db.open();
+		Connection conn = db.openConnection();
 		System.out.println("before query");
-		ResultSet rs = db.executeQuery(db.c, "select identifier,name from asset;");
+		ResultSet rs = db.executeQuery(conn, "select identifier,name from asset;");
 		try {
 			table.setModel(buildTableModel(rs));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db.close();
+		db.closeConnection();
 	}
 
 	public static DefaultTableModel buildTableModel(ResultSet rs)
@@ -303,8 +303,8 @@ public class assetScreen extends JPanel {
 		int selectedIdentifier = (int)table.getModel().getValueAt(table.getSelectedRow(), 0);
 		System.out.println("Selected asset's identifier: "+selectedIdentifier);
 		
-		db.open();
-		ResultSet rs = db.executeQuery(db.c,"select identifier, name, Concat(P.firstName, ' ',P.middleInitial,'. ', P.lastName) as owner, Concat(C.firstName, ' ',C.middleInitial,'. ', C.lastName) as custodian, type,dateAcquired,status, M.maintSched,  financialValue, confidentialValue,integrityValue,availabilityValue, L.classification, S.storageLocation from asset A inner join person P on P.personID=A.ownerID inner join person C on C.personID=A.custodianID inner join typelookup T on T.typeID=A.typeID inner join maintenancelookup M on M.maintID=A.maintID inner join classificationlookup L on L.classID=A.classID inner join storage S on S.storageID=A.storageID where identifier="+selectedIdentifier);
+		Connection conn = db.openConnection();
+		ResultSet rs = db.executeQuery(conn,"select identifier, name, Concat(P.firstName, ' ',P.middleInitial,'. ', P.lastName) as owner, Concat(C.firstName, ' ',C.middleInitial,'. ', C.lastName) as custodian, type,dateAcquired,status, M.maintSched,  financialValue, confidentialValue,integrityValue,availabilityValue, L.classification, S.storageLocation from asset A inner join person P on P.personID=A.ownerID inner join person C on C.personID=A.custodianID inner join typelookup T on T.typeID=A.typeID inner join maintenancelookup M on M.maintID=A.maintID inner join classificationlookup L on L.classID=A.classID inner join storage S on S.storageID=A.storageID where identifier="+selectedIdentifier);
 		
 		System.out.println("passed rs");
 		try {
@@ -334,7 +334,7 @@ public class assetScreen extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db.close();
+		db.closeConnection();
 		fillTableAssetChangeLog();
 	}
 	
@@ -364,8 +364,7 @@ public class assetScreen extends JPanel {
 			return;
 		int selectedIdentifier=(int)table.getModel().getValueAt(table.getSelectedRow(), 0);
 		
-		db = new DBConnection();
-		conn = db.open();
+		conn = db.openConnection();
 		DefaultTableModel model = (DefaultTableModel)changeLogTable.getModel();
 		while(model.getRowCount() > 0)
 			model.removeRow(0);
@@ -381,7 +380,7 @@ public class assetScreen extends JPanel {
 				}
 			}
 
-			db.close();
+			db.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
