@@ -33,14 +33,14 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 	}
 	
 	private static void insertToActionLog(String queryPart){
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		String query = "insert into actionlog(actionDate,actionTime,userid,actionHeaderID,actionDesc) values (Date(Now()),Time(Now()),";
 		query += queryPart + ");";
 // TEMPORARY PRINTLINE THING
 		System.out.println(query);
 		DBcon.executeUpdate(con, query);
-		DBcon.close();
+		DBcon.closeConnection();
 	}
 	
 	// 'userid','actionHeader','actionDesc'
@@ -102,7 +102,7 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 		int assetid = 0;
 
 		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs;
 		try{
 			rs = DBcon.executeQuery(con, "select max(actionID) from actionlog;");
@@ -128,6 +128,6 @@ Updated Asset	Updated <assetname>'s <field> to <newvalue>
 // TEMPORARY PRINTLINE THING
 		System.out.println(query);
 		DBcon.executeUpdate(con, query);
-		DBcon.close();
+		DBcon.closeConnection();
 	}
 }

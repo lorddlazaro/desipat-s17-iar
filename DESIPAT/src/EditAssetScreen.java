@@ -304,8 +304,8 @@ public class EditAssetScreen extends JPanel {
 	{
 		DBConnection db = new DBConnection();
 
-		db.open();
-		ResultSet rs = db.executeQuery(db.c,"select identifier, name, Concat(P.firstName, ' ',P.middleInitial,' ', P.lastName) as owner, Concat(C.firstName, ' ',C.middleInitial,' ', C.lastName) as custodian, type,dateAcquired,status, M.maintSched,  financialValue, confidentialValue,integrityValue,availabilityValue, L.classification, S.storageLocation from asset A inner join person P on P.personID=A.ownerID inner join person C on C.personID=A.custodianID inner join typelookup T on T.typeID=A.typeID inner join maintenancelookup M on M.maintID=A.maintID inner join classificationlookup L on L.classID=A.classID inner join storage S on S.storageID=A.storageID where identifier="+assetID);
+		Connection conn = db.openConnection();
+		ResultSet rs = db.executeQuery(conn,"select identifier, name, Concat(P.firstName, ' ',P.middleInitial,' ', P.lastName) as owner, Concat(C.firstName, ' ',C.middleInitial,' ', C.lastName) as custodian, type,dateAcquired,status, M.maintSched,  financialValue, confidentialValue,integrityValue,availabilityValue, L.classification, S.storageLocation from asset A inner join person P on P.personID=A.ownerID inner join person C on C.personID=A.custodianID inner join typelookup T on T.typeID=A.typeID inner join maintenancelookup M on M.maintID=A.maintID inner join classificationlookup L on L.classID=A.classID inner join storage S on S.storageID=A.storageID where identifier="+assetID);
 
 		System.out.println("loaded current asset");
 		try {
@@ -360,7 +360,7 @@ public class EditAssetScreen extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db.close();
+		db.closeConnection();
 
 	}
 	public void editAsset()
@@ -394,9 +394,6 @@ public class EditAssetScreen extends JPanel {
 			String storageID = "";
 			String dateAcquired = cbxYear.getSelectedItem() + "-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
 
-
-			DBConnection DBcon = new DBConnection();
-
 			String ownerFirstName = "", ownerMiddleInitial = "", ownerLastName = "", custodianFirstName = "", custodianMiddleInitial = "", custodianLastName = "";
 			String[] ownerName = cbxOwner.getSelectedItem().toString().split(" ");
 			int middleInitIndex = 0;
@@ -425,8 +422,8 @@ public class EditAssetScreen extends JPanel {
 				custodianLastName += custodianName[i] + ((i == custodianName.length - 1)? "" : " ");
 			}
 
-
-			Connection con = DBcon.open();
+			DBConnectionFactory DBcon = new DBConnection();
+			Connection con = DBcon.openConnection();
 			ResultSet rs;
 			try{
 				rs = DBcon.executeQuery(con, "select personID from Person where firstName = '"+ownerFirstName+"' AND middleinitial = '"+ownerMiddleInitial+"' AND lastname = '"+ownerLastName+"';");
@@ -498,7 +495,7 @@ public class EditAssetScreen extends JPanel {
 			// TEMPORARY PRINTLINE THING
 			System.out.println(query);
 			DBcon.executeUpdate(con, query);
-			DBcon.close();
+			DBcon.closeConnection();
 
 
 	}
@@ -506,12 +503,12 @@ public class EditAssetScreen extends JPanel {
 	{
 
 		int id=-1;
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select personID from Person where Name="+name+";");
 		try{
 			id=rs.getInt(1);
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -521,12 +518,12 @@ public class EditAssetScreen extends JPanel {
 	public int lookUpStorageID(String name)
 	{
 		int id=-1;
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		DBConnectionFactory DBcon = new DBConnection();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select storageID from Storage where StorageLocation="+name+";");
 		try{
 			id=rs.getInt(1);
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -659,7 +656,7 @@ public class EditAssetScreen extends JPanel {
 		cbxOwner.removeAllItems();
 		cbxCustodian.removeAllItems();
 		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Person;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -670,7 +667,7 @@ public class EditAssetScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -679,7 +676,7 @@ public class EditAssetScreen extends JPanel {
 	public void fillComboBoxStorage(){
 		cbxStorage.removeAllItems();
 		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = DBcon.openConnection();
 		ResultSet rs = DBcon.executeQuery(con, "select * from Storage;");
 		try{
 			if(rs.isBeforeFirst()){
@@ -689,7 +686,7 @@ public class EditAssetScreen extends JPanel {
 					rs.next();
 				}
 			}
-			DBcon.close();
+			DBcon.closeConnection();
 		}
 		catch(Exception e){
 			e.printStackTrace();

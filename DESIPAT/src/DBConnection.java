@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class DBConnection
+public class DBConnection implements DBConnectionFactory
 {
     private String username = "root";
     private String password = "";
@@ -25,9 +25,8 @@ public class DBConnection
     	catch(Exception e){e.printStackTrace();}
  
     }
-    
-    public Connection open()
-    {
+
+	public Connection openConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             c = DriverManager.getConnection(url, username, password);
@@ -37,14 +36,14 @@ public class DBConnection
             e.printStackTrace();
             return null;
         }
-    }
-    
-    public void close() {
+	}
+
+	public void closeConnection() {
         try {
             c.close();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+	}
 }

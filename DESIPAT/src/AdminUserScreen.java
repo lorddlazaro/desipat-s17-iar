@@ -52,7 +52,7 @@ public class AdminUserScreen extends JPanel {
 	private JComboBox <String> selectExistingComboBox;
 	private JLabel lblExistingPersons;
 	
-	private DBConnection dbHandler;
+	private DBConnectionFactory dbHandler;
 	private Connection conn;
 	
 	/**
@@ -238,7 +238,7 @@ public class AdminUserScreen extends JPanel {
 	
 	public void InitFrame() {
 		dbHandler = new DBConnection();
-		conn = dbHandler.open();
+		conn = dbHandler.openConnection();
 		refreshScreen();
 		
 		try {
@@ -419,13 +419,12 @@ public class AdminUserScreen extends JPanel {
 				
 	// ACTIONLOGGER
 				MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
-				DBConnection DBcon = new DBConnection();
-				Connection con = DBcon.open();
+				Connection con = dbHandler.openConnection();
 				ResultSet rs2;
 				
 				String username2="";
 				try{
-					rs = DBcon.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
+					rs = dbHandler.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
 				
 					if(rs.isBeforeFirst()){
 						rs.first();
@@ -509,13 +508,12 @@ public class AdminUserScreen extends JPanel {
 		
 		
 		MainScreen mainScreen = (MainScreen)SwingUtilities.getWindowAncestor(this);
-		DBConnection DBcon = new DBConnection();
-		Connection con = DBcon.open();
+		Connection con = dbHandler.openConnection();
 		ResultSet rs;
 		
 		String username="";
 		try{
-			rs = DBcon.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
+			rs = dbHandler.executeQuery(con, "select username from useraccount where userid = '"+mainScreen.currentUserID+"';");
 		
 			if(rs.isBeforeFirst()){
 				rs.first();
