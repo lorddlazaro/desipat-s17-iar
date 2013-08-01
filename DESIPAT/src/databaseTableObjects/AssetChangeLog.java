@@ -1,4 +1,4 @@
-package dataClasses;
+package databaseTableObjects;
 
 public class AssetChangeLog {
 	private int changeID;
