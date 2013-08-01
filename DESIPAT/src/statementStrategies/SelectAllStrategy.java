@@ -1,16 +1,17 @@
 package statementStrategies;
 
-public class SelectAllStrategy implements StatementStrategy {
-	private String statement;
-	private String tableName;
-	private String condition;
-	public SelectAllStrategy(String tableName)
-	{
-		this.tableName=tableName;
-		this.condition=condition;
+import dbHandler.Query;
+
+// done
+public abstract class SelectAllStrategy extends Query {
+	public SelectAllStrategy(String tableName) {
+		query = "SELECT * FROM " + tableName + ";";
 	}
-	public String getStatement(){
-		statement = "SELECT * FROM "+tableName+";";
-		return statement;
+}
+
+// add subclasses
+class SelectAllUsers extends SelectAllStrategy {
+	public SelectAllUsers() {
+		super("UserAccount");
 	}
 }
