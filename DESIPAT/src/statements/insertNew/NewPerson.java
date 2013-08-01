@@ -1,6 +1,7 @@
 package statements.insertNew;
 
-import dataClasses.Person;
+import databaseTableObjects.Person;
+import statements.InsertStrategy;
 
 public class NewPerson extends InsertStrategy{
 	public NewPerson(Person p) {
