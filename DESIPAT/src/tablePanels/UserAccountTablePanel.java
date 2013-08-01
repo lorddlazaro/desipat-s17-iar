@@ -21,45 +21,43 @@ import dataObjects.Asset;
 import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.TableSubject;
+import dataObjects.UserAccount;
+import dataObjects.UserAccountTable;
 
-public abstract class ActionLogTablePanel extends TablePanel implements TableObserver{
+public abstract class UserAccountTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
-	ActionLogTable actionLogTable;
+	UserAccountTable userAccountTable;
 	
 	public void initialize(){
 		
-		setBounds(12, 50, 748, 162);
-		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		getViewport().setBackground(Color.LIGHT_GRAY);
+		setBounds(0, 0, 752, 240);
 		
 		table = new JTable();
+		//table.addMouseListener(new MouseAdapter();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		setViewportView(table);
 	}
 	
 	public void fillTable(TableSubject tableSubject){
-		actionLogTable = (ActionLogTable)tableSubject;
-		actionLogTable.registerObserver(this);
-		ArrayList<TableEntry> actionLogList = actionLogTable.getAllEntries();
+		userAccountTable = (UserAccountTable)tableSubject;
+		userAccountTable.registerObserver(this);
+		ArrayList<TableEntry> userAccountList = userAccountTable.getAllEntries();
 		
 		DefaultTableModel model = new DefaultTableModel();
 		
-		model.addColumn("User");
-		model.addColumn("Date");
-		model.addColumn("Time");
-		model.addColumn("Header");
-		model.addColumn("Description");
-		for(TableEntry tableEntry:actionLogList){
-			ActionLog actionLog = (ActionLog)tableEntry;
+		model.addColumn("UserID");
+		model.addColumn("Username");
+		model.addColumn("Password");
+		model.addColumn("Clearance");
+		for(TableEntry tableEntry:userAccountList){
+			UserAccount actionLog = (UserAccount)tableEntry;
 			Vector<Object> row = new Vector<Object>();
-			row.add(actionLog.getUserID());
-			row.add(actionLog.getActionDate());
-			row.add(actionLog.getActionTime());
-			row.add(actionLog.getActionHeaderID());
-			row.add(actionLog.getActionDesc());
+			row.add(actionLog.getPersonID());
+			row.add(actionLog.getUsername());
+			row.add(actionLog.getPassword());
+			row.add(actionLog.getClearanceID());
 			
 			model.addRow(row);
-		}
-		
+		}	
 	}
 }
