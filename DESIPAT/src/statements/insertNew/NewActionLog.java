@@ -1,6 +1,7 @@
 package statements.insertNew;
 
-import dataClasses.ActionLog;
+import databaseTableObjects.ActionLog;
+import statements.InsertStrategy;
 
 public abstract class NewActionLog extends InsertStrategy{
 	public NewActionLog(ActionLog a) {

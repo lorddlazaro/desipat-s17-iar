@@ -1,8 +1,8 @@
 package statements.insertNew;
 
-import dataClasses.Asset;
+import databaseTableObjects.Asset;
+import statements.InsertStrategy;
 
-// not done yet
 public class NewAsset extends InsertStrategy {
 	public NewAsset(Asset a) {
 		super("Asset",
