@@ -1,6 +1,6 @@
 package statementStrategies;
 
-public class InsertStrategy implements StatementStrategy{
+public abstract class InsertStrategy extends NonQuery{
 	private String statement;
 	private String tableName;
 	private String columns;
