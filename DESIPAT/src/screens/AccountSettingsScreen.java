@@ -25,7 +25,7 @@ import javax.swing.UIManager;
 import dataObjects.UserAccount;
 
 
-public class AccountSettingsScreen extends Screen {
+public class AccountSettingsScreen extends Screen implements TableObserver{
 	private JTextField usernameField;
 	private JLabel lblName;
 	private JLabel nameLabel;
