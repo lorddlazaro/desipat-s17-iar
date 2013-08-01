@@ -13,9 +13,6 @@ public class UserAccount extends TableEntry{
 	private String password;
 	private int clearanceID;
 	private int personID;
-
-	private ArrayList<String> values;
-	
 	
 	public UserAccount(int userID, String username, String password, int clearanceID, int personID){
 		 setID(userID);
@@ -23,12 +20,6 @@ public class UserAccount extends TableEntry{
 		 setPassword(password);
 		 setClearanceID(clearanceID);
 		 setPersonID(personID);
-		 
-		 values.add(String.valueOf(ID));
-		 values.add(username);
-		 values.add(password);
-		 values.add(String.valueOf(clearanceID));
-		 values.add(String.valueOf(personID));
 	 }
 	
 	public String getUsername() {
@@ -73,6 +64,14 @@ public class UserAccount extends TableEntry{
 	}
 	
 	public ArrayList<String> getValues() {
+		if(values == null){
+			values = new ArrayList<String>();
+			values.add(String.valueOf(ID));
+			values.add(username);
+			values.add(password);
+			values.add(String.valueOf(clearanceID));
+			values.add(String.valueOf(personID));
+		}
 		return values;
 	}
 }

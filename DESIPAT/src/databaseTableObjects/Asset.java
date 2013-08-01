@@ -18,9 +18,6 @@ public class Asset extends TableEntry{
 	private int confidentialValue;
 	private int integrityValue;
 	private  int availabilityValue;
-	
-	private ArrayList<String> values;
-		
 
 	public Asset(int ID, String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired, float financialValue, int confidentialValue, int integrityValue, int availabilityValue){
 		 setID(ID);
