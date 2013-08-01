@@ -10,8 +10,4 @@ public abstract class DeleteStrategy extends NonQuery {
 }
 
 // add subclasses
-class DeleteUser extends DeleteStrategy {
-	public DeleteUser(int userID) {
-		super("UserAccount", "userID = " + userID);
-	}
-}
+
