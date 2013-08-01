@@ -2,7 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
-import statementStrategies.DeleteStrategy;
+import statements.DeleteStrategy;
 
 import dbHandler.NonQuery;
 
