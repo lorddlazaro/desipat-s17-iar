@@ -276,32 +276,57 @@ public class AddAssetScreen extends JPanel {
 		
 		
 		btnNewOwner = new JButton("New");
-		//btnNewOwner.addActionListener(new ActionListener() ;
+		btnNewOwner.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+			behaviour.setNewItemPanel(3);
+			}
+		}) ;
 		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewOwner.setBounds(367, 247, 70, 20);
 		add(btnNewOwner);
 		
 		btnNewCustodian = new JButton("New");
-		//btnNewCustodian.addActionListener(new ActionListener();
+		btnNewCustodian.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+			behaviour.setNewItemPanel(1);
+			}
+		});
 		btnNewCustodian.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewCustodian.setBounds(367, 287, 70, 20);
 		add(btnNewCustodian);
 		
 		btnNewType = new JButton("New");
-		//btnNewType.addActionListener(new ActionListener();
+		btnNewType.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+			behaviour.setNewItemPanel(2);
+			}
+		});
 		btnNewType.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewType.setBounds(367, 326, 70, 20);
 		add(btnNewType);
 		
 		btnNewStorage = new JButton("New");
-		//btnNewStorage.addActionListener(new ActionListener();
+		btnNewStorage.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+			behaviour.setNewItemPanel(3);
+			}
+		});
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewStorage.setBounds(367, 366, 70, 20);
 		add(btnNewStorage);
 		
 		JButton btnAdd = new JButton("Add Asset");
 		btnAdd.setBackground(SystemColor.activeCaption);
-		//btnAdd.addActionListener(new ActionListener() {;
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)
+			{
+				behaviour.saveAsset();
+			}
+		});
 		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnAdd.setBounds(583, 406, 179, 37);
 		add(btnAdd);
@@ -332,13 +357,23 @@ public class AddAssetScreen extends JPanel {
 		textFieldNewItem3.setColumns(10);
 		
 		btnNewItemCancel = new JButton("Cancel");
-		//btnNewItemCancel.addActionListener(new ActionListener();
+		btnNewItemCancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+				behaviour.cancel();
+			}
+		});
 		btnNewItemCancel.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewItemCancel.setBounds(126, 106, 85, 20);
 		panelNewItem.add(btnNewItemCancel);
 		
 		btnNewItemSave = new JButton("Save");
-		//btnNewItemSave.addActionListener(new ActionListener();
+		btnNewItemSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+				behaviour.saveItem();
+			}
+		});
 		btnNewItemSave.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewItemSave.setBounds(222, 106, 70, 20);
 		panelNewItem.add(btnNewItemSave);
