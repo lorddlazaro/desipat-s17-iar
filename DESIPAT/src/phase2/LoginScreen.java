@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class LoginScreen extends JPanel implements TableObserver {
+public class LoginScreen extends Screen implements TableObserver {
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
