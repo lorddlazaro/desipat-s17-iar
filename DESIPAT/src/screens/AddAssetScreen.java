@@ -30,7 +30,7 @@ import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
 
-public class AddAssetScreen extends JPanel {
+public class AddAssetScreen extends JPanel implements TableObserver {
 	private JTextField txtName;
 	private JTextField txtFinancial;
 	private JSlider sldConfidentiality;
