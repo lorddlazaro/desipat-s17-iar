@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import screenBehaviourStrategy.LoginScreenBehaviour;
+import screenBehaviourStrategy.MainScreenBehaviour;
 import screens.LoginScreen;
 import screens.MainScreen;
 
@@ -33,10 +35,15 @@ public class MainFrame extends JFrame {
 		
 		setContentPane(contentPane);
 		
-		loginScreen = new LoginScreen();
+		//Todo:
+		// pass through loginScreenbehaviour's constructor its respective new model()
+		loginScreen = new LoginScreenBehaviour().getView(); 
 		contentPane.add(loginScreen, LOGIN_SCREEN);
 		
-		mainScreen = new MainScreen();
+		
+		//Todo:
+		// pass through mainScreen's constructor its respective new model()
+		mainScreen = new MainScreenBehaviour().getView();
 		contentPane.add(mainScreen, MAIN_SCREEN);
 	}
 
