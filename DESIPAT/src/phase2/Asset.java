@@ -2,7 +2,7 @@ package phase2;
 import java.util.List;
 import java.sql.Date;
 
-public class Asset {
+public class Asset extends TableEntry{
 	
 private int assetID;
 private String name;
