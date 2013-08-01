@@ -15,9 +15,10 @@ import javax.swing.SwingConstants;
 
 
 public class LogScreen extends JPanel {
-	private JTable actionLogTable;
 	
+	private JTable actionLogTable;
 	private JTable assetChangeLogTable;
+	
 
 	public LogScreen(){
 		initialize();
