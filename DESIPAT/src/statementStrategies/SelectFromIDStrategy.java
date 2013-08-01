@@ -20,3 +20,9 @@ class SelectFromAsset extends SelectFromIDStrategy {
 		super("Asset", "assetID = " + assetID);
 	}
 }	
+
+class SelectFromPerson extends SelectFromIDStrategy {
+	public SelectFromPerson(int personID) {
+		super("Person", "assetID = " + personID);
+	}
+}	
