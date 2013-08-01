@@ -8,10 +8,3 @@ public abstract class SelectAllStrategy extends Query {
 		query = "SELECT * FROM " + tableName + ";";
 	}
 }
-
-// add subclasses
-class SelectAllUsers extends SelectAllStrategy {
-	public SelectAllUsers() {
-		super("UserAccount");
-	}
-}
