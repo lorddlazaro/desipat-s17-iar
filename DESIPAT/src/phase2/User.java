@@ -2,7 +2,7 @@ package phase2;
 
 
 
-public class User {
+public class User extends TableEntry{
 	private int userID;	
 	private String username;
 	private String password;

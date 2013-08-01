@@ -1,5 +1,5 @@
 package phase2;
-public class Person {
+public class Person extends TableEntry{
 	
 	private int personID;
 	private String firstName;
