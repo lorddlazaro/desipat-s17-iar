@@ -22,14 +22,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
+import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
+
 
 import java.awt.Font;
 import java.awt.SystemColor;
 
 
-public class ViewAssetScreen extends Screen{
+public class ViewAssetScreen extends Screen implements TableObserver{
 
 	private Connection conn;
+	
+	//private Model model;
+	ViewAssetScreenBehaviourStrategy behavior;
+	
 	private JTable table;
 	private JLabel lblIdentifier;
 	private JLabel lblName;
@@ -47,7 +53,8 @@ public class ViewAssetScreen extends Screen{
 	private JLabel lblStorageLocation;
 	private JTable changeLogTable;
 	
-	public ViewAssetScreen() {
+	public ViewAssetScreen(ViewAssetScreenBehaviourStrategy behaviour) {
+		this.behavior = behaviour;
 		initialize();
 	}
 	

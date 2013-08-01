@@ -39,6 +39,7 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
+import screenBehaviourStrategy.ViewAssetScreenBehaviour;
 
 
 public class MainScreen extends Screen{
@@ -51,6 +52,7 @@ public class MainScreen extends Screen{
 	private final String VIEW_LOG_SCREEN = "viewlog";
 	private final String GREETING_SCREEN = "greeting";
 	
+	//private Model model;
 	MainScreenBehaviourStrategy behaviour;
 	
 	private JLabel lblGreeting;
@@ -75,7 +77,8 @@ public class MainScreen extends Screen{
 	private JButton btnManageAccounts;
 	private JButton btnViewLogs;
 	
-	public MainScreen() {
+	public MainScreen(MainScreenBehaviourStrategy behaviour) {
+		this.behaviour = behaviour;
 		initialize();
 	}
 	
@@ -214,7 +217,7 @@ public class MainScreen extends Screen{
 		accountSettingsCard = new AccountSettingsScreen();
 		cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
 		
-		viewAssetCard = new ViewAssetScreen();
+		viewAssetCard = new ViewAssetScreenBehaviour().getView();
 		cardPanel.add(viewAssetCard, this.VIEW_ASSET_SCREEN);
 		
 		addAssetCard = new AddAssetScreen();
