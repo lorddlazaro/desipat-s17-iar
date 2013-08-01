@@ -10,6 +10,10 @@ public class TextInput extends InputField {
 	public TextInput(String name) {
 		super(name);
 	}
+	public TextInput(String name,int x, int y, int width, int height) {
+		super(name);
+		myField.setBounds(x, y, width, height);
+	}
 	
 	public void addFields() {
 		this.add(myField);
