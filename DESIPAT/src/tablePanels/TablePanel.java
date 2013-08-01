@@ -1,4 +1,4 @@
-package phase2;
+package tablePanels;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
