@@ -2,7 +2,7 @@ package statementStrategies;
 
 import java.util.ArrayList;
 
-public class UpdateStrategy implements StatementStrategy{
+public abstract class UpdateStrategy extends NonQuery{
 	private String statement;
 	private String tableName;
 	private ArrayList<String> columns;
