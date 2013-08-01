@@ -3,7 +3,7 @@ package statements.insertNew;
 import dataObjects.ActionLog;
 import statements.InsertStrategy;
 
-public abstract class NewActionLog extends InsertStrategy{
+public class NewActionLog extends InsertStrategy{
 	public NewActionLog(ActionLog a) {
 		super("ActionLog",
 				"userID, actionDate, actionTime, actionHeaderID, actionDesc",
