@@ -2,7 +2,8 @@ package phase2;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import databaseTableObjects.TableSubject;
+
+import dataObjects.TableSubject;
 
 public abstract class TablePanel extends JScrollPane{
 	private JTable table;
