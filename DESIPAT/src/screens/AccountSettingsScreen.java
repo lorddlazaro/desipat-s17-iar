@@ -22,7 +22,7 @@ import java.util.regex.*;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
-import databaseTableObjects.UserAccount;
+import dataObjects.UserAccount;
 
 
 public class AccountSettingsScreen extends Screen {
