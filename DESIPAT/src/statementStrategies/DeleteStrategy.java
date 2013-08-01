@@ -1,16 +1,17 @@
 package statementStrategies;
 
-public class DeleteStrategy implements StatementStrategy{
-	private String statement;
-	private String tableName;
-	private String condition;
-	public DeleteStrategy(String tableName, String condition)
-	{
-		this.tableName=tableName;
-		this.condition=condition;
+import dbHandler.NonQuery;
+
+// done
+public abstract class DeleteStrategy extends NonQuery {
+	public DeleteStrategy(String tableName, String condition) {
+		nonQuery = "DELETE FROM " + tableName + " WHERE " + condition + ";";
 	}
-	public String getStatement(){
-		statement = "DELETE FROM "+tableName+" WHERE " + condition + ";";
-		return statement;
+}
+
+// add subclasses
+class DeleteUser extends DeleteStrategy {
+	public DeleteUser(int userID) {
+		super("UserAccount", "userID = " + userID);
 	}
 }

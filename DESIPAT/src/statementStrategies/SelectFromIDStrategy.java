@@ -1,16 +1,22 @@
 package statementStrategies;
 
-public class SelectFromIDStrategy implements StatementStrategy { 
-	private String statement;
-	private String tableName;
-	private String condition;
-	public SelectFromIDStrategy(String tableName, String condition)
-	{
-		this.tableName=tableName;
-		this.condition=condition;
-	}
-	public String getStatement(){
-		statement = "SELECT * FROM "+tableName+" WHERE ID = " + condition + ";";
-		return statement;
+import dbHandler.Query;
+
+public abstract class SelectFromIDStrategy extends Query { 
+	public SelectFromIDStrategy(String tableName, String condition)	{
+		query = "SELECT * FROM " + tableName + " WHERE ID = " + condition + ";";
 	}
 }
+
+//add subclasses
+class SelectFromUser extends SelectFromIDStrategy {
+	public SelectFromUser(int userID) {
+		super("UserAccount", "userID =" + userID);
+	}
+}
+
+class SelectFromAsset extends SelectFromIDStrategy {
+	public SelectFromAsset(int assetID) {
+		super("Asset", "assetID = " + assetID);
+	}
+}	
