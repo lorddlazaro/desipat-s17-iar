@@ -2,9 +2,8 @@ package databaseTableObjects;
 
 import java.util.ArrayList;
 
-import statementStrategies.DeleteStrategy;
-
 import dbHandler.NonQuery;
+import statementStrategies.DeleteUser;
 
 public class UserTable extends TableSubject{
 	//private ArrayList<User> userList;	
@@ -13,12 +12,12 @@ public class UserTable extends TableSubject{
 		User user=(User)tableEntry;
 		entryList.add(tableEntry);
 		//TODO: add entry to Asset DB
-		statement=new InsertStrategy("UserAccount", /*tableEntry.values*/,"username, password, clearanceID, personID, isActive");
+		//statement=new InsertStrategy("UserAccount", /*tableEntry.values*/,"username, password, clearanceID, personID, isActive");
 		statement.executeStatement();
 	}
 	public void deleteEntry(TableEntry tableEntry){
 		User user=(User)tableEntry;
-		statement=new DeleteStrategy("UserAccount",user.getUserID());
+		statement=new DeleteUser(user.getUserID());
 		statement.executeStatement();
 	}
 	public ArrayList<TableEntry> getAllEntries(){
