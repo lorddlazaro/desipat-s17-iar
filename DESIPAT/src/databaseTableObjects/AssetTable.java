@@ -8,6 +8,7 @@ public class AssetTable extends TableSubject{
 	//private ArrayList<Asset> assetList;	
 	Query query;
 	public void addEntry(TableEntry tableEntry){
+		Asset asset=(Asset)tableEntry;
 		entryList.add(tableEntry);
 		//TODO: add entry to Asset DB
 		query=new InsertStrategy("Asset", /*tableEntry.values*/,"name, ownerID, custodianID, typeID, maintID, classID, storageID, periodID, dateAcquired, financialValue, confidentialValue, integrityValue, availabilityValue");
