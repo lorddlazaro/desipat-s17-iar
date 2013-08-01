@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import statements.DeleteUser;
 import dbHandler.NonQuery;
+import statements.insertNew.NewAssetChangeLog;
 import statements.insertNew.NewUser;
 
 public class AssetChangeLogTable extends TableSubject{
