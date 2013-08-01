@@ -1,6 +1,8 @@
 package databaseTableObjects;
 import java.util.ArrayList;
 
+import screens.TableObserver;
+
 public abstract class TableSubject {
 	private ArrayList<TableObserver> observerList;
 	private ArrayList<TableEntry> entryList;
