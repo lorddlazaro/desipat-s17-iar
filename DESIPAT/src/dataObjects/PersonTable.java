@@ -34,11 +34,11 @@ public class PersonTable extends TableSubject{
 	}
 	//TODO: edit entry
 	public void editEntry(TableEntry tableEntry){}	
-	/*public void deleteEntry(TableEntry tableEntry){
-		Person person = (Person)tableEntry;
+	public void deleteEntry(TableEntry tableEntry){
+		/*Person person = (Person)tableEntry;
 		NonQuery statement = new DeletePerson(person.getID());
-		statement.executeStatement();
-	}*/
+		statement.executeStatement();*/
+	}
 	public ArrayList<String> getColumnNames() {
 		return columnNames;
 	}
