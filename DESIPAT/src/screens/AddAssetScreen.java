@@ -26,6 +26,9 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
+import screenBehaviourStrategy.AddAssetScreenBehavior;
+import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
+
 
 public class AddAssetScreen extends JPanel {
 	private JTextField txtName;
@@ -58,11 +61,16 @@ public class AddAssetScreen extends JPanel {
 	private JButton btnNewItemSave;
 	private JButton btnNewItemCancel;
 
-	public AddAssetScreen(){
+	AssetScreenBehaviorStrategy behaviour;
+	
+	public AddAssetScreen(AddAssetScreenBehavior behaviour){
+		this.behaviour=behaviour;
 		initialize();
 	}
 	
 	public void initialize() {
+		//behaviour=new AddAssetScreenBehavior();
+		
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		

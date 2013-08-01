@@ -21,6 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
+
+import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
+import screenBehaviourStrategy.EditAssetScreenBehavior;
+
 import java.awt.SystemColor;
 
 
@@ -43,12 +47,14 @@ public class EditAssetScreen extends JPanel {
 	private JCheckBox chckbxStatus;
 
 	private JTextField txtRetention;
-
-	public EditAssetScreen(){
+	AssetScreenBehaviorStrategy behaviour;
+	public EditAssetScreen(EditAssetScreenBehavior behaviour){
+		this.behaviour=behaviour;
 		initialize();
 	}
 	
 	public void initialize() {
+		//behaviour=new EditAssetScreenBehavior();
 		
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
