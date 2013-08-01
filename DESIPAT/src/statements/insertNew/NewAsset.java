@@ -1,6 +1,6 @@
 package statements.insertNew;
 
-import databaseTableObjects.Asset;
+import dataObjects.Asset;
 import statements.InsertStrategy;
 
 public class NewAsset extends InsertStrategy {
