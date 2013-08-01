@@ -30,7 +30,7 @@ public class UserAccount extends TableEntry{
 		 values.add(String.valueOf(clearanceID));
 		 values.add(String.valueOf(personID));
 	 }
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -49,6 +49,22 @@ public class UserAccount extends TableEntry{
 	public void setClearanceID(int clearanceID) {
 		this.clearanceID = clearanceID;
 	}
+	//TODO: lookupthings
+	public String getClearanceLevel(){
+		return "";
+	}
+	public String getPersonFirstName(){
+		// maybe something like,
+		// PersonTable.getEntry(this.personID).getFirstName();
+		return "";
+	}
+	public String getPersonMiddleName(){
+		return "";
+	}
+	public String getPersonLastName(){
+		return "";
+	}
+	
 	public int getPersonID() {
 		return personID;
 	}
