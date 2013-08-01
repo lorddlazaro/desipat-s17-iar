@@ -1,12 +1,12 @@
 package statements.insertNew;
 
-import databaseTableObjects.StorageLocation;
+import dataObjects.Storage;
 import statements.InsertStrategy;
 
 public class NewStorage extends InsertStrategy {
-	public NewStorage(StorageLocation s) {
+	public NewStorage(Storage s) {
 		super("Storage", 
 				"storageLocation",
-				s.getLocation());
+				s.getStorageLocation());
 	}
 }
