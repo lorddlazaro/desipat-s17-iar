@@ -1,6 +1,6 @@
 package errorChecker;
 
-import inputFields.InputField;
+import fields.InputField;
 
 import java.awt.event.ActionEvent;
 
