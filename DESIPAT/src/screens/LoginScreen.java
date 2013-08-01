@@ -15,13 +15,16 @@ import screenBehaviourStrategy.LoginScreenBehaviourStrategy;
 
 public class LoginScreen extends Screen implements TableObserver {
 	
+	//private Model model;
 	LoginScreenBehaviourStrategy behaviour;
+	
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JButton LoginButton;
 
-	public LoginScreen() {
+	public LoginScreen(LoginScreenBehaviourStrategy behaviour) {
+		this.behaviour = behaviour;
 		initialize();
 	}
 	
