@@ -3,12 +3,17 @@ package screenBehaviourStrategy;
 import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import phase1.Asset;
+import screens.AddAssetScreen;
 import statements.SelectLookUpStrategy;
 import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-	
+	AddAssetScreen screen;
+	public AddAssetScreenBehavior(AddAssetScreen screen)
+	{
+		this.screen=screen;
+	}
 	public void saveAsset(TableEntry a) {
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
@@ -42,10 +47,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 			break;
 		}
 	}
-	@Override
-	public void saveAsset() {
-		// TODO Auto-generated method stub
-		
-	}
+
+	
 
 }
