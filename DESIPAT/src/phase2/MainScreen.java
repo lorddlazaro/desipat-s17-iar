@@ -38,7 +38,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
-public class MainScreen extends JPanel{
+public class MainScreen extends Screen{
 
 	private final String ACCOUNT_SETTINGS_SCREEN = "accountsetting";
 	private final String VIEW_ASSET_SCREEN = "viewasset";
@@ -74,7 +74,7 @@ public class MainScreen extends JPanel{
 		initialize();
 	}
 	
-	private void initialize(){
+	public void initialize(){
 		setBackground(new Color(192, 192, 192));
 		setLayout(null);
 		
@@ -163,9 +163,11 @@ public class MainScreen extends JPanel{
 		
 		
 		// CARDS PANEL
+		// TODO: this panel?
 		greetingCard = new JPanel();
 		cardPanel.add(greetingCard, this.GREETING_SCREEN);
 		
+		accountSettingsCard = new AccountSettingsScreen();
 		cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
 		
 		viewAssetCard = new ViewAssetScreen();
@@ -180,7 +182,9 @@ public class MainScreen extends JPanel{
 		adminCard = new AdminScreen();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
 
-		viewLogsCard = new Logcreen();
+		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
+	
+	public void refresh(){}
 }
