@@ -15,7 +15,16 @@ public class StorageTable extends TableSubject{
 	private ArrayList<Storage> storageList;	
 	private ArrayList<String> columnNames;
 	
-	public StorageTable(){
+	private static StorageTable instance;
+	
+	public static StorageTable getInstance(){
+		if(instance == null){
+			instance = new StorageTable();
+		}
+		return instance;
+	}
+	
+	protected  StorageTable(){
 		storageList = new ArrayList<Storage>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);

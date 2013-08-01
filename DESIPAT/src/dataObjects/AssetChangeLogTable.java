@@ -18,7 +18,16 @@ public class AssetChangeLogTable extends TableSubject{
 	private ArrayList<AssetChangeLog> assetChangeLogList;	
 	private ArrayList<String> columnNames;
 	
-	public AssetChangeLogTable(){
+	private static AssetChangeLogTable instance;
+	
+	public static AssetChangeLogTable getInstance(){
+		if(instance == null){
+			instance = new AssetChangeLogTable();
+		}
+		return instance;
+	}
+	
+	protected AssetChangeLogTable(){
 		assetChangeLogList = new ArrayList<AssetChangeLog>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(CHANGEID_COLUMN_NAME);

@@ -28,8 +28,19 @@ public class AssetTable extends TableSubject{
 	
 	private ArrayList<Asset> assetList;	
 	private ArrayList<String> columnNames;
+
 	
-	public AssetTable(){
+	private static AssetTable instance;
+	
+	public static AssetTable getInstance(){
+		if(instance == null){
+			instance = new AssetTable();
+		}
+		return instance;
+	}
+	
+	
+	protected AssetTable(){
 		assetList = new ArrayList<Asset>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
