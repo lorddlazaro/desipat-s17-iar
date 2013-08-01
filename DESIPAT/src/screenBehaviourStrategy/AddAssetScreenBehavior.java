@@ -2,23 +2,29 @@ package screenBehaviourStrategy;
 
 import dataObjects.AssetTable;
 import dataObjects.TableEntry;
+import dataObjects.UserAccountTable;
 import phase1.Asset;
 import screens.AddAssetScreen;
+import screens.LoginScreen;
+import screens.TableObserver;
 import statements.SelectLookUpStrategy;
 import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-	AddAssetScreen screen;
-	public AddAssetScreenBehavior(AddAssetScreen screen)
+	AssetTable table;
+	private AddAssetScreen addAssetScreen;
+	public AddAssetScreenBehavior()
 	{
-		this.screen=screen;
+		table = table.getInstance();
+		addAssetScreen = new AddAssetScreen(this);
+		table.registerObserver((TableObserver) addAssetScreen);
 	}
 	public void saveAsset(TableEntry a) {
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
-		AssetTable.getInstance().addEntry(a);
-		
+		//AssetTable.getInstance().addEntry(a);
+		table.addEntry(a);
 		/*SelectLookUpStrategy lookUp;
 		lookUp=new LookUpMaintenance(a.getMaintenanceSchedule());
 		lookUp=new lookUpType();
