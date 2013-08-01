@@ -1,45 +1,19 @@
 package screens;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTree;
-import javax.swing.JTable;
-import javax.swing.JComboBox;
-import javax.swing.JSlider;
-import javax.swing.JList;
-import javax.swing.JToggleButton;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.AbstractListModel;
-import javax.swing.SwingConstants;
-
-import java.awt.Graphics;
 import java.awt.CardLayout;
 import java.awt.Color;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.UIManager;
-import javax.swing.border.EtchedBorder;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
+import dataObjects.UserAccountTable;
 
 
 public class MainScreen extends Screen{
@@ -53,7 +27,7 @@ public class MainScreen extends Screen{
 	private final String GREETING_SCREEN = "greeting";
 	
 	//private Model model;
-	MainScreenBehaviourStrategy behaviour;
+	private MainScreenBehaviourStrategy behaviour;
 	
 	private JLabel lblGreeting;
 	private JLabel lblUsername;
@@ -220,15 +194,17 @@ public class MainScreen extends Screen{
 		viewAssetCard = new ViewAssetScreenBehaviour().getView();
 		cardPanel.add(viewAssetCard, this.VIEW_ASSET_SCREEN);
 		
-		addAssetCard = new AddAssetScreen();
-		cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
+		//addAssetCard = new AddAssetScreen();
+		//cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
 		
-		editAssetCard = new EditAssetScreen();
-		cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
+		//editAssetCard = new EditAssetScreen();
+		//cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
 		
 		adminCard = new AdminScreen();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
-
+		
+		
+		
 		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
