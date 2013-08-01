@@ -1,10 +1,10 @@
 package dataObjects;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
-import statementStrategies.DeleteUser;
+import statements.DeleteUser;
 import dbHandler.NonQuery;
+import statements.insertNew.NewUser;
 
 public class UserAccountTable extends TableSubject{
 	public final static String ID_COLUMN_NAME = "userID";
@@ -25,28 +25,19 @@ public class UserAccountTable extends TableSubject{
 		columnNames.add(CLEARANCEID_COLUMN_NAME);
 		columnNames.add(PERSONID_COLUMN_NAME);
 	}
-	
-
-	NonQuery statement;
 	public void addEntry(TableEntry tableEntry){
-		UserAccount user = (UserAccount)tableEntry;
+		UserAccount userAccount = (UserAccount)tableEntry;
 		entryList.add(tableEntry);
-		//TODO: add entry to Asset DB
-		//statement=new InsertStrategy("UserAccount", /*tableEntry.values*/,"username, password, clearanceID, personID, isActive");
+		NonQuery statement = new NewUser(userAccount);
 		statement.executeStatement();
 	}
+	//TODO: edit entry
+	public void editEntry(TableEntry tableEntry){}	
 	public void deleteEntry(TableEntry tableEntry){
-		UserAccount user=(UserAccount)tableEntry;
-		statement = new DeleteUser(user.getID());
+		UserAccount user = (UserAccount)tableEntry;
+		NonQuery statement = new DeleteUser(user.getID());
 		statement.executeStatement();
 	}
-	public ArrayList<TableEntry> getAllEntries(){
-		return entryList;
-	}
-	public TableEntry getEntry(int key){ 
-		return entryList.get(key);
-	}
-	
 	public ArrayList<String> getColumnNames() {
 		return columnNames;
 	}
