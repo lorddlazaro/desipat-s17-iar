@@ -17,9 +17,9 @@ public class AssetTable extends TableSubject{
 		statement.executeStatement();
 	}
 	public void deleteEntry(TableEntry tableEntry){
-		Asset asset=(Asset)tableEntry;
+		/*Asset asset=(Asset)tableEntry;
 		statement=new DeleteStrategy("Asset",asset.getID());
-		statement.executeStatement();
+		statement.executeStatement();*/
 	}
 	public ArrayList<TableEntry> getAllEntries(){
 		return entryList;}
