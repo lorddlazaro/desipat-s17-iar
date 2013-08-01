@@ -15,8 +15,17 @@ public class UserAccountTable extends TableSubject{
 	
 	private ArrayList<UserAccount> userList;	
 	private ArrayList<String> columnNames;
+
+	private static UserAccountTable instance;
 	
-	public UserAccountTable(){
+	public static UserAccountTable getInstance(){
+		if(instance == null){
+			instance = new UserAccountTable();
+		}
+		return instance;
+	}
+	
+	protected UserAccountTable(){
 		userList = new ArrayList<UserAccount>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);

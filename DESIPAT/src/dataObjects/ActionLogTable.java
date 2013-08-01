@@ -18,7 +18,16 @@ public class ActionLogTable extends TableSubject{
 	private ArrayList<ActionLog> actionList;	
 	private ArrayList<String> columnNames;
 	
-	public ActionLogTable(){
+	private static ActionLogTable instance;
+	
+	public static ActionLogTable getInstance(){
+		if(instance == null){
+			instance = new ActionLogTable();
+		}
+		return instance;
+	}
+	
+	protected ActionLogTable(){
 		actionList = new ArrayList<ActionLog>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ACTIONID_COLUMN_NAME);
@@ -27,6 +36,7 @@ public class ActionLogTable extends TableSubject{
 		columnNames.add(HEADERID_COLUMN_NAME);
 		columnNames.add(ACTIONDESC_COLUMN_NAME);
 	}
+	
 	public void addEntry(TableEntry tableEntry){
 		ActionLog actionLog = (ActionLog)tableEntry;
 		entryList.add(tableEntry);

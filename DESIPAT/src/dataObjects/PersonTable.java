@@ -17,7 +17,16 @@ public class PersonTable extends TableSubject{
 	private ArrayList<Person> personList;	
 	private ArrayList<String> columnNames;
 	
-	public PersonTable(){
+	private static PersonTable instance;
+	
+	public static PersonTable getInstance(){
+		if(instance == null){
+			instance = new PersonTable();
+		}
+		return instance;
+	}
+	
+	protected PersonTable(){
 		personList = new ArrayList<Person>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
