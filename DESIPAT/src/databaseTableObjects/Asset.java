@@ -1,187 +1,141 @@
 package databaseTableObjects;
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
 public class Asset extends TableEntry{
 	
-private int assetID;
-private String name;
-private int type;
-private Boolean isActive;
+	private String name;
+	private int ownerID;
+	private int custodianID;
+	private int typeID;
+	private int maintID;
+	private int classID;
+	private int storageID;
+	private int periodID;
+	private Date dateAcquired;
+	private float financialValue;
+	private int confidentialValue;
+	private int integrityValue;
+	private  int availabilityValue;
+	
+	private ArrayList<String> values;
+		
 
-private int maintenanceSchedule;
-private String dateAcquired; 
-private Date dateRetired;
+	public Asset(int ID, String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired, float financialValue, int confidentialValue, int integrityValue, int availabilityValue){
+		 setID(ID);
+		 setName(name);
+		 setOwnerID(ownerID);
+		 setCustodianID(custodianID);
+		 setTypeID(typeID);
+		 setMaintID(maintID);
+		 setClassID(classID);
+		 setStorageID(storageID);
+		 setPeriodID(periodID);
+		 setDateAcquired(dateAcquired);
+		 setFinancialValue(financialValue);
+		 setConfidentialValue(confidentialValue);
+		 setIntegrityValue(integrityValue);
+		 setAvailabilityValue(availabilityValue);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getOwnerID() {
+		return ownerID;
+	}
+	public void setOwnerID(int ownerID) {
+		this.ownerID = ownerID;
+	}
+	public int getCustodianID() {
+		return custodianID;
+	}
+	public void setCustodianID(int custodianID) {
+		this.custodianID = custodianID;
+	}
+	public int getTypeID() {
+		return typeID;
+	}
+	public void setTypeID(int typeID) {
+		this.typeID = typeID;
+	}
+	public int getMaintID() {
+		return maintID;
+	}
+	public void setMaintID(int maintID) {
+		this.maintID = maintID;
+	}
+	public int getClassID() {
+		return classID;
+	}
+	public void setClassID(int classID) {
+		this.classID = classID;
+	}
+	public int getStorageID() {
+		return storageID;
+	}
+	public void setStorageID(int storageID) {
+		this.storageID = storageID;
+	}
+	public int getPeriodID() {
+		return periodID;
+	}
+	public void setPeriodID(int periodID) {
+		this.periodID = periodID;
+	}
+	public Date getDateAcquired() {
+		return dateAcquired;
+	}
+	public void setDateAcquired(Date dateAcquired) {
+		this.dateAcquired = dateAcquired;
+	}
+	public float getFinancialValue() {
+		return financialValue;
+	}
+	public void setFinancialValue(float financialValue) {
+		this.financialValue = financialValue;
+	}
+	public int getConfidentialValue() {
+		return confidentialValue;
+	}
+	public void setConfidentialValue(int confidentialValue) {
+		this.confidentialValue = confidentialValue;
+	}
+	public int getIntegrityValue() {
+		return integrityValue;
+	}
+	public void setIntegrityValue(int integrityValue) {
+		this.integrityValue = integrityValue;
+	}
+	public int getAvailabilityValue() {
+		return availabilityValue;
+	}
+	public void setAvailabilityValue(int availabilityValue) {
+		this.availabilityValue = availabilityValue;
+	}
 
-private float valueFinancial;
-private int valueConfidentiality;
-private int valueIntegrity;
-private  int valueAvailability;
-
-private  int classification;
-
-private int custodianID;
-private int ownerID;
-private int storageID;
-
-private int status;
-
-private String ownerFirstName;
-private String ownerMiddleInitial;
-private String ownerLastName;
-
-private String custodianFirstName;
-private String custodianMiddleInitial;
-private String custodianLastName;
-
-public String getName() {
-	return name;
-}
-public void setName(String name) {
-	this.name = name;
-}
-public int getType() {
-	return type;
-}
-public void setType(int type) {
-	this.type = type;
-}
-public Boolean getIsActive() {
-	return isActive;
-}
-public void setIsActive(Boolean isActive) {
-	this.isActive = isActive;
-}
-public int getMaintenanceSchedule() {
-	return maintenanceSchedule;
-}
-public void setMaintenanceSchedule(int maintenanceSchedule) {
-	this.maintenanceSchedule = maintenanceSchedule;
-}
-public String getDateAcquired() {
-	return dateAcquired;
-}
-public void setDateAcquired(String dateAcquired) {
-	this.dateAcquired = dateAcquired;
-}
-public Date getDateRetired() {
-	return dateRetired;
-}
-public void setDateRetired(Date dateRetired) {
-	this.dateRetired = dateRetired;
-}
-public float getValueFinancial() {
-	return valueFinancial;
-}
-public void setValueFinancial(float valueFinancial) {
-	this.valueFinancial = valueFinancial;
-}
-public int getValueConfidentiality() {
-	return valueConfidentiality;
-}
-public void setValueConfidentiality(int valueConfidentiality) {
-	this.valueConfidentiality = valueConfidentiality;
-}
-public int getValueIntegrity() {
-	return valueIntegrity;
-}
-public void setValueIntegrity(int valueIntegrity) {
-	this.valueIntegrity = valueIntegrity;
-}
-public int getValueAvailability() {
-	return valueAvailability;
-}
-public void setValueAvailability(int valueAvailability) {
-	this.valueAvailability = valueAvailability;
-}
-public int getClassification() {
-	return classification;
-}
-public void setClassification(int classification) {
-	this.classification = classification;
-}
-public int getStatus(){
-	return status;
-}
-public void setStatus(int status){
-	this.status=status;
-}
-/*public List<CustodyHistory> getCustodyHistory() {
-	return custodyHistory;
-}
-public void setCustodyHistory(List<CustodyHistory> custodyHistory) {
-	this.custodyHistory = custodyHistory;
-}
-public List<OwnershipHistory> getOwnershipHistory() {
-	return ownershipHistory;
-}
-public void setOwnershipHistory(List<OwnershipHistory> ownershipHistory) {
-	this.ownershipHistory = ownershipHistory;
-}
-public List<StorageHistory> getStorageHistory() {
-	return storageHistory;
-}
-public void setStorageHistory(List<StorageHistory> storageHistory) {
-	this.storageHistory = storageHistory;
-}*/
-public int getStorageID() {
-	return storageID;
-}
-public void setStorageID(int storageID) {
-	this.storageID = storageID;
-}
-public int getOwnerID() {
-	return ownerID;
-}
-public void setOwnerID(int ownerID) {
-	this.ownerID = ownerID;
-}
-public int getCustodianID() {
-	return custodianID;
-}
-public void setCustodianID(int custodianID) {
-	this.custodianID = custodianID;
-}
-public int getID() {
-	return assetID;
-}
-public void setID(int assetID) {
-	this.assetID = assetID;
-}
-public String getOwnerFirstName() {
-	return ownerFirstName;
-}
-public void setOwnerFirstName(String ownerFirstName) {
-	this.ownerFirstName = ownerFirstName;
-}
-public String getOwnerMiddleInitial() {
-	return ownerMiddleInitial;
-}
-public void setOwnerMiddleInitial(String ownerMiddleInitial) {
-	this.ownerMiddleInitial = ownerMiddleInitial;
-}
-public String getOwnerLastName() {
-	return ownerLastName;
-}
-public void setOwnerLastName(String ownerLastName) {
-	this.ownerLastName = ownerLastName;
-}
-public String getCustodianFirstName() {
-	return custodianFirstName;
-}
-public void setCustodianFirstName(String custodianFirstName) {
-	this.custodianFirstName = custodianFirstName;
-}
-public String getCustodianMiddleInitial() {
-	return custodianMiddleInitial;
-}
-public void setCustodianMiddleInitial(String custodianMiddleInitial) {
-	this.custodianMiddleInitial = custodianMiddleInitial;
-}
-public String getCustodianLastName() {
-	return custodianLastName;
-}
-public void setCustodianLastName(String custodianLastName) {
-	this.custodianLastName = custodianLastName;
-}
+	public ArrayList<String> getValues() {
+		if(values == null){
+			values = new ArrayList<String>();
+			values.add(String.valueOf(getID()));
+			values.add(getName());
+			values.add(String.valueOf(getOwnerID()));
+			values.add(String.valueOf(getCustodianID()));
+			values.add(String.valueOf(getTypeID()));
+			values.add(String.valueOf(getMaintID()));
+			values.add(String.valueOf(getClassID()));
+			values.add(String.valueOf(getStorageID()));
+			values.add(String.valueOf(getPeriodID()));
+			values.add(getDateAcquired().toString());
+			values.add(String.valueOf(getFinancialValue()));
+			values.add(String.valueOf(getConfidentialValue()));
+			values.add(String.valueOf(getIntegrityValue()));
+			values.add(String.valueOf(getAvailabilityValue()));
+		}
+		return values;
+	}
 }
