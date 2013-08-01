@@ -9,20 +9,7 @@ public abstract class SelectFromIDStrategy extends Query {
 }
 
 //add subclasses
-class SelectFromUser extends SelectFromIDStrategy {
-	public SelectFromUser(int userID) {
-		super("UserAccount", "userID =" + userID);
-	}
-}
 
-class SelectFromAsset extends SelectFromIDStrategy {
-	public SelectFromAsset(int assetID) {
-		super("Asset", "assetID = " + assetID);
-	}
-}	
 
-class SelectFromPerson extends SelectFromIDStrategy {
-	public SelectFromPerson(int personID) {
-		super("Person", "assetID = " + personID);
-	}
-}	
+
+
