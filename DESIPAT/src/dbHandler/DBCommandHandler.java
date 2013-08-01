@@ -11,7 +11,7 @@ public abstract class DBCommandHandler {
 		myCon.openConnection();
 		executeCommand();
 		myCon.closeConnection();
-	
+		
 	}
 	
 	public abstract void executeCommand();
