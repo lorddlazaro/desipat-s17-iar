@@ -1,7 +1,7 @@
 package statements;
 
 import dbHandler.NonQuery;
-import dataClasses.*;
+import dataObjects.*;
 
 public abstract class InsertStrategy extends NonQuery {
 	public InsertStrategy(String tableName, String columns, String values) {
