@@ -19,7 +19,8 @@ public abstract class TableSubject {
 	}	
 	
 	public abstract void addEntry(TableEntry tableEntry);
+	public abstract void editEntry(TableEntry tableEntry);
 	public abstract void deleteEntry(TableEntry tableEntry);
 	public abstract ArrayList<TableEntry> getAllEntries();
-	public abstract TableEntry getEntry(int key);
+	public abstract TableEntry getEntry(int ID);
 }

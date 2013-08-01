@@ -1,6 +1,6 @@
 package databaseTableObjects;
 
-public class AssetChangeLog {
+public class AssetChangeLog extends TableEntry{
 	private int changeID;
 	private int actionID;
 	private int assetID;

@@ -1,7 +1,7 @@
 package databaseTableObjects;
 import java.sql.Date;
 import java.sql.Time;
-public class ActionLog {
+public class ActionLog  extends TableEntry{
 	private int actionID;
 	private int userID;
 	private Date actionDate;

@@ -1,5 +1,7 @@
 package databaseTableObjects;
 
+import java.util.ArrayList;
+
 public abstract class TableEntry {
 	protected int ID;
 	
@@ -9,4 +11,5 @@ public abstract class TableEntry {
 	public int getID(){
 		return ID;
 	}
+	public abstract ArrayList<String> getValues();
 }
