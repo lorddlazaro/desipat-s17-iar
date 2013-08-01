@@ -1,6 +1,6 @@
 package databaseTableObjects;
 
-public class Storage {
+public class Storage extends TableEntry{
 	private int ID;
 	private String storageLocation;
 	
