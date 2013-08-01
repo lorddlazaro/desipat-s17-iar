@@ -1,6 +1,6 @@
 package errorChecker;
 
-import inputFields.InputField;
+import fields.InputField;
 
 public abstract class ErrorCheckerDecorator extends ErrorChecker {
 	protected ErrorChecker checker;

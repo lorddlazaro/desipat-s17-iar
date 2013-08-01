@@ -1,6 +1,6 @@
 package errorChecker;
 
-import inputFields.InputField;
+import fields.InputField;
 
 public class IsInDBChecker extends ErrorCheckerDecorator {
 	
