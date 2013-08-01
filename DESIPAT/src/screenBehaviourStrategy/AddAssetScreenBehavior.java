@@ -1,19 +1,23 @@
 package screenBehaviourStrategy;
 
+import dataObjects.AssetTable;
+import dataObjects.TableEntry;
 import phase1.Asset;
 import statements.SelectLookUpStrategy;
 import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-	@Override
-	public void saveAsset(Asset a) {
+	
+	public void saveAsset(TableEntry a) {
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
-		SelectLookUpStrategy lookUp;
+		AssetTable.getInstance().addEntry(a);
+		
+		/*SelectLookUpStrategy lookUp;
 		lookUp=new LookUpMaintenance(a.getMaintenanceSchedule());
 		lookUp=new lookUpType();
-		lookUp=new LookUpClassification();
+		lookUp=new LookUpClassification();*/
 	}
 	public void cancel(){
 		
@@ -37,6 +41,11 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		case 3: //storage
 			break;
 		}
+	}
+	@Override
+	public void saveAsset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
