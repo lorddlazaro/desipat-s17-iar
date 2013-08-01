@@ -15,16 +15,14 @@ import screenBehaviourStrategy.LoginScreenBehaviourStrategy;
 
 public class LoginScreen extends Screen implements TableObserver {
 	
-	//private Model model;
-	LoginScreenBehaviourStrategy behaviour;
-	
+	LoginScreenBehaviourStrategy behavior;
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JButton LoginButton;
 
 	public LoginScreen(LoginScreenBehaviourStrategy behaviour) {
-		this.behaviour = behaviour;
+		this.behavior = behavior;
 		initialize();
 	}
 	
@@ -56,25 +54,22 @@ public class LoginScreen extends Screen implements TableObserver {
 		passwordField.setBounds(350, 220, 180, 25);
 		add(passwordField);
 		
+		
 		LoginButton = new JButton("Log in");
 		LoginButton.setBackground(new Color(192, 192, 192));
-		
 		LoginButton.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				behaviour.login();	
+				behavior.login();	
 			}
-			
-		});
-		
-		
+		});		
 		LoginButton.setFont(new Font("Calibri", Font.PLAIN, 18));
 		LoginButton.setBounds(300, 270, 180, 40);
 		add(LoginButton);	
 	}
 	
 	public void refresh(){
-		// CLEAR and WHITE OUT INPUTFIELDS
+		passwordField.setText("");
+		usernameField.setText("");
 	}
 }
