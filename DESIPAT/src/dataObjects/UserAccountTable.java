@@ -2,6 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
+import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import statements.insertNew.NewUser;
@@ -26,6 +27,7 @@ public class UserAccountTable extends TableSubject{
 	}
 	
 	protected UserAccountTable(){
+		observerList = new ArrayList<TableObserver>();
 		userList = new ArrayList<UserAccount>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);

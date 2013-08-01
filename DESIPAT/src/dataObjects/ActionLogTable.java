@@ -2,6 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
+import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import statements.insertNew.NewActionLog;
@@ -28,6 +29,7 @@ public class ActionLogTable extends TableSubject{
 	}
 	
 	protected ActionLogTable(){
+		observerList = new ArrayList<TableObserver>();
 		actionList = new ArrayList<ActionLog>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ACTIONID_COLUMN_NAME);
