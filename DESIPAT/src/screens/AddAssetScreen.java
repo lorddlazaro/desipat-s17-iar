@@ -279,7 +279,7 @@ public class AddAssetScreen extends JPanel {
 		btnNewOwner.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-			behaviour.setNewItemPanel(3);
+			behaviour.setNewItemPanel(0);
 			}
 		}) ;
 		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
