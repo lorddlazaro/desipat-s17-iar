@@ -5,25 +5,31 @@ import java.util.ArrayList;
 import dbHandler.NonQuery;
 
 public abstract class UpdateStrategy extends NonQuery{
-	private String statement;
-	private String tableName;
-	private ArrayList<String> columns;
-	private ArrayList<String> values;
-	private String condition;
-	public UpdateStrategy(String tableName, ArrayList<String> columns, ArrayList<String> values, String condition)
+	protected String tableName;
+	protected String condition;
+	protected ArrayList<String> columns;
+	protected ArrayList<String> values;
+	protected String columnsAndValues="";
+	
+	public UpdateStrategy(String tableName, ArrayList<String> values, String condition)
 	{
-		this.tableName=tableName;
-		this.columns=columns;
-		this.values=values;
-		this.condition=condition;
+		this.tableName = tableName;
+		this.condition = condition;
+		
+		populateColumns();
+		
+		setColsAndValues();
 	}
-	public String getStatement(){
-		String columnsAndValues="";
+	
+	public abstract void populateColumns();
+
+	public void setColsAndValues(){
 		for (int i=0;i<columns.size();i++)
 		{
-			columnsAndValues.concat(columns.get(i)+"="+values.get(i));
+			columnsAndValues += columns.get(i)+"="+values.get(i);
+			columnsAndValues += (i<columns.size()-1)? "," : "";
 		}
-		statement = "UPDATE "+tableName+" SET"+columnsAndValues+" WHERE "+condition+";";
-		return statement;
+		
+		nonQuery = "UPDATE " + tableName + " SET"+ columnsAndValues +" WHERE " + condition + ";";
 	}
 }
