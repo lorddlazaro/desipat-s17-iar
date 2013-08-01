@@ -2,6 +2,8 @@ package statementStrategies;
 
 import java.util.ArrayList;
 
+import dbHandler.NonQuery;
+
 public abstract class UpdateStrategy extends NonQuery{
 	private String statement;
 	private String tableName;

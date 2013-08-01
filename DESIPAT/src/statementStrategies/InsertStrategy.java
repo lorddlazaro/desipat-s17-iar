@@ -1,5 +1,7 @@
 package statementStrategies;
 
+import dbHandler.NonQuery;
+
 public abstract class InsertStrategy extends NonQuery{
 	private String statement;
 	private String tableName;
