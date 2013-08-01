@@ -1,12 +1,12 @@
 package databaseTableObjects;
 
 public abstract class TableEntry {
-	private int key;
+	protected int ID;
 	
-	public void setKey(int key){
-		this.key = key;
+	public void setID(int ID){
+		this.ID = ID;
 	}
-	public int getKey(){
-		return key;
+	public int getID(){
+		return ID;
 	}
 }
