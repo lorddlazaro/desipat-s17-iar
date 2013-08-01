@@ -1,30 +1,21 @@
 package screens;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.SwingUtilities;
+import javax.swing.JTextField;
 
-import javax.swing.BoxLayout;
-import javax.swing.Box;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-
-
-
-import java.awt.Color;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import screenBehaviourStrategy.LoginScreenBehaviourStrategy;
 
 
 public class LoginScreen extends Screen implements TableObserver {
+	
+	LoginScreenBehaviourStrategy behaviour;
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
@@ -64,7 +55,17 @@ public class LoginScreen extends Screen implements TableObserver {
 		
 		LoginButton = new JButton("Log in");
 		LoginButton.setBackground(new Color(192, 192, 192));
-		//LoginButton.addActionListener(new ActionListener());
+		
+		LoginButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				behaviour.login();	
+			}
+			
+		});
+		
+		
 		LoginButton.setFont(new Font("Calibri", Font.PLAIN, 18));
 		LoginButton.setBounds(300, 270, 180, 40);
 		add(LoginButton);	

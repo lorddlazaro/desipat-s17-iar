@@ -38,6 +38,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
+import screenBehaviourStrategy.MainScreenBehaviourStrategy;
+
 
 public class MainScreen extends Screen{
 
@@ -48,6 +50,8 @@ public class MainScreen extends Screen{
 	private final String ADMIN_SCREEN = "adminuser";
 	private final String VIEW_LOG_SCREEN = "viewlog";
 	private final String GREETING_SCREEN = "greeting";
+	
+	MainScreenBehaviourStrategy behaviour;
 	
 	private JLabel lblGreeting;
 	private JLabel lblUsername;
@@ -99,7 +103,14 @@ public class MainScreen extends Screen{
 		add(lblLastLogin);
 		
 		btnAccountSettings = new JButton("Account Settings");
+		
 		//btnAccountSettings.addActionListener(new ActionListener() {
+		btnAccountSettings.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				behaviour.gotoAccountScreen();
+			}});
 		btnAccountSettings.setBounds(538, 12, 143, 23);
 		btnAccountSettings.setBackground(new Color(128, 128, 128));
 		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -107,6 +118,13 @@ public class MainScreen extends Screen{
 		
 		btnLogOut = new JButton("Log Out");
 		//btnLogOut.addActionListener(new ActionListener() {
+		btnLogOut.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				behaviour.logout();
+				
+			}});
 		btnLogOut.setBounds(693, 12, 89, 23);
 		btnLogOut.setForeground(new Color(139, 0, 0));
 		btnLogOut.setBackground(new Color(255, 127, 80));
@@ -140,6 +158,14 @@ public class MainScreen extends Screen{
 		btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setForeground(new Color(25, 25, 112));
 		//btnViewAssets.addActionListener(new ActionListener();
+		btnViewAssets.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				behaviour.gotoViewAssetScreen();
+				
+			}});
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
 		btnViewAssets.setBounds(352, 0, 140, 50);
@@ -148,6 +174,14 @@ public class MainScreen extends Screen{
 		btnManageAccounts = new JButton("Manage Accounts");
 		btnManageAccounts.setForeground(new Color(0, 100, 0));
 		//btnManageAccounts.addActionListener(new ActionListener();
+		btnManageAccounts.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				behaviour.gotoAdminScreen();
+				
+			}});
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(60, 179, 113));
 		btnManageAccounts.setBounds(492, 0, 140, 50);
@@ -156,6 +190,15 @@ public class MainScreen extends Screen{
 		btnViewLogs = new JButton("View Logs");
 		btnViewLogs.setForeground(new Color(160, 82, 45));
 		//btnViewLogs.addActionListener(new ActionListener() ;
+		btnViewLogs.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				behaviour.gotoLogScreen();
+			}
+			
+		});
 		btnViewLogs.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewLogs.setBackground(new Color(238, 232, 170));
 		btnViewLogs.setBounds(632, 0, 140, 50);
