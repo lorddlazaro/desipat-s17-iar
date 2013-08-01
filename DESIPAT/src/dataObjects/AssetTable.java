@@ -2,6 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
+import screens.TableObserver;
 import statements.DeleteStrategy;
 import statements.DeleteUser;
 import statements.insertNew.NewAsset;
@@ -41,6 +42,7 @@ public class AssetTable extends TableSubject{
 	
 	
 	protected AssetTable(){
+		observerList = new ArrayList<TableObserver>();
 		assetList = new ArrayList<Asset>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);

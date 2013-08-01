@@ -2,6 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
+import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import statements.insertNew.NewAssetChangeLog;
@@ -28,6 +29,7 @@ public class AssetChangeLogTable extends TableSubject{
 	}
 	
 	protected AssetChangeLogTable(){
+		observerList = new ArrayList<TableObserver>();
 		assetChangeLogList = new ArrayList<AssetChangeLog>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(CHANGEID_COLUMN_NAME);

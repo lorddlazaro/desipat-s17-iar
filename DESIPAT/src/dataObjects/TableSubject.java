@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import screens.TableObserver;
 
 public abstract class TableSubject {
-	private ArrayList<TableObserver> observerList;
+	protected ArrayList<TableObserver> observerList;
 	protected ArrayList<TableEntry> entryList;
 	
 	public void registerObserver(TableObserver observer){

@@ -2,6 +2,7 @@ package dataObjects;
 
 import java.util.ArrayList;
 
+import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import statements.insertNew.NewStorage;
@@ -25,6 +26,7 @@ public class StorageTable extends TableSubject{
 	}
 	
 	protected  StorageTable(){
+		observerList = new ArrayList<TableObserver>();
 		storageList = new ArrayList<Storage>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
