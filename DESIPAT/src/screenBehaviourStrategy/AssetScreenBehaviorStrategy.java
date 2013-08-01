@@ -1,5 +1,7 @@
 package screenBehaviourStrategy;
 
+import dataObjects.TableEntry;
+
 public interface AssetScreenBehaviorStrategy {
 	public void saveAsset(TableEntry asset);
 	public void setNewItemPanel(int itemType);
