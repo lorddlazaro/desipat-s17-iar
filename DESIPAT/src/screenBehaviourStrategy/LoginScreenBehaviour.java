@@ -10,10 +10,11 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	private LoginScreen loginScreen;
 	
 	//add model parameter to loginscreenbehaviour's constructor
-	public LoginScreenBehaviour(UserAccountTable table){
+	public LoginScreenBehaviour(){
 		//add model to the new loginScreen constructor parameter
-		this.table = table;
+		table = table.getInstance();
 		loginScreen = new LoginScreen(this);
+		table.registerObserver(loginScreen);
 		//this.model = model;
 		
 	}
