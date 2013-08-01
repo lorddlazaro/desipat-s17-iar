@@ -56,7 +56,4 @@ public abstract class ViewAssetTablePanel extends TablePanel implements TableObs
 		}
 		table.setModel(model);
 	}
-	public void refresh(){
-		this.revalidate();
-	}
 }

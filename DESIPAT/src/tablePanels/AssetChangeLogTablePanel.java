@@ -63,7 +63,4 @@ public abstract class AssetChangeLogTablePanel extends TablePanel implements Tab
 		}
 		
 	}
-	public void refresh(){
-		this.revalidate();
-	}
 }
