@@ -22,7 +22,7 @@ import java.util.regex.*;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
-import databaseTableObjects.User;
+import databaseTableObjects.UserAccount;
 
 
 public class AccountSettingsScreen extends Screen {
@@ -51,7 +51,7 @@ public class AccountSettingsScreen extends Screen {
 	private JTextPane lblNewestAssetList;
 	private JTextPane lblMostValuableAssetList;
 	
-	private User currUser;
+	private UserAccount currUser;
 	private int currUserID;
 	//private DBConnection dbHandler;
 	private Connection conn;
