@@ -1,4 +1,4 @@
-package dataClasses;
+package databaseTableObjects;
 import java.sql.Date;
 import java.sql.Time;
 public class ActionLog {
