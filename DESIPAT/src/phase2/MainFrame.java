@@ -48,4 +48,12 @@ public class MainFrame extends JFrame {
 		contentPane.add(mainScreen, MAIN_SCREEN);
 	}
 
+	public void swapToLoginScreenCard(){
+		CardLayout cl = (CardLayout) getContentPane().getLayout();
+		cl.show((JPanel)getContentPane(), LOGIN_SCREEN);
+	}
+	public void swapToMainScreenCard(){
+		CardLayout cl = (CardLayout) getContentPane().getLayout();
+		cl.show((JPanel)getContentPane(), MAIN_SCREEN);
+	}
 }

@@ -10,22 +10,29 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import screenBehaviourStrategy.LoginScreenBehaviour;
 import screenBehaviourStrategy.LoginScreenBehaviourStrategy;
 
 
 public class LoginScreen extends Screen implements TableObserver {
 	
-	LoginScreenBehaviourStrategy behavior;
+	LoginScreenBehaviour behavior;
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JButton LoginButton;
 
-	public LoginScreen(LoginScreenBehaviourStrategy behaviour) {
+	public LoginScreen(LoginScreenBehaviour behavior) {
 		this.behavior = behavior;
 		initialize();
 	}
+	public String getUsernameInput(){
+		return usernameField.getText();
+	}
 	
+	public String getPasswordInput(){
+		return String.valueOf(passwordField.getPassword());
+	}
 	public void initialize() { 
 		setBackground(new Color(188, 143, 143));
 		setLayout(null);
