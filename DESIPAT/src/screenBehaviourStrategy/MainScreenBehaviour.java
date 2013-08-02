@@ -2,12 +2,15 @@ package screenBehaviourStrategy;
 
 import dataObjects.UserAccountTable;
 import screens.MainScreen;
+import phase2.MainFrame;;
 
 public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 
 	MainScreen mainScreen;
-	public MainScreenBehaviour(){
+	MainFrame mainFrame;
+	public MainScreenBehaviour(MainFrame frame){
 		mainScreen = new MainScreen(this);
+		mainFrame = frame;
 	}
 	
 	public MainScreen getView(){

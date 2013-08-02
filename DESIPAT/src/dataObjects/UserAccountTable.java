@@ -44,7 +44,9 @@ public class UserAccountTable extends TableSubject{
 		columnNames.add(PASSWORD_COLUMN_NAME);
 		columnNames.add(CLEARANCEID_COLUMN_NAME);
 		columnNames.add(PERSONID_COLUMN_NAME);
-		
+		fillData();
+	}
+	public void fillData(){
 		Query statement = new SelectAllUsers();
 		statement.executeStatement();
 		try{
@@ -64,6 +66,7 @@ public class UserAccountTable extends TableSubject{
 			e.printStackTrace();
 		}
 	}
+	
 	public void addEntry(TableEntry tableEntry){
 		UserAccount userAccount = (UserAccount)tableEntry;
 		entryList.add(tableEntry);

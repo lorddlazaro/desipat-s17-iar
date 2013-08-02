@@ -22,13 +22,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel loginScreen;
 	private JPanel mainScreen;
-	private static MainFrame instance;
-
-	public MainFrame getInstance(){
-		if(instance == null)
-			instance = new MainFrame();
-		return instance;
-	}
+	
 	
 	public MainFrame() {
 		setResizable(false);
@@ -45,13 +39,13 @@ public class MainFrame extends JFrame {
 		
 		//Todo:
 		// pass through loginScreenbehaviour's constructor its respective new model()
-		loginScreen = new LoginScreenBehaviour().getView(); 
+		loginScreen = new LoginScreenBehaviour(this).getView(); 
 		contentPane.add(loginScreen, LOGIN_SCREEN);
 		
 		
 		//Todo:
 		// pass through mainScreen's constructor its respective new model()
-		mainScreen = new MainScreenBehaviour().getView();
+		mainScreen = new MainScreenBehaviour(this).getView();
 		contentPane.add(mainScreen, MAIN_SCREEN);
 	}
 
