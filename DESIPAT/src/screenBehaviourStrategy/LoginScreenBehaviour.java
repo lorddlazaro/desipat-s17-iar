@@ -23,8 +23,7 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	public LoginScreenBehaviour(){
 		table = table.getInstance();
 		loginScreen = new LoginScreen(this);
-		table.registerObserver(loginScreen);
-		
+		table.registerObserver(loginScreen);	
 	}
 	
 	public LoginScreen getView(){
@@ -33,7 +32,8 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	public void login() {
 		for(TableEntry tableEntry:table.getAllEntries()){
 			UserAccount userAccount = (UserAccount) tableEntry;
-			
+			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()));
+				
 		}
 			
 		//Log action
