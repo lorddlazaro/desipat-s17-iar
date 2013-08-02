@@ -10,7 +10,7 @@ public abstract class DBCommandHandler {
 		
 		myCon.openConnection();
 		executeCommand();
-		myCon.closeConnection();
+		//myCon.closeConnection();
 	
 	}
 	
