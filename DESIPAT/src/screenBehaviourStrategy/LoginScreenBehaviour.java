@@ -33,7 +33,7 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	public void login() {
 		for(TableEntry tableEntry:table.getAllEntries()){
 			UserAccount userAccount = (UserAccount) tableEntry;
-			if()
+			
 		}
 			
 		//Log action

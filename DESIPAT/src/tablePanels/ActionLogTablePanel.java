@@ -60,6 +60,5 @@ public abstract class ActionLogTablePanel extends TablePanel implements TableObs
 			
 			model.addRow(row);
 		}
-		
 	}
 }

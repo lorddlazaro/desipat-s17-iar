@@ -1,5 +1,7 @@
 package screens;
 
+import dataObjects.Person;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import databaseTableObjects.Person;
+import dataObjects.PersonTable;
 
 
 import screenBehaviourStrategy.AddPersonScreenBehaviour;

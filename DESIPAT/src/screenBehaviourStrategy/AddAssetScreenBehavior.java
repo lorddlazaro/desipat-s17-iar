@@ -53,6 +53,11 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 			break;
 		}
 	}
+	@Override
+	public void saveAsset() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 
