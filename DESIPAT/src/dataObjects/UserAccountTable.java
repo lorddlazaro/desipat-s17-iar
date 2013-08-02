@@ -1,10 +1,18 @@
 package dataObjects;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import phase1.DBConnection;
+import phase1.User;
 
 import screens.TableObserver;
 import statements.DeleteUser;
+
+import statements.selectAll.SelectAllUsers;
 import dbHandler.NonQuery;
+import dbHandler.Query;
 import statements.insertNew.NewUser;
 
 public class UserAccountTable extends TableSubject{
@@ -28,6 +36,7 @@ public class UserAccountTable extends TableSubject{
 	
 	protected UserAccountTable(){
 		observerList = new ArrayList<TableObserver>();
+		entryList = new ArrayList<TableEntry>();
 		userList = new ArrayList<UserAccount>();
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
@@ -35,6 +44,25 @@ public class UserAccountTable extends TableSubject{
 		columnNames.add(PASSWORD_COLUMN_NAME);
 		columnNames.add(CLEARANCEID_COLUMN_NAME);
 		columnNames.add(PERSONID_COLUMN_NAME);
+		
+		Query statement = new SelectAllUsers();
+		statement.executeStatement();
+		try{
+			ResultSet rs = statement.getResult();
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					UserAccount userAccount = new UserAccount(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5));
+					entryList.add(userAccount);
+					userList.add(userAccount);
+					rs.next();
+				}
+			}
+			rs.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	public void addEntry(TableEntry tableEntry){
 		UserAccount userAccount = (UserAccount)tableEntry;

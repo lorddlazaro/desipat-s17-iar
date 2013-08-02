@@ -22,7 +22,14 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	private JPanel loginScreen;
 	private JPanel mainScreen;
+	private static MainFrame instance;
 
+	public MainFrame getInstance(){
+		if(instance == null)
+			instance = new MainFrame();
+		return instance;
+	}
+	
 	public MainFrame() {
 		setResizable(false);
 		setTitle("Asset Management Registry");
