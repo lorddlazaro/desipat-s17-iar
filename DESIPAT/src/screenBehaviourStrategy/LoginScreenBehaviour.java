@@ -10,20 +10,24 @@ import phase1.ActionLogger;
 import phase1.DBConnection;
 import phase1.MainScreen;
 import phase1.UserScreen;
+import phase2.MainFrame;
 import screens.LoginScreen;
 import dataObjects.TableEntry;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
+import phase2.MainFrame;
 
 public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 
 	UserAccountTable table;
 	private LoginScreen loginScreen;
+	private MainFrame mainFrame;
 	
-	public LoginScreenBehaviour(){
+	public LoginScreenBehaviour(MainFrame frame){
 		table = table.getInstance();
 		loginScreen = new LoginScreen(this);
 		table.registerObserver(loginScreen);	
+		mainFrame = frame;
 	}
 	
 	public LoginScreen getView(){
@@ -32,8 +36,9 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	public void login() {
 		for(TableEntry tableEntry:table.getAllEntries()){
 			UserAccount userAccount = (UserAccount) tableEntry;
-			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()));
-				
+			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()))
+				mainFrame.swapToMainScreenCard();
+		
 		}
 			
 		//Log action

@@ -1,5 +1,6 @@
 package dataObjects;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import screens.TableObserver;
@@ -7,8 +8,10 @@ import statements.DeleteStrategy;
 import statements.DeleteUser;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllUsers;
 
 import dbHandler.NonQuery;
+import dbHandler.Query;
 
 public class AssetTable extends TableSubject{
 	//private ArrayList<Asset> assetList;	
@@ -59,6 +62,26 @@ public class AssetTable extends TableSubject{
 		columnNames.add(INTEGRITY_COLUMN_NAME);
 		columnNames.add(AVAILABILITY_COLUMN_NAME);
 	}
+	public void fillData(){
+		Query statement = new SelectAllUsers();
+		statement.executeStatement();
+		try{
+			ResultSet rs = statement.getResult();
+			if(rs.isBeforeFirst()){
+				rs.first();
+				while(!rs.isAfterLast()){
+					Asset asset = new Asset(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9),rs.getDate(10),rs.getFloat(11),rs.getInt(11),rs.getInt(12),rs.getInt(13));
+					entryList.add(asset);
+					assetList.add(asset);
+					rs.next();
+				}
+			}
+			rs.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void addEntry(TableEntry tableEntry){
 		Asset asset=(Asset)tableEntry;
@@ -68,14 +91,7 @@ public class AssetTable extends TableSubject{
 		statement.executeStatement();
 	}
 	public void deleteEntry(TableEntry tableEntry){
-		/*Asset asset=(Asset)tableEntry;
-		statement=new DeleteStrategy("Asset",asset.getID());
-		statement.executeStatement();*/
 	}
-	/*public ArrayList<TableEntry> getAllEntries(){
-		return entryList;}
-	public TableEntry getEntry(int key){ 
-		return entryList.get(key);}*/
 	public ArrayList<String> getColumnNames() {
 		return columnNames;
 	}
