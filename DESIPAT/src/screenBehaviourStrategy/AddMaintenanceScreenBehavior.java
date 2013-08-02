@@ -1,4 +1,4 @@
-AddStoragePanel.javapackage screenBehaviourStrategy;
+package screenBehaviourStrategy;
 
 public class AddMaintenanceScreenBehavior implements
 		AddMaintenanceScreenBehaviorStrategy {

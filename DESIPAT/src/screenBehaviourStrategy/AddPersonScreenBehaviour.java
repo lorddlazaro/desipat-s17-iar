@@ -1,6 +1,6 @@
 package screenBehaviourStrategy;
 
-import databaseTableObjects.Person;
+import dataObjects.Person;
 
 
 public class AddPersonScreenBehaviour implements AddPersonScreenBehaviourStrategy{
