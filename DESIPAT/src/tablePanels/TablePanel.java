@@ -9,7 +9,7 @@ public abstract class TablePanel extends JScrollPane{
 	private JTable table;
 	
 	public abstract void initialize();
-	public abstract void fillTable(TableSubject tableSubject);
+	//public abstract void fillTable(TableSubject tableSubject);
 	public void refresh(){
 		this.revalidate();
 	}

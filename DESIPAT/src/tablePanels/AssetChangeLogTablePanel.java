@@ -38,10 +38,10 @@ public abstract class AssetChangeLogTablePanel extends TablePanel implements Tab
 		setViewportView(table);
 	}
 	
-	public void fillTable(TableSubject tableSubject){
-		assetChangeLogTable = (AssetChangeLogTable)tableSubject;
+	public void fillTable(AssetChangeLogTable assetChangeLogTable){
+		this.assetChangeLogTable = assetChangeLogTable;
 		assetChangeLogTable.registerObserver(this);
-		ArrayList<TableEntry> assetChangeLogList = assetChangeLogTable.getAllEntries();
+		ArrayList<AssetChangeLog> assetChangeLogList = assetChangeLogTable.getAllEntries();
 		
 		DefaultTableModel model = new DefaultTableModel();
 		
