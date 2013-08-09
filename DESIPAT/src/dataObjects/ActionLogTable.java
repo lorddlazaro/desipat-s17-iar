@@ -52,7 +52,7 @@ public class ActionLogTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllActionLogs();
 		statement.executeStatement();
-		statement.getResultList();
+		actionLogList = statement.getResultList();
 	}
 	
 	public void addEntry(ActionLog actionLog){
