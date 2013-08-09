@@ -22,12 +22,11 @@ import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.TableSubject;
 
-public abstract class ActionLogTablePanel extends TablePanel implements TableObserver{
+public class ActionLogTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
 	ActionLogTable actionLogTable;
 	
 	public void initialize(){
-		
 		setBounds(12, 50, 748, 162);
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		getViewport().setBackground(Color.LIGHT_GRAY);
@@ -35,6 +34,10 @@ public abstract class ActionLogTablePanel extends TablePanel implements TableObs
 		table = new JTable();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		setViewportView(table);
+	}
+	
+	public JTable getTable(){
+		return table;
 	}
 	
 	public void fillTable(ActionLogTable actionLogTable){
