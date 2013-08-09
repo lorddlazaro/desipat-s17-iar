@@ -44,7 +44,7 @@ public class StorageTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllStorage();
 		statement.executeStatement();
-		statement.getResultList();
+		storageList = statement.getResultList();
 	}
 	
 	public void addEntry(Storage storage){

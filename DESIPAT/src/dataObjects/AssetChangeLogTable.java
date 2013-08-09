@@ -54,7 +54,7 @@ public class AssetChangeLogTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllAssetChangeLogs();
 		statement.executeStatement();
-		statement.getResultList();
+		assetChangeLogList = statement.getResultList();
 	}
 	
 	public void addEntry(AssetChangeLog assetChangeLog){

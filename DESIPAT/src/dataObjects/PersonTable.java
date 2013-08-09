@@ -49,7 +49,7 @@ public class PersonTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllPersons();
 		statement.executeStatement();
-		statement.getResultList();
+		personList = statement.getResultList();
 	}
 	
 	public void addEntry(Person person){
