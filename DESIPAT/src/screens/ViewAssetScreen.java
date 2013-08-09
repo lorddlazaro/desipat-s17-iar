@@ -14,10 +14,6 @@ import javax.swing.JTabbedPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -94,6 +90,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		JPanel panel_4 = new JPanel();
 		panel_4.setBounds(225, 11, 537, 206);
 		add(panel_4);
+		/*
 		panel_4.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
@@ -132,7 +129,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
-		
+		*/
 		JLabel label = new JLabel("Identifier:");
 		label.setFont(new Font("Calibri", Font.PLAIN, 13));
 		panel_4.add(label, "2, 2");
