@@ -32,6 +32,24 @@ public class Asset extends TableEntry{
 	private int integrityValue;
 	private  int availabilityValue;
 
+	public Asset(String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired, float financialValue, int confidentialValue, int integrityValue, int availabilityValue){
+		 //TODO 
+		 setID(-1);
+		 setName(name);
+		 setOwnerID(ownerID);
+		 setCustodianID(custodianID);
+		 setTypeID(typeID);
+		 setMaintID(maintID);
+		 setClassID(classID);
+		 setStorageID(storageID);
+		 setPeriodID(periodID);
+		 setDateAcquired(dateAcquired);
+		 setFinancialValue(financialValue);
+		 setConfidentialValue(confidentialValue);
+		 setIntegrityValue(integrityValue);
+		 setAvailabilityValue(availabilityValue);
+	}
+	
 	public Asset(int ID, String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired, float financialValue, int confidentialValue, int integrityValue, int availabilityValue){
 		 setID(ID);
 		 setName(name);
