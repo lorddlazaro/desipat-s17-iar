@@ -172,9 +172,9 @@ public class AdminScreen extends JPanel {
 		
 		deleteUserButton = new JButton("Delete User");
 		deleteUserButton.setBackground(new Color(107, 142, 35));
-		deleteUserButton.addMouseListener(new MouseAdapter() {
+		deleteUserButton.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				//deleteUserClicked();
 			}
 		});
@@ -184,9 +184,9 @@ public class AdminScreen extends JPanel {
 		
 		changeDetailsButton = new JButton("Change Details");
 		changeDetailsButton.setBackground(new Color(107, 142, 35));
-		changeDetailsButton.addMouseListener(new MouseAdapter() {
+		changeDetailsButton.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				//changeDetailsClicked();
 			}
 		});
@@ -196,9 +196,9 @@ public class AdminScreen extends JPanel {
 		
 		cancelChangesButton = new JButton("Cancel Changes");
 		cancelChangesButton.setBackground(new Color(107, 142, 35));
-		cancelChangesButton.addMouseListener(new MouseAdapter() {
+		cancelChangesButton.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				//refreshScreen();
 			}
 		});
@@ -208,9 +208,8 @@ public class AdminScreen extends JPanel {
 		
 		addUserButton = new JButton("Add User");
 		addUserButton.setBackground(new Color(107, 142, 35));
-		addUserButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		addUserButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				//addUserClicked();
 			}
 		});
@@ -223,7 +222,7 @@ public class AdminScreen extends JPanel {
 		lblExistingPersons.setBounds(314, 17, 97, 14);
 		detailsPanel.add(lblExistingPersons);
 		
-		selectExistingComboBox = new <String> JComboBox();
+		selectExistingComboBox = new JComboBox<String>();
 		selectExistingComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//selectedChanged();
