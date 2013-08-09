@@ -51,5 +51,6 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	public void updateAsset() {
 		main.gotoEditAssetScreen();
 	}
+	
 
 }
