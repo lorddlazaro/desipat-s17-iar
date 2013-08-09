@@ -7,9 +7,3 @@ public abstract class SelectFromIDStrategy extends Query {
 		query = "SELECT * FROM " + tableName + " WHERE ID = " + condition + ";";
 	}
 }
-
-//add subclasses
-
-
-
-
