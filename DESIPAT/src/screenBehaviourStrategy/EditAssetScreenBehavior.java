@@ -39,5 +39,8 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		// TODO Auto-generated method stub
 		
 	}
+	public EditAssetScreen getView(){
+		return editAssetScreen;
+	}
 
 }
