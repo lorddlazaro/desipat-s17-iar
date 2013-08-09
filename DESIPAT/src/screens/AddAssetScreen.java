@@ -324,7 +324,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				behaviour.saveAsset(null);
+				behaviour.saveAsset();
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
