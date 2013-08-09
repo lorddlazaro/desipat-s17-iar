@@ -2,6 +2,8 @@ package screenBehaviourStrategy;
 
 import screens.AddAssetScreen;
 import screens.EditAssetScreen;
+import dataObjects.Asset;
+import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 
 public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
@@ -15,7 +17,9 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
 	@Override
-	public void saveAsset() {
+	public void saveAsset(Asset a) {
+		AssetTable.getInstance().editEntry(a);
+
 		// TODO Auto-generated method stub
 
 	}

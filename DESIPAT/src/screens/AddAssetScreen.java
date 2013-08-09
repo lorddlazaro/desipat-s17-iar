@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
@@ -26,10 +28,15 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
+import screens.EditAssetScreen;
+import screens.AddPersonScreen;
+
 import dataObjects.Asset;
 
 import screenBehaviourStrategy.AddAssetScreenBehavior;
+import screenBehaviourStrategy.AddPersonScreenBehaviour;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
+import screenBehaviourStrategy.EditAssetScreenBehavior;
 
 
 public class AddAssetScreen extends JPanel implements TableObserver {
@@ -62,6 +69,8 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	private JLabel lblNewItem3;
 	private JButton btnNewItemSave;
 	private JButton btnNewItemCancel;
+	
+	private DateFormat dateFormat;
 
 	AssetScreenBehaviorStrategy behaviour;
 	
@@ -192,6 +201,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(cbxMonth);
 		
 		cbxDay = new JComboBox();
+		ArrayList <String> dayList=new ArrayList<String>();
+		for (int i = 1; i <= 31; i++)
+			dayList.add(i+"");
+		String[]days=dayList.toArray(new String[dayList.size()]);
+		cbxDay.setModel(new DefaultComboBoxModel(days));
 		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxDay.setBounds(272, 182, 55, 20);
 		add(cbxDay);
@@ -276,7 +290,9 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewOwner.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-			behaviour.setNewItemPanel(0);
+			//behaviour.setNewItemPanel(0);
+				panelNewItem = new AddPersonScreenBehaviour().getView(); 
+				panelNewItem.setName("Add Owner");
 			}
 		}) ;
 		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -287,7 +303,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewCustodian.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-			behaviour.setNewItemPanel(1);
+			//behaviour.setNewItemPanel(1);
+			panelNewItem = new AddPersonScreenBehaviour().getView(); 
+			panelNewItem.setName("Add Custodian");
+			
+			
 			}
 		});
 		btnNewCustodian.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -298,7 +318,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewType.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-			behaviour.setNewItemPanel(2);
+			//behaviour.setNewItemPanel(2);
 			}
 		});
 		btnNewType.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -321,8 +341,20 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
-				/*Asset a =new Asset(txtName, )*/
-				behaviour.saveAsset();
+				
+				Asset a = null;
+				String dateAcquired = cbxYear.getSelectedItem() + "-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
+				try {
+					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 ,(Date) dateFormat.parse(dateAcquired), Float.parseFloat(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//int periodID, Date dateAcquired,){
+				behaviour.saveAsset(a);
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -394,5 +426,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 
 	}
 	
-	public void refresh(){}
+	public void refresh(){
+		//update comboboxes
+	}
 }
