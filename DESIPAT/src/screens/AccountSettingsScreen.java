@@ -1,27 +1,21 @@
 package screens;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
 
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JTree;
-import javax.swing.SwingConstants;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import java.util.regex.*;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
+import screenBehaviourStrategy.AccountSettingsScreenBehaviourStrategy;
 import dataObjects.UserAccount;
 
 
@@ -50,6 +44,8 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	private JTextPane lblNetWorthList;
 	private JTextPane lblNewestAssetList;
 	private JTextPane lblMostValuableAssetList;
+	
+	private AccountSettingsScreenBehaviourStrategy controller;
 	
 	private UserAccount currUser;
 	private int currUserID;
@@ -105,7 +101,14 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		changeDetailsButton = new JButton("Change Details");
 		changeDetailsButton.setBackground(new Color(220, 220, 220));
-		//changeDetailsButton.addMouseListener(new MouseAdapter();
+		changeDetailsButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				controller.changeDetails();
+				
+			}});
 		changeDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		changeDetailsButton.setBounds(254, 80, 105, 23);
 		userSettingsPanel.add(changeDetailsButton);
@@ -181,7 +184,13 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		changeNameButton = new JButton("Update Name");
 		changeNameButton.setBackground(new Color(220, 220, 220));
-		//changeNameButton.addMouseListener(new MouseAdapter() );
+		changeNameButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				controller.updateName();
+			}} );
 		changeNameButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		changeNameButton.setBounds(258, 64, 105, 23);
 		namePanel.add(changeNameButton);

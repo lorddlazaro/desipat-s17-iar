@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import screenBehaviourStrategy.AddAssetScreenBehavior;
+import screenBehaviourStrategy.EditAssetScreenBehavior;
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
 import dataObjects.UserAccountTable;
@@ -18,13 +20,13 @@ import dataObjects.UserAccountTable;
 
 public class MainScreen extends Screen{
 
-	private final String ACCOUNT_SETTINGS_SCREEN = "accountsetting";
-	private final String VIEW_ASSET_SCREEN = "viewasset";
-	private final String ADD_ASSET_SCREEN = "addasset";
-	private final String EDIT_ASSET_SCREEN = "editasset";
-	private final String ADMIN_SCREEN = "adminuser";
-	private final String VIEW_LOG_SCREEN = "viewlog";
-	private final String GREETING_SCREEN = "greeting";
+	public final String ACCOUNT_SETTINGS_SCREEN = "accountsetting";
+	public final String VIEW_ASSET_SCREEN = "viewasset";
+	public final String ADD_ASSET_SCREEN = "addasset";
+	public final String EDIT_ASSET_SCREEN = "editasset";
+	public final String ADMIN_SCREEN = "adminuser";
+	public final String VIEW_LOG_SCREEN = "viewlog";
+	public final String GREETING_SCREEN = "greeting";
 	
 	//private Model model;
 	private MainScreenBehaviourStrategy behaviour;
@@ -194,10 +196,10 @@ public class MainScreen extends Screen{
 		viewAssetCard = new ViewAssetScreenBehaviour().getView();
 		cardPanel.add(viewAssetCard, this.VIEW_ASSET_SCREEN);
 		
-		//addAssetCard = new AddAssetScreen();
-		//cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
+		addAssetCard = new AddAssetScreenBehavior().getView();
+		cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
 		
-		//editAssetCard = new EditAssetScreen();
+		//editAssetCard = new EditAssetScreenBehavior().getView();
 		//cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
 		
 		adminCard = new AdminScreen();
@@ -210,4 +212,9 @@ public class MainScreen extends Screen{
 	}
 	
 	public void refresh(){}
+	
+	public JPanel getCardPanel(){
+		return cardPanel;
+	}
+	
 }
