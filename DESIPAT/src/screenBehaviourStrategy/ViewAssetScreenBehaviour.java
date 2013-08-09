@@ -1,5 +1,6 @@
 package screenBehaviourStrategy;
 
+import dataObjects.AssetTable;
 import screens.MainScreen;
 import screens.ViewAssetScreen;
 
@@ -7,7 +8,6 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	
 	private ViewAssetScreen view;
 	private MainScreenBehaviourStrategy main;
-	
 
 	public ViewAssetScreenBehaviour(MainScreenBehaviourStrategy main){
 		 view = new ViewAssetScreen(this);
