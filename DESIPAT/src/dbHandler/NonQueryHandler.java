@@ -11,4 +11,8 @@ public class NonQueryHandler extends DBCommandHandler {
     	}
     	catch(Exception e){e.printStackTrace();}
 	}
+
+	public void setStatement(NonQuery stmt) {
+		myStatement = stmt;
+	}
 }
