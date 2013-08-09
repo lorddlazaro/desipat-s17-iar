@@ -56,7 +56,7 @@ public class UserAccountTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllUsers();
 		statement.executeStatement();
-		statement.getResultList();
+		userList = statement.getResultList();
 	}
 	
 	public void addEntry(UserAccount userAccount){
