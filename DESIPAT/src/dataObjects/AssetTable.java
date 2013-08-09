@@ -68,7 +68,7 @@ public class AssetTable extends TableSubject{
 	private void fillData(){
 		Query statement = new SelectAllAssets();
 		statement.executeStatement();
-		statement.getResultList();
+		assetList = statement.getResultList();
 	}
 	
 	public void addEntry(Asset asset){
