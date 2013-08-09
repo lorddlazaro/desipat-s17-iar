@@ -18,7 +18,7 @@ import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.TableSubject;
 
-public abstract class ViewAssetTablePanel extends TablePanel implements TableObserver{
+public class ViewAssetTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
 	AssetTable assetTable;
 	
@@ -32,9 +32,13 @@ public abstract class ViewAssetTablePanel extends TablePanel implements TableObs
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				//TODO: connect
-				//updateLabels();
+				
 			}
 		});
+	}
+	
+	public JTable getTable(){
+		return table;
 	}
 	
 	public void fillTable(AssetTable assetTable){
