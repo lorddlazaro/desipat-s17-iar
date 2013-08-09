@@ -11,6 +11,8 @@ import java.util.Vector;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
@@ -37,12 +39,17 @@ public class ViewAssetTablePanel extends TablePanel implements TableObserver{
 		setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		table.addMouseListener(new MouseAdapter() {
+		
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void valueChanged(ListSelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Before Controller");
 				controller.selectAsset();
-			}
-		});
+				System.out.println("after Controller");
+			}});
 	}
 	
 	public JTable getTable(){
