@@ -36,6 +36,7 @@ public class EditAssetScreen extends AddAssetScreen {
 
 	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour, int ID) {
 		super(behaviour);
+		lblAddNewAsset.setText("Edit Asset");
 		if(ID!=-1)
 			loadEntry(ID);
 		// TODO Auto-generated constructor stub
@@ -50,7 +51,7 @@ public class EditAssetScreen extends AddAssetScreen {
 	private JComboBox cbxDay;
 	private JComboBox cbxYear;
 	private JComboBox cbxType;
-	private JComboBox cbxStorage;
+	private JComboBox cbxStorage;admin
 	private JComboBox cbxClassification;
 	private JComboBox cbxMaintenance;
 	private JComboBox cbxOwner;

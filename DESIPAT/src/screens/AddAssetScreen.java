@@ -69,6 +69,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	private JLabel lblNewItem3;
 	private JButton btnNewItemSave;
 	private JButton btnNewItemCancel;
+	protected JLabel lblAddNewAsset;
 	
 	private DateFormat dateFormat;
 
@@ -85,7 +86,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
-		JLabel lblAddNewAsset = new JLabel("Add New Asset");
+		lblAddNewAsset = new JLabel("Add New Asset");
 		lblAddNewAsset.setFont(new Font("Segoe WP", Font.PLAIN, 23));
 		lblAddNewAsset.setBounds(10, 11, 168, 29);
 		add(lblAddNewAsset);
@@ -368,7 +369,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(panelNewItem);
 		panelNewItem.setLayout(null);
 		
-		textFieldNewItem1 = new JTextField();
+		/*textFieldNewItem1 = new JTextField();
 		textFieldNewItem1.setFont(new Font("Calibri", Font.PLAIN, 13));
 		textFieldNewItem1.setBounds(126, 8, 179, 20);
 		panelNewItem.add(textFieldNewItem1);
@@ -384,7 +385,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		textFieldNewItem3.setFont(new Font("Calibri", Font.PLAIN, 13));
 		textFieldNewItem3.setBounds(126, 70, 179, 20);
 		panelNewItem.add(textFieldNewItem3);
-		textFieldNewItem3.setColumns(10);
+		textFieldNewItem3.setColumns(10);*/
 		
 		btnNewItemCancel = new JButton("Cancel");
 		btnNewItemCancel.addActionListener(new ActionListener(){
