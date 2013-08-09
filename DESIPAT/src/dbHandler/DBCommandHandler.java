@@ -15,7 +15,8 @@ public abstract class DBCommandHandler {
 	}
 	
 	public abstract void executeCommand();
-	public void setStatement(SQLStatement stmt) {
-		myStatement = stmt;
+	
+	public void closeConnection() {
+		myCon.closeConnection();
 	}
 }
