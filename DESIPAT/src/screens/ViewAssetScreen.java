@@ -68,7 +68,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		scrollPane.setBounds(10, 61, 205, 382);
 		add(scrollPane);
 		
-		table = new ViewAssetTablePanel();
+		table = new ViewAssetTablePanel(behavior);
 		table.initialize();
 		assetTable = table.getTable();
 		scrollPane.setViewportView(assetTable);
@@ -218,10 +218,128 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		
 	}
 	
+	public JTable getAssetTable(){
+		return assetTable;
+	}
+	
 	public void refresh(){
 		System.out.println("AssetTable size = "+AssetTable.getInstance().getAllEntries().size());
 		
 		table.fillTable(AssetTable.getInstance());
 		assetTable.updateUI();
 	}
+
+	public JLabel getLblIdentifier() {
+		return lblIdentifier;
+	}
+
+	public void setLblIdentifier(JLabel lblIdentifier) {
+		this.lblIdentifier = lblIdentifier;
+	}
+
+	public JLabel getLblName() {
+		return lblName;
+	}
+
+	public void setLblName(JLabel lblName) {
+		this.lblName = lblName;
+	}
+
+	public JLabel getLblOwner() {
+		return lblOwner;
+	}
+
+	public void setLblOwner(JLabel lblOwner) {
+		this.lblOwner = lblOwner;
+	}
+
+	public JLabel getLblCustodian() {
+		return lblCustodian;
+	}
+
+	public void setLblCustodian(JLabel lblCustodian) {
+		this.lblCustodian = lblCustodian;
+	}
+
+	public JLabel getLblType() {
+		return lblType;
+	}
+
+	public void setLblType(JLabel lblType) {
+		this.lblType = lblType;
+	}
+
+	public JLabel getLblDateAcquired() {
+		return lblDateAcquired;
+	}
+
+	public void setLblDateAcquired(JLabel lblDateAcquired) {
+		this.lblDateAcquired = lblDateAcquired;
+	}
+
+	public JLabel getLblStatus() {
+		return lblStatus;
+	}
+
+	public void setLblStatus(JLabel lblStatus) {
+		this.lblStatus = lblStatus;
+	}
+
+	public JLabel getLblMaintenance() {
+		return lblMaintenance;
+	}
+
+	public void setLblMaintenance(JLabel lblMaintenance) {
+		this.lblMaintenance = lblMaintenance;
+	}
+
+	public JLabel getLblFinancialValue() {
+		return lblFinancialValue;
+	}
+
+	public void setLblFinancialValue(JLabel lblFinancialValue) {
+		this.lblFinancialValue = lblFinancialValue;
+	}
+
+	public JLabel getLblConfidentialValue() {
+		return lblConfidentialValue;
+	}
+
+	public void setLblConfidentialValue(JLabel lblConfidentialValue) {
+		this.lblConfidentialValue = lblConfidentialValue;
+	}
+
+	public JLabel getLblIntegrityValue() {
+		return lblIntegrityValue;
+	}
+
+	public void setLblIntegrityValue(JLabel lblIntegrityValue) {
+		this.lblIntegrityValue = lblIntegrityValue;
+	}
+
+	public JLabel getLblAvailabilityValue() {
+		return lblAvailabilityValue;
+	}
+
+	public void setLblAvailabilityValue(JLabel lblAvailabilityValue) {
+		this.lblAvailabilityValue = lblAvailabilityValue;
+	}
+
+	public JLabel getLblClassification() {
+		return lblClassification;
+	}
+
+	public void setLblClassification(JLabel lblClassification) {
+		this.lblClassification = lblClassification;
+	}
+
+	public JLabel getLblStorageLocation() {
+		return lblStorageLocation;
+	}
+
+	public void setLblStorageLocation(JLabel lblStorageLocation) {
+		this.lblStorageLocation = lblStorageLocation;
+	}
+	
+	
 }
