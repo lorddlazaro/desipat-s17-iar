@@ -33,6 +33,7 @@ public class EditAssetScreen extends AddAssetScreen {
 
 	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour) {
 		super(behaviour);
+		loadEntry();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -284,6 +285,10 @@ public class EditAssetScreen extends AddAssetScreen {
 	}
 	
 	public void refresh(){}*/
+	public void loadEntry()
+	{
+		
+	}
 
 }
 
