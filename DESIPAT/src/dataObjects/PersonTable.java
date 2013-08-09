@@ -56,6 +56,8 @@ public class PersonTable extends TableSubject{
 		personList.add(person);
 		NonQuery statement = new NewPerson(person);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	public void editEntry(Person person) {
@@ -64,6 +66,8 @@ public class PersonTable extends TableSubject{
 		
 		NonQuery statement = new UpdatePerson(values, person.getID());
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	/* CANT DELETE 

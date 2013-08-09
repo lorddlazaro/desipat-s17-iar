@@ -61,6 +61,8 @@ public class AssetChangeLogTable extends TableSubject{
 		assetChangeLogList.add(assetChangeLog);
 		NonQuery statement = new NewAssetChangeLog(assetChangeLog);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	/* CANT EDIT ASSETCHANGELOG
 	public void editEntry(ActionLog actionLog){
