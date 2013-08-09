@@ -3,6 +3,8 @@ package dataObjects;
 import java.util.ArrayList;
 
 public class Storage extends TableEntry{
+	public final static int STORAGELOCATION_INDEX = 1;
+	
 	private String storageLocation;
 	
 	public Storage(int ID, String storageLocation){

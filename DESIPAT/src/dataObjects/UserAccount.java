@@ -3,7 +3,6 @@ package dataObjects;
 import java.util.ArrayList;
 
 public class UserAccount extends TableEntry{
-	public final static int ID_INDEX = 0;
 	public final static int USERNAME_INDEX = 1;
 	public final static int PASSWORD_INDEX = 2;
 	public final static int CLEARANCEID_INDEX = 3;

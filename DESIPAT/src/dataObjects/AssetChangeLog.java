@@ -3,11 +3,26 @@ package dataObjects;
 import java.util.ArrayList;
 
 public class AssetChangeLog extends TableEntry{
+	public final static int ACTIONID_INDEX = 1;
+	public final static int ASSETID_INDEX = 2;
+	public final static int ASSETFIELD_INDEX = 3;
+	public final static int OLDVALUE_INDEX = 4;
+	public final static int NEWVALUE_INDEX = 5;
+	
 	private int actionID;
 	private int assetID;
 	private String assetField;
 	private String oldValue;
 	private String newValue;
+	
+	public AssetChangeLog(int ID, int actionID, int assetID, String assetField, String oldValue, String newValue){
+		setID(ID);
+		setActionID(actionID);
+		setAssetID(assetID);
+		setAssetField(assetField);
+		setOldValue(oldValue);
+		setNewValue(newValue);
+	}
 	
 	public int getActionID() {
 		return actionID;

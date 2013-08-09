@@ -4,6 +4,19 @@ import java.util.List;
 import java.sql.Date;
 
 public class Asset extends TableEntry{
+	public final static int NAME_INDEX = 1;
+	public final static int OWNERID_INDEX = 2;
+	public final static int CUSTODIANID_INDEX = 3;
+	public final static int TYPEID_INDEX = 4;
+	public final static int MAINTID_INDEX = 5;
+	public final static int CLASSID_INDEX = 6;
+	public final static int STORAGEID_INDEX = 7;
+	public final static int PERIODID_INDEX = 8;
+	public final static int DATEACQUIRED_INDEX = 9;
+	public final static int FINANCIALVALUE_INDEX = 10;
+	public final static int CONFIDENTIALVALUE_INDEX = 11;
+	public final static int INTEGRITYVALUE_INDEX = 12;
+	public final static int AVAILABILITYVALUE_INDEX = 13;
 	
 	private String name;
 	private int ownerID;
