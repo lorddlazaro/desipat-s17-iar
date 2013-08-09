@@ -26,6 +26,8 @@ import javax.swing.UIManager;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
+import dataObjects.Asset;
+
 import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
@@ -63,7 +65,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 
 	AssetScreenBehaviorStrategy behaviour;
 	
-	public AddAssetScreen(AddAssetScreenBehavior behaviour){
+	public AddAssetScreen(AssetScreenBehaviorStrategy behaviour){
 		this.behaviour=behaviour;
 		initialize();
 	}
@@ -88,11 +90,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblName.setBounds(62, 79, 46, 14);
 		add(lblName);
-		
-		JLabel lblStatus = new JLabel("Status");
-		lblStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblStatus.setBounds(62, 112, 88, 14);
-		add(lblStatus);
 		
 		JLabel lblClassification = new JLabel("Classification");
 		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -324,6 +321,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
 			{
+				/*Asset a =new Asset(txtName, )*/
 				behaviour.saveAsset();
 			}
 		});
@@ -371,6 +369,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewItemSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
+				
 				behaviour.saveItem();
 			}
 		});
