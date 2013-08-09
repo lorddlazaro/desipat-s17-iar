@@ -11,7 +11,7 @@ public class SelectAllAssetChangeLogs extends SelectAllStrategy {
 		super("AssetChangeLog");
 	}
 	
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<AssetChangeLog>();
 			
@@ -24,11 +24,8 @@ public class SelectAllAssetChangeLogs extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

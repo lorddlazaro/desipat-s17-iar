@@ -11,7 +11,7 @@ public class SelectAllActionLogs extends SelectAllStrategy {
 		super("ActionLog");
 	}
 	
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<ActionLog>();
 			
@@ -24,11 +24,8 @@ public class SelectAllActionLogs extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

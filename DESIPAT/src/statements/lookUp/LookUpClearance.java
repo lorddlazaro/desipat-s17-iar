@@ -10,7 +10,7 @@ public class LookUpClearance extends SelectLookUpStrategy {
 		super("ClearanceLookUp", "clearanceLevel = " + clearance);
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Integer>();
 			
@@ -23,11 +23,8 @@ public class LookUpClearance extends SelectLookUpStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

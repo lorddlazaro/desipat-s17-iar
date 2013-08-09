@@ -10,7 +10,7 @@ public class SelectFromAsset extends SelectFromIDStrategy {
 		super("Asset", "assetID = " + assetID);
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Asset>();
 			
@@ -23,11 +23,8 @@ public class SelectFromAsset extends SelectFromIDStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }	

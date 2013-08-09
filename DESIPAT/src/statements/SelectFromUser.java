@@ -10,7 +10,7 @@ public class SelectFromUser extends SelectFromIDStrategy {
 		super("UserAccount", "userID =" + userID);
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<UserAccount>();
 			
@@ -23,11 +23,8 @@ public class SelectFromUser extends SelectFromIDStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }
