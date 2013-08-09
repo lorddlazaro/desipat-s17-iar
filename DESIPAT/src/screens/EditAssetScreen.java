@@ -22,6 +22,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 
+import dataObjects.Asset;
+import dataObjects.AssetTable;
+
 import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
@@ -31,9 +34,9 @@ import java.awt.SystemColor;
 
 public class EditAssetScreen extends AddAssetScreen {
 
-	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour) {
+	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour, int ID) {
 		super(behaviour);
-		loadEntry();
+		loadEntry(ID);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -285,9 +288,9 @@ public class EditAssetScreen extends AddAssetScreen {
 	}
 	
 	public void refresh(){}*/
-	public void loadEntry()
+	public void loadEntry(int ID)
 	{
-		
+		Asset a=AssetTable.getInstance().getEntry(ID);
 	}
 
 }
