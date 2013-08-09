@@ -1,6 +1,8 @@
 package tablePanels;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
 import screens.TableObserver;
 
 import dataObjects.Asset;
@@ -21,6 +24,11 @@ import dataObjects.TableSubject;
 public class ViewAssetTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
 	AssetTable assetTable;
+	ViewAssetScreenBehaviourStrategy controller;
+	
+	public ViewAssetTablePanel(ViewAssetScreenBehaviourStrategy controller){
+		this.controller = controller;
+	}
 	
 	public void initialize(){
 		setBounds(10, 61, 205, 382);
@@ -28,11 +36,11 @@ public class ViewAssetTablePanel extends TablePanel implements TableObserver{
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		setViewportView(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				//TODO: connect
-				
+				controller.selectAsset();
 			}
 		});
 	}
@@ -46,7 +54,11 @@ public class ViewAssetTablePanel extends TablePanel implements TableObserver{
 		assetTable.registerObserver(this);
 		ArrayList<Asset> assetList = assetTable.getAllEntries();
 		
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel(){
+			public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }};
 		
 		model.addColumn("ID");
 		model.addColumn("Name");
