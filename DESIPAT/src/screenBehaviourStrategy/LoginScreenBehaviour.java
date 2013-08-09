@@ -2,6 +2,7 @@ package screenBehaviourStrategy;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -34,6 +35,8 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 		return loginScreen;
 	}
 	public void login() {
+		System.out.println( table.getAllEntries().size());
+		
 		for(TableEntry tableEntry:table.getAllEntries()){
 			UserAccount userAccount = (UserAccount) tableEntry;
 			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()))
