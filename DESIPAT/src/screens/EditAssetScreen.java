@@ -36,7 +36,8 @@ public class EditAssetScreen extends AddAssetScreen {
 
 	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour, int ID) {
 		super(behaviour);
-		loadEntry(ID);
+		if(ID!=-1)
+			loadEntry(ID);
 		// TODO Auto-generated constructor stub
 	}
 

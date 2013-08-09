@@ -199,8 +199,8 @@ public class MainScreen extends Screen{
 		addAssetCard = new AddAssetScreenBehavior().getView();
 		cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
 		
-		//editAssetCard = new EditAssetScreenBehavior().getView();
-		//cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
+		editAssetCard = new EditAssetScreenBehavior(-1).getView();
+		cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
 		
 		adminCard = new AdminScreen();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
