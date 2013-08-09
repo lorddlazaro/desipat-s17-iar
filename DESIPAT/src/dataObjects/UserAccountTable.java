@@ -25,8 +25,9 @@ public class UserAccountTable extends TableSubject{
 	private ArrayList<UserAccount> userList;	
 	private ArrayList<String> columnNames;
 
+	// Singleton's getInstance
 	private static UserAccountTable instance;
-	
+		
 	public static UserAccountTable getInstance(){
 		if(instance == null){
 			instance = new UserAccountTable();
@@ -36,16 +37,18 @@ public class UserAccountTable extends TableSubject{
 	
 	protected UserAccountTable(){
 		observerList = new ArrayList<TableObserver>();
-		entryList = new ArrayList<TableEntry>();
-		userList = new ArrayList<UserAccount>();
+		
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(USERNAME_COLUMN_NAME);
 		columnNames.add(PASSWORD_COLUMN_NAME);
 		columnNames.add(CLEARANCEID_COLUMN_NAME);
 		columnNames.add(PERSONID_COLUMN_NAME);
+		
+		userList = new ArrayList<UserAccount>();
 		fillData();
 	}
+	
 	public void fillData(){
 		Query statement = new SelectAllUsers();
 		statement.executeStatement();
@@ -55,7 +58,6 @@ public class UserAccountTable extends TableSubject{
 				rs.first();
 				while(!rs.isAfterLast()){
 					UserAccount userAccount = new UserAccount(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5));
-					entryList.add(userAccount);
 					userList.add(userAccount);
 					rs.next();
 				}
@@ -69,18 +71,22 @@ public class UserAccountTable extends TableSubject{
 	
 	public void addEntry(TableEntry tableEntry){
 		UserAccount userAccount = (UserAccount)tableEntry;
-		entryList.add(tableEntry);
 		NonQuery statement = new NewUser(userAccount);
 		statement.executeStatement();
 	}
-	//TODO: edit entry
-	public void editEntry(TableEntry tableEntry){}	
-	public void deleteEntry(TableEntry tableEntry){
-		UserAccount user = (UserAccount)tableEntry;
-		NonQuery statement = new DeleteUser(user.getID());
-		statement.executeStatement();
+	
+	public void editEntry(TableEntry tableEntry){
+		//TODO: edit entry
+	}	
+	
+	public ArrayList<UserAccount> getAllEntries() {
+		return userList;
 	}
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
+
+	public UserAccount getEntry(int ID) {
+		for(UserAccount user:userList)
+			if(user.getID() == ID)
+				return user;
+		return null;
 	}
 }
