@@ -10,9 +10,13 @@ import phase1.User;
 import screens.TableObserver;
 import statements.DeleteUser;
 
+import statements.selectAll.SelectAllAssets;
 import statements.selectAll.SelectAllUsers;
+import statements.updateTable.UpdateAsset;
+import statements.updateTable.UpdateUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
 
 public class UserAccountTable extends TableSubject{
@@ -49,35 +53,34 @@ public class UserAccountTable extends TableSubject{
 		fillData();
 	}
 	
-	public void fillData(){
+	private void fillData(){
 		Query statement = new SelectAllUsers();
 		statement.executeStatement();
-		try{
-			ResultSet rs = statement.getResult();
-			if(rs.isBeforeFirst()){
-				rs.first();
-				while(!rs.isAfterLast()){
-					UserAccount userAccount = new UserAccount(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5));
-					userList.add(userAccount);
-					rs.next();
-				}
-			}
-			rs.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		statement.getResultList();
 	}
 	
-	public void addEntry(TableEntry tableEntry){
-		UserAccount userAccount = (UserAccount)tableEntry;
+	public void addEntry(UserAccount userAccount){
+		userList.add(userAccount);
 		NonQuery statement = new NewUser(userAccount);
 		statement.executeStatement();
 	}
 	
-	public void editEntry(TableEntry tableEntry){
-		//TODO: edit entry
-	}	
+	public void editEntry(UserAccount userAccount) {
+		ArrayList<String> values = userAccount.getValues();
+		values.remove(this.ID_COLUMN_NAME);
+		
+		NonQuery statement = new UpdateUser(values, userAccount.getID());
+		statement.executeStatement();
+	}
+	
+	/*
+	 * YOU CANT DELETE AN ASSET
+	public void deleteEntry(Asset asset){
+		assetList.add(asset);
+		NonQuery statement = new DeleteAsset(asset);
+		statement.executeStatement();	
+	}*/
+		
 	
 	public ArrayList<UserAccount> getAllEntries() {
 		return userList;

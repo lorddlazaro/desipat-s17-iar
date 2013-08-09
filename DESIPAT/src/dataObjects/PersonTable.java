@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
+import dbHandler.Query;
+import statements.insertNew.NewAsset;
 import statements.insertNew.NewPerson;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllAssets;
+import statements.selectAll.SelectAllPersons;
+import statements.updateTable.UpdateAsset;
+import statements.updateTable.UpdatePerson;
 
 public class PersonTable extends TableSubject{
 	public final static String ID_COLUMN_NAME = "personID";
@@ -41,25 +47,32 @@ public class PersonTable extends TableSubject{
 	}
 	
 	private void fillData(){
-		// TODO
+		Query statement = new SelectAllPersons();
+		statement.executeStatement();
+		statement.getResultList();
 	}
 	
-	public void addEntry(TableEntry tableEntry){
-		Person person = (Person)tableEntry;
+	public void addEntry(Person person){
+		personList.add(person);
 		NonQuery statement = new NewPerson(person);
 		statement.executeStatement();
 	}
 	
-	public void editEntry(TableEntry tableEntry){
-		//TODO
-	}	
-	
-	public void deleteEntry(TableEntry tableEntry){
-		//TODO
-		/*Person person = (Person)tableEntry;
-		NonQuery statement = new DeletePerson(person.getID());
-		statement.executeStatement();*/
+	public void editEntry(Person person) {
+		ArrayList<String> values = person.getValues();
+		values.remove(this.ID_COLUMN_NAME);
+		
+		NonQuery statement = new UpdatePerson(values, person.getID());
+		statement.executeStatement();
 	}
+	
+	/* CANT DELETE 
+	public void deleteEntry(Person person){
+		personList.remove(person);
+		
+		NonQuery statement = new DeletePerson(person.getID());
+		statement.executeStatement();
+	}*/
 	
 	public ArrayList<Person> getAllEntries() {
 		return personList;
