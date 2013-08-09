@@ -18,7 +18,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
+import dataObjects.AssetTable;
+
 import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
+import tablePanels.ViewAssetTablePanel;
 
 
 import java.awt.Font;
@@ -32,8 +35,9 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	
 	//private Model model;
 	ViewAssetScreenBehaviourStrategy behavior;
+	ViewAssetTablePanel table;
 	
-	private JTable table;
+	private JTable assetTable;
 	private JLabel lblIdentifier;
 	private JLabel lblName;
 	private JLabel lblOwner;
@@ -64,18 +68,10 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		scrollPane.setBounds(10, 61, 205, 382);
 		add(scrollPane);
 		
-		table = new JTable();
-		table.setFont(new Font("Calibri", Font.PLAIN, 13));
-		scrollPane.setViewportView(table);
-		
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				//updateLabels();
-			}
-		});
+		table = new ViewAssetTablePanel();
+		table.initialize();
+		assetTable = table.getTable();
+		scrollPane.setViewportView(assetTable);
 		
 		JButton btnAddAsset = new JButton("Add Asset");
 		btnAddAsset.setBackground(SystemColor.activeCaption);
@@ -218,7 +214,14 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		));
 		scrollPane_1.setViewportView(changeLogTable);
 		
+		refresh();
+		
 	}
 	
-	public void refresh(){}
+	public void refresh(){
+		System.out.println(AssetTable.getInstance().getAllEntries().get(0).getName());
+		
+		table.fillTable(AssetTable.getInstance());
+		assetTable.updateUI();
+	}
 }
