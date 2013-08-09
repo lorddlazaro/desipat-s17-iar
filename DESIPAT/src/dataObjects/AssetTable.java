@@ -78,8 +78,6 @@ public class AssetTable extends TableSubject{
 	}
 	
 	public void editEntry(Asset asset) {
-		assetList.add(asset);
-		
 		ArrayList<String> values = asset.getValues();
 		values.remove(this.ID_COLUMN_NAME);
 		
