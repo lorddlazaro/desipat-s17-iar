@@ -65,6 +65,6 @@ public class AssetChangeLogTablePanel extends TablePanel implements TableObserve
 			
 			model.addRow(row);
 		}
-		
+		table.setModel(model);
 	}
 }
