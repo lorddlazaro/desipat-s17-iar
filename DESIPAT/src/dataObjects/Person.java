@@ -3,6 +3,9 @@ package dataObjects;
 import java.util.ArrayList;
 
 public class Person extends TableEntry{
+	public final static int FIRSTNAME_INDEX = 1;
+	public final static int MIDDLEINITIAL_INDEX = 2;
+	public final static int LASTNAME_INDEX = 3;
 	
 	private String firstName;
 	private char middleInitial;

@@ -10,6 +10,15 @@ public class ActionLog  extends TableEntry{
 	private int actionHeaderID;
 	private String actionDesc;
 	
+	public  ActionLog(int ID, int userID, Date actionDate, Time actionTime, int actionHeaderID, String actionDesc){
+		setID(ID);
+		setUserID(userID);
+		setActionDate(actionDate);
+		setActionTime(actionTime);
+		setActionHeaderID(actionHeaderID);
+		setActionDesc(actionDesc);
+	}
+	
 	public int getUserID() {
 		return userID;
 	}

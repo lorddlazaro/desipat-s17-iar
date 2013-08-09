@@ -5,7 +5,7 @@ import screens.TableObserver;
 
 public abstract class TableSubject {
 	protected ArrayList<TableObserver> observerList;
-	protected ArrayList<TableEntry> entryList;
+	protected ArrayList<String> columnNames;
 	
 	public void registerObserver(TableObserver observer){
 		observerList.add(observer);
@@ -18,9 +18,16 @@ public abstract class TableSubject {
 			observer.refresh();
 	}	
 	
+	public ArrayList<String> getColumnNames(){
+		return columnNames;
+	}
+	/*
 	public abstract void addEntry(TableEntry tableEntry);
 	public abstract void editEntry(TableEntry tableEntry);
 	public abstract void deleteEntry(TableEntry tableEntry);
+	public abstract ArrayList<TableEntry> getAllEntries();
+	public abstract TableEntry getEntry(int ID);
+	
 	
 	public ArrayList<TableEntry> getAllEntries(){
 		return entryList;
@@ -30,5 +37,6 @@ public abstract class TableSubject {
 			if(tableEntry.getID() == ID)
 				return tableEntry;
 		return null;
-	}
+	} 
+	 */
 }

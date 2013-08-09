@@ -14,7 +14,6 @@ import dbHandler.NonQuery;
 import dbHandler.Query;
 
 public class AssetTable extends TableSubject{
-	//private ArrayList<Asset> assetList;	
 	public final static String ID_COLUMN_NAME = "identifier";
 	public final static String OWNERID_COLUMN_NAME = "ownerID";
 	public final static String CUSTODIANID_COLUMN_NAME = "custodianID";
@@ -29,11 +28,9 @@ public class AssetTable extends TableSubject{
 	public final static String INTEGRITY_COLUMN_NAME = "integrityValue";
 	public final static String AVAILABILITY_COLUMN_NAME = "availabilityValue";
 	
-	
 	private ArrayList<Asset> assetList;	
-	private ArrayList<String> columnNames;
 
-	
+	// Singleton's getInstance
 	private static AssetTable instance;
 	
 	public static AssetTable getInstance(){
@@ -43,10 +40,9 @@ public class AssetTable extends TableSubject{
 		return instance;
 	}
 	
-	
 	protected AssetTable(){
 		observerList = new ArrayList<TableObserver>();
-		assetList = new ArrayList<Asset>();
+		
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(OWNERID_COLUMN_NAME);
@@ -61,8 +57,12 @@ public class AssetTable extends TableSubject{
 		columnNames.add(CONFIDENTIALITY_COLUMN_NAME);
 		columnNames.add(INTEGRITY_COLUMN_NAME);
 		columnNames.add(AVAILABILITY_COLUMN_NAME);
+		
+		assetList = new ArrayList<Asset>();
+		fillData();
 	}
-	public void fillData(){
+	
+	private void fillData(){
 		Query statement = new SelectAllUsers();
 		statement.executeStatement();
 		try{
@@ -71,7 +71,6 @@ public class AssetTable extends TableSubject{
 				rs.first();
 				while(!rs.isAfterLast()){
 					Asset asset = new Asset(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9),rs.getDate(10),rs.getFloat(11),rs.getInt(11),rs.getInt(12),rs.getInt(13));
-					entryList.add(asset);
 					assetList.add(asset);
 					rs.next();
 				}
@@ -83,29 +82,30 @@ public class AssetTable extends TableSubject{
 		}
 	}
 	
-	public void addEntry(TableEntry tableEntry){
-		Asset asset=(Asset)tableEntry;
-		entryList.add(tableEntry);
+	public void addEntry(Asset asset){
+		assetList.add(asset);
+		
 		//TODO: add entry to Asset DB
 		NonQuery statement=new NewAsset(asset);
 		statement.executeStatement();
 	}
-	public void deleteEntry(TableEntry tableEntry){
+	
+	public void editEntry(Asset asset) {
+		// TODO Auto-generated method stub
 	}
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
+	
+	public void deleteEntry(Asset asset){
+		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public void editEntry(TableEntry tableEntry) {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Asset> getAllEntries() {
+		return assetList;
+	}
+
+	public Asset getEntry(int ID) {
+		for(Asset asset:assetList)
+			if(asset.getID() == ID)
+				return asset;
+		return null;
 	}
 }
-
-
-
-
-
-
-
