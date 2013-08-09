@@ -63,5 +63,6 @@ public class ActionLogTablePanel extends TablePanel implements TableObserver{
 			
 			model.addRow(row);
 		}
+		table.setModel(model);
 	}
 }
