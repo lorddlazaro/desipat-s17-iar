@@ -292,6 +292,7 @@ public class EditAssetScreen extends AddAssetScreen {
 	public void loadEntry(int ID)
 	{
 		Asset a=AssetTable.getInstance().getEntry(ID);
+		//TODO: fill the fields with relevant info
 	}
 
 }
