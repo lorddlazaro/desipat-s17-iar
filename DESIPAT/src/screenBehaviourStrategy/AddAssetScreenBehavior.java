@@ -58,6 +58,10 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public AddAssetScreen getView(){
+		return addAssetScreen;
+	}
 
 	
 
