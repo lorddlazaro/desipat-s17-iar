@@ -10,11 +10,7 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
 	}
 
-	@Override
-	public void saveAsset(TableEntry asset) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void setNewItemPanel(int itemType) {
