@@ -21,6 +21,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
 	public void saveAsset() {
+	
 		//AssetTable.addEntry();
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
