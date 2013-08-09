@@ -59,6 +59,8 @@ public class ActionLogTable extends TableSubject{
 		actionLogList.add(actionLog);
 		NonQuery statement = new NewActionLog(actionLog);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	/* CANT EDIT ACTIONLOG

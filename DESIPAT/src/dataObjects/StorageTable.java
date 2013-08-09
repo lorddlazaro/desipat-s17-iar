@@ -51,6 +51,8 @@ public class StorageTable extends TableSubject{
 		storageList.add(storage);
 		NonQuery statement = new NewStorage(storage);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	public void editEntry(Storage storage) {
@@ -59,6 +61,8 @@ public class StorageTable extends TableSubject{
 		
 		NonQuery statement = new UpdateAsset(values, storage.getID());
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	/*

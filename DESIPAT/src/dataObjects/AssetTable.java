@@ -75,6 +75,8 @@ public class AssetTable extends TableSubject{
 		assetList.add(asset);
 		NonQuery statement = new NewAsset(asset);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	public void editEntry(Asset asset) {
@@ -83,6 +85,8 @@ public class AssetTable extends TableSubject{
 		
 		NonQuery statement = new UpdateAsset(values, asset.getID());
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	/*

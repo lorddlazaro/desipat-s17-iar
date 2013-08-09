@@ -63,6 +63,8 @@ public class UserAccountTable extends TableSubject{
 		userList.add(userAccount);
 		NonQuery statement = new NewUser(userAccount);
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	public void editEntry(UserAccount userAccount) {
@@ -71,6 +73,8 @@ public class UserAccountTable extends TableSubject{
 		
 		NonQuery statement = new UpdateUser(values, userAccount.getID());
 		statement.executeStatement();
+		
+		this.notifyObservers();
 	}
 	
 	/*
