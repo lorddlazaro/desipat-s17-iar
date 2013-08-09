@@ -22,15 +22,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 
+import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
 
 import java.awt.SystemColor;
 
 
-public class EditAssetScreen extends JPanel {
+public class EditAssetScreen extends AddAssetScreen {
 
-	private JTextField txtName;
+	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour) {
+		super(behaviour);
+		// TODO Auto-generated constructor stub
+	}
+
+	/*private JTextField txtName;
 	private JTextField txtFinancial;
 	private JSlider sldConfidentiality;
 	private JSlider sldIntegrity;
@@ -44,7 +50,7 @@ public class EditAssetScreen extends JPanel {
 	private JComboBox cbxMaintenance;
 	private JComboBox cbxOwner;
 	private JComboBox cbxCustodian;
-	private JCheckBox chckbxStatus;
+
 
 	private JTextField txtRetention;
 	AssetScreenBehaviorStrategy behaviour;
@@ -116,10 +122,7 @@ public class EditAssetScreen extends JPanel {
 		lblBasicInformation.setBounds(30, 51, 148, 14);
 		add(lblBasicInformation);
 		
-		JLabel lblStatus = new JLabel("Status");
-		lblStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblStatus.setBounds(50, 111, 88, 14);
-		add(lblStatus);
+
 		
 		JLabel lblCustodian = new JLabel("Custodian");
 		lblCustodian.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -277,14 +280,10 @@ public class EditAssetScreen extends JPanel {
 		cbxCustodian.setBounds(194, 307, 174, 20);
 		add(cbxCustodian);
 		
-		chckbxStatus = new JCheckBox("Asset is Active");
-		chckbxStatus.setFont(new Font("Calibri", Font.PLAIN, 14));
-		chckbxStatus.setBackground(SystemColor.inactiveCaption);
-		chckbxStatus.setBounds(194, 102, 126, 23);
-		add(chckbxStatus);
+	
 	}
 	
-	public void refresh(){}
+	public void refresh(){}*/
 
 }
 
