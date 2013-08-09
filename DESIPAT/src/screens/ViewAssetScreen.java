@@ -219,7 +219,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	}
 	
 	public void refresh(){
-		//System.out.println(AssetTable.getInstance().getAllEntries().get(0).getName());
+		System.out.println("AssetTable size = "+AssetTable.getInstance().getAllEntries().size());
 		
 		table.fillTable(AssetTable.getInstance());
 		assetTable.updateUI();
