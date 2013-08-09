@@ -3,7 +3,7 @@ package screenBehaviourStrategy;
 import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.UserAccountTable;
-import phase1.Asset;
+import dataObjects.Asset;
 import screens.AddAssetScreen;
 import screens.LoginScreen;
 import screens.TableObserver;
@@ -20,9 +20,9 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		addAssetScreen = new AddAssetScreen(this);
 		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
-	public void saveAsset() {
+	public void saveAsset(Asset a) {
 	
-		//AssetTable.addEntry();
+		AssetTable.getInstance().addEntry(a);
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
 		//AssetTable.getInstance().addEntry(a);

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import dataObjects.PersonTable;
@@ -17,7 +18,7 @@ import dataObjects.PersonTable;
 import screenBehaviourStrategy.AddPersonScreenBehaviour;
 import screenBehaviourStrategy.AddPersonScreenBehaviourStrategy;
 
-public class AddPersonScreen extends JFrame{
+public class AddPersonScreen extends JPanel{
 	
 	AddPersonScreenBehaviourStrategy behaviour;
 	
@@ -39,7 +40,7 @@ public class AddPersonScreen extends JFrame{
 	
 	public void initComponents(){
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		this.setLayout(new GridLayout(0,2));
 		
 		firstNameLbl = new JLabel("First Name: ");
 		add(firstNameLbl);
@@ -80,9 +81,9 @@ public class AddPersonScreen extends JFrame{
 			}});
 		add(saveBtn);
 		
-		this.setTitle("Add Person");
+		this.setName("Add Person");
 		this.setSize(200,200);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 	
