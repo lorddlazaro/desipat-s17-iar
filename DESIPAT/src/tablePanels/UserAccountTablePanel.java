@@ -24,7 +24,7 @@ import dataObjects.TableSubject;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 
-public abstract class UserAccountTablePanel extends TablePanel implements TableObserver{
+public class UserAccountTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
 	UserAccountTable userAccountTable;
 	
@@ -36,6 +36,10 @@ public abstract class UserAccountTablePanel extends TablePanel implements TableO
 		//table.addMouseListener(new MouseAdapter();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		setViewportView(table);
+	}
+	
+	public JTable getTable(){
+		return table;
 	}
 	
 	public void fillTable(UserAccountTable userAccountTable){

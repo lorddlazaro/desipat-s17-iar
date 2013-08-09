@@ -23,7 +23,7 @@ import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.TableSubject;
 
-public abstract class AssetChangeLogTablePanel extends TablePanel implements TableObserver{
+public class AssetChangeLogTablePanel extends TablePanel implements TableObserver{
 	private JTable table;
 	AssetChangeLogTable assetChangeLogTable;
 	
@@ -36,6 +36,10 @@ public abstract class AssetChangeLogTablePanel extends TablePanel implements Tab
 		table = new JTable();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
 		setViewportView(table);
+	}
+	
+	public JTable getTable(){
+		return table;
 	}
 	
 	public void fillTable(AssetChangeLogTable assetChangeLogTable){
