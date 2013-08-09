@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import dataObjects.ActionLog;
 import statements.SelectAllStrategy;
 
-public class SelectAllLogs extends SelectAllStrategy {
-	public SelectAllLogs() {
+public class SelectAllActionLogs extends SelectAllStrategy {
+	public SelectAllActionLogs() {
 		super("ActionLog");
 	}
 	
