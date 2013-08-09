@@ -8,8 +8,7 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	
 
 	public ViewAssetScreenBehaviour(){
-		//this.model = model;
-		// view = new ViewAssetScreen(this);
+		 view = new ViewAssetScreen(this);
 	}
 	public ViewAssetScreen getView(){ 
 		return view;
