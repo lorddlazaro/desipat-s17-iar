@@ -24,7 +24,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
 		//AssetTable.getInstance().addEntry(a);
-		table.addEntry(a);
+		//table.addEntry(a);
 		/*SelectLookUpStrategy lookUp;
 		lookUp=new LookUpMaintenance(a.getMaintenanceSchedule());
 		lookUp=new lookUpType();
