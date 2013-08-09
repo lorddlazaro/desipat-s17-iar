@@ -38,10 +38,10 @@ public abstract class UserAccountTablePanel extends TablePanel implements TableO
 		setViewportView(table);
 	}
 	
-	public void fillTable(TableSubject tableSubject){
-		userAccountTable = (UserAccountTable)tableSubject;
+	public void fillTable(UserAccountTable userAccountTable){
+		this.userAccountTable = userAccountTable;
 		userAccountTable.registerObserver(this);
-		ArrayList<TableEntry> userAccountList = userAccountTable.getAllEntries();
+		ArrayList<UserAccount> userAccountList = userAccountTable.getAllEntries();
 		
 		DefaultTableModel model = new DefaultTableModel();
 		

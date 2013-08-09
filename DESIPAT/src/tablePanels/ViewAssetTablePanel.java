@@ -37,10 +37,10 @@ public abstract class ViewAssetTablePanel extends TablePanel implements TableObs
 		});
 	}
 	
-	public void fillTable(TableSubject tableSubject){
-		assetTable = (AssetTable)tableSubject;
+	public void fillTable(AssetTable assetTable){
+		this.assetTable = assetTable;
 		assetTable.registerObserver(this);
-		ArrayList<TableEntry> assetList = assetTable.getAllEntries();
+		ArrayList<Asset> assetList = assetTable.getAllEntries();
 		
 		DefaultTableModel model = new DefaultTableModel();
 		

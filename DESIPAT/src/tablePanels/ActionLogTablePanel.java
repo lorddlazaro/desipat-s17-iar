@@ -37,10 +37,10 @@ public abstract class ActionLogTablePanel extends TablePanel implements TableObs
 		setViewportView(table);
 	}
 	
-	public void fillTable(TableSubject tableSubject){
-		actionLogTable = (ActionLogTable)tableSubject;
+	public void fillTable(ActionLogTable actionLogTable){
+		this.actionLogTable = actionLogTable;
 		actionLogTable.registerObserver(this);
-		ArrayList<TableEntry> actionLogList = actionLogTable.getAllEntries();
+		ArrayList<ActionLog> actionLogList = actionLogTable.getAllEntries();
 		
 		DefaultTableModel model = new DefaultTableModel();
 		
