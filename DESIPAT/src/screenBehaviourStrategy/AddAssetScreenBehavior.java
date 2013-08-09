@@ -12,15 +12,16 @@ import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-	AssetTable table;
+
 	private AddAssetScreen addAssetScreen;
 	public AddAssetScreenBehavior()
 	{
-		table = table.getInstance();
+		//table = table.getInstance();
 		addAssetScreen = new AddAssetScreen(this);
-		table.registerObserver((TableObserver) addAssetScreen);
+		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
-	public void saveAsset(TableEntry a) {
+	public void saveAsset() {
+		//AssetTable.addEntry();
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
 		//AssetTable.getInstance().addEntry(a);
@@ -53,11 +54,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 			break;
 		}
 	}
-	@Override
-	public void saveAsset() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	public AddAssetScreen getView(){
 		return addAssetScreen;
