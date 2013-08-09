@@ -5,5 +5,7 @@ public interface MainScreenBehaviourStrategy {
 	public void gotoAdminScreen();
 	public void gotoAccountScreen();
 	public void gotoLogScreen();
+	public void gotoAddAssetScreen();
+	public void gotoEditAssetScreen();
 	public void logout();
 }

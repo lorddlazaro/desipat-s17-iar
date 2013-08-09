@@ -193,7 +193,7 @@ public class MainScreen extends Screen{
 		accountSettingsCard = new AccountSettingsScreen();
 		cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
 		
-		viewAssetCard = new ViewAssetScreenBehaviour().getView();
+		viewAssetCard = new ViewAssetScreenBehaviour(behaviour).getView();
 		cardPanel.add(viewAssetCard, this.VIEW_ASSET_SCREEN);
 		
 		addAssetCard = new AddAssetScreenBehavior().getView();
