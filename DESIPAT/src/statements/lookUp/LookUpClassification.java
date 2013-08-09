@@ -10,7 +10,7 @@ public class LookUpClassification extends SelectLookUpStrategy {
 		super("ClassificationLookUp", "classification = " + classification);
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Integer>();
 			
@@ -23,11 +23,8 @@ public class LookUpClassification extends SelectLookUpStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

@@ -11,7 +11,7 @@ public class SelectAllPersons extends SelectAllStrategy {
 		super("Person");
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Person>();
 			
@@ -24,11 +24,8 @@ public class SelectAllPersons extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

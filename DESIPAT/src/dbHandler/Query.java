@@ -23,6 +23,7 @@ public abstract class Query implements SQLStatement{
 		myHandler.useDB();
 		
 		myResult = myHandler.getResult();
+		fillResultList();
 		
 		myHandler.closeConnection();
 	}
@@ -31,5 +32,9 @@ public abstract class Query implements SQLStatement{
 		return myResult;
 	}
 	
-	public abstract ArrayList getResultList();
+	public ArrayList getResultList() {
+		return resultList;
+	}
+	
+	public abstract void fillResultList();
 }

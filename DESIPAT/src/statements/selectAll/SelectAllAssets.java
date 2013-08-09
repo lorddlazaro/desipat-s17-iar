@@ -11,7 +11,7 @@ public class SelectAllAssets extends SelectAllStrategy {
 		super("Asset");
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Asset>();
 			
@@ -24,11 +24,8 @@ public class SelectAllAssets extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

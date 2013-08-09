@@ -13,7 +13,7 @@ public class SelectAllStorage extends SelectAllStrategy {
 		super("Storage");
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<Storage>();
 			
@@ -26,11 +26,8 @@ public class SelectAllStorage extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }

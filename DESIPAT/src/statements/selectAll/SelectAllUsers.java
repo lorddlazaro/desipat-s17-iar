@@ -11,7 +11,7 @@ public class SelectAllUsers extends SelectAllStrategy {
 		super("UserAccount");
 	}
 
-	public ArrayList getResultList() {
+	public void fillResultList() {
 		try {
 			resultList = new ArrayList<UserAccount>();
 			
@@ -24,11 +24,8 @@ public class SelectAllUsers extends SelectAllStrategy {
 				}
 			}
 			myResult.close();
-			
-			return resultList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 }
