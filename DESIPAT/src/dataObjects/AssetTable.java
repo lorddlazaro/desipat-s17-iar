@@ -8,10 +8,13 @@ import statements.DeleteStrategy;
 import statements.DeleteUser;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllAssets;
 import statements.selectAll.SelectAllUsers;
+import statements.updateTable.UpdateAsset;
 
 import dbHandler.NonQuery;
 import dbHandler.Query;
+
 
 public class AssetTable extends TableSubject{
 	public final static String ID_COLUMN_NAME = "identifier";
@@ -63,40 +66,34 @@ public class AssetTable extends TableSubject{
 	}
 	
 	private void fillData(){
-		Query statement = new SelectAllUsers();
+		Query statement = new SelectAllAssets();
 		statement.executeStatement();
-		try{
-			ResultSet rs = statement.getResult();
-			if(rs.isBeforeFirst()){
-				rs.first();
-				while(!rs.isAfterLast()){
-					Asset asset = new Asset(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9),rs.getDate(10),rs.getFloat(11),rs.getInt(11),rs.getInt(12),rs.getInt(13));
-					assetList.add(asset);
-					rs.next();
-				}
-			}
-			rs.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		statement.getResultList();
 	}
 	
 	public void addEntry(Asset asset){
 		assetList.add(asset);
-		
-		//TODO: add entry to Asset DB
-		NonQuery statement=new NewAsset(asset);
+		NonQuery statement = new NewAsset(asset);
 		statement.executeStatement();
 	}
 	
 	public void editEntry(Asset asset) {
-		// TODO Auto-generated method stub
+		assetList.add(asset);
+		
+		ArrayList<String> values = asset.getValues();
+		values.remove(this.ID_COLUMN_NAME);
+		
+		NonQuery statement = new UpdateAsset(values, asset.getID());
+		statement.executeStatement();
 	}
 	
+	/*
+	 * YOU CANT DELETE AN ASSET
 	public void deleteEntry(Asset asset){
-		// TODO Auto-generated method stub
-	}
+		assetList.add(asset);
+		NonQuery statement = new DeleteAsset(asset);
+		statement.executeStatement();	
+	}*/
 
 	public ArrayList<Asset> getAllEntries() {
 		return assetList;
