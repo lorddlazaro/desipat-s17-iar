@@ -3,6 +3,11 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 public class ActionLog  extends TableEntry{
+	public final static int USERID_INDEX = 1;
+	public final static int ACTIONDATE_INDEX = 2;
+	public final static int ACTIONTIME_INDEX = 3;
+	public final static int ACTIONHEADERID_INDEX = 4;
+	public final static int ACTIONDESC_INDEX = 5;
 	
 	private int userID;
 	private Date actionDate;

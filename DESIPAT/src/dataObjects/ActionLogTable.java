@@ -19,6 +19,7 @@ public class ActionLogTable extends TableSubject{
 	private ArrayList<ActionLog> actionList;	
 	private ArrayList<String> columnNames;
 	
+	// Singleton's getInstance
 	private static ActionLogTable instance;
 	
 	public static ActionLogTable getInstance(){
@@ -30,30 +31,47 @@ public class ActionLogTable extends TableSubject{
 	
 	protected ActionLogTable(){
 		observerList = new ArrayList<TableObserver>();
-		actionList = new ArrayList<ActionLog>();
+		
 		columnNames = new ArrayList<String>();
 		columnNames.add(ACTIONID_COLUMN_NAME);
 		columnNames.add(USERID_COLUMN_NAME);
 		columnNames.add(DATE_COLUMN_NAME);
+		columnNames.add(TIME_COLUMN_NAME);
 		columnNames.add(HEADERID_COLUMN_NAME);
 		columnNames.add(ACTIONDESC_COLUMN_NAME);
+		
+		actionList = new ArrayList<ActionLog>();
+		fillData();
 	}
 	
-	public void addEntry(TableEntry tableEntry){
-		ActionLog actionLog = (ActionLog)tableEntry;
-		entryList.add(tableEntry);
+	private void fillData(){
+		//TODO
+	}
+	
+	public void addEntry(ActionLog actionLog){
 		NonQuery statement = new NewActionLog(actionLog);
 		statement.executeStatement();
 	}
-	//TODO: edit entry
-	public void editEntry(TableEntry tableEntry){}	
-	public void deleteEntry(TableEntry tableEntry){
+	
+	public void editEntry(ActionLog actionLog){
+		//TODO
+	}	
+	
+	public void deleteEntry(ActionLog actionLog){
+		// TODO
 		/*UserAccount user = (UserAccount)tableEntry;
 		NonQuery statement = new DeleteUser(user.getID());
 		statement.executeStatement();*/
 	}
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
+
+	public ArrayList<ActionLog> getAllEntries() {
+		return actionList;
+	}
+	
+	public ActionLog getEntry(int ID) {
+		for(ActionLog actionLog:actionList)
+			if(actionLog.getID() == ID)
+				return actionLog;
+		return null;
 	}
 }
-

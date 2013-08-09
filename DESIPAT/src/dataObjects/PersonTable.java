@@ -14,12 +14,12 @@ public class PersonTable extends TableSubject{
 	public final static String MIDDLEINITIAL_COLUMN_NAME = "middleInitial";
 	public final static String LASTNAME_COLUMN_NAME = "lastName";
 
-	
 	private ArrayList<Person> personList;	
 	private ArrayList<String> columnNames;
 	
+	// Singleton's getInstance
 	private static PersonTable instance;
-	
+		
 	public static PersonTable getInstance(){
 		if(instance == null){
 			instance = new PersonTable();
@@ -29,29 +29,46 @@ public class PersonTable extends TableSubject{
 	
 	protected PersonTable(){
 		observerList = new ArrayList<TableObserver>();
-		personList = new ArrayList<Person>();
+		
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(FIRSTNAME_COLUMN_NAME);
 		columnNames.add(MIDDLEINITIAL_COLUMN_NAME);
 		columnNames.add(LASTNAME_COLUMN_NAME);
-
+		
+		personList = new ArrayList<Person>();
+		fillData();
 	}
+	
+	private void fillData(){
+		// TODO
+	}
+	
 	public void addEntry(TableEntry tableEntry){
 		Person person = (Person)tableEntry;
-		entryList.add(tableEntry);
 		NonQuery statement = new NewPerson(person);
 		statement.executeStatement();
 	}
-	//TODO: edit entry
-	public void editEntry(TableEntry tableEntry){}	
+	
+	public void editEntry(TableEntry tableEntry){
+		//TODO
+	}	
+	
 	public void deleteEntry(TableEntry tableEntry){
+		//TODO
 		/*Person person = (Person)tableEntry;
 		NonQuery statement = new DeletePerson(person.getID());
 		statement.executeStatement();*/
 	}
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
+	
+	public ArrayList<Person> getAllEntries() {
+		return personList;
 	}
 
+	public Person getEntry(int ID) {
+		for(Person person:personList)
+			if(person.getID() == ID)
+				return person;
+		return null;
+	}
 }

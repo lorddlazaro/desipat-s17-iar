@@ -12,12 +12,12 @@ public class StorageTable extends TableSubject{
 	public final static String ID_COLUMN_NAME = "storageID";
 	public final static String LOCATION_COLUMN_NAME = "storageLocation";
 
-	
 	private ArrayList<Storage> storageList;	
 	private ArrayList<String> columnNames;
 	
+	// Singleton's getInstance
 	private static StorageTable instance;
-	
+		
 	public static StorageTable getInstance(){
 		if(instance == null){
 			instance = new StorageTable();
@@ -27,26 +27,37 @@ public class StorageTable extends TableSubject{
 	
 	protected  StorageTable(){
 		observerList = new ArrayList<TableObserver>();
-		storageList = new ArrayList<Storage>();
+
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(LOCATION_COLUMN_NAME);
-
+	
+		storageList = new ArrayList<Storage>();
+		fillData();
 	}
+	
+	private void fillData(){
+		//TODO
+	}
+	
 	public void addEntry(TableEntry tableEntry){
 		Storage storage = (Storage)tableEntry;
-		entryList.add(tableEntry);
 		NonQuery statement = new NewStorage(storage);
 		statement.executeStatement();
 	}
-	//TODO: edit entry
-	public void editEntry(TableEntry tableEntry){}	
-	public void deleteEntry(TableEntry tableEntry){
-		//Storage storage = (Storage)tableEntry;
-		//NonQuery statement = new DeleteUser(user.getID());
-		//statement.executeStatement();
+	
+	public void editEntry(TableEntry tableEntry){
+		//TODO: edit entry
+	}	
+	
+	public ArrayList<Storage> getAllEntries() {
+		return storageList;
 	}
-	public ArrayList<String> getColumnNames() {
-		return columnNames;
+
+	public Storage getEntry(int ID) {
+		for(Storage storage:storageList)
+			if(storage.getID() == ID)
+				return storage;
+		return null;
 	}
 }
