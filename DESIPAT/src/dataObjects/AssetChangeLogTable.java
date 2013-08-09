@@ -7,9 +7,13 @@ import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.insertNew.NewActionLog;
 import statements.insertNew.NewAssetChangeLog;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllActionLogs;
+import statements.selectAll.SelectAllAssetChangeLogs;
 import statements.selectAll.SelectAllUsers;
+import statements.updateTable.UpdateAsset;
 
 public class AssetChangeLogTable extends TableSubject{
 	public final static String CHANGEID_COLUMN_NAME = "changeID";
@@ -48,42 +52,33 @@ public class AssetChangeLogTable extends TableSubject{
 	}
 	
 	private void fillData(){
-		// TODO
-		Query statement = new SelectAllUsers();
+		Query statement = new SelectAllAssetChangeLogs();
 		statement.executeStatement();
-		try{
-			ResultSet rs = statement.getResult();
-			if(rs.isBeforeFirst()){
-				rs.first();
-				while(!rs.isAfterLast()){
-					Asset asset = new Asset(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getInt(5),rs.getInt(6),rs.getInt(7),rs.getInt(8),rs.getInt(9),rs.getDate(10),rs.getFloat(11),rs.getInt(11),rs.getInt(12),rs.getInt(13));
-					rs.next();
-				}
-			}
-			rs.close();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		statement.getResultList();
 	}
 	
-	public void addEntry(TableEntry tableEntry){
-		AssetChangeLog assetChangeLog = (AssetChangeLog)tableEntry;
+	public void addEntry(AssetChangeLog assetChangeLog){
+		assetChangeLogList.add(assetChangeLog);
 		NonQuery statement = new NewAssetChangeLog(assetChangeLog);
 		statement.executeStatement();
 	}
+	/* CANT EDIT ASSETCHANGELOG
+	public void editEntry(ActionLog actionLog){
+		ArrayList<String> values = actionLog.getValues();
+		values.remove(this.CHANGEID_COLUMN_NAME);
+		
+		NonQuery statement = new UpdateAsset(values, actionLog.getID());
+		statement.executeStatement();
+	}	
 	
-	public void editEntry(TableEntry tableEntry){
-		// TODO
-	}
-	
+	/* CANT DELETE ASSETCHANGELOG
 	public void deleteEntry(TableEntry tableEntry){
 		//TODO
 		/*UserAccount user = (UserAccount)tableEntry;
 		NonQuery statement = new DeleteUser(user.getID());
-		statement.executeStatement();*/
-	}
-
+		statement.executeStatement();
+	}*/
+	
 	public ArrayList<AssetChangeLog> getAllEntries() {
 		return assetChangeLogList;
 	}

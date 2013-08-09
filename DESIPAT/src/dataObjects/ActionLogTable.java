@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
+import dbHandler.Query;
 import statements.insertNew.NewActionLog;
+import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllActionLogs;
+import statements.selectAll.SelectAllAssets;
+import statements.updateTable.UpdateAsset;
 
 public class ActionLogTable extends TableSubject{
 	public final static String ACTIONID_COLUMN_NAME = "actionID";
@@ -16,7 +21,7 @@ public class ActionLogTable extends TableSubject{
 	public final static String HEADERID_COLUMN_NAME = "actionHeaderID";
 	public final static String ACTIONDESC_COLUMN_NAME = "actionDesc";
 	
-	private ArrayList<ActionLog> actionList;	
+	private ArrayList<ActionLog> actionLogList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -40,36 +45,46 @@ public class ActionLogTable extends TableSubject{
 		columnNames.add(HEADERID_COLUMN_NAME);
 		columnNames.add(ACTIONDESC_COLUMN_NAME);
 		
-		actionList = new ArrayList<ActionLog>();
+		actionLogList = new ArrayList<ActionLog>();
 		fillData();
 	}
 	
 	private void fillData(){
-		//TODO
+		Query statement = new SelectAllActionLogs();
+		statement.executeStatement();
+		statement.getResultList();
 	}
 	
 	public void addEntry(ActionLog actionLog){
+		actionLogList.add(actionLog);
 		NonQuery statement = new NewActionLog(actionLog);
 		statement.executeStatement();
 	}
 	
+	/* CANT EDIT ACTIONLOG
 	public void editEntry(ActionLog actionLog){
-		//TODO
-	}	
+		ArrayList<String> values = actionLog.getValues();
+		values.remove(this.ACTIONID_COLUMN_NAME);
+		
+		NonQuery statement = new UpdateActionLog(values, actionLog.getID());
+		statement.executeStatement();
+	}	*/
 	
+	/* CANT DELETE ACTIONLOG
 	public void deleteEntry(ActionLog actionLog){
 		// TODO
 		/*UserAccount user = (UserAccount)tableEntry;
 		NonQuery statement = new DeleteUser(user.getID());
-		statement.executeStatement();*/
+		statement.executeStatement();
 	}
+	*/
 
 	public ArrayList<ActionLog> getAllEntries() {
-		return actionList;
+		return actionLogList;
 	}
 	
 	public ActionLog getEntry(int ID) {
-		for(ActionLog actionLog:actionList)
+		for(ActionLog actionLog:actionLogList)
 			if(actionLog.getID() == ID)
 				return actionLog;
 		return null;
