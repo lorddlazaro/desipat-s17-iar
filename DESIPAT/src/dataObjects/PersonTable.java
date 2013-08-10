@@ -88,4 +88,11 @@ public class PersonTable extends TableSubject{
 				return person;
 		return null;
 	}
+	
+	public Person getEntry(String firstName, String middleInit, String lastName) {
+		for(Person person:personList)
+			if(person.getFirstName().equals(firstName) && person.getMiddleInitial() == middleInit.charAt(0) && person.getLastName().equals(lastName))
+				return person;
+		return null;
+	}
 }
