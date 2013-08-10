@@ -29,6 +29,7 @@ public class AddPersonScreenBehaviour implements AddPersonScreenBehaviourStrateg
 
 	public void savePerson(Person p) {
 		PersonTable.getInstance().addEntry(p);
+		((AddAssetScreen)addPersonScreen.getParent()).refresh();
 		// TODO Auto-generated method stub
 		
 	}
