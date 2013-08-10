@@ -44,19 +44,19 @@ import screenBehaviourStrategy.EditAssetScreenBehavior;
 
 public class AddAssetScreen extends JPanel implements TableObserver {
 	private JTextField txtName;
-	private JTextField txtFinancial;
-	private JSlider sldConfidentiality;
-	private JSlider sldIntegrity;
-	private JSlider sldAvailability;
-	private JComboBox cbxMonth;
-	private JComboBox cbxDay;
-	private JComboBox cbxYear;
-	private JComboBox cbxType;
-	private JComboBox cbxStorage;
-	private JComboBox cbxClassification;
-	private JComboBox cbxMaintenance;
-	private JComboBox cbxOwner;
-	private JComboBox cbxCustodian;
+	protected JTextField txtFinancial;
+	protected JSlider sldConfidentiality;
+	protected JSlider sldIntegrity;
+	protected JSlider sldAvailability;
+	protected JComboBox cbxMonth;
+	protected JComboBox cbxDay;
+	protected JComboBox cbxYear;
+	protected JComboBox cbxType;
+	protected JComboBox cbxStorage;
+	protected JComboBox cbxClassification;
+	protected JComboBox cbxMaintenance;
+	protected JComboBox cbxOwner;
+	protected JComboBox cbxCustodian;
 	
 	/*private JTextField textFieldNewItem2;
 	private JTextField textFieldNewItem3;
