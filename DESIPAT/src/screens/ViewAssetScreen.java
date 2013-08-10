@@ -195,7 +195,8 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		btnUpdateAsset.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnUpdateAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				behavior.updateAsset();
+				int id=0; //should get the id of the selected asset in the table
+				behavior.updateAsset();//TODO: pass id
 			}
 		});
 		

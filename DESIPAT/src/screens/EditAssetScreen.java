@@ -34,11 +34,12 @@ import java.awt.SystemColor;
 
 public class EditAssetScreen extends AddAssetScreen {
 
+	int id;
 	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour, int ID) {
 		super(behaviour);
 		lblAddNewAsset.setText("Edit Asset");
-		if(ID!=-1)
-			loadEntry(ID);
+		refresh();
+		setID(ID);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -292,8 +293,32 @@ public class EditAssetScreen extends AddAssetScreen {
 	public void refresh(){}*/
 	public void loadEntry(int ID)
 	{
+		
 		Asset a=AssetTable.getInstance().getEntry(ID);
-		//TODO: fill the fields with relevant info
+		String date=a.getDateAcquired();
+		String [] dates=date.split("-");
+		
+		txtFinancial.setText(Double.toString(a.getFinancialValue()));
+		sldConfidentiality.setValue(a.getConfidentialValue());
+		sldIntegrity.setValue(a.getIntegrityValue());
+		sldAvailability.setValue(a.getAvailabilityValue());
+		cbxYear.setSelectedItem(dates[0]);
+		cbxMonth.setSelectedItem(dates[1]);
+		cbxDay.setSelectedItem(dates[2]);
+		cbxType.setSelectedIndex(a.getTypeID());
+		cbxStorage.setSelectedIndex(a.getStorageID());
+		cbxClassification.setSelectedIndex(a.getClassID());
+		cbxMaintenance.setSelectedIndex(a.getMaintID());
+		cbxOwner.setSelectedIndex(a.getOwnerID());
+		cbxCustodian.setSelectedIndex(a.getCustodianID());
+		
+		
+	}
+	public void setID(int ID)
+	{
+		this.id=ID;
+		if(ID!=-1)
+			loadEntry(ID);
 	}
 
 }
