@@ -18,7 +18,7 @@ public class SelectAllAssets extends SelectAllStrategy {
 			if(myResult.isBeforeFirst()){
 				myResult.first();
 				while(!myResult.isAfterLast()){
-					Asset asset= new Asset(myResult.getInt(1), myResult.getString(2), myResult.getInt(3), myResult.getInt(4), myResult.getInt(5), myResult.getInt(6), myResult.getInt(7), myResult.getInt(8), myResult.getInt(9), myResult.getDate(10), myResult.getInt(11), myResult.getInt(12), myResult.getInt(13), myResult.getInt(14));
+					Asset asset= new Asset(myResult.getInt(1), myResult.getString(2), myResult.getInt(3), myResult.getInt(4), myResult.getInt(5), myResult.getInt(6), myResult.getInt(7), myResult.getInt(8), myResult.getInt(9), myResult.getDate(10).toString(), myResult.getInt(11), myResult.getInt(12), myResult.getInt(13), myResult.getInt(14));
 					resultList.add(asset);
 					myResult.next();
 				}
