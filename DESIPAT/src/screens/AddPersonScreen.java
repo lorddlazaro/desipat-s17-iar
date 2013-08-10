@@ -50,7 +50,7 @@ public class AddPersonScreen extends JPanel{
 		middleInitialLbl = new JLabel("Middle Initial: ");
 		add(middleInitialLbl);
 		middleInitialTxtFld = new JTextField();
-		middleInitialTxtFld.
+		
 		add(middleInitialTxtFld);
 		
 		lastNameLbl = new JLabel("Last Name:");
@@ -82,8 +82,9 @@ public class AddPersonScreen extends JPanel{
 		add(saveBtn);
 		
 		this.setName("Add Person");
-		this.setSize(200,200);
+		//this.setSize(200,200);
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setBounds(447, 248, 315, 137);
 		this.setVisible(true);
 	}
 	

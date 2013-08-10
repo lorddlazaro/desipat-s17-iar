@@ -1,4 +1,5 @@
 package screens;
+import screenBehaviourStrategy.AddTypeScreenBehavior;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -35,6 +36,7 @@ import dataObjects.Asset;
 
 import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AddPersonScreenBehaviour;
+import screenBehaviourStrategy.AddStorageScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
 
@@ -55,20 +57,20 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	private JComboBox cbxOwner;
 	private JComboBox cbxCustodian;
 	
-	private JTextField textFieldNewItem2;
+	/*private JTextField textFieldNewItem2;
 	private JTextField textFieldNewItem3;
-	private JTextField textFieldNewItem1;
+	private JTextField textFieldNewItem1;*/
 	private JButton btnNewOwner;
 	private JButton btnNewCustodian;
 	private JButton btnNewType;
 	private JButton btnNewStorage;
 	private JPanel panelNewItem;
 	
-	private JLabel lblNewItem2;
+	/*private JLabel lblNewItem2;
 	private JLabel lblNewItem1;
 	private JLabel lblNewItem3;
 	private JButton btnNewItemSave;
-	private JButton btnNewItemCancel;
+	private JButton btnNewItemCancel;*/
 	protected JLabel lblAddNewAsset;
 	
 	private DateFormat dateFormat;
@@ -294,6 +296,10 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 			//behaviour.setNewItemPanel(0);
 				panelNewItem = new AddPersonScreenBehaviour().getView(); 
 				panelNewItem.setName("Add Owner");
+				//panelNewItem.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+				panelNewItem.setBounds(447, 248, 315, 137);
+				add(panelNewItem);
+			
 			}
 		}) ;
 		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -307,6 +313,8 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 			//behaviour.setNewItemPanel(1);
 			panelNewItem = new AddPersonScreenBehaviour().getView(); 
 			panelNewItem.setName("Add Custodian");
+			panelNewItem.setBounds(447, 248, 315, 137);
+			add(panelNewItem);
 			
 			
 			}
@@ -320,6 +328,10 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 			public void actionPerformed(ActionEvent arg0)
 			{
 			//behaviour.setNewItemPanel(2);
+				panelNewItem = new AddTypeScreenBehavior().getView(); 
+				//panelNewItem.setName("Add Type");
+				panelNewItem.setBounds(447, 248, 315, 137);
+				add(panelNewItem);
 			}
 		});
 		btnNewType.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -330,7 +342,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewStorage.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-			behaviour.setNewItemPanel(3);
+			//behaviour.setNewItemPanel(3);
+				panelNewItem = new AddStorageScreenBehavior().getView(); 
+				//panelNewItem.setName("Add Storage");
+				panelNewItem.setBounds(447, 248, 315, 137);
+				add(panelNewItem);
 			}
 		});
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -362,12 +378,12 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnAdd.setBounds(583, 406, 179, 37);
 		add(btnAdd);
 		
-		panelNewItem = new JPanel();
+		/*panelNewItem = new JPanel();
 		panelNewItem.setVisible(false);
 		panelNewItem.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelNewItem.setBounds(447, 248, 315, 137);
 		add(panelNewItem);
-		panelNewItem.setLayout(null);
+		panelNewItem.setLayout(null);*/
 		
 		/*textFieldNewItem1 = new JTextField();
 		textFieldNewItem1.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -387,7 +403,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		panelNewItem.add(textFieldNewItem3);
 		textFieldNewItem3.setColumns(10);*/
 		
-		btnNewItemCancel = new JButton("Cancel");
+		/*btnNewItemCancel = new JButton("Cancel");
 		btnNewItemCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
@@ -408,9 +424,9 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		});
 		btnNewItemSave.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewItemSave.setBounds(222, 106, 70, 20);
-		panelNewItem.add(btnNewItemSave);
+		panelNewItem.add(btnNewItemSave);*/
 		
-		lblNewItem1 = new JLabel("Storage Location");
+		/*lblNewItem1 = new JLabel("Storage Location");
 		lblNewItem1.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblNewItem1.setBounds(10, 8, 106, 14);
 		panelNewItem.add(lblNewItem1);
@@ -423,7 +439,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblNewItem3 = new JLabel("<label>");
 		lblNewItem3.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblNewItem3.setBounds(10, 70, 93, 14);
-		panelNewItem.add(lblNewItem3);
+		panelNewItem.add(lblNewItem3);*/
 
 	}
 	
