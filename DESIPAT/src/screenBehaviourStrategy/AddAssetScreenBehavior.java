@@ -1,5 +1,12 @@
 package screenBehaviourStrategy;
+import java.util.ArrayList;
 
+import dataObjects.PersonTable;
+import dataObjects.Person;
+import dataObjects.TypeLookUpTable;
+import dataObjects.Type;
+import dataObjects.StorageTable;
+import dataObjects.Storage;
 import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.UserAccountTable;
@@ -18,11 +25,13 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	{
 		//table = table.getInstance();
 		addAssetScreen = new AddAssetScreen(this);
+		fillBoxes();
 		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
 	public void saveAsset(Asset a) {
 	
 		AssetTable.getInstance().addEntry(a);
+		
 		// TODO Auto-generated method stub
 		/*are these lookups even necessary?*/
 		//AssetTable.getInstance().addEntry(a);
@@ -56,7 +65,32 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		}
 	}
 	
+	public void fillBoxes()
+	{
+		ArrayList<Person>personList=PersonTable.getInstance().getAllEntries();
+		ArrayList<Type>typeList=TypeLookUpTable.getInstance().getAllEntries();
+		ArrayList<Storage>storageList=StorageTable.getInstance().getAllEntries();
+		ArrayList<String>personNameList=new ArrayList<String>();
+		ArrayList<String>typeNameList=new ArrayList<String>();
+		ArrayList<String>storageNameList=new ArrayList<String>();
+		for(Type t : typeList)
+		{
+			typeNameList.add(t.getType());
+		}
+		for(Storage s: storageList)
+		{
+			storageNameList.add(s.getStorageLocation());
+		}
+		for(Person p: personList)
+		{
+			personNameList.add(p.getName());
+		}
+		addAssetScreen.setCbxCustodianContents(personNameList);
+		addAssetScreen.setCbxOwnerContents(personNameList);
+		addAssetScreen.setCbxTypeContents(typeNameList);
+		addAssetScreen.setCbxStorageContents(storageNameList);
 	
+	}
 	public AddAssetScreen getView(){
 		return addAssetScreen;
 	}

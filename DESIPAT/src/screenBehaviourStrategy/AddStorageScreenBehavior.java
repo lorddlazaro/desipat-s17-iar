@@ -4,6 +4,7 @@ import dataObjects.Person;
 import dataObjects.PersonTable;
 import dataObjects.Storage;
 import dataObjects.StorageTable;
+import screens.AddAssetScreen;
 import screens.AddPersonScreen;
 import screens.AddStoragePanel;
 
@@ -37,6 +38,8 @@ public class AddStorageScreenBehavior implements
 	public void saveStorage(Storage s) {
 		// TODO Auto-generated method stub
 		StorageTable.getInstance().addEntry(s);
+		((AddAssetScreen)addStoragePanel.getParent()).refresh();
+		
 	}
 
 }

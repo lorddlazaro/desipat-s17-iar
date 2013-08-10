@@ -8,6 +8,7 @@ public interface AssetScreenBehaviorStrategy {
 	public void setNewItemPanel(int itemType);
 	public void saveItem();
 	public void cancel();
+	public void fillBoxes();
 
 	
 }
