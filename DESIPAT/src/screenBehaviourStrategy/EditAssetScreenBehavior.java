@@ -80,5 +80,6 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		editAssetScreen.setCbxTypeContents(typeNameList);
 		editAssetScreen.setCbxStorageContents(storageNameList);
 	}
+	//public void fillFields()
 
 }
