@@ -44,4 +44,8 @@ public class Person extends TableEntry{
 		}
 		return values;
 	}
+	public String getName()
+	{
+		return firstName+" "+middleInitial+" "+lastName;
+	}
 }
