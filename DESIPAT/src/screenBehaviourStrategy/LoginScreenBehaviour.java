@@ -42,7 +42,7 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()))
 				mainFrame.swapToMainScreenCard();
 		}
-			
+		
 		//Log action
 		//Swap Card
 		//Set account clearance level
