@@ -77,6 +77,9 @@ public class AddPersonScreen extends JPanel{
 				//NEED VALIDATION either on person constructor or here
 				Person p = new Person(-1,firstNameTxtFld.getText(),middleInitialTxtFld.getText().charAt(0),lastNameTxtFld.getText());
 				behaviour.savePerson(p);
+				firstNameTxtFld.setText("");
+				middleInitialTxtFld.setText("");
+				lastNameTxtFld.setText("");
 				
 			}});
 		add(saveBtn);

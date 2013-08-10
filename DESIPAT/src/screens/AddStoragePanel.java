@@ -67,6 +67,7 @@ public class AddStoragePanel extends JPanel{
 				//NEED VALIDATION either on person constructor or here
 				Storage s =new Storage(-1,txtStorageLocation.getText());
 				behaviour.saveStorage(s);
+				txtStorageLocation.setText("");
 				
 			}});
 		add(saveBtn);

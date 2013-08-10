@@ -71,6 +71,7 @@ public class AddTypePanel extends JPanel{
 				behaviour.savePerson(p);*/
 				Type t=new Type(-1,typeNameTxtFld.getText());
 				behaviour.saveType(t);
+				typeNameTxtFld.setText("");
 				
 			}});
 		add(saveBtn);
