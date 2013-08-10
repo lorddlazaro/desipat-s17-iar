@@ -26,13 +26,13 @@ public class Asset extends TableEntry{
 	private int classID;
 	private int storageID;
 	private int periodID;
-	private Date dateAcquired;
+	private String dateAcquired;
 	private double financialValue;
 	private int confidentialValue;
 	private int integrityValue;
 	private  int availabilityValue;
 
-	public Asset(String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired, double financialValue, int confidentialValue, int integrityValue, int availabilityValue){
+	public Asset(String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, String dateAcquired, double financialValue, int confidentialValue, int integrityValue, int availabilityValue){
 		 //TODO 
 		 setID(-1);
 		 setName(name);
@@ -50,7 +50,7 @@ public class Asset extends TableEntry{
 		 setAvailabilityValue(availabilityValue);
 	}
 	
-	public Asset(int ID, String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, Date dateAcquired,  double financialValue, int confidentialValue, int integrityValue, int availabilityValue){
+	public Asset(int ID, String name, int ownerID, int custodianID, int typeID, int maintID, int classID, int storageID, int periodID, String dateAcquired,  double financialValue, int confidentialValue, int integrityValue, int availabilityValue){
 		 setID(ID);
 		 setName(name);
 		 setOwnerID(ownerID);
@@ -115,10 +115,10 @@ public class Asset extends TableEntry{
 	public void setPeriodID(int periodID) {
 		this.periodID = periodID;
 	}
-	public Date getDateAcquired() {
+	public String getDateAcquired() {
 		return dateAcquired;
 	}
-	public void setDateAcquired(Date dateAcquired) {
+	public void setDateAcquired(String dateAcquired) {
 		this.dateAcquired = dateAcquired;
 	}
 	public double getFinancialValue() {
