@@ -15,6 +15,7 @@ public abstract class NonQuery implements SQLStatement{
 
 	public void executeStatement() {
 		myHandler.setStatement(this);
+		
 		myHandler.useDB();
 	}
 }

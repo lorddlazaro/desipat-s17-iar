@@ -73,10 +73,12 @@ public class AssetTable extends TableSubject{
 	
 	public void addEntry(Asset asset){
 		assetList.add(asset);
+		System.out.println("Type of asset, index 0: "+assetList.get(0).getTypeID());
+		//System.out.println("Name of asset, index 1: "+assetList.get(1).getName());
 		NonQuery statement = new NewAsset(asset);
 		statement.executeStatement();
 		
-		this.notifyObservers();
+		//this.notifyObservers();
 	}
 	
 	public void editEntry(Asset asset) {

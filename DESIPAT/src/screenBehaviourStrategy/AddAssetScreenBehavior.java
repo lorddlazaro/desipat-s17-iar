@@ -29,7 +29,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
 	public void saveAsset(Asset a) {
-	
+		//System.out.println("Behavior Asset type: "+a.getTypeID());
 		AssetTable.getInstance().addEntry(a);
 		
 		// TODO Auto-generated method stub
