@@ -1,29 +1,24 @@
 package dataObjects;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
-import statements.insertNew.NewActionLog;
-import statements.insertNew.NewAssetChangeLog;
+import statements.insertNew.NewAsset;
+import statements.insertNew.NewType;
+
 import statements.insertNew.NewUser;
-import statements.selectAll.SelectAllActionLogs;
-import statements.selectAll.SelectAllAssetChangeLogs;
-import statements.selectAll.SelectAllUsers;
+import statements.selectAll.SelectAllAssets;
+import statements.selectAll.SelectAllType;
 import statements.updateTable.UpdateAsset;
 
 public class TypeLookUpTable extends TableSubject{
-	public final static String CHANGEID_COLUMN_NAME = "changeID";
-	public final static String ACTIONID_COLUMN_NAME = "actionID";
-	public final static String ASSETID_COLUMN_NAME = "assetID";
-	public final static String ASSETFIELD_COLUMN_NAME = "assetField";
-	public final static String OLDVALUE_COLUMN_NAME = "oldValue";
-	public final static String NEWVALUE_COLUMN_NAME = "newValue";
-	
-	private ArrayList<AssetChangeLog> assetChangeLogList;	
+	public final static String ID_COLUMN_NAME = "typeID";
+	public final static String TYPE_COLUMN_NAME = "type";
+
+	private ArrayList<Type> TypeLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -36,59 +31,57 @@ public class TypeLookUpTable extends TableSubject{
 		return instance;
 	}
 	
-	protected TypeLookUpTable(){
+	protected  TypeLookUpTable(){
 		observerList = new ArrayList<TableObserver>();
-		
+
 		columnNames = new ArrayList<String>();
-		columnNames.add(CHANGEID_COLUMN_NAME);
-		columnNames.add(ACTIONID_COLUMN_NAME);
-		columnNames.add(ASSETID_COLUMN_NAME);
-		columnNames.add(ASSETFIELD_COLUMN_NAME);
-		columnNames.add(OLDVALUE_COLUMN_NAME);
-		columnNames.add(NEWVALUE_COLUMN_NAME);
-		
-		assetChangeLogList = new ArrayList<AssetChangeLog>();
+		columnNames.add(ID_COLUMN_NAME);
+		columnNames.add(TYPE_COLUMN_NAME);
+	
+		TypeLookUpList = new ArrayList<Type>();
 		fillData();
 	}
 	
 	private void fillData(){
-		Query statement = new SelectAllAssetChangeLogs();
+		Query statement = new SelectAllType();
 		statement.executeStatement();
-		assetChangeLogList = statement.getResultList();
+		TypeLookUpList = statement.getResultList();
 	}
 	
-	public void addEntry(AssetChangeLog assetChangeLog){
-		assetChangeLogList.add(assetChangeLog);
-		NonQuery statement = new NewAssetChangeLog(assetChangeLog);
+	public void addEntry(Type Type){
+		TypeLookUpList.add(Type);
+		NonQuery statement = new NewType(Type);
 		statement.executeStatement();
 		
 		this.notifyObservers();
 	}
-	/* CANT EDIT ASSETCHANGELOG
-	public void editEntry(ActionLog actionLog){
-		ArrayList<String> values = actionLog.getValues();
-		values.remove(this.CHANGEID_COLUMN_NAME);
+	
+	public void editEntry(Type type) {
+		ArrayList<String> values = type.getValues();
+		values.remove(this.ID_COLUMN_NAME);
 		
-		NonQuery statement = new UpdateAsset(values, actionLog.getID());
+		NonQuery statement = new UpdateAsset(values, type.getID());
 		statement.executeStatement();
-	}	
+		
+		this.notifyObservers();
+	}
 	
-	/* CANT DELETE ASSETCHANGELOG
-	public void deleteEntry(TableEntry tableEntry){
-		//TODO
-		/*UserAccount user = (UserAccount)tableEntry;
-		NonQuery statement = new DeleteUser(user.getID());
-		statement.executeStatement();
-	}*/
+	/*
+	 * YOU CANT DELETE AN ASSET
+	public void deleteEntry(Asset asset){
+		assetList.add(asset);
+		NonQuery statement = new DeleteAsset(asset);
+		statement.executeStatement();	
+	}*/	
 	
-	public ArrayList<AssetChangeLog> getAllEntries() {
-		return assetChangeLogList;
+	public ArrayList<Type> getAllEntries() {
+		return TypeLookUpList;
 	}
 
-	public AssetChangeLog getEntry(int ID) {
-		for(AssetChangeLog assetChangeLog:assetChangeLogList)
-			if(assetChangeLog.getID() == ID)
-				return assetChangeLog;
+	public Type getEntry(int ID) {
+		for(Type Type:TypeLookUpList)
+			if(Type.getID() == ID)
+				return Type;
 		return null;
 	}
 }
