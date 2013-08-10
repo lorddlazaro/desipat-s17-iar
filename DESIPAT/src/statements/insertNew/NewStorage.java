@@ -7,6 +7,6 @@ public class NewStorage extends InsertStrategy {
 	public NewStorage(Storage s) {
 		super("Storage", 
 				"storageLocation",
-				s.getStorageLocation());
+				"'"+s.getStorageLocation()+"'");
 	}
 }
