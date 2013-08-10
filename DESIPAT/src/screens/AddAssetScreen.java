@@ -267,26 +267,26 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(sldAvailability);
 		
 		cbxType = new JComboBox();
-		cbxType.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxType.setBounds(201, 326, 156, 20);
-		add(cbxType);
+		getCbxType().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getCbxType().setBounds(201, 326, 156, 20);
+		add(getCbxType());
 		
-		cbxOwner = new JComboBox();
-		cbxOwner.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxOwner.setBounds(201, 247, 156, 20);
-		add(cbxOwner);
+		cbxOwner=new JComboBox();
+		getCbxOwner().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getCbxOwner().setBounds(201, 247, 156, 20);
+		add(getCbxOwner());
 		
-		cbxCustodian = new JComboBox();
-		cbxCustodian.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxCustodian.setBounds(201, 287, 156, 20);
-		add(cbxCustodian);
+		cbxCustodian=new JComboBox();
+		getCbxCustodian().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getCbxCustodian().setBounds(201, 287, 156, 20);
+		add(getCbxCustodian());
 		
 		
 		
-		cbxStorage = new JComboBox();
-		cbxStorage.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxStorage.setBounds(201, 366, 156, 20);
-		add(cbxStorage);
+		cbxStorage=new JComboBox();
+		getCbxStorage().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getCbxStorage().setBounds(201, 366, 156, 20);
+		add(getCbxStorage());
 		
 		
 		btnNewOwner = new JButton("New");
@@ -347,6 +347,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				//panelNewItem.setName("Add Storage");
 				panelNewItem.setBounds(447, 248, 315, 137);
 				add(panelNewItem);
+				
 			}
 		});
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -362,12 +363,14 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				Asset a = null;
 				String dateAcquired = cbxYear.getSelectedItem() + "-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
 				try {
-					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 ,(Date) dateFormat.parse(dateAcquired), Float.parseFloat(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),getCbxStorage().getSelectedIndex(),0 ,(Date) dateFormat.parse(dateAcquired), Float.parseFloat(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					System.out.println("Invalid number format!");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
+					System.out.println("Parsing error!");
 					e.printStackTrace();
 				}
 				//int periodID, Date dateAcquired,){
@@ -440,10 +443,48 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblNewItem3.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblNewItem3.setBounds(10, 70, 93, 14);
 		panelNewItem.add(lblNewItem3);*/
-
+		//refresh();
 	}
 	
 	public void refresh(){
+		
 		//update comboboxes
+		behaviour.fillBoxes();
+	}
+
+	private JComboBox getCbxType() {
+		return cbxType;
+	}
+
+	public void setCbxTypeContents(ArrayList<String>typeList) {
+		String[] types=typeList.toArray(new String[typeList.size()]);
+		cbxType.setModel(new DefaultComboBoxModel(types));
+	}
+
+	private JComboBox getCbxStorage() {
+		return cbxStorage;
+	}
+
+	public void setCbxStorageContents(ArrayList<String>storageList) {
+		String[] storages=storageList.toArray(new String[storageList.size()]);
+		cbxStorage.setModel(new DefaultComboBoxModel(storages));
+	}
+
+	private JComboBox getCbxOwner() {
+		return cbxOwner;
+	}
+
+	public void setCbxOwnerContents(ArrayList<String>personList) {
+		String[] persons=personList.toArray(new String[personList.size()]);
+		cbxOwner.setModel(new DefaultComboBoxModel(persons));
+	}
+
+	private JComboBox getCbxCustodian() {
+		return cbxCustodian;
+	}
+
+	public void setCbxCustodianContents(ArrayList<String>personList) {
+		String[] persons=personList.toArray(new String[personList.size()]);
+		cbxCustodian.setModel(new DefaultComboBoxModel(persons));
 	}
 }
