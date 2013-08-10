@@ -364,22 +364,20 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				Asset a =null;
 		
 				String dateAcquired = cbxYear.getSelectedItem() +"-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
-				
+				System.out.println("ZSKFJGASHGAJSHGKJAH");
 				try {
-					java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
-					System.out.println(sqlDate.getTime());
-					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 , sqlDate, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					/*java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
+					System.out.println(sqlDate.getTime());*/
+					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 , dateAcquired, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
 					//System.out.println("Asset maint: "+a.getMaintID());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("Invalid number format!");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					System.out.println("Parsing error!");
-					e.printStackTrace();
-				}
+			
 				//int periodID, Date dateAcquired,){
+				
+			}
 				behaviour.saveAsset(a);
 			}
 		});
