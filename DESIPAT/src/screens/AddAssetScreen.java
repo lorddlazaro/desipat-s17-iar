@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
@@ -84,7 +85,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	
 	public void initialize() {
 		//behaviour=new AddAssetScreenBehavior();
-		
+		dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
@@ -216,7 +217,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		cbxYear = new JComboBox();
 		
 		ArrayList<String>yearList=new ArrayList<String>();
-		for(int year=1900;year<=2050;year++)
+		for(int year=1970;year<=2050;year++)
 		{
 			yearList.add(year+"");
 		}
@@ -360,10 +361,15 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 			public void actionPerformed(ActionEvent arg0)
 			{
 				
-				Asset a = null;
-				String dateAcquired = cbxYear.getSelectedItem() + "-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
+				Asset a =null;
+		
+				String dateAcquired = cbxYear.getSelectedItem() +"-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
+				
 				try {
-					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),getCbxStorage().getSelectedIndex(),0 ,(Date) dateFormat.parse(dateAcquired), Float.parseFloat(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
+					System.out.println(sqlDate.getTime());
+					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 , sqlDate, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					//System.out.println("Asset maint: "+a.getMaintID());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
