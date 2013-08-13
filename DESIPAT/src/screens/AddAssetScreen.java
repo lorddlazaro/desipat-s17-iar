@@ -368,7 +368,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				try {
 					/*java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
 					System.out.println(sqlDate.getTime());*/
-					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex(),cbxCustodian.getSelectedIndex(),cbxType.getSelectedIndex(),cbxMaintenance.getSelectedIndex(),cbxClassification.getSelectedIndex(),cbxStorage.getSelectedIndex(),0 , dateAcquired, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex()+1,cbxCustodian.getSelectedIndex()+1,cbxType.getSelectedIndex()+1,cbxMaintenance.getSelectedIndex()+1,cbxClassification.getSelectedIndex()+1,cbxStorage.getSelectedIndex()+1,1 , dateAcquired, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
 					//System.out.println("Asset maint: "+a.getMaintID());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
