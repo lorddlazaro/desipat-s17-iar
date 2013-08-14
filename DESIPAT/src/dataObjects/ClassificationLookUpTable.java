@@ -11,47 +11,48 @@ import statements.insertNew.NewType;
 
 import statements.insertNew.NewUser;
 import statements.selectAll.SelectAllAssets;
+import statements.selectAll.SelectAllClassification;
 import statements.selectAll.SelectAllType;
 import statements.updateTable.UpdateAsset;
 
-public class TypeLookUpTable{
-	public final static String ID_COLUMN_NAME = "typeID";
-	public final static String TYPE_COLUMN_NAME = "type";
+public class ClassificationLookUpTable{
+	public final static String ID_COLUMN_NAME = "classID";
+	public final static String CLASSIFICATION_COLUMN_NAME = "classification";
 
-	private ArrayList<Type> TypeLookUpList;	
+	private ArrayList<Type> classificationLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
-	private static TypeLookUpTable instance;
+	private static ClassificationLookUpTable instance;
 		
-	public static TypeLookUpTable getInstance(){
+	public static ClassificationLookUpTable getInstance(){
 		if(instance == null){
-			instance = new TypeLookUpTable();
+			instance = new ClassificationLookUpTable();
 		}
 		return instance;
 	}
 	
-	protected  TypeLookUpTable(){
+	protected  ClassificationLookUpTable(){
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
-		columnNames.add(TYPE_COLUMN_NAME);
+		columnNames.add(CLASSIFICATION_COLUMN_NAME);
 	
-		TypeLookUpList = new ArrayList<Type>();
+		classificationLookUpList = new ArrayList<Type>();
 		fillData();
 	}
 	
 	private void fillData(){
-		Query statement = new SelectAllType();
+		Query statement = new SelectAllClassification();
 		statement.executeStatement();
-		TypeLookUpList = statement.getResultList();
+		classificationLookUpList = statement.getResultList();
 	}
 	
 	public ArrayList<Type> getAllEntries() {
-		return TypeLookUpList;
+		return classificationLookUpList;
 	}
 
 	public Type getEntry(int ID) {
-		for(Type Type:TypeLookUpList)
+		for(Type Type:classificationLookUpList)
 			if(Type.getID() == ID)
 				return Type;
 		return null;
