@@ -11,47 +11,50 @@ import statements.insertNew.NewType;
 
 import statements.insertNew.NewUser;
 import statements.selectAll.SelectAllAssets;
+import statements.selectAll.SelectAllClassification;
+import statements.selectAll.SelectAllClearance;
+import statements.selectAll.SelectAllMaintenance;
 import statements.selectAll.SelectAllType;
 import statements.updateTable.UpdateAsset;
 
-public class TypeLookUpTable{
-	public final static String ID_COLUMN_NAME = "typeID";
-	public final static String TYPE_COLUMN_NAME = "type";
+public class ClearanceLookUpTable{
+	public final static String ID_COLUMN_NAME = "clearanceID";
+	public final static String CLEARANCELEVEL_COLUMN_NAME = "clearanceLevel";
 
-	private ArrayList<Type> TypeLookUpList;	
+	private ArrayList<Type> clearanceLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
-	private static TypeLookUpTable instance;
+	private static ClearanceLookUpTable instance;
 		
-	public static TypeLookUpTable getInstance(){
+	public static ClearanceLookUpTable getInstance(){
 		if(instance == null){
-			instance = new TypeLookUpTable();
+			instance = new ClearanceLookUpTable();
 		}
 		return instance;
 	}
 	
-	protected  TypeLookUpTable(){
+	protected  ClearanceLookUpTable(){
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
-		columnNames.add(TYPE_COLUMN_NAME);
+		columnNames.add(CLEARANCELEVEL_COLUMN_NAME);
 	
-		TypeLookUpList = new ArrayList<Type>();
+		clearanceLookUpList = new ArrayList<Type>();
 		fillData();
 	}
 	
 	private void fillData(){
-		Query statement = new SelectAllType();
+		Query statement = new SelectAllClearance();
 		statement.executeStatement();
-		TypeLookUpList = statement.getResultList();
+		clearanceLookUpList = statement.getResultList();
 	}
 	
 	public ArrayList<Type> getAllEntries() {
-		return TypeLookUpList;
+		return clearanceLookUpList;
 	}
 
 	public Type getEntry(int ID) {
-		for(Type Type:TypeLookUpList)
+		for(Type Type:clearanceLookUpList)
 			if(Type.getID() == ID)
 				return Type;
 		return null;

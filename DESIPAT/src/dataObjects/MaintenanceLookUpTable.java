@@ -11,47 +11,49 @@ import statements.insertNew.NewType;
 
 import statements.insertNew.NewUser;
 import statements.selectAll.SelectAllAssets;
+import statements.selectAll.SelectAllClassification;
+import statements.selectAll.SelectAllMaintenance;
 import statements.selectAll.SelectAllType;
 import statements.updateTable.UpdateAsset;
 
-public class TypeLookUpTable{
-	public final static String ID_COLUMN_NAME = "typeID";
-	public final static String TYPE_COLUMN_NAME = "type";
+public class MaintenanceLookUpTable{
+	public final static String ID_COLUMN_NAME = "maintID";
+	public final static String MAINTSCHED_COLUMN_NAME = "maintSched";
 
-	private ArrayList<Type> TypeLookUpList;	
+	private ArrayList<Type> maintenanceLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
-	private static TypeLookUpTable instance;
+	private static MaintenanceLookUpTable instance;
 		
-	public static TypeLookUpTable getInstance(){
+	public static MaintenanceLookUpTable getInstance(){
 		if(instance == null){
-			instance = new TypeLookUpTable();
+			instance = new MaintenanceLookUpTable();
 		}
 		return instance;
 	}
 	
-	protected  TypeLookUpTable(){
+	protected  MaintenanceLookUpTable(){
 		columnNames = new ArrayList<String>();
 		columnNames.add(ID_COLUMN_NAME);
-		columnNames.add(TYPE_COLUMN_NAME);
+		columnNames.add(MAINTSCHED_COLUMN_NAME);
 	
-		TypeLookUpList = new ArrayList<Type>();
+		maintenanceLookUpList = new ArrayList<Type>();
 		fillData();
 	}
 	
 	private void fillData(){
-		Query statement = new SelectAllType();
+		Query statement = new SelectAllMaintenance();
 		statement.executeStatement();
-		TypeLookUpList = statement.getResultList();
+		maintenanceLookUpList = statement.getResultList();
 	}
 	
 	public ArrayList<Type> getAllEntries() {
-		return TypeLookUpList;
+		return maintenanceLookUpList;
 	}
 
 	public Type getEntry(int ID) {
-		for(Type Type:TypeLookUpList)
+		for(Type Type:maintenanceLookUpList)
 			if(Type.getID() == ID)
 				return Type;
 		return null;
