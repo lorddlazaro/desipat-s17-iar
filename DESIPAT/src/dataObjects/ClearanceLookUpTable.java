@@ -21,7 +21,7 @@ public class ClearanceLookUpTable{
 	public final static String ID_COLUMN_NAME = "clearanceID";
 	public final static String CLEARANCELEVEL_COLUMN_NAME = "clearanceLevel";
 
-	private ArrayList<Type> clearanceLookUpList;	
+	private ArrayList<Clearance> clearanceLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -39,7 +39,7 @@ public class ClearanceLookUpTable{
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(CLEARANCELEVEL_COLUMN_NAME);
 	
-		clearanceLookUpList = new ArrayList<Type>();
+		clearanceLookUpList = new ArrayList<Clearance>();
 		fillData();
 	}
 	
@@ -49,14 +49,21 @@ public class ClearanceLookUpTable{
 		clearanceLookUpList = statement.getResultList();
 	}
 	
-	public ArrayList<Type> getAllEntries() {
+	public ArrayList<Clearance> getAllEntries() {
 		return clearanceLookUpList;
 	}
 
-	public Type getEntry(int ID) {
-		for(Type Type:clearanceLookUpList)
-			if(Type.getID() == ID)
-				return Type;
+	public Clearance getEntry(int ID) {
+		for(Clearance c:clearanceLookUpList)
+			if(c.getID() == ID)
+				return c;
+		return null;
+	}
+	
+	public Clearance getEntry(String type) {
+		for (Clearance c:clearanceLookUpList)
+			if (c.getClearanceLevel().equals(type))
+				return c;
 		return null;
 	}
 }

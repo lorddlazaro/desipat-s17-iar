@@ -22,7 +22,7 @@ public class RetentionPeriodLookUpTable{
 	public final static String PERIODNAME_COLUMN_NAME = "periodName";
 	public final static String PERIODVALUE_COLUMN_NAME = "periodValue";
 
-	private ArrayList<Type> periodLookUpList;	
+	private ArrayList<RetentionPeriod> periodLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -41,7 +41,7 @@ public class RetentionPeriodLookUpTable{
 		columnNames.add(PERIODNAME_COLUMN_NAME);
 		columnNames.add(PERIODVALUE_COLUMN_NAME);
 	
-		periodLookUpList = new ArrayList<Type>();
+		periodLookUpList = new ArrayList<RetentionPeriod>();
 		fillData();
 	}
 	
@@ -51,14 +51,14 @@ public class RetentionPeriodLookUpTable{
 		periodLookUpList = statement.getResultList();
 	}
 	
-	public ArrayList<Type> getAllEntries() {
+	public ArrayList<RetentionPeriod> getAllEntries() {
 		return periodLookUpList;
 	}
 
-	public Type getEntry(int ID) {
-		for(Type Type:periodLookUpList)
-			if(Type.getID() == ID)
-				return Type;
+	public RetentionPeriod getEntry(int ID) {
+		for(RetentionPeriod r:periodLookUpList)
+			if(r.getID() == ID)
+				return r;
 		return null;
 	}
 }
