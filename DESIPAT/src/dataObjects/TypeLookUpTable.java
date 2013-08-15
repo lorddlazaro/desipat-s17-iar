@@ -51,9 +51,9 @@ public class TypeLookUpTable{
 	}
 
 	public Type getEntry(int ID) {
-		for(Type Type:TypeLookUpList)
-			if(Type.getID() == ID)
-				return Type;
+		for(Type type:TypeLookUpList)
+			if(type.getID() == ID)
+				return type;
 		return null;
 	}
 }

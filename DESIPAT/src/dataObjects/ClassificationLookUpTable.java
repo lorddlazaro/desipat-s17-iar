@@ -19,7 +19,7 @@ public class ClassificationLookUpTable{
 	public final static String ID_COLUMN_NAME = "classID";
 	public final static String CLASSIFICATION_COLUMN_NAME = "classification";
 
-	private ArrayList<Type> classificationLookUpList;	
+	private ArrayList<Classification> classificationLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -37,7 +37,7 @@ public class ClassificationLookUpTable{
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(CLASSIFICATION_COLUMN_NAME);
 	
-		classificationLookUpList = new ArrayList<Type>();
+		classificationLookUpList = new ArrayList<Classification>();
 		fillData();
 	}
 	
@@ -47,14 +47,14 @@ public class ClassificationLookUpTable{
 		classificationLookUpList = statement.getResultList();
 	}
 	
-	public ArrayList<Type> getAllEntries() {
+	public ArrayList<Classification> getAllEntries() {
 		return classificationLookUpList;
 	}
 
-	public Type getEntry(int ID) {
-		for(Type Type:classificationLookUpList)
-			if(Type.getID() == ID)
-				return Type;
+	public Classification getEntry(int ID) {
+		for(Classification classification:classificationLookUpList)
+			if(classification.getID() == ID)
+				return classification;
 		return null;
 	}
 }
