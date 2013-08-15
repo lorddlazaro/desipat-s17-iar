@@ -22,7 +22,7 @@ public class ActionHeaderLookUpTable{
 	public final static String ID_COLUMN_NAME = "actionHeaderID";
 	public final static String ACTIONHEADER_COLUMN_NAME = "actionHeader";
 
-	private ArrayList<Type> actionHeaderLookUpList;	
+	private ArrayList<ActionHeader> actionHeaderLookUpList;	
 	private ArrayList<String> columnNames;
 	
 	// Singleton's getInstance
@@ -40,7 +40,7 @@ public class ActionHeaderLookUpTable{
 		columnNames.add(ID_COLUMN_NAME);
 		columnNames.add(ACTIONHEADER_COLUMN_NAME);
 	
-		actionHeaderLookUpList = new ArrayList<Type>();
+		actionHeaderLookUpList = new ArrayList<ActionHeader>();
 		fillData();
 	}
 	
@@ -50,14 +50,14 @@ public class ActionHeaderLookUpTable{
 		actionHeaderLookUpList = statement.getResultList();
 	}
 	
-	public ArrayList<Type> getAllEntries() {
+	public ArrayList<ActionHeader> getAllEntries() {
 		return actionHeaderLookUpList;
 	}
 
-	public Type getEntry(int ID) {
-		for(Type Type:actionHeaderLookUpList)
-			if(Type.getID() == ID)
-				return Type;
+	public ActionHeader getEntry(int ID) {
+		for(ActionHeader actionHeader:actionHeaderLookUpList)
+			if(actionHeader.getID() == ID)
+				return actionHeader;
 		return null;
 	}
 }
