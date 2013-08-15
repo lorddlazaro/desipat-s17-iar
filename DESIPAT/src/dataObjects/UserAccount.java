@@ -39,20 +39,18 @@ public class UserAccount extends TableEntry{
 	public void setClearanceID(int clearanceID) {
 		this.clearanceID = clearanceID;
 	}
-	//TODO: lookupthings
+
 	public String getClearanceLevel(){
 		return "";
 	}
 	public String getPersonFirstName(){
-		// maybe something like,
-		// PersonTable.getEntry(this.personID).getFirstName();
-		return "";
+		return PersonTable.getInstance().getEntry(this.personID).getFirstName();
 	}
 	public String getPersonMiddleName(){
-		return "";
+		return PersonTable.getInstance().getEntry(this.personID).getMiddleInitial() + "";
 	}
 	public String getPersonLastName(){
-		return "";
+		return PersonTable.getInstance().getEntry(this.personID).getLastName();
 	}
 	
 	public int getPersonID() {
