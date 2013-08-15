@@ -39,7 +39,9 @@ public class UserAccount extends TableEntry{
 	public void setClearanceID(int clearanceID) {
 		this.clearanceID = clearanceID;
 	}
-
+	public Clearance getClearance() {
+		return ClearanceLookUpTable.getInstance().getEntry(clearanceID);
+	}
 	public String getClearanceLevel(){
 		return "";
 	}

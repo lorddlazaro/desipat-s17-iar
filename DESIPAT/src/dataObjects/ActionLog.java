@@ -52,8 +52,8 @@ public class ActionLog  extends TableEntry{
 	public void setActionHeaderID(int actionHeaderID) {
 		this.actionHeaderID = actionHeaderID;
 	}
-	public String getActionHeader() {
-		return ActionHeaderLookUpTable.getInstance().getEntry(actionHeaderID).getActionHeader();
+	public ActionHeader getActionHeader() {
+		return ActionHeaderLookUpTable.getInstance().getEntry(actionHeaderID);
 	}
 	public String getActionDesc() {
 		return actionDesc;

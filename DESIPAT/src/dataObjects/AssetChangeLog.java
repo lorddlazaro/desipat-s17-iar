@@ -30,11 +30,17 @@ public class AssetChangeLog extends TableEntry{
 	public void setActionID(int actionID) {
 		this.actionID = actionID;
 	}
+	public ActionLog getActionLog() {
+		return ActionLogTable.getInstance().getEntry(actionID);
+	}
 	public int getAssetID() {
 		return assetID;
 	}
 	public void setAssetID(int assetID) {
 		this.assetID = assetID;
+	}
+	public Asset getAsset() {
+		return AssetTable.getInstance().getEntry(assetID);
 	}
 	public String getAssetField() {
 		return assetField;

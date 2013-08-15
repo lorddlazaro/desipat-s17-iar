@@ -79,11 +79,17 @@ public class Asset extends TableEntry{
 	public void setOwnerID(int ownerID) {
 		this.ownerID = ownerID;
 	}
+	public Person getOwner() {
+		return PersonTable.getInstance().getEntry(ownerID);
+	}
 	public int getCustodianID() {
 		return custodianID;
 	}
 	public void setCustodianID(int custodianID) {
 		this.custodianID = custodianID;
+	}
+	public Person getCustodian() {
+		return PersonTable.getInstance().getEntry(custodianID);
 	}
 	public int getTypeID() {
 		return typeID;
@@ -91,11 +97,17 @@ public class Asset extends TableEntry{
 	public void setTypeID(int typeID) {
 		this.typeID = typeID;
 	}
+	public Type getType() {
+		return TypeLookUpTable.getInstance().getEntry(typeID);
+	}
 	public int getMaintID() {
 		return maintID;
 	}
 	public void setMaintID(int maintID) {
 		this.maintID = maintID;
+	}
+	public Maintenance getMaintenance() {
+		return MaintenanceLookUpTable.getInstance().getEntry(maintID);
 	}
 	public int getClassID() {
 		return classID;
@@ -103,17 +115,26 @@ public class Asset extends TableEntry{
 	public void setClassID(int classID) {
 		this.classID = classID;
 	}
+	public Classification getClassification() {
+		return ClassificationLookUpTable.getInstance().getEntry(classID);
+	}
 	public int getStorageID() {
 		return storageID;
 	}
 	public void setStorageID(int storageID) {
 		this.storageID = storageID;
 	}
+	public Storage getStorage() {
+		return StorageTable.getInstance().getEntry(storageID);
+	}
 	public int getPeriodID() {
 		return periodID;
 	}
 	public void setPeriodID(int periodID) {
 		this.periodID = periodID;
+	}
+	public RetentionPeriod getRetentionPeriod() {
+		return RetentionPeriodLookUpTable.getInstance().getEntry(periodID);
 	}
 	public String getDateAcquired() {
 		return dateAcquired;
