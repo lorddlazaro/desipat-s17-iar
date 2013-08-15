@@ -23,6 +23,7 @@ public abstract class Query implements SQLStatement{
 		myHandler.useDB();
 		
 		myResult = myHandler.getResult();
+		resultList = new ArrayList();
 		fillResultList();
 		
 		myHandler.closeConnection();
