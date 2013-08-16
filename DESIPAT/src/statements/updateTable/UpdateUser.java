@@ -8,8 +8,6 @@ public class UpdateUser extends UpdateStrategy{
 
 	public UpdateUser(ArrayList<String> values, int toUpdate) {
 		super("UserAccount", values, "userID = " + toUpdate);
-		
-		setColsAndValues();
 	}
 
 	public void populateColumns() {
