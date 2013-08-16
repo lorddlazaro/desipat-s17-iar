@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 import dataObjects.Asset;
 import dataObjects.PersonTable;
+import dataObjects.StorageTable;
 import statements.SelectMaxTableID;
 
-public class GetMaxIDPerson extends SelectMaxTableID{
-	public GetMaxIDPerson() {
-		super(PersonTable.ID_COLUMN_NAME, "Person");
+public class GetMaxIDStorage extends SelectMaxTableID{
+	public GetMaxIDStorage() {
+		super(StorageTable.ID_COLUMN_NAME, "Storage");
 	}
 }

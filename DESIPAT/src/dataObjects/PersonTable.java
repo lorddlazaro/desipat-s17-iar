@@ -6,6 +6,8 @@ import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.getMax.GetMaxIDPerson;
+import statements.getMax.GetMaxIDStorage;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewPerson;
 import statements.insertNew.NewUser;
@@ -57,12 +59,17 @@ public class PersonTable extends TableSubject{
 		NonQuery statement = new NewPerson(person);
 		statement.executeStatement();
 		
+		Query getID = new GetMaxIDPerson();
+		getID.executeStatement();
+		
+		person.setID((Integer)getID.getResultList().get(0));
+		
 		this.notifyObservers();
 	}
 	
 	public void editEntry(Person person) {
 		ArrayList<String> values = person.getValues();
-		values.remove(this.ID_COLUMN_NAME);
+		values.remove(Person.ID_INDEX);
 		
 		NonQuery statement = new UpdatePerson(values, person.getID());
 		statement.executeStatement();
