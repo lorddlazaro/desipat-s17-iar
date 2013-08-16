@@ -15,7 +15,9 @@ public abstract class UpdateStrategy extends NonQuery{
 	{
 		this.tableName = tableName;
 		this.condition = condition;
+		this.values = values;
 		
+		columns = new ArrayList<String>();
 		populateColumns();
 		
 		setColsAndValues();
