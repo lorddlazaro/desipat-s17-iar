@@ -93,15 +93,15 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
 		userSettingsPanel.add(passwordLabel);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(112, 81, 138, 20);
-		passwordField.setColumns(10);
-		userSettingsPanel.add(passwordField);
+		setPasswordField(new JPasswordField());
+		getPasswordField().setBounds(112, 81, 138, 20);
+		getPasswordField().setColumns(10);
+		userSettingsPanel.add(getPasswordField());
 		
 		
-		changeDetailsButton = new JButton("Change Details");
-		changeDetailsButton.setBackground(new Color(220, 220, 220));
-		changeDetailsButton.addActionListener(new ActionListener(){
+		setChangeDetailsButton(new JButton("Change Details"));
+		getChangeDetailsButton().setBackground(new Color(220, 220, 220));
+		getChangeDetailsButton().addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -109,26 +109,26 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 				controller.changeDetails();
 				
 			}});
-		changeDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		changeDetailsButton.setBounds(254, 80, 105, 23);
-		userSettingsPanel.add(changeDetailsButton);
+		getChangeDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
+		getChangeDetailsButton().setBounds(254, 80, 105, 23);
+		userSettingsPanel.add(getChangeDetailsButton());
 		
-		newPasswordLabel = new JLabel("New Password:");
-		newPasswordLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
-		newPasswordLabel.setBounds(5, 108, 105, 19);
-		userSettingsPanel.add(newPasswordLabel);
+		setNewPasswordLabel(new JLabel("New Password:"));
+		getNewPasswordLabel().setFont(new Font("Calibri", Font.PLAIN, 16));
+		getNewPasswordLabel().setBounds(5, 108, 105, 19);
+		userSettingsPanel.add(getNewPasswordLabel());
 		
 		newPasswordField = new JPasswordField();
 		newPasswordField.setColumns(10);
 		newPasswordField.setBounds(112, 108, 138, 20);
 		userSettingsPanel.add(newPasswordField);
 		
-		saveDetailsButton = new JButton("Save");
-		saveDetailsButton.setBackground(new Color(220, 220, 220));
+		setSaveDetailsButton(new JButton("Save"));
+		getSaveDetailsButton().setBackground(new Color(220, 220, 220));
 		//saveDetailsButton.addMouseListener(new MouseAdapter());
-		saveDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		saveDetailsButton.setBounds(254, 107, 105, 23);
-		userSettingsPanel.add(saveDetailsButton);
+		getSaveDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
+		getSaveDetailsButton().setBounds(254, 107, 105, 23);
+		userSettingsPanel.add(getSaveDetailsButton());
 		
 		
 		
@@ -149,51 +149,51 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		nameLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
 		namePanel.add(nameLabel);
 		
-		firstNameLabel = new JLabel("First Name");
-		firstNameLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
-		firstNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		firstNameLabel.setBounds(20, 90, 141, 14);
-		namePanel.add(firstNameLabel);
+		setFirstNameLabel(new JLabel("First Name"));
+		getFirstNameLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getFirstNameLabel().setHorizontalAlignment(SwingConstants.CENTER);
+		getFirstNameLabel().setBounds(20, 90, 141, 14);
+		namePanel.add(getFirstNameLabel());
 		
-		firstNameTextField = new JTextField();
-		firstNameTextField.setBounds(20, 109, 141, 20);
-		firstNameTextField.setColumns(10);
-		namePanel.add(firstNameTextField);
+		setFirstNameTextField(new JTextField());
+		getFirstNameTextField().setBounds(20, 109, 141, 20);
+		getFirstNameTextField().setColumns(10);
+		namePanel.add(getFirstNameTextField());
 		
-		middleInitLabel = new JLabel("MI");
-		middleInitLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
-		middleInitLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		middleInitLabel.setBounds(168, 90, 48, 14);
-		namePanel.add(middleInitLabel);
+		setMiddleInitLabel(new JLabel("MI"));
+		getMiddleInitLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getMiddleInitLabel().setHorizontalAlignment(SwingConstants.CENTER);
+		getMiddleInitLabel().setBounds(168, 90, 48, 14);
+		namePanel.add(getMiddleInitLabel());
 		
-		middleInitialTextField = new JTextField();
-		middleInitialTextField.setBounds(168, 109, 48, 20);
-		middleInitialTextField.setColumns(10);
-		namePanel.add(middleInitialTextField);
+		setMiddleInitialTextField(new JTextField());
+		getMiddleInitialTextField().setBounds(168, 109, 48, 20);
+		getMiddleInitialTextField().setColumns(10);
+		namePanel.add(getMiddleInitialTextField());
 		
-		lastNameLabel = new JLabel("Last Name");
-		lastNameLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
-		lastNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lastNameLabel.setBounds(222, 90, 141, 14);
-		namePanel.add(lastNameLabel);
+		setLastNameLabel(new JLabel("Last Name"));
+		getLastNameLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
+		getLastNameLabel().setHorizontalAlignment(SwingConstants.CENTER);
+		getLastNameLabel().setBounds(222, 90, 141, 14);
+		namePanel.add(getLastNameLabel());
 		
-		lastNameTextField = new JTextField();
-		lastNameTextField.setBounds(222, 109, 141, 20);
-		lastNameTextField.setColumns(10);
-		namePanel.add(lastNameTextField);
+		setLastNameTextField(new JTextField());
+		getLastNameTextField().setBounds(222, 109, 141, 20);
+		getLastNameTextField().setColumns(10);
+		namePanel.add(getLastNameTextField());
 		
-		changeNameButton = new JButton("Update Name");
-		changeNameButton.setBackground(new Color(220, 220, 220));
-		changeNameButton.addActionListener(new ActionListener(){
+		setChangeNameButton(new JButton("Update Name"));
+		getChangeNameButton().setBackground(new Color(220, 220, 220));
+		getChangeNameButton().addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				controller.updateName();
 			}} );
-		changeNameButton.setFont(new Font("Calibri", Font.PLAIN, 11));
-		changeNameButton.setBounds(258, 64, 105, 23);
-		namePanel.add(changeNameButton);
+		getChangeNameButton().setFont(new Font("Calibri", Font.PLAIN, 11));
+		getChangeNameButton().setBounds(258, 64, 105, 23);
+		namePanel.add(getChangeNameButton());
 		
 		
 		
@@ -243,4 +243,92 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	}
 	
 	public void refresh(){}
+
+	public JButton getSaveDetailsButton() {
+		return saveDetailsButton;
+	}
+
+	public void setSaveDetailsButton(JButton saveDetailsButton) {
+		this.saveDetailsButton = saveDetailsButton;
+	}
+
+	public JLabel getNewPasswordLabel() {
+		return newPasswordLabel;
+	}
+
+	public void setNewPasswordLabel(JLabel newPasswordLabel) {
+		this.newPasswordLabel = newPasswordLabel;
+	}
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+
+	public void setPasswordField(JPasswordField passwordField) {
+		this.passwordField = passwordField;
+	}
+
+	public JButton getChangeDetailsButton() {
+		return changeDetailsButton;
+	}
+
+	public void setChangeDetailsButton(JButton changeDetailsButton) {
+		this.changeDetailsButton = changeDetailsButton;
+	}
+
+	public JButton getChangeNameButton() {
+		return changeNameButton;
+	}
+
+	public void setChangeNameButton(JButton changeNameButton) {
+		this.changeNameButton = changeNameButton;
+	}
+
+	public JLabel getFirstNameLabel() {
+		return firstNameLabel;
+	}
+
+	public void setFirstNameLabel(JLabel firstNameLabel) {
+		this.firstNameLabel = firstNameLabel;
+	}
+
+	public JLabel getMiddleInitLabel() {
+		return middleInitLabel;
+	}
+
+	public void setMiddleInitLabel(JLabel middleInitLabel) {
+		this.middleInitLabel = middleInitLabel;
+	}
+
+	public JLabel getLastNameLabel() {
+		return lastNameLabel;
+	}
+
+	public void setLastNameLabel(JLabel lastNameLabel) {
+		this.lastNameLabel = lastNameLabel;
+	}
+
+	public JTextField getFirstNameTextField() {
+		return firstNameTextField;
+	}
+
+	public void setFirstNameTextField(JTextField firstNameTextField) {
+		this.firstNameTextField = firstNameTextField;
+	}
+
+	public JTextField getMiddleInitialTextField() {
+		return middleInitialTextField;
+	}
+
+	public void setMiddleInitialTextField(JTextField middleInitialTextField) {
+		this.middleInitialTextField = middleInitialTextField;
+	}
+
+	public JTextField getLastNameTextField() {
+		return lastNameTextField;
+	}
+
+	public void setLastNameTextField(JTextField lastNameTextField) {
+		this.lastNameTextField = lastNameTextField;
+	}
 }

@@ -81,7 +81,7 @@ public class AdminScreen extends JPanel {
 		getUserTable().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//clickedTable();
+				myBehavior.selectedCellChanged();
 			}
 		});
 		scrollPane.setViewportView(getUserTable());
@@ -237,7 +237,6 @@ public class AdminScreen extends JPanel {
 		getSelectExistingComboBox().setEnabled(false);
 		getSelectExistingComboBox().setBounds(421, 13, 157, 20);
 		detailsPanel.add(getSelectExistingComboBox());
-
 	}
 	
 	public boolean checkInputs() {
