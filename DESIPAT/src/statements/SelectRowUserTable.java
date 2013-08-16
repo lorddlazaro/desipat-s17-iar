@@ -15,7 +15,7 @@ public class SelectRowUserTable extends Query {
 			if (myResult.isBeforeFirst()) {
 				myResult.first();
 				while (!myResult.isAfterLast()) {
-					resultList.add(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6), rs.getString(7)});
+					resultList.add(new Object[]{myResult.getString(1), myResult.getString(2), myResult.getString(3), myResult.getString(4),myResult.getString(5),myResult.getString(6), myResult.getString(7)});
 					myResult.next();
 				}
 			}

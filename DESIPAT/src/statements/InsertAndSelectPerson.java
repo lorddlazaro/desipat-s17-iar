@@ -12,7 +12,7 @@ public class InsertAndSelectPerson extends Query{
 	public void fillResultList() {
 		try {
 			query = "SELECT LAST_INSERT_ID();";
-			this.executeStatement();
+			
 			if (myResult.isBeforeFirst()) {
 				myResult.first();
 				while (!myResult.isAfterLast()) {

@@ -32,6 +32,6 @@ public abstract class UpdateStrategy extends NonQuery{
 			columnsAndValues += (i<columns.size()-1)? "'," : "";
 		}
 		
-		nonQuery = "UPDATE " + tableName + " SET " + columnsAndValues + " WHERE " + condition + ";";
+		nonQuery = "UPDATE " + tableName + " SET " + columnsAndValues + "' WHERE " + condition + ";";
 	}
 }
