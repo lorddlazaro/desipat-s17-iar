@@ -8,6 +8,8 @@ public class UpdateAsset extends UpdateStrategy{
 
 	public UpdateAsset(ArrayList<String> values, int toUpdate) {
 		super("Asset", values, "assetID = " + toUpdate);
+		
+		setColsAndValues();
 	}
 
 	public void populateColumns() {
