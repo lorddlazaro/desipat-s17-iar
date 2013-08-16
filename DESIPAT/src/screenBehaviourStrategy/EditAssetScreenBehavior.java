@@ -57,6 +57,8 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	@Override
 	public void fillBoxes() {
 		// TODO Auto-generated method stub
+		
+		/*
 		ArrayList<Person>personList=PersonTable.getInstance().getAllEntries();
 		ArrayList<Type>typeList=TypeLookUpTable.getInstance().getAllEntries();
 		ArrayList<Storage>storageList=StorageTable.getInstance().getAllEntries();
@@ -79,6 +81,8 @@ public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		editAssetScreen.setCbxOwnerContents(personNameList);
 		editAssetScreen.setCbxTypeContents(typeNameList);
 		editAssetScreen.setCbxStorageContents(storageNameList);
+	
+	*/
 	}
 	//public void fillFields()
 
