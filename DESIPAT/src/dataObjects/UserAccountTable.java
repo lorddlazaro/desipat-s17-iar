@@ -69,8 +69,9 @@ public class UserAccountTable extends TableSubject{
 	
 	public void editEntry(UserAccount userAccount) {
 		ArrayList<String> values = userAccount.getValues();
-		values.remove(this.ID_COLUMN_NAME);
 		
+		values.remove(UserAccount.ID_INDEX);
+		System.out.println(values);
 		NonQuery statement = new UpdateUser(values, userAccount.getID());
 		statement.executeStatement();
 		
