@@ -7,4 +7,5 @@ public interface AdminScreenBehaviorStrategy {
 	public abstract void addUserClicked();
 	public abstract void selectedChanged();
 	public abstract void fillTable();
+	public abstract void fillClearance();
 }

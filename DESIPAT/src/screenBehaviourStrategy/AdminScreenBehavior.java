@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
+import dataObjects.ClearanceLookUpTable;
 import dataObjects.Person;
 import dataObjects.PersonTable;
 import dataObjects.UserAccount;
@@ -31,6 +33,8 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 	
 	public AdminScreenBehavior() {
 		myScreen = new AdminScreen(this);
+		fillClearance();
+		myScreen.refreshScreen();
 	}
 	
 	public void selectedCellChanged() {
@@ -39,13 +43,12 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		
 		myScreen.getUsernameTextField().setText(u.getUsername());
 		myScreen.getPasswordTextField().setText(u.getPassword());
-		myScreen.getClearanceComboBox().setSelectedItem(u.getClearanceLevel());
+		myScreen.getClearanceComboBox().setSelectedItem(u.getClearance().getClearanceLevel());
 		myScreen.getFirstNameTextField().setText(u.getPersonFirstName());
 		myScreen.getMiddleInitTextField().setText(u.getPersonMiddleName());
 		myScreen.getLastNameTextField().setText(u.getPersonLastName());
 		
 		fillSelectExisting();
-
 	}
 	
 	public void fillSelectExisting() {
@@ -55,8 +58,10 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		Query stmt = new SelectRemainingPersons();
 		stmt.executeStatement();
 		
-		for (int i = 0; i < stmt.getResultList().size(); i++)
-			myScreen.getSelectExistingComboBox().addItem(stmt.getResultList().get(i).toString());
+		ArrayList<Person> list = stmt.getResultList();
+		
+		for (int i = 0; i < list.size(); i++)
+			myScreen.getSelectExistingComboBox().addItem(list.get(i).getFirstName() + " " + list.get(i).getMiddleInitial() + ". " + list.get(i).getLastName());
 	}
 
 	public void deleteUserClicked() {
@@ -96,14 +101,13 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			String username = myScreen.getUsernameTextField().getText();
 			String password = myScreen.getPasswordTextField().getText();
 			
-			Query stmt = new LookUpClearance(myScreen.getClearanceComboBox().getSelectedItem().toString());
-			stmt.executeStatement();
-			
-			int clearanceID = Integer.parseInt(stmt.getResultList().get(0).toString());
+			int clearanceID = ClearanceLookUpTable.getInstance().getEntry(myScreen.getClearanceComboBox().getSelectedItem().toString()).getID();
 			
 			String firstName = myScreen.getFirstNameTextField().getText();
 			String middleInit = myScreen.getMiddleInitTextField().getText();
 			String lastName = myScreen.getLastNameTextField().getText();
+			
+			Query stmt;
 
 			if (myScreen.getUserTable().getSelectedRow() == -1) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
@@ -137,8 +141,6 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
 					u.setPersonID(personID);
-					
-					UserAccountTable.getInstance().editEntry(u);
 				}
 				else if (PersonTable.getInstance().getEntry(firstName, middleInit, lastName) == null) {
 					p.setFirstName(firstName);
@@ -150,8 +152,6 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					u.setUsername(username);
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
-					
-					UserAccountTable.getInstance().editEntry(u);
 				}
 				else {
 					p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
@@ -160,9 +160,9 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
 					u.setPersonID(p.getID());
-					
-					UserAccountTable.getInstance().editEntry(u);
 				}
+				
+				UserAccountTable.getInstance().editEntry(u);
 			}
 			myScreen.refreshScreen();
 		}
@@ -175,11 +175,10 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		for (int i = 0; i < rowCount; i++)
 			model.removeRow(0);
 		
-		Query stmt = new SelectRowUserTable();
-		stmt.executeStatement();
+		ArrayList<UserAccount> list = UserAccountTable.getInstance().getAllEntries();
 		
-		for (int i = 0; i < stmt.getResultList().size(); i++)
-			model.addRow((Vector)stmt.getResultList().get(i));
+		for (int i = 0; i < list.size(); i++)
+			model.addRow(new Object[] {list.get(i).getID(), list.get(i).getUsername(), list.get(i).getPassword(), list.get(i).getClearance().getClearanceLevel(), list.get(i).getPersonFirstName(), list.get(i).getPersonMiddleName(), list.get(i).getPersonLastName()});
 	}
 
 	public void addUserClicked() {
@@ -219,5 +218,15 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		myScreen.getFirstNameTextField().setText(firstName);
 		myScreen.getMiddleInitTextField().setText(middleInit);
 		myScreen.getLastNameTextField().setText(lastName);
+	}
+	
+	public JPanel getView() {
+		return myScreen;
+	}
+
+	public void fillClearance() {
+		for (int i = 0; i < ClearanceLookUpTable.getInstance().getAllEntries().size(); i++) {
+			myScreen.getClearanceComboBox().addItem(ClearanceLookUpTable.getInstance().getAllEntries().get(i).getClearanceLevel());
+		}
 	}
 }
