@@ -3,6 +3,8 @@ package statements;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dataObjects.Person;
+import dataObjects.PersonTable;
 import dbHandler.Query;
 
 public class SelectRemainingPersons extends Query {
@@ -15,7 +17,7 @@ public class SelectRemainingPersons extends Query {
 			if (myResult.isBeforeFirst()) {
 				myResult.first();
 				while (!myResult.isAfterLast()) {
-					resultList.add(myResult.getString(1) + " " + myResult.getString(2) + ". " + myResult.getString(3));
+					resultList.add(PersonTable.getInstance().getEntry(myResult.getString(1), myResult.getString(2), myResult.getString(3)));
 					myResult.next();
 				}
 			}
