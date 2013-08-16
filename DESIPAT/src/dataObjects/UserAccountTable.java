@@ -16,6 +16,8 @@ import statements.updateTable.UpdateAsset;
 import statements.updateTable.UpdateUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.getMax.GetMaxIDPerson;
+import statements.getMax.GetMaxIDUserAccount;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
 
@@ -63,6 +65,11 @@ public class UserAccountTable extends TableSubject{
 		userList.add(userAccount);
 		NonQuery statement = new NewUser(userAccount);
 		statement.executeStatement();
+		
+		Query getID = new GetMaxIDUserAccount();
+		getID.executeStatement();
+		
+		userAccount.setID((Integer)getID.getResultList().get(0));
 		
 		this.notifyObservers();
 	}

@@ -4,11 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dataObjects.Asset;
+import dataObjects.AssetTable;
 import dataObjects.PersonTable;
+import dataObjects.UserAccountTable;
 import statements.SelectMaxTableID;
 
-public class GetMaxIDPerson extends SelectMaxTableID{
-	public GetMaxIDPerson() {
-		super(PersonTable.ID_COLUMN_NAME, "Person");
+public class GetMaxIDAsset extends SelectMaxTableID{
+	public GetMaxIDAsset() {
+		super(AssetTable.ID_COLUMN_NAME, "Asset");
 	}
 }

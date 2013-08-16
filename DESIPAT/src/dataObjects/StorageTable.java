@@ -6,6 +6,8 @@ import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.getMax.GetMaxIDPerson;
+import statements.getMax.GetMaxIDStorage;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewStorage;
 import statements.insertNew.NewUser;
@@ -52,12 +54,17 @@ public class StorageTable extends TableSubject{
 		NonQuery statement = new NewStorage(storage);
 		statement.executeStatement();
 		
+		Query getID = new GetMaxIDStorage();
+		getID.executeStatement();
+		
+		storage.setID((Integer)getID.getResultList().get(0));
+		
 		this.notifyObservers();
 	}
 	
 	public void editEntry(Storage storage) {
 		ArrayList<String> values = storage.getValues();
-		values.remove(this.ID_COLUMN_NAME);
+		values.remove(Storage.ID_INDEX);
 		
 		NonQuery statement = new UpdateAsset(values, storage.getID());
 		statement.executeStatement();

@@ -7,6 +7,8 @@ import screens.TableObserver;
 import statements.DeleteUser;
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import statements.getMax.GetMaxIDAssetChangeLog;
+import statements.getMax.GetMaxIDPerson;
 import statements.insertNew.NewActionLog;
 import statements.insertNew.NewAssetChangeLog;
 import statements.insertNew.NewUser;
@@ -61,6 +63,11 @@ public class AssetChangeLogTable extends TableSubject{
 		assetChangeLogList.add(assetChangeLog);
 		NonQuery statement = new NewAssetChangeLog(assetChangeLog);
 		statement.executeStatement();
+		
+		Query getID = new GetMaxIDAssetChangeLog();
+		getID.executeStatement();
+		
+		assetChangeLog.setID((Integer)getID.getResultList().get(0));
 		
 		this.notifyObservers();
 	}
