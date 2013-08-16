@@ -42,9 +42,6 @@ public class UserAccount extends TableEntry{
 	public Clearance getClearance() {
 		return ClearanceLookUpTable.getInstance().getEntry(clearanceID);
 	}
-	public String getClearanceLevel(){
-		return "";
-	}
 	public String getPersonFirstName(){
 		return PersonTable.getInstance().getEntry(this.personID).getFirstName();
 	}
