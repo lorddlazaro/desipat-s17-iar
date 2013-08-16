@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import screenBehaviourStrategy.AddAssetScreenBehavior;
+import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
@@ -202,7 +203,7 @@ public class MainScreen extends Screen{
 		editAssetCard = new EditAssetScreenBehavior(-1).getView();
 		cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
 		
-		adminCard = new AdminScreen();
+		adminCard = new AdminScreenBehavior().getView();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
 		
 		
