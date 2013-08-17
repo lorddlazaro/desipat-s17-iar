@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,8 +17,11 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
+import phase1.Person;
 import screenBehaviourStrategy.AccountSettingsScreenBehaviourStrategy;
+import dataObjects.PersonTable;
 import dataObjects.UserAccount;
+import dataObjects.UserAccountTable;
 
 
 public class AccountSettingsScreen extends Screen implements TableObserver{
@@ -48,7 +53,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	private AccountSettingsScreenBehaviourStrategy controller;
 	
 	private UserAccount currUser;
-	private int currUserID;
 	//private DBConnection dbHandler;
 	private Connection conn;
 	private JButton changeNameButton;
@@ -58,6 +62,11 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	 */
 	public AccountSettingsScreen(){
 		initialize();
+	}
+	
+	public void setCurrentUser() {
+		currUser = MainScreen.getCurrentUser();
+		initSettings();
 	}
 	
 	public void initialize() {
@@ -243,6 +252,36 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	}
 	
 	public void refresh(){}
+
+	public void initSettings() {
+		usernameField.setText(currUser.getUsername());
+		passwordField.setText(currUser.getPassword());
+		
+		changeDetailsButton.setText("Change Details");
+		changeNameButton.setText("Update Name");
+		
+		passwordField.setEditable(false);
+		newPasswordField.setVisible(false);
+		newPasswordLabel.setVisible(false);
+		saveDetailsButton.setVisible(false);
+		
+		nameLabel.setText(currUser.getPersonName());
+		firstNameTextField.setText(currUser.getPersonFirstName());
+		middleInitialTextField.setText(currUser.getPersonMiddleName() + "");
+		lastNameTextField.setText(currUser.getPersonLastName());
+		
+		firstNameLabel.setVisible(false);
+		middleInitLabel.setVisible(false);
+		lastNameLabel.setVisible(false);
+
+		firstNameTextField.setVisible(false);
+		middleInitialTextField.setVisible(false);
+		lastNameTextField.setVisible(false);
+		//lookUpNetWorth();
+		//lookUpNewestAssets();
+		//lookUpMostValuableAssets();
+		this.validate();
+	}
 
 	public JButton getSaveDetailsButton() {
 		return saveDetailsButton;
