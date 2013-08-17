@@ -33,7 +33,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 
 	private Connection conn;
 	
-	//private Model model;
 	ViewAssetScreenBehaviourStrategy behavior;
 	ViewAssetTablePanel assetTable;
 	
@@ -43,7 +42,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	private JLabel lblCustodian;
 	private JLabel lblType;
 	private JLabel lblDateAcquired;
-	private JLabel lblStatus;
 	private JLabel lblMaintenance;
 	private JLabel lblFinancialValue;
 	private JLabel lblConfidentialValue;
@@ -169,13 +167,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		lblClassification = new JLabel("");
 		assetDetails.add(lblClassification, "8, 12");
 		
-		JLabel label_6 = new JLabel("Status:");
-		label_6.setFont(new Font("Calibri", Font.PLAIN, 13));
-		assetDetails.add(label_6, "2, 14");
-		
-		lblStatus = new JLabel("");
-		assetDetails.add(lblStatus, "4, 14");
-		
 		JLabel label_13 = new JLabel("Storage Location:");
 		label_13.setFont(new Font("Calibri", Font.PLAIN, 13));
 		assetDetails.add(label_13, "6, 14");
@@ -265,14 +256,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 
 	public void setLblDateAcquired(JLabel lblDateAcquired) {
 		this.lblDateAcquired = lblDateAcquired;
-	}
-
-	public JLabel getLblStatus() {
-		return lblStatus;
-	}
-
-	public void setLblStatus(JLabel lblStatus) {
-		this.lblStatus = lblStatus;
 	}
 
 	public JLabel getLblMaintenance() {
