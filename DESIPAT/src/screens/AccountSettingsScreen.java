@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,6 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import phase1.Person;
+import screenBehaviourStrategy.AccountSettingsScreenBehavior;
 import screenBehaviourStrategy.AccountSettingsScreenBehaviourStrategy;
 import dataObjects.PersonTable;
 import dataObjects.UserAccount;
@@ -50,25 +52,26 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	private JTextPane lblNewestAssetList;
 	private JTextPane lblMostValuableAssetList;
 	
-	private AccountSettingsScreenBehaviourStrategy controller;
+	private AccountSettingsScreenBehavior controller;
 	
 	private UserAccount currUser;
-	//private DBConnection dbHandler;
 	private Connection conn;
 	private JButton changeNameButton;
 	
 	/**
 	 * Create the panel.
 	 */
-	public AccountSettingsScreen(){
+	public AccountSettingsScreen(AccountSettingsScreenBehavior b){
+		this.controller = b;
 		initialize();
 	}
-	
+
 	public void setCurrentUser() {
 		currUser = MainScreen.getCurrentUser();
+		controller.setCurrUser(currUser);
 		initSettings();
 	}
-	
+
 	public void initialize() {
 		setBackground(new Color(128, 128, 128));
 
@@ -127,14 +130,18 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		getNewPasswordLabel().setBounds(5, 108, 105, 19);
 		userSettingsPanel.add(getNewPasswordLabel());
 		
-		newPasswordField = new JPasswordField();
-		newPasswordField.setColumns(10);
-		newPasswordField.setBounds(112, 108, 138, 20);
-		userSettingsPanel.add(newPasswordField);
+		setNewPasswordField(new JPasswordField());
+		getNewPasswordField().setColumns(10);
+		getNewPasswordField().setBounds(112, 108, 138, 20);
+		userSettingsPanel.add(getNewPasswordField());
 		
 		setSaveDetailsButton(new JButton("Save"));
 		getSaveDetailsButton().setBackground(new Color(220, 220, 220));
-		//saveDetailsButton.addMouseListener(new MouseAdapter());
+		saveDetailsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controller.saveAcctDetails();
+			}
+		});
 		getSaveDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getSaveDetailsButton().setBounds(254, 107, 105, 23);
 		userSettingsPanel.add(getSaveDetailsButton());
@@ -204,8 +211,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		getChangeNameButton().setBounds(258, 64, 105, 23);
 		namePanel.add(getChangeNameButton());
 		
-		
-		
 		assetSummary = new JPanel();
 		assetSummary.setBorder(new LineBorder(new Color(0, 0, 0)));
 		assetSummary.setBounds(10, 162, 752, 281);
@@ -261,7 +266,7 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		changeNameButton.setText("Update Name");
 		
 		passwordField.setEditable(false);
-		newPasswordField.setVisible(false);
+		getNewPasswordField().setVisible(false);
 		newPasswordLabel.setVisible(false);
 		saveDetailsButton.setVisible(false);
 		
@@ -281,6 +286,80 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		//lookUpNewestAssets();
 		//lookUpMostValuableAssets();
 		this.validate();
+	}
+
+	public boolean checkNewPassword() {
+		if (passwordField.getPassword().length == 0) {
+			passwordField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "Please input old password.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		if (!currUser.getPassword().equals(passwordField.getText())) {
+			passwordField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "Wrong password.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		if (getNewPasswordField().getPassword().length == 0) {
+			getNewPasswordField().setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "New password cannot be blank.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean checkUpdateName() {
+		boolean contFlag = true;
+		if (firstNameTextField.getText().length() == 0) {
+			firstNameTextField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "First or last name fields cannot be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+		if (lastNameTextField.getText().length() == 0) {
+			lastNameTextField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "First or last name fields cannot be left blank.", "Error", JOptionPane.WARNING_MESSAGE);
+			return true;
+		}
+		
+		String firstName = firstNameTextField.getText();
+		for (int i = 0; i < firstName.length() && contFlag; i++) {
+			if (!((firstName.charAt(i) >= 'A' && firstName.charAt(i) <= 'Z') || (firstName.charAt(i) >= 'a' && firstName.charAt(i) <= 'z') || (firstName.charAt(i) == ' ')))
+				contFlag = false;
+		}
+
+		if (!contFlag) {
+			firstNameTextField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+
+		String lastName = lastNameTextField.getText();
+		for (int i = 0; i < lastName.length() && contFlag; i++) {
+			if (!((lastName.charAt(i) >= 'A' && lastName.charAt(i) <= 'Z') || (lastName.charAt(i) >= 'a' && lastName.charAt(i) <= 'z') || (lastName.charAt(i) == ' ')))
+				contFlag = false;
+		}
+		
+		if (!contFlag) {
+			lastNameTextField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "Please use only alphabetical characters for names.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		String middleInit = "";
+		if (middleInitialTextField.getText().length() != 0) {
+			middleInit = middleInitialTextField.getText().charAt(0) + "";
+			middleInit = middleInit.toUpperCase();
+			if (!(middleInit.charAt(0) >= 'A' && middleInit.charAt(0) <= 'Z')) {
+				contFlag = false;
+			}
+		}
+		
+		if (!contFlag) {
+			middleInitialTextField.setBackground(Color.PINK);
+			JOptionPane.showMessageDialog(null, "Middle Initial must be a letter.", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		
+		return true;
 	}
 
 	public JButton getSaveDetailsButton() {
@@ -369,5 +448,13 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 
 	public void setLastNameTextField(JTextField lastNameTextField) {
 		this.lastNameTextField = lastNameTextField;
+	}
+
+	public JPasswordField getNewPasswordField() {
+		return newPasswordField;
+	}
+
+	public void setNewPasswordField(JPasswordField newPasswordField) {
+		this.newPasswordField = newPasswordField;
 	}
 }
