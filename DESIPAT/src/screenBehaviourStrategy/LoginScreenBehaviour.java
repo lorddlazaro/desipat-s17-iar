@@ -39,9 +39,9 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 		
 		for(TableEntry tableEntry:table.getAllEntries()){
 			UserAccount userAccount = (UserAccount) tableEntry;
-			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername()))
+			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername())) {
 				mainFrame.swapToMainScreenCard();
-		
+			}
 		}
 		
 		//Log action
