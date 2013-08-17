@@ -25,11 +25,15 @@ public class LoginScreen extends Screen implements TableObserver {
 		setBackground(new Color(188, 143, 143));
 		setLayout(null);
 		
+		add(Box.createVerticalGlue());
+		
 		usernameField = new TextInput("Username");
 		usernameField.setBounds(250, 180, 350, 25);
+		add(usernameField);
 		
 		passwordField = new PasswordInput("Password");
 		passwordField.setBounds(250, 220, 350, 25);
+		add(passwordField);
 		
 		LoginButton = new JButton("Log in");
 		LoginButton.setBackground(new Color(192, 192, 192));
@@ -41,10 +45,6 @@ public class LoginScreen extends Screen implements TableObserver {
 				behavior.login();	
 			}
 		});		
-		
-		add(Box.createVerticalGlue());
-		add(usernameField);
-		add(passwordField);
 		add(LoginButton);	
 	}
 	
