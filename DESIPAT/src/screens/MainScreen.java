@@ -43,7 +43,7 @@ public class MainScreen extends Screen{
 	
 	private JPanel cardPanel;
 	
-	private JPanel accountSettingsCard;
+	private AccountSettingsScreen accountSettingsCard;
 	private JPanel viewAssetCard;
 	private JPanel addAssetCard;
 	private JPanel editAssetCard;
@@ -222,7 +222,9 @@ public class MainScreen extends Screen{
 	}
 	
 	
-	public void refresh(){}
+	public void refresh(){
+		accountSettingsCard.setCurrentUser();
+	}
 	
 	public JPanel getCardPanel(){
 		return cardPanel;

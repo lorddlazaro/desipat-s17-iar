@@ -10,8 +10,11 @@ import phase2.MainFrame;;
 
 public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 
-	MainScreen mainScreen;
 	MainFrame mainFrame;
+	MainScreen mainScreen;
+	
+	
+	
 	public MainScreenBehaviour(MainFrame frame){
 		mainScreen = new MainScreen(this);
 		mainFrame = frame;
@@ -45,21 +48,13 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 		mainFrame.swapToLoginScreenCard();
 	}
 
-	@Override
 	public void gotoAddAssetScreen() {
-		// TODO Auto-generated method stub
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
-		cl.show(mainScreen.getCardPanel(), mainScreen.ADD_ASSET_SCREEN);
-		
+		cl.show(mainScreen.getCardPanel(), mainScreen.ADD_ASSET_SCREEN);		
 	}
-
-	@Override
 	public void gotoEditAssetScreen() {
-		// TODO Auto-generated method stub
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
-		cl.show(mainScreen.getCardPanel(), mainScreen.EDIT_ASSET_SCREEN);
-		
-		
+		cl.show(mainScreen.getCardPanel(), mainScreen.EDIT_ASSET_SCREEN);		
 	}
 
 }
