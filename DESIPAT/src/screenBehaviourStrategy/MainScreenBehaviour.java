@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
+import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 import screens.MainScreen;
 import phase2.MainFrame;;
@@ -50,7 +51,7 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 
 	public void gotoAddAssetScreen() {
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
-		cl.show(mainScreen.getCardPanel(), mainScreen.ADD_ASSET_SCREEN);		
+		cl.show(mainScreen.getCardPanel(), mainScreen.ADD_ASSET_SCREEN);
 	}
 	public void gotoEditAssetScreen() {
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
