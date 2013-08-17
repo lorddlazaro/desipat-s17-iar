@@ -21,8 +21,8 @@ import screens.MainScreen;
 public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 
 	UserAccountTable userAccountTable;
-	private LoginScreen loginScreen;
 	private MainFrame mainFrame;
+	private LoginScreen loginScreen;
 	
 	public LoginScreenBehaviour(MainFrame frame){
 		userAccountTable = userAccountTable.getInstance();
