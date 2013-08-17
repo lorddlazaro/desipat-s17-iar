@@ -17,7 +17,7 @@ public class ViewAssetTablePanel extends TablePanel{
 	ViewAssetScreenBehaviourStrategy controller;
 	
 	public ViewAssetTablePanel(ViewAssetScreenBehaviourStrategy newController){
-		super(); 
+		super();
 		
 		this.controller = newController;
 		
