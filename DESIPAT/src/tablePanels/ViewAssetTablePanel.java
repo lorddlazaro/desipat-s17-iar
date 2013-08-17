@@ -1,5 +1,7 @@
 package tablePanels;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.ListSelectionModel;
@@ -24,15 +26,14 @@ public class ViewAssetTablePanel extends TablePanel{
 		AssetTable.getInstance().registerObserver(this);
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+		table.addMouseListener(new MouseAdapter() {
 			@Override
-			public void valueChanged(ListSelectionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Before Controller");
+			public void mousePressed(MouseEvent arg0) {
 				controller.selectAsset();
-				System.out.println("after Controller");
-			}});	
+			}
+		});
 	}
+	
 	
 	protected void fillTable(){
 		DefaultTableModel model = new DefaultTableModel(){
