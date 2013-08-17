@@ -52,6 +52,10 @@ public class UserAccount extends TableEntry{
 		return PersonTable.getInstance().getEntry(this.personID).getLastName();
 	}
 	
+	public String getPersonName() {
+		return getPersonFirstName() + " " + getPersonMiddleName() + ". " + getPersonLastName();
+	}
+	
 	public int getPersonID() {
 		return personID;
 	}
@@ -61,6 +65,14 @@ public class UserAccount extends TableEntry{
 	
 	public ArrayList<String> getValues() {
 		if(values == null){
+			values = new ArrayList<String>();
+			values.add(String.valueOf(ID));
+			values.add(username);
+			values.add(password);
+			values.add(String.valueOf(clearanceID));
+			values.add(String.valueOf(personID));
+		}
+		else if(values.size() != 5){
 			values = new ArrayList<String>();
 			values.add(String.valueOf(ID));
 			values.add(username);
