@@ -21,11 +21,7 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		return view;
 	}
 	public void selectAsset() {
-		int selectedrow = view.getAssetTable().getSelectedRow();
-		
-		System.out.println("selected row "+selectedrow);
-		int selectedAssetIdentifier = (int)view.getAssetTable().getModel().getValueAt(selectedrow, 0);
-		
+		int selectedAssetIdentifier = view.getAssetTableSelectedAssetID();
 		
 		Asset asset = AssetTable.getInstance().getEntry(selectedAssetIdentifier);
 		view.getLblAvailabilityValue().setText(String.valueOf(asset.getAvailabilityValue()));

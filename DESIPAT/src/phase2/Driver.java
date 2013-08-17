@@ -1,6 +1,5 @@
 package phase2;
 
-
 public class Driver {
 
 	public static void main(String[] args) {
@@ -9,5 +8,4 @@ public class Driver {
 			frame.setVisible(true);
 		} catch (Exception e) {	e.printStackTrace(); }		
 	}
-
 }
