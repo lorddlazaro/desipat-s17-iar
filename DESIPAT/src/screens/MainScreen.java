@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
+import screenBehaviourStrategy.AccountSettingsScreenBehavior;
 import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
@@ -54,6 +55,7 @@ public class MainScreen extends Screen{
 	private JButton btnViewAssets;
 	private JButton btnManageAccounts;
 	private JButton btnViewLogs;
+	
 	private static UserAccount currentUser;
 	
 	public MainScreen(MainScreenBehaviourStrategy behaviour) {
@@ -64,8 +66,6 @@ public class MainScreen extends Screen{
 	public void initialize(){
 		setBackground(new Color(192, 192, 192));
 		setLayout(null);
-		
-		
 		
 		// TOP BAR
 		lblGreeting = new JLabel("Hello,");
@@ -195,7 +195,7 @@ public class MainScreen extends Screen{
 		greetingCard = new JPanel();
 		cardPanel.add(greetingCard, this.GREETING_SCREEN);
 		
-		accountSettingsCard = new AccountSettingsScreen();
+		accountSettingsCard = new AccountSettingsScreenBehavior().getView();
 		cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
 		
 		viewAssetCard = new ViewAssetScreenBehaviour(behaviour).getView();
