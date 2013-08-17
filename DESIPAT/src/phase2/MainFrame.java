@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 	private final String MAIN_SCREEN = "mainScreen";
 
 	private JPanel contentPane;
-	private JPanel loginScreen;
+	private LoginScreen loginScreen;
 	private MainScreen mainScreen;
 	
 	
@@ -52,14 +52,15 @@ public class MainFrame extends JFrame {
 	}
 
 	public void swapToLoginScreenCard(){
+		loginScreen.refresh();
+		
 		CardLayout cl = (CardLayout) getContentPane().getLayout();
 		cl.show((JPanel)getContentPane(), LOGIN_SCREEN);
 	}
 	public void swapToMainScreenCard(){
+		mainScreen.refresh();
+		
 		CardLayout cl = (CardLayout) getContentPane().getLayout();
 		cl.show((JPanel)getContentPane(), MAIN_SCREEN);
-	}
-	public void setCurrentUser(UserAccount currentUser){
-		mainScreen.setCurrentUser(currentUser);
 	}
 }

@@ -1,12 +1,12 @@
 package errorChecker;
 
-import fields.InputField;
+import fields.AbstractInputField;
 
 import java.awt.event.ActionEvent;
 
 public class AlphanumericChecker extends ErrorCheckerDecorator {
 	
-	public AlphanumericChecker(ErrorChecker checker, InputField field) {
+	public AlphanumericChecker(ErrorChecker checker, AbstractInputField field) {
 		super(checker, field);
 		
 	}

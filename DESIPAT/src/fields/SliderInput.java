@@ -3,7 +3,7 @@ package fields;
 import javax.swing.JSlider;
 
 
-class SliderInput extends InputField{
+class SliderInput extends AbstractInputField{
 	JSlider myField = new JSlider();
 	
 	public SliderInput(String name) {

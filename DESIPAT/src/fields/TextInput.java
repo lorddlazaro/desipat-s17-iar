@@ -1,33 +1,37 @@
 package fields;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-public class TextInput extends InputField {
-	JTextField myField = new JTextField();
+public class TextInput extends AbstractInputField {
+	JTextField textField;
 	
 	public TextInput(String name) {
 		super(name);
-	}
-	public TextInput(String name,int x, int y, int width, int height) {
-		super(name);
-		myField.setBounds(x, y, width, height);
-	}
-	
-	public void addFields() {
-		this.add(myField);
+		
+		fieldLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+
+		textField.setFont(new Font("Calibri", Font.PLAIN, 16));
+		textField.setColumns(10);
 	}
 	
 	public void setListener(ActionListener fieldListener) {
-		myField.addActionListener(fieldListener);
+		textField.addActionListener(fieldListener);
 	}
 	
+	protected void addFields() {
+		textField = new JTextField();
+		this.add(textField);
+	}
+	protected void clearInput(){
+		textField.setText("");
+	}
 	public void setInput(String toSet) {
-		myField.setText(toSet);
+		textField.setText(toSet);
 	}
-	
 	public String getInput() {
-		return myField.getText();
+		return textField.getText();
 	}
 }

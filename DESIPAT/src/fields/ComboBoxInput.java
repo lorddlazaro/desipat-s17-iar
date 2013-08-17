@@ -2,7 +2,7 @@ package fields;
 
 import javax.swing.JComboBox;
 
-class ComboBoxInput extends InputField{
+class ComboBoxInput extends AbstractInputField{
 	JComboBox<String> myField = new JComboBox<String>();
 	
 	public ComboBoxInput(String name) {

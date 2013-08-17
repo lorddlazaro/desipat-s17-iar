@@ -1,10 +1,10 @@
 package errorChecker;
 
-import fields.InputField;
+import fields.AbstractInputField;
 
 public abstract class ErrorCheckerDecorator extends ErrorChecker {
 	protected ErrorChecker checker;
-	public ErrorCheckerDecorator(ErrorChecker checker, InputField field) {
+	public ErrorCheckerDecorator(ErrorChecker checker, AbstractInputField field) {
 		super(field);
 		this.checker=checker;
 		checker.setField(field);

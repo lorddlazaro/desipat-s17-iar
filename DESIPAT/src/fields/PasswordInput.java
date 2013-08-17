@@ -1,32 +1,37 @@
 package fields;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JSlider;
 
 
-class PasswordInput extends InputField{
-	JPasswordField myField = new JPasswordField();
+public class PasswordInput extends AbstractInputField{
+	JPasswordField passwordField;
 	
 	public PasswordInput(String name) {
 		super(name);
+		passwordField.setFont(new Font("Calibri", Font.PLAIN, 16));
+		passwordField.setColumns(10);
+	}
+
+	public void setListener(ActionListener myListener) {
+		passwordField.addActionListener(myListener);
 	}
 	
 	public void addFields() {
-		this.add(myField);
+		passwordField = new JPasswordField();
+		this.add(passwordField);
 	}
-	
-	// unsure if needed
-	public void setListener(ActionListener myListener) {
-		myField.addActionListener(myListener);
+	protected void clearInput() {
+		passwordField.setText("");
 	}
-	
 	public void setInput(String toSet) {
-		myField.setText(toSet);
+		passwordField.setText(toSet);
 	}
-	
 	public String getInput() {
-		return myField.getText();
+		return String.copyValueOf(passwordField.getPassword());
 	}
 }
