@@ -1,26 +1,14 @@
 package screenBehaviourStrategy;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import phase1.ActionLogger;
-import phase1.DBConnection;
-import phase1.UserScreen;
-import phase2.MainFrame;
-import screens.LoginScreen;
-import dataObjects.TableEntry;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 import phase2.MainFrame;
+import screens.LoginScreen;
 import screens.MainScreen;
 
 public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 
-	UserAccountTable userAccountTable;
+	private UserAccountTable userAccountTable;
 	private MainFrame mainFrame;
 	private LoginScreen loginScreen;
 	
@@ -51,8 +39,6 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 		loginScreen.clearErrorMessages();
 		loginScreen.setUsernameFieldErrorMessage("user not found");
 		
-		//Log action
-		//Swap Card
-		//Set account clearance level
+		// TODO: Logging, account clearance
 	}
 }
