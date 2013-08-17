@@ -1,10 +1,10 @@
 package errorChecker;
 
-import fields.InputField;
+import fields.AbstractInputField;
 
 public class IsInDBChecker extends ErrorCheckerDecorator {
 	
-	public IsInDBChecker(ErrorChecker checker, InputField field) {
+	public IsInDBChecker(ErrorChecker checker, AbstractInputField field) {
 		super(checker, field);
 		// TODO Auto-generated constructor stub
 	}

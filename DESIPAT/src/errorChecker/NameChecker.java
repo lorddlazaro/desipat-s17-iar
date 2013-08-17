@@ -1,10 +1,10 @@
 package errorChecker;
 
-import fields.InputField;
+import fields.AbstractInputField;
 
 public class NameChecker extends ErrorCheckerDecorator {
 	
-	public NameChecker(ErrorChecker checker, InputField field) {
+	public NameChecker(ErrorChecker checker, AbstractInputField field) {
 		
 		super(checker, field);
 		

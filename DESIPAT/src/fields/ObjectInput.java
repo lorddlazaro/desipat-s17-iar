@@ -5,7 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 
-class ObjectField extends InputField {
+class ObjectField extends AbstractInputField {
 	JComboBox<String> myField = new JComboBox<String>();
 	JButton myButton = new JButton();
 	JFrame newFrame = new JFrame();

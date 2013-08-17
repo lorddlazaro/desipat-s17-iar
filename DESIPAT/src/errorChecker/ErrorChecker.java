@@ -1,14 +1,14 @@
 package errorChecker;
 
-import fields.InputField;
+import fields.AbstractInputField;
 
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 
 public class ErrorChecker /*implements ActionListener*/{
 	//private String errorMessage="";
-	protected InputField field;
-	public ErrorChecker(InputField field)
+	protected AbstractInputField field;
+	public ErrorChecker(AbstractInputField field)
 	{
 		this.field=field;
 	}
@@ -20,7 +20,7 @@ public class ErrorChecker /*implements ActionListener*/{
 	public String getErrorMessage(/*ActionEvent arg0*/){
 		return "";
 	}
-	public void setField(InputField field)
+	public void setField(AbstractInputField field)
 	{
 		this.field=field;
 	}

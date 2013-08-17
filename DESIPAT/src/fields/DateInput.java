@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 
 
-class DateInput extends InputField{
+class DateInput extends AbstractInputField{
 	JComboBox<String> month = new JComboBox<String>();
 	JComboBox<Integer> day = new JComboBox<Integer>();
 	JComboBox<Integer> year = new JComboBox<Integer>();
