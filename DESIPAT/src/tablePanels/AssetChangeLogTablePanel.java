@@ -1,52 +1,24 @@
 package tablePanels;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import screens.TableObserver;
-
-import dataObjects.ActionLog;
 import dataObjects.AssetChangeLog;
 import dataObjects.AssetChangeLogTable;
-import dataObjects.Asset;
-import dataObjects.AssetTable;
-import dataObjects.TableEntry;
-import dataObjects.TableSubject;
 
-public class AssetChangeLogTablePanel extends TablePanel implements TableObserver{
-	private JTable table;
-	AssetChangeLogTable assetChangeLogTable;
+public class AssetChangeLogTablePanel extends TablePanel{
 	
-	public void initialize(){
+	public AssetChangeLogTablePanel(String title){
+		super(title);
 		
-		setBounds(12, 273, 748, 169);
-		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		getViewport().setBackground(Color.LIGHT_GRAY);
+		AssetChangeLogTable.getInstance().registerObserver(this);
 		
-		table = new JTable();
-		table.setFont(new Font("Calibri", Font.PLAIN, 13));
-		setViewportView(table);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 	
-	public JTable getTable(){
-		return table;
-	}
-	
-	public void fillTable(AssetChangeLogTable assetChangeLogTable){
-		this.assetChangeLogTable = assetChangeLogTable;
-		assetChangeLogTable.registerObserver(this);
-		ArrayList<AssetChangeLog> assetChangeLogList = assetChangeLogTable.getAllEntries();
-		
+	protected void fillTable(){
 		DefaultTableModel model = new DefaultTableModel();
 		
 		model.addColumn("Action");
@@ -54,9 +26,10 @@ public class AssetChangeLogTablePanel extends TablePanel implements TableObserve
 		model.addColumn("Field");
 		model.addColumn("New Value");
 		model.addColumn("Old Value");
-		for(TableEntry tableEntry:assetChangeLogList){
-			AssetChangeLog assetChangeLog = (AssetChangeLog)tableEntry;
+		
+		for(AssetChangeLog assetChangeLog : AssetChangeLogTable.getInstance().getAllEntries()){
 			Vector<Object> row = new Vector<Object>();
+			
 			row.add(assetChangeLog.getActionID());
 			row.add(assetChangeLog.getAssetID());
 			row.add(assetChangeLog.getAssetField());
@@ -65,6 +38,7 @@ public class AssetChangeLogTablePanel extends TablePanel implements TableObserve
 			
 			model.addRow(row);
 		}
+		
 		table.setModel(model);
 	}
 }

@@ -1,50 +1,24 @@
 package tablePanels;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import screens.TableObserver;
-
 import dataObjects.ActionLog;
 import dataObjects.ActionLogTable;
-import dataObjects.Asset;
-import dataObjects.AssetTable;
-import dataObjects.TableEntry;
-import dataObjects.TableSubject;
 
-public class ActionLogTablePanel extends TablePanel implements TableObserver{
-	private JTable table;
-	ActionLogTable actionLogTable;
+public class ActionLogTablePanel extends TablePanel{
 	
-	public void initialize(){
-		setBounds(12, 50, 748, 162);
-		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		getViewport().setBackground(Color.LIGHT_GRAY);
+	public ActionLogTablePanel(String title){
+		super(title);
 		
-		table = new JTable();
-		table.setFont(new Font("Calibri", Font.PLAIN, 13));
-		setViewportView(table);
+		ActionLogTable.getInstance().registerObserver(this);
+		
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 	
-	public JTable getTable(){
-		return table;
-	}
-	
-	public void fillTable(ActionLogTable actionLogTable){
-		this.actionLogTable = actionLogTable;
-		actionLogTable.registerObserver(this);
-		ArrayList<ActionLog> actionLogList = actionLogTable.getAllEntries();
-		
+	protected void fillTable(){
 		DefaultTableModel model = new DefaultTableModel();
 		
 		model.addColumn("User");
@@ -52,17 +26,19 @@ public class ActionLogTablePanel extends TablePanel implements TableObserver{
 		model.addColumn("Time");
 		model.addColumn("Header");
 		model.addColumn("Description");
-		for(TableEntry tableEntry:actionLogList){
-			ActionLog actionLog = (ActionLog)tableEntry;
+		
+		for(ActionLog actionLog : ActionLogTable.getInstance().getAllEntries()){
 			Vector<Object> row = new Vector<Object>();
-			row.add(actionLog.getUserID());
+			
+			row.add(actionLog.getUser().getUsername());
 			row.add(actionLog.getActionDate());
 			row.add(actionLog.getActionTime());
-			row.add(actionLog.getActionHeaderID());
+			row.add(actionLog.getActionHeader().getActionHeader());
 			row.add(actionLog.getActionDesc());
 			
 			model.addRow(row);
 		}
+		
 		table.setModel(model);
 	}
 }
