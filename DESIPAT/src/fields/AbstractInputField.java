@@ -34,6 +34,9 @@ public abstract class AbstractInputField extends JPanel {
 	public String getErrorMessage(){
 		return errorMessage.getText();
 	}
+	public void clearErrorMessage(){
+		errorMessage.setText("");
+	}
 	public void clearField(){
 		clearInput();
 		errorMessage.setText("");

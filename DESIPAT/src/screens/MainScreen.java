@@ -195,8 +195,8 @@ public class MainScreen extends Screen{
 		greetingCard = new JPanel();
 		cardPanel.add(greetingCard, this.GREETING_SCREEN);
 		
-		accountSettingsCard = new AccountSettingsScreenBehavior().getView();
-		cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
+		//accountSettingsCard = new AccountSettingsScreenBehavior().getView();
+		//cardPanel.add(accountSettingsCard, this.ACCOUNT_SETTINGS_SCREEN);
 		
 		viewAssetCard = new ViewAssetScreenBehaviour(behaviour).getView();
 		cardPanel.add(viewAssetCard, this.VIEW_ASSET_SCREEN);
@@ -223,7 +223,7 @@ public class MainScreen extends Screen{
 	
 	
 	public void refresh(){
-		accountSettingsCard.setCurrentUser();
+		//accountSettingsCard.setCurrentUser();
 	}
 	
 	public JPanel getCardPanel(){
