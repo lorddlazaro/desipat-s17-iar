@@ -38,8 +38,7 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		view.getLblStorageLocation().setText(String.valueOf(asset.getStorage().getStorageLocation()));
 		view.getLblType().setText(String.valueOf(asset.getType().getType()));
 		
-
-
+		view.updateChangeLogTable(selectedAssetIdentifier);
 	}
 	public void addAsset() {
 		main.gotoAddAssetScreen();
