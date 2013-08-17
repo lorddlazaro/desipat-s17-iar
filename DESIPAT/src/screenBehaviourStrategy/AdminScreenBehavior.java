@@ -107,9 +107,8 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			String middleInit = myScreen.getMiddleInitTextField().getText();
 			String lastName = myScreen.getLastNameTextField().getText();
 			
-			Query stmt;
-
 			if (myScreen.getUserTable().getSelectedRow() == -1) {
+				System.out.println("new person");
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 				
 				if (p != null) {
@@ -117,30 +116,26 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					return;
 				}
 				
-				stmt = new InsertAndSelectPerson(firstName, middleInit, lastName);
-				stmt.executeStatement();
-				int personID = Integer.parseInt(stmt.getResultList().get(0).toString());
+				p = new Person(-1, firstName, middleInit.charAt(0), lastName);
+				PersonTable.getInstance().addEntry(p);
 				
-				
-				stmt = new InsertAndSelectUser(username, password, clearanceID, personID);
-				stmt.executeStatement();
-				selectedUserID = Integer.parseInt(stmt.getResultList().get(0).toString());
-				
+				UserAccount u = new UserAccount(-1, username, password, clearanceID, p.getID());
+				UserAccountTable.getInstance().addEntry(u);
 			}
 			else {
+				System.out.println("update person");
 				selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
 				UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
 				Person p = PersonTable.getInstance().getEntry(u.getPersonID());
 				
 				if (p == null) {
-					stmt = new InsertAndSelectPerson(firstName, middleInit, lastName);
-					stmt.executeStatement();
-					int personID = Integer.parseInt(stmt.getResultList().get(0).toString());
+					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
+					PersonTable.getInstance().addEntry(p);
 					
 					u.setUsername(username);
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
-					u.setPersonID(personID);
+					u.setPersonID(p.getID());
 				}
 				else if (PersonTable.getInstance().getEntry(firstName, middleInit, lastName) == null) {
 					p.setFirstName(firstName);
