@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import dataObjects.AssetTable;
 
 import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
+import tablePanels.SelectedAssetChangeLogTablePanel;
 import tablePanels.ViewAssetTablePanel;
 
 
@@ -35,6 +36,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	
 	ViewAssetScreenBehaviourStrategy behavior;
 	ViewAssetTablePanel assetTable;
+	SelectedAssetChangeLogTablePanel selectedAssetChangeLogTable;
 	
 	private JLabel lblIdentifier;
 	private JLabel lblName;
@@ -184,7 +186,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 				behavior.updateAsset();//TODO: pass id
 			}
 		});
-		
+		/*
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(225, 228, 537, 215);
 		add(scrollPane_1);
@@ -199,9 +201,18 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 			}
 		));
 		scrollPane_1.setViewportView(changeLogTable);
+		*/
+		
+		selectedAssetChangeLogTable = new SelectedAssetChangeLogTablePanel();
+		selectedAssetChangeLogTable.setBounds(225, 228, 537, 215);
+		add(selectedAssetChangeLogTable);
 		
 		refresh();
 		
+	}
+	
+	public void updateChangeLogTable(int selectedAssetID){
+		selectedAssetChangeLogTable.changeSelectedAsset(selectedAssetID);
 	}
 	
 	public void refresh(){
