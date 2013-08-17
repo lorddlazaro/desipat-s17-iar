@@ -5,7 +5,7 @@ import java.util.Vector;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
-import dataObjects.ActionLog;
+import dataObjects.ActionLog; 
 import dataObjects.ActionLogTable;
 
 public class ActionLogTablePanel extends TablePanel{

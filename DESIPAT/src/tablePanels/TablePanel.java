@@ -22,7 +22,7 @@ public abstract class TablePanel extends JPanel implements TableObserver{
 		setOpaque(false);
 		setLayout(new BorderLayout());
 		
-		initTable();
+		initTable(); 
 	}
 	
 	public TablePanel(String title){

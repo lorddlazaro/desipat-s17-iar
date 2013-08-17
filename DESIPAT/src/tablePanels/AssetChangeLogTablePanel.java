@@ -21,7 +21,9 @@ public class AssetChangeLogTablePanel extends TablePanel{
 	protected void fillTable(){
 		DefaultTableModel model = new DefaultTableModel();
 		
-		model.addColumn("Action");
+		model.addColumn("Date");
+		model.addColumn("Time");
+		model.addColumn("User");
 		model.addColumn("Asset");
 		model.addColumn("Field");
 		model.addColumn("New Value");
@@ -30,8 +32,10 @@ public class AssetChangeLogTablePanel extends TablePanel{
 		for(AssetChangeLog assetChangeLog : AssetChangeLogTable.getInstance().getAllEntries()){
 			Vector<Object> row = new Vector<Object>();
 			
-			row.add(assetChangeLog.getActionID());
-			row.add(assetChangeLog.getAssetID());
+			row.add(assetChangeLog.getActionLog().getActionDate());
+			row.add(assetChangeLog.getActionLog().getActionTime());
+			row.add(assetChangeLog.getActionLog().getUser().getUsername());
+			row.add(assetChangeLog.getAsset());
 			row.add(assetChangeLog.getAssetField());
 			row.add(assetChangeLog.getOldValue());
 			row.add(assetChangeLog.getNewValue());
