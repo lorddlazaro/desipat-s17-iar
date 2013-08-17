@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import dataObjects.UserAccount;
+
 import screenBehaviourStrategy.LoginScreenBehaviour;
 import screenBehaviourStrategy.MainScreenBehaviour;
 import screens.LoginScreen;
@@ -21,7 +23,7 @@ public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel loginScreen;
-	private JPanel mainScreen;
+	private MainScreen mainScreen;
 	
 	
 	public MainFrame() {
@@ -56,5 +58,8 @@ public class MainFrame extends JFrame {
 	public void swapToMainScreenCard(){
 		CardLayout cl = (CardLayout) getContentPane().getLayout();
 		cl.show((JPanel)getContentPane(), MAIN_SCREEN);
+	}
+	public void setCurrentUser(UserAccount currentUser){
+		mainScreen.setCurrentUser(currentUser);
 	}
 }
