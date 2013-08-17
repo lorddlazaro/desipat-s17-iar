@@ -85,14 +85,11 @@ public class UserAccountTable extends TableSubject{
 		this.notifyObservers();
 	}
 	
-	/*
-	 * YOU CANT DELETE AN ASSET
-	public void deleteEntry(Asset asset){
-		assetList.add(asset);
-		NonQuery statement = new DeleteAsset(asset);
+	public void deleteEntry(UserAccount u){
+		userList.remove(u);
+		NonQuery statement = new DeleteUser(u.getID());
 		statement.executeStatement();	
-	}*/
-		
+	}
 	
 	public ArrayList<UserAccount> getAllEntries() {
 		return userList;
