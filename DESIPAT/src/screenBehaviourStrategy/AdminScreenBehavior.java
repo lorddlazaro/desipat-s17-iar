@@ -133,12 +133,6 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					System.out.println("new person");
 					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
 					PersonTable.getInstance().addEntry(p);
-					
-					u.setUsername(username);
-					u.setPassword(password);
-					u.setClearanceID(clearanceID);
-					u.setPersonID(p.getID());
-					
 				}
 				else if (PersonTable.getInstance().getEntry(firstName, middleInit, lastName) == null) {
 					// person in list of persons but name was changed
@@ -148,20 +142,17 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					p.setLastName(lastName);
 					
 					PersonTable.getInstance().editEntry(p);
-
-					u.setUsername(username);
-					u.setPassword(password);
-					u.setClearanceID(clearanceID);
 				}
 				else { // person not changed at all
 					System.out.println("nothing person");
 					p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
-					
-					u.setUsername(username);
-					u.setPassword(password);
-					u.setClearanceID(clearanceID);
 				}
 				
+				u.setUsername(username);
+				u.setPassword(password);
+				u.setClearanceID(clearanceID);
+				u.setPersonID(p.getID());
+
 				UserAccountTable.getInstance().editEntry(u);
 			}
 			makingNewUser = false;
@@ -184,6 +175,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 
 	public void addUserClicked() {
 		myScreen.refreshScreen();
+		makingNewUser = true;
 		
 		myScreen.getUsernameTextField().setEditable(true);
 		myScreen.getUsernameTextField().setText("");
