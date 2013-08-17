@@ -64,9 +64,20 @@ public class LoginScreen extends Screen implements TableObserver {
 	public String getPasswordInput(){
 		return passwordField.getInput();
 	}
+	public void setUsernameFieldErrorMessage(String message){
+		usernameField.setErrorMessage(message);
+	}
+	public void setPasswordFieldErrorMessage(String message){
+		passwordField.setErrorMessage(message);
+	}
+	public void clearErrorMessages(){
+		usernameField.clearErrorMessage();
+		passwordField.clearErrorMessage();
+	}
 	
 	public void refresh(){
 		usernameField.clearField();
-		//passwordField.clearField();
+		passwordField.clearField();
+		clearErrorMessages();
 	}
 }

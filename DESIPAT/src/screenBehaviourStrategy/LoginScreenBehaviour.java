@@ -36,11 +36,21 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	
 	public void login() {
 		for(UserAccount userAccount:userAccountTable.getAllEntries()){
-			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername())){
-				MainScreen.setCurrentUser(userAccount);
-				mainFrame.swapToMainScreenCard();
-			}
+			if(loginScreen.getUsernameInput().equals(userAccount.getUsername()))
+				if(loginScreen.getPasswordInput().equals(userAccount.getPassword())){
+					MainScreen.setCurrentUser(userAccount);
+					mainFrame.swapToMainScreenCard();
+					return;
+				}
+				else{
+					loginScreen.clearErrorMessages();
+					loginScreen.setPasswordFieldErrorMessage("wrong password");
+					return;
+				}
 		}
+		loginScreen.clearErrorMessages();
+		loginScreen.setUsernameFieldErrorMessage("user not found");
+		
 		//Log action
 		//Swap Card
 		//Set account clearance level
