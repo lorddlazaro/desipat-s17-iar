@@ -35,9 +35,8 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	
 	//private Model model;
 	ViewAssetScreenBehaviourStrategy behavior;
-	ViewAssetTablePanel table;
+	ViewAssetTablePanel assetTable;
 	
-	private JTable assetTable;
 	private JLabel lblIdentifier;
 	private JLabel lblName;
 	private JLabel lblOwner;
@@ -64,14 +63,9 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 61, 205, 382);
-		add(scrollPane);
-		
-		table = new ViewAssetTablePanel(behavior);
-		table.initialize();
-		assetTable = table.getTable();
-		scrollPane.setViewportView(assetTable);
+		assetTable = new ViewAssetTablePanel(behavior);
+		assetTable.setBounds(10, 61, 205, 382);
+		add(assetTable);
 		
 		JButton btnAddAsset = new JButton("Add Asset");
 		btnAddAsset.setBackground(SystemColor.activeCaption);
@@ -219,14 +213,9 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		
 	}
 	
-	public JTable getAssetTable(){
-		return assetTable;
-	}
-	
 	public void refresh(){
 		System.out.println("AssetTable size = "+AssetTable.getInstance().getAllEntries().size());
-		
-		table.fillTable(AssetTable.getInstance());
+		assetTable.refresh();
 		assetTable.updateUI();
 	}
 
@@ -342,5 +331,8 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		this.lblStorageLocation = lblStorageLocation;
 	}
 	
+	public int getAssetTableSelectedAssetID(){
+		return assetTable.getSelectedAssetID();
+	}
 	
 }

@@ -34,6 +34,9 @@ public class ActionLog  extends TableEntry{
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	public UserAccount getUser() {
+		return UserAccountTable.getInstance().getEntry(userID);
+	}
 	public Date getActionDate() {
 		return actionDate;
 	}
