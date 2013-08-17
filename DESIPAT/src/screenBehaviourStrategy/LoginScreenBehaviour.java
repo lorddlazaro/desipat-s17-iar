@@ -26,36 +26,21 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	
 	public LoginScreenBehaviour(MainFrame frame){
 		userAccountTable = userAccountTable.getInstance();
-		
 		loginScreen = new LoginScreen(this);
-		
 		mainFrame = frame;
 	}
 	
 	public LoginScreen getView(){
 		return loginScreen;
 	}
+	
 	public void login() {
-		System.out.println( userAccountTable.getAllEntries().size());
-		
-<<<<<<< .mine
 		for(UserAccount userAccount:userAccountTable.getAllEntries()){
 			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername())){
 				MainScreen.setCurrentUser(userAccount);
-=======
-		for(TableEntry tableEntry:table.getAllEntries()){
-			UserAccount userAccount = (UserAccount) tableEntry;
-			if(loginScreen.getPasswordInput().equals(userAccount.getPassword()) && loginScreen.getUsernameInput().equals(userAccount.getUsername())) {
->>>>>>> .r293
 				mainFrame.swapToMainScreenCard();
-<<<<<<< .mine
 			}
-		
-=======
-			}
->>>>>>> .r293
 		}
-		
 		//Log action
 		//Swap Card
 		//Set account clearance level
