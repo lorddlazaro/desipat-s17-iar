@@ -41,14 +41,14 @@ public class Person extends TableEntry{
 			values.add(String.valueOf(getID()));
 			values.add(getFirstName());
 			values.add(String.valueOf(getMiddleInitial()));
-			values.add(getFirstName());
+			values.add(getLastName());//values.add(getFirstName());
 		}
 		if (values.size() != 4) {
 			values = new ArrayList<String>();
 			values.add(String.valueOf(getID()));
 			values.add(getFirstName());
 			values.add(String.valueOf(getMiddleInitial()));
-			values.add(getFirstName());
+			values.add(getLastName());//values.add(getFirstName());
 		}
 		return values;
 	}
