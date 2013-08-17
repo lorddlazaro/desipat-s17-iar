@@ -54,7 +54,7 @@ public class MainScreen extends Screen{
 	private JButton btnViewAssets;
 	private JButton btnManageAccounts;
 	private JButton btnViewLogs;
-	private UserAccount currentUser;
+	private static UserAccount currentUser;
 	
 	public MainScreen(MainScreenBehaviourStrategy behaviour) {
 		this.behaviour = behaviour;
@@ -164,6 +164,7 @@ public class MainScreen extends Screen{
 				behaviour.gotoAdminScreen();
 				
 			}});
+		
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(60, 179, 113));
 		btnManageAccounts.setBounds(492, 0, 140, 50);
@@ -181,6 +182,7 @@ public class MainScreen extends Screen{
 			}
 			
 		});
+		
 		btnViewLogs.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewLogs.setBackground(new Color(238, 232, 170));
 		btnViewLogs.setBounds(632, 0, 140, 50);
@@ -207,17 +209,15 @@ public class MainScreen extends Screen{
 		
 		adminCard = new AdminScreenBehavior().getView();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
-		
-		
-		
+			
 		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
 	
-	public void setCurrentUser(UserAccount userAccount){
-		this.currentUser = userAccount;
+	public static void setCurrentUser(UserAccount userAccount){
+		currentUser = userAccount;
 	}
-	public UserAccount getCurrentUser(){
+	public static UserAccount getCurrentUser(){
 		return currentUser;
 	}
 	
