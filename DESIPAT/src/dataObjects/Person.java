@@ -38,6 +38,14 @@ public class Person extends TableEntry{
 	public ArrayList<String> getValues() {
 		if(values == null){
 			values = new ArrayList<String>();
+			values.add(String.valueOf(getID()));
+			values.add(getFirstName());
+			values.add(String.valueOf(getMiddleInitial()));
+			values.add(getFirstName());
+		}
+		if (values.size() != 4) {
+			values = new ArrayList<String>();
+			values.add(String.valueOf(getID()));
 			values.add(getFirstName());
 			values.add(String.valueOf(getMiddleInitial()));
 			values.add(getFirstName());
