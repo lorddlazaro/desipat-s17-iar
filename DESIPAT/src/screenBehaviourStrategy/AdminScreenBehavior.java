@@ -31,6 +31,8 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 
 	AdminScreen myScreen;
 	
+	private boolean makingNewUser = false;
+	
 	public AdminScreenBehavior() {
 		myScreen = new AdminScreen(this);
 		fillClearance();
@@ -107,8 +109,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			String middleInit = myScreen.getMiddleInitTextField().getText();
 			String lastName = myScreen.getLastNameTextField().getText();
 			
-			if (myScreen.getUserTable().getSelectedRow() == -1) {
-				System.out.println("new person");
+			if (makingNewUser) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 				
 				if (p != null) {
@@ -123,12 +124,13 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 				UserAccountTable.getInstance().addEntry(u);
 			}
 			else {
-				System.out.println("update person");
-				selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
+				if (myScreen.getUserTable().getSelectedRow() != -1)
+					selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
 				UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
 				Person p = PersonTable.getInstance().getEntry(u.getPersonID());
 				
-				if (p == null) {
+				if (p == null) { // person not in list f persons, new person
+					System.out.println("new person");
 					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
 					PersonTable.getInstance().addEntry(p);
 					
@@ -136,8 +138,11 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
 					u.setPersonID(p.getID());
+					
 				}
 				else if (PersonTable.getInstance().getEntry(firstName, middleInit, lastName) == null) {
+					// person in list of persons but name was changed
+					System.out.println("update person");
 					p.setFirstName(firstName);
 					p.setMiddleInitial(middleInit.charAt(0));
 					p.setLastName(lastName);
@@ -148,17 +153,18 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
 				}
-				else {
+				else { // person not changed at all
+					System.out.println("nothing person");
 					p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 					
 					u.setUsername(username);
 					u.setPassword(password);
 					u.setClearanceID(clearanceID);
-					u.setPersonID(p.getID());
 				}
 				
 				UserAccountTable.getInstance().editEntry(u);
 			}
+			makingNewUser = false;
 			myScreen.refreshScreen();
 		}
 	}
