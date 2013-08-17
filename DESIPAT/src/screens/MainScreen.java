@@ -16,6 +16,7 @@ import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
+import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 
 
@@ -53,6 +54,7 @@ public class MainScreen extends Screen{
 	private JButton btnViewAssets;
 	private JButton btnManageAccounts;
 	private JButton btnViewLogs;
+	private UserAccount currentUser;
 	
 	public MainScreen(MainScreenBehaviourStrategy behaviour) {
 		this.behaviour = behaviour;
@@ -211,6 +213,14 @@ public class MainScreen extends Screen{
 		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
+	
+	public void setCurrentUser(UserAccount userAccount){
+		this.currentUser = userAccount;
+	}
+	public UserAccount getCurrentUser(){
+		return currentUser;
+	}
+	
 	
 	public void refresh(){}
 	
