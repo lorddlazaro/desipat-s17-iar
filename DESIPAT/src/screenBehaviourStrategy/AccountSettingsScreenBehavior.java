@@ -1,10 +1,11 @@
 package screenBehaviourStrategy;
 
+import dataObjects.UserAccount;
 import screens.AccountSettingsScreen;
 
 public class AccountSettingsScreenBehavior implements AccountSettingsScreenBehaviourStrategy{
 	private AccountSettingsScreen myScreen;
-	
+
 	public AccountSettingsScreenBehavior(AccountSettingsScreen s) {
 		myScreen = s;
 	}
@@ -22,7 +23,7 @@ public class AccountSettingsScreenBehavior implements AccountSettingsScreenBehav
 			myScreen.getSaveDetailsButton().setVisible(true);
 		}
 		else {
-			//myScreen.InitSettings();
+			myScreen.initSettings();
 		}
 
 	}
