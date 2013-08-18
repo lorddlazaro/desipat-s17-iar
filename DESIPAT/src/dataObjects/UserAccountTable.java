@@ -91,6 +91,13 @@ public class UserAccountTable extends TableSubject{
 		statement.executeStatement();	
 	}
 	
+	public boolean checkForUser(Person p) {
+		for (UserAccount user:userList) 
+			if (user.getPersonID() == p.getID())
+				return false;
+		return true;
+	}
+	
 	public ArrayList<UserAccount> getAllEntries() {
 		return userList;
 	}
