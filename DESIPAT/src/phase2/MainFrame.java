@@ -6,6 +6,8 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import actionLogger.ActionLogOut;
+
 import screenBehaviourStrategy.LoginScreenBehaviour;
 import screenBehaviourStrategy.MainScreenBehaviour;
 import screens.LoginScreen;
@@ -36,6 +38,17 @@ public class MainFrame extends JFrame {
 		
 		mainScreen = new MainScreenBehaviour(this).getView();
 		contentPane.add(mainScreen, MAIN_SCREEN);
+		
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if (MainScreen.getCurrentUser() != null){
+		        	ActionLogOut action = new ActionLogOut(MainScreen.getCurrentUser().getID());
+		    		action.logAction();
+		        }
+		        System.exit(0);
+		    }
+		});
 	}
 
 	public void swapToLoginScreenCard(){

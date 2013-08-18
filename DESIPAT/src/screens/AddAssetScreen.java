@@ -14,6 +14,11 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.SystemColor;
 
 import dataObjects.Asset;
+import dataObjects.Classification;
+import dataObjects.ClassificationLookUpTable;
+import dataObjects.Maintenance;
+import dataObjects.MaintenanceLookUpTable;
+import fields.ComboBoxInput;
 import fields.DateInput;
 import fields.TextInput;
 import fields.SliderInput;
@@ -50,7 +55,9 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	AssetScreenBehaviorStrategy behaviour;
 	
 	protected TextInput assetName;
+	protected ComboBoxInput classification;
 	protected DateInput dateAcquired;
+	protected ComboBoxInput maintenance;
 	protected TextInput financialValue;
 	protected SliderInput confidentialityValue;
 	protected SliderInput integrityValue;
@@ -81,25 +88,26 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		assetName.setBounds(60, 80, 200, 25);
 		add(assetName);
 		
-		JLabel lblClassification = new JLabel("Classification");
-		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblClassification.setBounds(62, 143, 88, 14);
-		add(lblClassification);
-		
-		cbxClassification = new JComboBox();
-		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
-		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxClassification.setBounds(201, 141, 156, 20);
-		add(cbxClassification);
+		classification = new ComboBoxInput("Classification");
+		ArrayList<String> items = new ArrayList<String>();
+		for(Classification classification : ClassificationLookUpTable.getInstance().getAllEntries())
+			items.add(classification.getClassification());
+		classification.insertList(items);
+		classification.setBounds(60, 140, 300, 25);
+		add(classification);
 		
 		dateAcquired = new DateInput("DateAquired");
 		dateAcquired.setBounds(60, 180, 350, 30);
 		add(dateAcquired);
 		
-		JLabel lblMaintenanceSchedule = new JLabel("Maintenance Schedule");
-		lblMaintenanceSchedule.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblMaintenanceSchedule.setBounds(62, 407, 148, 14);
-		add(lblMaintenanceSchedule);
+		maintenance = new ComboBoxInput("Maintenance");
+		ArrayList<String> items2 = new ArrayList<String>();
+		for(Maintenance maintenance : MaintenanceLookUpTable.getInstance().getAllEntries())
+			items2.add(maintenance.getMaintenance());
+		maintenance.insertList(items);
+		maintenance.setBounds(60, 410, 300, 25);
+		add(maintenance);
+		
 		
 		JLabel lblValue = new JLabel("Value");
 		lblValue.setFont(new Font("Calibri", Font.PLAIN, 18));
@@ -141,12 +149,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblStorageLocation.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblStorageLocation.setBounds(62, 368, 100, 14);
 		add(lblStorageLocation);
-		
-		cbxMaintenance = new JComboBox();
-		cbxMaintenance.setModel(new DefaultComboBoxModel(new String[] {"Daily", "Weekly", "Monthly", "Yearly"}));
-		cbxMaintenance.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxMaintenance.setBounds(201, 405, 156, 20);
-		add(cbxMaintenance);
 		
 		cbxType = new JComboBox();
 		getCbxType().setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -227,7 +229,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				//panelNewItem.setName("Add Storage");
 				panelNewItem.setBounds(447, 248, 315, 137);
 				add(panelNewItem);
-				
 			}
 		});
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
