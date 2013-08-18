@@ -4,6 +4,9 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
+import actionLogger.ActionLogIn;
+import actionLogger.ActionLogOut;
+
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 import screens.MainScreen;
@@ -53,6 +56,8 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 
 	public void logout() {
 		this.gotoGreetingScreen();
+		ActionLogOut action = new ActionLogOut(MainScreen.getCurrentUser().getID());
+		action.logAction();
 		mainFrame.swapToLoginScreenCard();
 	}
 
