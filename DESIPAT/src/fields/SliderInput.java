@@ -26,15 +26,12 @@ public class SliderInput extends AbstractInputField{
 		sliderField = new JSlider();
 		add(sliderField);
 	}
-	
 	protected void clearInput(){
 		sliderField.setValue(1);
 	}
-	
 	public void setInput(String toSet) {
 		sliderField.setValue(Integer.parseInt(toSet));
 	}
-	
 	public String getInput() {
 		return sliderField.getValue() + "";
 	}

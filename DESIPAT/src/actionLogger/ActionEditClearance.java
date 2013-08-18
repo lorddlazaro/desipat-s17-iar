@@ -9,12 +9,5 @@ public class ActionEditClearance extends ActionLogger{
 		
 		log.setActionHeaderID(3);
 		log.setActionDesc("Changed Clearance Level");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

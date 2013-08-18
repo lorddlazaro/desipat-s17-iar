@@ -41,6 +41,7 @@ public abstract class AbstractInputField extends JPanel {
 		clearInput();
 		errorMessage.setText("");
 	}
+	
 	protected abstract void addFields();
 	protected abstract void clearInput();
 	public abstract void setInput(String toSet);

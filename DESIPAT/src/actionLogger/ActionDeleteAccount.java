@@ -9,12 +9,5 @@ public class ActionDeleteAccount extends ActionLogger{
 		
 		log.setActionHeaderID(4);
 		log.setActionDesc("Deleted Account " + username);
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

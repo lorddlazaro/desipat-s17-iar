@@ -9,12 +9,5 @@ public class ActionCreateAccount extends ActionLogger{
 		
 		log.setActionHeaderID(5);
 		log.setActionDesc("Created Account " + username);
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

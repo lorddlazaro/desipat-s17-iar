@@ -1,7 +1,9 @@
 package screenBehaviourStrategy;
 
+import actionLogger.ActionLogIn;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
+import dbHandler.NonQuery;
 import phase2.MainFrame;
 import screens.LoginScreen;
 import screens.MainScreen;
@@ -27,6 +29,8 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 			if(loginScreen.getUsernameInput().equals(userAccount.getUsername()))
 				if(loginScreen.getPasswordInput().equals(userAccount.getPassword())){
 					MainScreen.setCurrentUser(userAccount);
+					ActionLogIn action = new ActionLogIn(userAccount.getID());
+					action.logAction();
 					mainFrame.swapToMainScreenCard();
 					return;
 				}

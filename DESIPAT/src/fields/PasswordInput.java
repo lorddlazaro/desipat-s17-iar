@@ -21,7 +21,7 @@ public class PasswordInput extends AbstractInputField{
 		passwordField.addActionListener(myListener);
 	}
 	
-	public void addFields() {
+	protected void addFields() {
 		passwordField = new JPasswordField();
 		this.add(passwordField);
 	}

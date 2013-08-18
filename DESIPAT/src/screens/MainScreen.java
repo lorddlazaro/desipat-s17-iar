@@ -34,7 +34,7 @@ public class MainScreen extends Screen{
 	private MainScreenBehaviourStrategy behaviour;
 	
 	private JLabel lblGreeting;
-	private JLabel lblUsername;
+	private JLabel lblCurrentUser;
 	private JLabel lblLastLogin;
 	private JButton btnAccountSettings;
 	private JButton btnLogOut;
@@ -71,16 +71,10 @@ public class MainScreen extends Screen{
 		lblGreeting.setFont(new Font("Calibri", Font.PLAIN, 16));
 		add(lblGreeting);
 		
-		lblUsername = new JLabel("user");
-		lblUsername.setBounds(54, 16, 191, 14);
-		lblUsername.setFont(new Font("Calibri", Font.BOLD, 18));
-		add(lblUsername);
-		
-		lblLastLogin = new JLabel("Last Login:");
-		lblLastLogin.setBounds(330, 16, 198, 14);
-		lblLastLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLastLogin.setFont(new Font("Calibri", Font.PLAIN, 14));
-		add(lblLastLogin);
+		lblCurrentUser = new JLabel("user");
+		lblCurrentUser.setBounds(54, 16, 191, 14);
+		lblCurrentUser.setFont(new Font("Calibri", Font.BOLD, 18));
+		add(lblCurrentUser);
 		
 		btnAccountSettings = new JButton("Account Settings");
 		
@@ -213,16 +207,19 @@ public class MainScreen extends Screen{
 	public static void setCurrentUser(UserAccount userAccount){
 		currentUser = userAccount;
 	}
+	public void changeCurrentUserLabel(){
+		this.lblCurrentUser.setText(currentUser.getUsername());
+	}
 	public static UserAccount getCurrentUser(){
 		return currentUser;
 	}
 	
 	public void refresh(){
+		changeCurrentUserLabel();
 		accountSettingsCard.setCurrentUser();
 	}
 	
 	public JPanel getCardPanel(){
 		return cardPanel;
 	}
-	
 }

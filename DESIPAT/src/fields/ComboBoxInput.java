@@ -13,13 +13,12 @@ class ComboBoxInput extends AbstractInputField{
 		fieldLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
 	}
 	
-	public void addFields() {
+	protected void addFields() {
 		myField = new JComboBox<String>();
 		this.add(myField);
 	}
 	protected void clearInput() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void setInput(String toSet) {
@@ -29,6 +28,4 @@ class ComboBoxInput extends AbstractInputField{
 	public String getInput() {
 		return myField.getSelectedItem().toString();
 	}
-
-	
 }
