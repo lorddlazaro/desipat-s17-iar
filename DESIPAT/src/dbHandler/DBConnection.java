@@ -18,6 +18,8 @@ public class DBConnection {
             conn = DriverManager.getConnection(url, username, password);
         }
         catch (Exception e) {
+        	JOptionPane.showMessageDialog(null, "Cannot connect to database.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        	System.exit(1);
         }
 	}
 	
