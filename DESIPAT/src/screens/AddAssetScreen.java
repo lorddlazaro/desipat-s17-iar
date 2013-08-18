@@ -2,55 +2,28 @@ package screens;
 import screenBehaviourStrategy.AddTypeScreenBehavior;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JSlider;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.JCheckBox;
 import java.awt.SystemColor;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-
-import screens.EditAssetScreen;
-import screens.AddPersonScreen;
 
 import dataObjects.Asset;
+import fields.DateInput;
+import fields.TextInput;
+import fields.SliderInput;
 
-import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AddPersonScreenBehaviour;
 import screenBehaviourStrategy.AddStorageScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
-import screenBehaviourStrategy.EditAssetScreenBehavior;
-
 
 public class AddAssetScreen extends JPanel implements TableObserver {
-	private JTextField txtName;
-	protected JTextField txtFinancial;
-	protected JSlider sldConfidentiality;
-	protected JSlider sldIntegrity;
-	protected JSlider sldAvailability;
-	protected JComboBox cbxMonth;
-	protected JComboBox cbxDay;
-	protected JComboBox cbxYear;
+
 	protected JComboBox cbxType;
 	protected JComboBox cbxStorage;
 	protected JComboBox cbxClassification;
@@ -73,10 +46,17 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	private JButton btnNewItemSave;
 	private JButton btnNewItemCancel;*/
 	protected JLabel lblAddNewAsset;
-	
-	private DateFormat dateFormat;
 
 	AssetScreenBehaviorStrategy behaviour;
+	
+	protected TextInput assetName;
+	protected DateInput dateAcquired;
+	protected TextInput financialValue;
+	protected SliderInput confidentialityValue;
+	protected SliderInput integrityValue;
+	protected SliderInput availabilityValue;
+	
+	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public AddAssetScreen(AssetScreenBehaviorStrategy behaviour){
 		this.behaviour=behaviour;
@@ -84,8 +64,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	}
 	
 	public void initialize() {
-		//behaviour=new AddAssetScreenBehavior();
-		dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
@@ -99,35 +77,24 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblBasicInformation.setBounds(42, 51, 168, 14);
 		add(lblBasicInformation);
 		
-		JLabel lblName = new JLabel("Name");
-		lblName.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblName.setBounds(62, 79, 46, 14);
-		add(lblName);
+		assetName = new TextInput("Name");
+		assetName.setBounds(60, 80, 200, 25);
+		add(assetName);
 		
 		JLabel lblClassification = new JLabel("Classification");
 		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblClassification.setBounds(62, 143, 88, 14);
 		add(lblClassification);
 		
-		JLabel lblDateAcquired = new JLabel("Date Acquired");
-		lblDateAcquired.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblDateAcquired.setBounds(62, 182, 88, 14);
-		add(lblDateAcquired);
+		cbxClassification = new JComboBox();
+		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
+		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxClassification.setBounds(201, 141, 156, 20);
+		add(cbxClassification);
 		
-		JLabel lblMonth = new JLabel("Month");
-		lblMonth.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblMonth.setBounds(186, 201, 46, 14);
-		add(lblMonth);
-		
-		JLabel lblDay = new JLabel("Day");
-		lblDay.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblDay.setBounds(272, 201, 32, 14);
-		add(lblDay);
-		
-		JLabel lblYear = new JLabel("Year");
-		lblYear.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblYear.setBounds(329, 201, 46, 14);
-		add(lblYear);
+		dateAcquired = new DateInput("DateAquired");
+		dateAcquired.setBounds(60, 180, 350, 30);
+		add(dateAcquired);
 		
 		JLabel lblMaintenanceSchedule = new JLabel("Maintenance Schedule");
 		lblMaintenanceSchedule.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -139,26 +106,22 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblValue.setBounds(418, 51, 46, 14);
 		add(lblValue);
 		
-		JLabel lblFinancial = new JLabel("Financial");
-		lblFinancial.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblFinancial.setBounds(446, 79, 88, 14);
-		add(lblFinancial);
+		financialValue = new TextInput("Financial");
+		financialValue.setBounds(430, 80, 300, 25);
+		add(financialValue);
 		
-		JLabel lblConfidentiality = new JLabel("Confidentiality");
-		lblConfidentiality.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblConfidentiality.setBounds(446, 109, 99, 14);
-		add(lblConfidentiality);
+		confidentialityValue = new SliderInput("Confidentiality");
+		confidentialityValue.setBounds(430, 110, 350, 40);
+		add(confidentialityValue);	
 		
-		JLabel lblIntegrity = new JLabel("Integrity");
-		lblIntegrity.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblIntegrity.setBounds(446, 140, 99, 14);
-		add(lblIntegrity);
+		integrityValue = new SliderInput("Integrity");
+		integrityValue.setBounds(430, 155, 350, 40);
+		add(integrityValue);	
 		
-		JLabel lblAvailability = new JLabel("Availability");
-		lblAvailability.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblAvailability.setBounds(446, 172, 99, 14);
-		add(lblAvailability);
-		
+		availabilityValue = new SliderInput("Availability");
+		availabilityValue.setBounds(430, 210, 350, 40);
+		add(availabilityValue);
+
 		JLabel lblType = new JLabel("Type");
 		lblType.setFont(new Font("Calibri", Font.PLAIN, 14));
 		lblType.setBounds(62, 328, 46, 14);
@@ -179,93 +142,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		lblStorageLocation.setBounds(62, 368, 100, 14);
 		add(lblStorageLocation);
 		
-		txtName = new JTextField();
-		txtName.setFont(new Font("Calibri", Font.PLAIN, 12));
-		txtName.setBounds(201, 77, 156, 20);
-		add(txtName);
-		txtName.setColumns(10);
-		
-		txtFinancial = new JTextField();
-		txtFinancial.setFont(new Font("Calibri", Font.PLAIN, 12));
-		txtFinancial.setBounds(555, 77, 192, 20);
-		add(txtFinancial);
-		txtFinancial.setColumns(10);
-		
-		cbxClassification = new JComboBox();
-		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
-		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxClassification.setBounds(201, 141, 156, 20);
-		add(cbxClassification);
-		
-		cbxMonth = new JComboBox();
-		//cbxMonth.addItemListener(new ItemListener() ;
-		cbxMonth.setModel(new DefaultComboBoxModel(new String[] {"January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"}));
-		cbxMonth.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxMonth.setBounds(183, 182, 88, 20);
-		add(cbxMonth);
-		
-		cbxDay = new JComboBox();
-		ArrayList <String> dayList=new ArrayList<String>();
-		for (int i = 1; i <= 31; i++)
-			dayList.add(i+"");
-		String[]days=dayList.toArray(new String[dayList.size()]);
-		cbxDay.setModel(new DefaultComboBoxModel(days));
-		cbxDay.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxDay.setBounds(272, 182, 55, 20);
-		add(cbxDay);
-		
-		cbxYear = new JComboBox();
-		
-		ArrayList<String>yearList=new ArrayList<String>();
-		for(int year=1970;year<=2050;year++)
-		{
-			yearList.add(year+"");
-		}
-		String[] years=yearList.toArray(new String[yearList.size()]);
-		cbxYear.setModel(new DefaultComboBoxModel(years));
-		cbxYear.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxYear.setBounds(328, 182, 64, 20);
-		add(cbxYear);
-		
 		cbxMaintenance = new JComboBox();
 		cbxMaintenance.setModel(new DefaultComboBoxModel(new String[] {"Daily", "Weekly", "Monthly", "Yearly"}));
 		cbxMaintenance.setFont(new Font("Calibri", Font.PLAIN, 12));
 		cbxMaintenance.setBounds(201, 405, 156, 20);
 		add(cbxMaintenance);
-		
-		sldConfidentiality = new JSlider();
-		sldConfidentiality.setBackground(SystemColor.inactiveCaption);
-		sldConfidentiality.setPaintTicks(true);
-		sldConfidentiality.setMajorTickSpacing(1);
-		sldConfidentiality.setMinimum(1);
-		sldConfidentiality.setMaximum(5);
-		sldConfidentiality.setValue(0);
-		sldConfidentiality.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldConfidentiality.setBounds(555, 107, 195, 29);
-		add(sldConfidentiality);
-		
-		sldIntegrity = new JSlider();
-		sldIntegrity.setBackground(SystemColor.inactiveCaption);
-		sldIntegrity.setPaintTicks(true);
-		sldIntegrity.setMajorTickSpacing(1);
-		sldIntegrity.setMinimum(1);
-		sldIntegrity.setValue(0);
-		sldIntegrity.setMaximum(5);
-		sldIntegrity.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldIntegrity.setBounds(555, 137, 195, 29);
-		add(sldIntegrity);
-		
-		sldAvailability = new JSlider();
-		sldAvailability.setBackground(SystemColor.inactiveCaption);
-		sldAvailability.setPaintLabels(true);
-		sldAvailability.setPaintTicks(true);
-		sldAvailability.setMajorTickSpacing(1);
-		sldAvailability.setMinimum(1);
-		sldAvailability.setValue(0);
-		sldAvailability.setMaximum(5);
-		sldAvailability.setFont(new Font("Calibri", Font.PLAIN, 12));
-		sldAvailability.setBounds(555, 168, 195, 47);
-		add(sldAvailability);
 		
 		cbxType = new JComboBox();
 		getCbxType().setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -281,8 +162,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		getCbxCustodian().setFont(new Font("Calibri", Font.PLAIN, 12));
 		getCbxCustodian().setBounds(201, 287, 156, 20);
 		add(getCbxCustodian());
-		
-		
 		
 		cbxStorage=new JComboBox();
 		getCbxStorage().setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -363,12 +242,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				
 				Asset a =null;
 		
-				String dateAcquired = cbxYear.getSelectedItem() +"-" + (cbxMonth.getSelectedIndex()+1) + "-" + cbxDay.getSelectedItem();
 				System.out.println("ZSKFJGASHGAJSHGKJAH");
 				try {
 					/*java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
 					System.out.println(sqlDate.getTime());*/
-					a =new Asset(txtName.getText(), cbxOwner.getSelectedIndex()+1,cbxCustodian.getSelectedIndex()+1,cbxType.getSelectedIndex()+1,cbxMaintenance.getSelectedIndex()+1,cbxClassification.getSelectedIndex()+1,cbxStorage.getSelectedIndex()+1,1 , dateAcquired, Double.parseDouble(txtFinancial.getText()),sldConfidentiality.getValue(),sldIntegrity.getValue(),sldAvailability.getValue());
+					a =new Asset(assetName.getInput(), cbxOwner.getSelectedIndex()+1,cbxCustodian.getSelectedIndex()+1,cbxType.getSelectedIndex()+1,cbxMaintenance.getSelectedIndex()+1,cbxClassification.getSelectedIndex()+1,cbxStorage.getSelectedIndex()+1,1 , dateAcquired.getInput(), Double.parseDouble(financialValue.getInput()),Integer.parseInt(confidentialityValue.getInput()),Integer.parseInt(integrityValue.getInput()),Integer.parseInt(availabilityValue.getInput()));
 					//System.out.println("Asset maint: "+a.getMaintID());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block
@@ -451,8 +329,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	}
 	
 	public void refresh(){
-		
-		//update comboboxes
 		behaviour.fillBoxes();
 	}
 
