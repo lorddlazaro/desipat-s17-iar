@@ -102,4 +102,20 @@ public class PersonTable extends TableSubject{
 				return person;
 		return null;
 	}
+	
+	public ArrayList<Person> getPersonsWithNoAccount() {
+		ArrayList<Person> person = new ArrayList<Person>();
+		
+		for (int i = 0; i < personList.size(); i++)
+			person.add(personList.get(i));
+		
+		for(UserAccount u: UserAccountTable.getInstance().getAllEntries()) {
+			for (int i = 0; i < person.size(); i++) {
+				if (person.get(i).getID() == u.getPersonID())
+					person.remove(i);
+			}
+		}
+
+		return person;
+	}
 }

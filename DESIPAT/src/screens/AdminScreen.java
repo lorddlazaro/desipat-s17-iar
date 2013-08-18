@@ -318,6 +318,7 @@ public class AdminScreen extends JPanel {
 
 	public void refreshScreen() {
 		myBehavior.fillTable();
+		myBehavior.fillClearance();
 		
 		usernameTextField.setEditable(false);
 		usernameTextField.setBackground(Color.WHITE);
