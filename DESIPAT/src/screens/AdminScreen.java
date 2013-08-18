@@ -318,8 +318,7 @@ public class AdminScreen extends JPanel {
 
 	public void refreshScreen() {
 		myBehavior.fillTable();
-		myBehavior.fillClearance();
-		
+				
 		usernameTextField.setEditable(false);
 		usernameTextField.setBackground(Color.WHITE);
 		passwordTextField.setEditable(false);
@@ -380,5 +379,9 @@ public class AdminScreen extends JPanel {
 
 	public void personAlreadyExists() {
 		JOptionPane.showMessageDialog(null, "The person you tried to add to the account already exists.", "Error", JOptionPane.WARNING_MESSAGE);
+	}
+
+	public void showErrorNoSelectedUser() {
+		JOptionPane.showMessageDialog(null, "Please select a person on the table before editing.", "Error", JOptionPane.WARNING_MESSAGE);
 	}
 }
