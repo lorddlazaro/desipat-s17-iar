@@ -57,10 +57,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		myScreen.getSelectExistingComboBox().removeAllItems();
 		myScreen.getSelectExistingComboBox().addItem("");
 		
-		Query stmt = new SelectRemainingPersons();
-		stmt.executeStatement();
-		
-		ArrayList<Person> list = stmt.getResultList();
+		ArrayList<Person> list = PersonTable.getInstance().getPersonsWithNoAccount();
 		
 		for (int i = 0; i < list.size(); i++)
 			myScreen.getSelectExistingComboBox().addItem(list.get(i).getFirstName() + " " + list.get(i).getMiddleInitial() + ". " + list.get(i).getLastName());
@@ -112,7 +109,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			if (makingNewUser) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 				
-				if (p != null) {
+				if (!UserAccountTable.getInstance().checkForUser(p)) {
 					myScreen.personAlreadyExists();
 					return;
 				}
