@@ -320,13 +320,18 @@ public class AdminScreen extends JPanel {
 		myBehavior.fillTable();
 		
 		usernameTextField.setEditable(false);
+		usernameTextField.setBackground(Color.WHITE);
 		passwordTextField.setEditable(false);
+		passwordTextField.setBackground(Color.WHITE);
 		clearanceComboBox.setEnabled(false);
 		selectExistingComboBox.setEnabled(false);
 		firstNameTextField.setEditable(false);
+		firstNameTextField.setBackground(Color.WHITE);
 		middleInitTextField.setEditable(false);
+		middleInitTextField.setBackground(Color.WHITE);
 		lastNameTextField.setEditable(false);
-		
+		lastNameTextField.setBackground(Color.WHITE);
+			
 		changeDetailsButton.setText("Change Details");
 		
 		this.validate();
