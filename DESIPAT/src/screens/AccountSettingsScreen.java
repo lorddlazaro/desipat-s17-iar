@@ -266,14 +266,19 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		changeNameButton.setText("Update Name");
 		
 		passwordField.setEditable(false);
+		passwordField.setBackground(Color.WHITE);
 		getNewPasswordField().setVisible(false);
+		newPasswordField.setBackground(Color.WHITE);
 		newPasswordLabel.setVisible(false);
 		saveDetailsButton.setVisible(false);
 		
 		nameLabel.setText(currUser.getPersonName());
 		firstNameTextField.setText(currUser.getPersonFirstName());
+		firstNameTextField.setBackground(Color.WHITE);
 		middleInitialTextField.setText(currUser.getPersonMiddleName() + "");
+		middleInitialTextField.setBackground(Color.WHITE);
 		lastNameTextField.setText(currUser.getPersonLastName());
+		lastNameTextField.setBackground(Color.WHITE);
 		
 		firstNameLabel.setVisible(false);
 		middleInitLabel.setVisible(false);
