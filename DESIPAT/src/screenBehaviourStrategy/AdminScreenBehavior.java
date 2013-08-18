@@ -71,9 +71,9 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			return;
 		
 		int selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
-		
-		NonQuery stmt = new DeleteUser(selectedUserID);
-		stmt.executeStatement();
+		UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
+		UserAccountTable.getInstance().deleteEntry(u);
+		System.out.println("deleted user");
 		myScreen.refreshScreen();
 
 		myScreen.getUsernameTextField().setText("");
