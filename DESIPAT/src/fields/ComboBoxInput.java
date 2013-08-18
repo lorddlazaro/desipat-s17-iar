@@ -1,31 +1,50 @@
 package fields;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
-class ComboBoxInput extends AbstractInputField{
-	JComboBox<String> myField;
+public class ComboBoxInput extends AbstractInputField{
+	JComboBox<String> comboBoxField;
+	
+	/*
+	 * JLabel lblClassification = new JLabel("Classification");
+		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
+		lblClassification.setBounds(62, 143, 88, 14);
+		add(lblClassification);
+		
+		cbxClassification = new JComboBox();
+		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
+		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
+		cbxClassification.setBounds(201, 141, 156, 20);
+		add(cbxClassification);
+	 */
 	
 	public ComboBoxInput(String name) {
 		super(name);
 		
-		fieldLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
+		comboBoxField.setFont(new Font("Calibri", Font.PLAIN, 12));
+	}
+	public void insertList(ArrayList<String> items){
+		for(String item : items){
+			comboBoxField.addItem(item);
+		}
 	}
 	
 	protected void addFields() {
-		myField = new JComboBox<String>();
-		this.add(myField);
+		comboBoxField = new JComboBox<String>();
+		this.add(comboBoxField);
 	}
 	protected void clearInput() {
 		// TODO Auto-generated method stub
 	}
-	
 	public void setInput(String toSet) {
-		myField.setSelectedItem(toSet);
+		comboBoxField.setSelectedItem(toSet);
 	}
-	
 	public String getInput() {
-		return myField.getSelectedItem().toString();
+		return comboBoxField.getSelectedItem().toString();
 	}
 }

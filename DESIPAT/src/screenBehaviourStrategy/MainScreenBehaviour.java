@@ -58,6 +58,7 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 		this.gotoGreetingScreen();
 		ActionLogOut action = new ActionLogOut(MainScreen.getCurrentUser().getID());
 		action.logAction();
+		MainScreen.setCurrentUser(null);
 		mainFrame.swapToLoginScreenCard();
 	}
 
