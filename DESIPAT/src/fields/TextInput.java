@@ -10,8 +10,6 @@ public class TextInput extends AbstractInputField {
 	
 	public TextInput(String name) {
 		super(name);
-		
-		fieldLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
 
 		textField.setFont(new Font("Calibri", Font.PLAIN, 16));
 		textField.setColumns(10);

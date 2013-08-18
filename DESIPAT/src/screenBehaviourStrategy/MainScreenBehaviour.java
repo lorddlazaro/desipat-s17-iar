@@ -24,6 +24,12 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 	public MainScreen getView(){
 		return mainScreen;
 	}
+	
+
+	public void gotoGreetingScreen() {
+		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
+		cl.show(mainScreen.getCardPanel(), mainScreen.GREETING_SCREEN);
+	}
 
 	public void gotoViewAssetScreen() {
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
@@ -46,7 +52,7 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 	}
 
 	public void logout() {
-		
+		this.gotoGreetingScreen();
 		mainFrame.swapToLoginScreenCard();
 	}
 
