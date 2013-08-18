@@ -213,7 +213,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		myScreen.getLastNameTextField().setText(lastName);
 	}
 	
-	public JPanel getView() {
+	public AdminScreen getView() {
 		return myScreen;
 	}
 
