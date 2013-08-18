@@ -2,6 +2,7 @@ package dataObjects;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+
 public class ActionLog  extends TableEntry{
 	public final static int USERID_INDEX = 1;
 	public final static int ACTIONDATE_INDEX = 2;

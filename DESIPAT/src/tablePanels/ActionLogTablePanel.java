@@ -1,5 +1,7 @@
 package tablePanels;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.ScrollPaneConstants;
@@ -27,12 +29,15 @@ public class ActionLogTablePanel extends TablePanel{
 		model.addColumn("Header");
 		model.addColumn("Description");
 		
+		DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat time = new SimpleDateFormat("hh:mm");
+		
 		for(ActionLog actionLog : ActionLogTable.getInstance().getAllEntries()){
 			Vector<Object> row = new Vector<Object>();
 			
 			row.add(actionLog.getUser().getUsername());
-			row.add(actionLog.getActionDate());
-			row.add(actionLog.getActionTime());
+			row.add(date.format(actionLog.getActionDate()));
+			row.add(time.format(actionLog.getActionTime()));
 			row.add(actionLog.getActionHeader().getActionHeader());
 			row.add(actionLog.getActionDesc());
 			

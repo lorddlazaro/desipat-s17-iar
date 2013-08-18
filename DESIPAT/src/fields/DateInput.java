@@ -17,6 +17,7 @@ public class DateInput extends AbstractInputField{
 	
 	ArrayList<String> monthList = new ArrayList<String>();
 	
+	// date format: yyyy-MM-dd
 	public DateInput(String name) {
 		super(name);
 		
@@ -26,19 +27,8 @@ public class DateInput extends AbstractInputField{
 		
 		this.addItems();
 	}
-	
-	public void addFields() {
-		monthField = new JComboBox<String>();
-		this.add(monthField);
-		
-		dayField = new JComboBox<Integer>();
-		this.add(dayField);
-		
-		yearField = new JComboBox<Integer>();
-		this.add(yearField);
-	}
-	
-	public void addItems() {
+
+	private void addItems() {
 		monthList.add("January");  
 		monthList.add("February");  
 		monthList.add("March");
@@ -65,8 +55,7 @@ public class DateInput extends AbstractInputField{
 		
 		for (int i = 1990; i <= 2050; i++)
 			yearField.addItem(i);
-	}
-	
+	}	
 	private void setDay(){
 		int[] dayCount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
@@ -84,11 +73,19 @@ public class DateInput extends AbstractInputField{
 		}
 	}
 	
+	protected void addFields() {
+		monthField = new JComboBox<String>();
+		this.add(monthField);
+		
+		dayField = new JComboBox<Integer>();
+		this.add(dayField);
+		
+		yearField = new JComboBox<Integer>();
+		this.add(yearField);
+	}
 	protected void clearInput() {
 		setInput((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
 	}
-	
-	// date format: yyyy-MM-dd
 	public void setInput(String toSet) {
 		int setMonth, setDay, setYear;
 		
@@ -100,7 +97,6 @@ public class DateInput extends AbstractInputField{
 		yearField.setSelectedItem(setYear);
 		dayField.setSelectedItem(setDay);
 	}
-	
 	public String getInput() {
 		int setMonth, setDay, setYear;
 		

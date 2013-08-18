@@ -9,12 +9,5 @@ public class ActionAddAsset extends ActionLogger{
 		
 		log.setActionHeaderID(6);
 		log.setActionDesc("Added Asset " + assetName + " to registry");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

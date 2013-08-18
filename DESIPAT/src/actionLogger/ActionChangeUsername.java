@@ -9,12 +9,5 @@ public class ActionChangeUsername extends ActionLogger{
 		
 		log.setActionHeaderID(3);
 		log.setActionDesc("Changed Username");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

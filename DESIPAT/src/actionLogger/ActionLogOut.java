@@ -9,12 +9,5 @@ public class ActionLogOut extends ActionLogger{
 		
 		log.setActionHeaderID(2);
 		log.setActionDesc("Logged out");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

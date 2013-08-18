@@ -9,12 +9,5 @@ public class ActionUpdateAsset extends ActionLogger{
 		
 		log.setActionHeaderID(7);
 		log.setActionDesc("Updated Asset Fields");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }

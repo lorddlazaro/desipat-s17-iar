@@ -9,12 +9,5 @@ public class ActionEditName extends ActionLogger{
 		
 		log.setActionHeaderID(3);
 		log.setActionDesc("Corrected Name");
-		
-		this.logAction();
-	}
-
-	public void logAction() {
-		myHandler.setStatement(new NewActionLog(log));
-		myHandler.executeCommand();
 	}
 }
