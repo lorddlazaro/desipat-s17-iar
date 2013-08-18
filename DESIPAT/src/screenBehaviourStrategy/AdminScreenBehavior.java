@@ -123,6 +123,11 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			else {
 				if (myScreen.getUserTable().getSelectedRow() != -1)
 					selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
+				else {
+					myScreen.showErrorNoSelectedUser();
+					return;
+				}
+				
 				UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
 				Person p = PersonTable.getInstance().getEntry(u.getPersonID());
 				
