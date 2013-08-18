@@ -23,15 +23,14 @@ import dataObjects.UserAccountTable;
 
 public class MainScreen extends Screen{
 
+	public final String GREETING_SCREEN = "greeting";
 	public final String ACCOUNT_SETTINGS_SCREEN = "accountsetting";
 	public final String VIEW_ASSET_SCREEN = "viewasset";
 	public final String ADD_ASSET_SCREEN = "addasset";
 	public final String EDIT_ASSET_SCREEN = "editasset";
 	public final String ADMIN_SCREEN = "adminuser";
 	public final String VIEW_LOG_SCREEN = "viewlog";
-	public final String GREETING_SCREEN = "greeting";
 	
-	//private Model model;
 	private MainScreenBehaviourStrategy behaviour;
 	
 	private JLabel lblGreeting;
@@ -41,20 +40,19 @@ public class MainScreen extends Screen{
 	private JButton btnLogOut;
 	
 	private JPanel menuBar;
-	
-	private JPanel cardPanel;
-	
-	private AccountSettingsScreen accountSettingsCard;
-	private JPanel viewAssetCard;
-	private JPanel addAssetCard;
-	private JPanel editAssetCard;
-	private JPanel adminCard;
-	private JPanel viewLogsCard;
-	private JPanel greetingCard;
-	
 	private JButton btnViewAssets;
 	private JButton btnManageAccounts;
 	private JButton btnViewLogs;
+	
+	private JPanel cardPanel;
+
+	private JPanel greetingCard;
+	private AccountSettingsScreen accountSettingsCard;
+	private ViewAssetScreen viewAssetCard;
+	private AddAssetScreen addAssetCard;
+	private EditAssetScreen editAssetCard;
+	private AdminScreen adminCard;
+	private LogScreen viewLogsCard;
 	
 	private static UserAccount currentUser;
 	
@@ -86,9 +84,7 @@ public class MainScreen extends Screen{
 		
 		btnAccountSettings = new JButton("Account Settings");
 		
-		//btnAccountSettings.addActionListener(new ActionListener() {
 		btnAccountSettings.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				behaviour.gotoAccountScreen();

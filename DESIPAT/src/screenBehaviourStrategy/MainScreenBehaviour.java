@@ -46,6 +46,7 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 	}
 
 	public void logout() {
+		
 		mainFrame.swapToLoginScreenCard();
 	}
 
@@ -57,5 +58,4 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 		CardLayout cl = (CardLayout) mainScreen.getCardPanel().getLayout();
 		cl.show(mainScreen.getCardPanel(), mainScreen.EDIT_ASSET_SCREEN);		
 	}
-
 }

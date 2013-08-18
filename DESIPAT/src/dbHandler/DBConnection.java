@@ -3,6 +3,8 @@ package dbHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import javax.swing.JOptionPane;
+
 public class DBConnection {
     private String username = "root";
     private String password = "";
@@ -16,7 +18,6 @@ public class DBConnection {
             conn = DriverManager.getConnection(url, username, password);
         }
         catch (Exception e) {
-            e.printStackTrace();
         }
 	}
 	
