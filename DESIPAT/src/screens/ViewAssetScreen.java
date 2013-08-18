@@ -51,7 +51,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	private JLabel lblAvailabilityValue;
 	private JLabel lblClassification;
 	private JLabel lblStorageLocation;
-	private JTable changeLogTable;
 	
 	public ViewAssetScreen(ViewAssetScreenBehaviourStrategy behaviour) {
 		this.behavior = behaviour;
