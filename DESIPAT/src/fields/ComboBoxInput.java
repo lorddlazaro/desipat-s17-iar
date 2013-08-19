@@ -2,26 +2,15 @@ package fields;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
 public class ComboBoxInput extends AbstractInputField{
-	JComboBox<String> comboBoxField;
-	
-	/*
-	 * JLabel lblClassification = new JLabel("Classification");
-		lblClassification.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblClassification.setBounds(62, 143, 88, 14);
-		add(lblClassification);
-		
-		cbxClassification = new JComboBox();
-		cbxClassification.setModel(new DefaultComboBoxModel(new String[] {"Public", "Internal", "Sensitive", "Confidential", ""}));
-		cbxClassification.setFont(new Font("Calibri", Font.PLAIN, 12));
-		cbxClassification.setBounds(201, 141, 156, 20);
-		add(cbxClassification);
-	 */
+	protected JComboBox<String> comboBoxField;
+	protected HashMap<Integer, String> dataMap;
 	
 	public ComboBoxInput(String name) {
 		super(name);
@@ -46,5 +35,16 @@ public class ComboBoxInput extends AbstractInputField{
 	}
 	public String getInput() {
 		return comboBoxField.getSelectedItem().toString();
+	}
+	
+	public void setInputIndex(int index){
+		comboBoxField.setSelectedIndex(index);
+	}
+	public int getInputIndex(){
+		return comboBoxField.getSelectedIndex();
+	}
+	
+	public String getIDWithIndex(int Index){
+		return dataMap.get(Index);
 	}
 }
