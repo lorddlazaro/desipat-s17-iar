@@ -25,5 +25,8 @@ public class Maintenance extends TableEntry{
 			values.add(getMaintenance());
 		}
 		return values;
+	}	
+	public String toString(){
+		return this.getMaintenance();
 	}
 }

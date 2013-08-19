@@ -26,4 +26,7 @@ public class Type extends TableEntry{
 		}
 		return values;
 	}
+	public String toString(){
+		return this.getType();
+	}
 }

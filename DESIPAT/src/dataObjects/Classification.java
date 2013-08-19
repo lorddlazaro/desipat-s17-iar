@@ -26,4 +26,7 @@ public class Classification extends TableEntry{
 		}
 		return values;
 	}
+	public String toString(){
+		return this.getClassification();
+	}
 }

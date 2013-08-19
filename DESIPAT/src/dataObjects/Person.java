@@ -56,4 +56,7 @@ public class Person extends TableEntry{
 	{
 		return firstName+" "+middleInitial+". "+lastName;
 	}
+	public String toString(){
+		return this.getName();
+	}
 }

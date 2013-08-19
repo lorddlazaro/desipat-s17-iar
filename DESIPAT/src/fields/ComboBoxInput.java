@@ -8,17 +8,18 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import dataObjects.TableEntry;
+
 public class ComboBoxInput extends AbstractInputField{
-	protected JComboBox<String> comboBoxField;
-	protected HashMap<Integer, String> dataMap;
+	protected JComboBox comboBoxField;
 	
 	public ComboBoxInput(String name) {
 		super(name);
 		
 		comboBoxField.setFont(new Font("Calibri", Font.PLAIN, 12));
 	}
-	public void insertList(ArrayList<String> items){
-		for(String item : items){
+	public void insertList(ArrayList items){
+		for(Object item : items){
 			comboBoxField.addItem(item);
 		}
 	}
@@ -37,14 +38,7 @@ public class ComboBoxInput extends AbstractInputField{
 		return comboBoxField.getSelectedItem().toString();
 	}
 	
-	public void setInputIndex(int index){
-		comboBoxField.setSelectedIndex(index);
-	}
-	public int getInputIndex(){
-		return comboBoxField.getSelectedIndex();
-	}
-	
-	public String getIDWithIndex(int Index){
-		return dataMap.get(Index);
+	public TableEntry getSelectedItem(){
+		return (TableEntry) comboBoxField.getSelectedItem();
 	}
 }
