@@ -37,7 +37,7 @@ public class EditAssetScreen extends AddAssetScreen {
 	int id;
 	public EditAssetScreen(AssetScreenBehaviorStrategy behaviour, int ID) {
 		super(behaviour);
-		lblAddNewAsset.setText("Edit Asset");
+		formTitle.setText("Edit Asset");
 		refresh();
 		setID(ID);
 		// TODO Auto-generated constructor stub
