@@ -36,4 +36,7 @@ public class RetentionPeriod extends TableEntry{
 		}
 		return values;
 	}
+	public String toString(){
+		return this.getPeriodName();
+	}
 }

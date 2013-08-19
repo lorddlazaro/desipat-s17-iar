@@ -104,9 +104,9 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(assetName);
 		
 		classification = new ComboBoxInput("Classification");
-		ArrayList<String> items = new ArrayList<String>();
+		ArrayList items = new ArrayList();
 		for(Classification classification : ClassificationLookUpTable.getInstance().getAllEntries())
-			items.add(classification.getClassification());
+			items.add(classification);
 		classification.insertList(items);
 		classification.setBounds(60, 120, 300, 25);
 		add(classification);
@@ -116,9 +116,9 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(dateAcquired);
 		
 		owner = new ObjectInput("Owner");
-		ArrayList<String> items4 = new ArrayList<String>();
+		ArrayList items4 = new ArrayList();
 		for(Person person : PersonTable.getInstance().getAllEntries())
-			items4.add(person.getName());
+			items4.add(person);
 		owner.insertList(items4);
 		owner.setBounds(60, 200, 300, 25);
 		add(owner);
@@ -129,33 +129,33 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(custodian);
 		
 		type = new ObjectInput("Type");
-		ArrayList<String> items3 = new ArrayList<String>();
+		ArrayList items3 = new ArrayList();
 		for(Type type : TypeLookUpTable.getInstance().getAllEntries())
-			items3.add(type.getType());
+			items3.add(type);
 		type.insertList(items3);
 		type.setBounds(60, 280, 300, 25);
 		add(type);
 
 		storage = new ObjectInput("Storage");
-		ArrayList<String> items5 = new ArrayList<String>();
+		ArrayList items5 = new ArrayList();
 		for(Storage storage : StorageTable.getInstance().getAllEntries())
-			items5.add(storage.getStorageLocation());
+			items5.add(storage);
 		storage.insertList(items5);
 		storage.setBounds(60, 320, 300, 25);
 		add(storage);
 		
 		maintenance = new ComboBoxInput("Maintenance");
-		ArrayList<String> items2 = new ArrayList<String>();
+		ArrayList items2 = new ArrayList();
 		for(Maintenance maintenance : MaintenanceLookUpTable.getInstance().getAllEntries())
-			items2.add(maintenance.getMaintenance());
+			items2.add(maintenance);
 		maintenance.insertList(items2);
 		maintenance.setBounds(60, 360, 300, 25);
 		add(maintenance);
 		
 		period = new ComboBoxInput("Retention Period");
-		ArrayList<String> items7 = new ArrayList<String>();
+		ArrayList items7 = new ArrayList();
 		for(RetentionPeriod retentionPeriod : RetentionPeriodLookUpTable.getInstance().getAllEntries())
-			items7.add(retentionPeriod.getPeriodName());
+			items7.add(retentionPeriod);
 		period.insertList(items7);
 		period.setBounds(60, 400, 300, 25);
 		add(period);
@@ -257,7 +257,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 				try {
 					/*java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
 					System.out.println(sqlDate.getTime());*/
-					a =new Asset(assetName.getInput(), owner.getInputIndex()+1,custodian.getInputIndex()+1,type.getInputIndex()+1,maintenance.getInputIndex()+1,classification.getInputIndex()+1,storage.getInputIndex()+1,period.getInputIndex()+1 , dateAcquired.getInput(), Double.parseDouble(financialValue.getInput()),Integer.parseInt(confidentialityValue.getInput()),Integer.parseInt(integrityValue.getInput()),Integer.parseInt(availabilityValue.getInput()));
+					a =new Asset(assetName.getInput(), owner.getSelectedItem().getID(),custodian.getSelectedItem().getID(),type.getSelectedItem().getID(),maintenance.getSelectedItem().getID(),classification.getSelectedItem().getID(),storage.getSelectedItem().getID(),period.getSelectedItem().getID() , dateAcquired.getInput(), Double.parseDouble(financialValue.getInput()),Integer.parseInt(confidentialityValue.getInput()),Integer.parseInt(integrityValue.getInput()),Integer.parseInt(availabilityValue.getInput()));
 					//System.out.println("Asset maint: "+a.getMaintID());
 				} catch (NumberFormatException e) {
 					// TODO Auto-generated catch block

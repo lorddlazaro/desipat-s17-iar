@@ -26,4 +26,7 @@ public class Storage extends TableEntry{
 		}
 		return values;
 	}
+	public String toString(){
+		return this.getStorageLocation();
+	}
 }
