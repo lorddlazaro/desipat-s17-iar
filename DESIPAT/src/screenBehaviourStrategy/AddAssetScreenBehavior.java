@@ -84,12 +84,12 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		for(Person p: personList)
 		{
 			personNameList.add(p.getName());
-		}
+		}/*
 		addAssetScreen.setCbxCustodianContents(personNameList);
 		addAssetScreen.setCbxOwnerContents(personNameList);
 		addAssetScreen.setCbxTypeContents(typeNameList);
 		addAssetScreen.setCbxStorageContents(storageNameList);
-	
+	*/
 	}
 	public AddAssetScreen getView(){
 		return addAssetScreen;
