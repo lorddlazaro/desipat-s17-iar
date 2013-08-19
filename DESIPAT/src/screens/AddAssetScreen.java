@@ -38,29 +38,13 @@ import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
 public class AddAssetScreen extends JPanel implements TableObserver {
 
-	//protected JComboBox cbxClassification;
-	//protected JComboBox cbxMaintenance;
-	/*
-	protected JComboBox cbxOwner;
-	protected JComboBox cbxCustodian;
-	protected JComboBox cbxType;
-	protected JComboBox cbxStorage;*/
-	
-	/*private JTextField textFieldNewItem2;
-	private JTextField textFieldNewItem3;
-	private JTextField textFieldNewItem1;*/
 	private JButton btnNewOwner;
 	private JButton btnNewCustodian;
 	private JButton btnNewType;
 	private JButton btnNewStorage;
 	private JPanel panelNewItem;
-	
-	/*private JLabel lblNewItem2;
-	private JLabel lblNewItem1;
-	private JLabel lblNewItem3;
-	private JButton btnNewItemSave;
-	private JButton btnNewItemCancel;*/
-	protected JLabel lblAddNewAsset;
+
+	protected JLabel formTitle;
 
 	AssetScreenBehaviorStrategy behaviour;
 	
@@ -89,18 +73,13 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
-		lblAddNewAsset = new JLabel("Add New Asset");
-		lblAddNewAsset.setFont(new Font("Segoe WP", Font.PLAIN, 23));
-		lblAddNewAsset.setBounds(10, 11, 168, 29);
-		add(lblAddNewAsset);
-		
-		JLabel lblBasicInformation = new JLabel("Basic Information");
-		lblBasicInformation.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblBasicInformation.setBounds(42, 51, 168, 14);
-		add(lblBasicInformation);
+		formTitle = new JLabel("Add New Asset");
+		formTitle.setFont(new Font("Segoe WP", Font.PLAIN, 23));
+		formTitle.setBounds(10, 11, 168, 29);
+		add(formTitle);
 		
 		assetName = new TextInput("Name");
-		assetName.setBounds(60, 80, 200, 25);
+		assetName.setBounds(60, 80, 200, 30);
 		add(assetName);
 		
 		classification = new ComboBoxInput("Classification");
@@ -108,40 +87,40 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		for(Classification classification : ClassificationLookUpTable.getInstance().getAllEntries())
 			items.add(classification);
 		classification.insertList(items);
-		classification.setBounds(60, 120, 300, 25);
+		classification.setBounds(60, 120, 300, 30);
 		add(classification);
 		
 		dateAcquired = new DateInput("DateAquired");
 		dateAcquired.setBounds(60, 160, 350, 30);
 		add(dateAcquired);
 		
-		owner = new ObjectInput("Owner");
+		owner = new ObjectInput("Owner", "Please input name of new owner:",SystemColor.activeCaption);
 		ArrayList items4 = new ArrayList();
 		for(Person person : PersonTable.getInstance().getAllEntries())
 			items4.add(person);
 		owner.insertList(items4);
-		owner.setBounds(60, 200, 300, 25);
+		owner.setBounds(60, 200, 350, 35);
 		add(owner);
 		
-		custodian = new ObjectInput("Custodian");
+		custodian = new ObjectInput("Custodian", "Please input name of new custodian:",SystemColor.activeCaption);
 		custodian.insertList(items4);
-		custodian.setBounds(60, 240, 300, 25);
+		custodian.setBounds(60, 240, 350, 35);
 		add(custodian);
 		
-		type = new ObjectInput("Type");
+		type = new ObjectInput("Type", "Please input new type:",SystemColor.activeCaption);
 		ArrayList items3 = new ArrayList();
 		for(Type type : TypeLookUpTable.getInstance().getAllEntries())
 			items3.add(type);
 		type.insertList(items3);
-		type.setBounds(60, 280, 300, 25);
+		type.setBounds(60, 280, 350, 35);
 		add(type);
 
-		storage = new ObjectInput("Storage");
+		storage = new ObjectInput("Storage", "Please input new storage location:",SystemColor.activeCaption);
 		ArrayList items5 = new ArrayList();
 		for(Storage storage : StorageTable.getInstance().getAllEntries())
 			items5.add(storage);
 		storage.insertList(items5);
-		storage.setBounds(60, 320, 300, 25);
+		storage.setBounds(60, 320, 350, 35);
 		add(storage);
 		
 		maintenance = new ComboBoxInput("Maintenance");
@@ -149,7 +128,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		for(Maintenance maintenance : MaintenanceLookUpTable.getInstance().getAllEntries())
 			items2.add(maintenance);
 		maintenance.insertList(items2);
-		maintenance.setBounds(60, 360, 300, 25);
+		maintenance.setBounds(60, 360, 300, 30);
 		add(maintenance);
 		
 		period = new ComboBoxInput("Retention Period");
@@ -157,16 +136,13 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		for(RetentionPeriod retentionPeriod : RetentionPeriodLookUpTable.getInstance().getAllEntries())
 			items7.add(retentionPeriod);
 		period.insertList(items7);
-		period.setBounds(60, 400, 300, 25);
+		period.setBounds(60, 400, 300, 30);
 		add(period);
+
 		
-		JLabel lblValue = new JLabel("Value");
-		lblValue.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblValue.setBounds(418, 51, 46, 14);
-		add(lblValue);
 		
 		financialValue = new TextInput("Financial");
-		financialValue.setBounds(430, 80, 300, 25);
+		financialValue.setBounds(430, 80, 300, 30);
 		add(financialValue);
 		
 		confidentialityValue = new SliderInput("Confidentiality");
@@ -180,7 +156,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		availabilityValue = new SliderInput("Availability");
 		availabilityValue.setBounds(430, 200, 350, 40);
 		add(availabilityValue);
-		
+		/*
 		btnNewOwner = new JButton("New");
 		btnNewOwner.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
@@ -244,7 +220,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnNewStorage.setBounds(367, 366, 70, 20);
 		add(btnNewStorage);
-		
+		*/
 		JButton btnAdd = new JButton("Add Asset");
 		btnAdd.setBackground(SystemColor.activeCaption);
 		btnAdd.addActionListener(new ActionListener() {
