@@ -11,19 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.SystemColor;
 
-import dataObjects.Asset;
-import dataObjects.Classification;
-import dataObjects.ClassificationLookUpTable;
-import dataObjects.Maintenance;
-import dataObjects.MaintenanceLookUpTable;
-import dataObjects.Person;
-import dataObjects.PersonTable;
-import dataObjects.RetentionPeriod;
-import dataObjects.RetentionPeriodLookUpTable;
-import dataObjects.Storage;
-import dataObjects.StorageTable;
-import dataObjects.Type;
-import dataObjects.TypeLookUpTable;
 import fields.ComboBoxInput;
 import fields.DateInput;
 import fields.ObjectInput;
@@ -53,6 +40,8 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	protected SliderInput integrityValue;
 	protected SliderInput availabilityValue;
 	
+	protected JButton formButton;
+	
 	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public AddAssetScreen(AssetScreenBehaviorStrategy behavior){
@@ -74,10 +63,6 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(assetName);
 		
 		classification = new ComboBoxInput("Classification");
-		ArrayList items = new ArrayList();
-		for(Classification classification : ClassificationLookUpTable.getInstance().getAllEntries())
-			items.add(classification);
-		classification.insertList(items);
 		classification.setBounds(60, 120, 300, 30);
 		add(classification);
 		
@@ -86,47 +71,26 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		add(dateAcquired);
 		
 		owner = new ObjectInput("Owner", "Please input name of new owner:",SystemColor.activeCaption);
-		ArrayList items4 = new ArrayList();
-		for(Person person : PersonTable.getInstance().getAllEntries())
-			items4.add(person);
-		owner.insertList(items4);
 		owner.setBounds(60, 200, 350, 35);
 		add(owner);
 		
 		custodian = new ObjectInput("Custodian", "Please input name of new custodian:",SystemColor.activeCaption);
-		custodian.insertList(items4);
 		custodian.setBounds(60, 240, 350, 35);
 		add(custodian);
 		
 		type = new ObjectInput("Type", "Please input new type:",SystemColor.activeCaption);
-		ArrayList items3 = new ArrayList();
-		for(Type type : TypeLookUpTable.getInstance().getAllEntries())
-			items3.add(type);
-		type.insertList(items3);
 		type.setBounds(60, 280, 350, 35);
 		add(type);
 
 		storage = new ObjectInput("Storage", "Please input new storage location:",SystemColor.activeCaption);
-		ArrayList items5 = new ArrayList();
-		for(Storage storage : StorageTable.getInstance().getAllEntries())
-			items5.add(storage);
-		storage.insertList(items5);
 		storage.setBounds(60, 320, 350, 35);
 		add(storage);
 		
 		maintenance = new ComboBoxInput("Maintenance");
-		ArrayList items2 = new ArrayList();
-		for(Maintenance maintenance : MaintenanceLookUpTable.getInstance().getAllEntries())
-			items2.add(maintenance);
-		maintenance.insertList(items2);
 		maintenance.setBounds(60, 360, 300, 30);
 		add(maintenance);
 		
 		period = new ComboBoxInput("Retention Period");
-		ArrayList items7 = new ArrayList();
-		for(RetentionPeriod retentionPeriod : RetentionPeriodLookUpTable.getInstance().getAllEntries())
-			items7.add(retentionPeriod);
-		period.insertList(items7);
 		period.setBounds(60, 400, 300, 30);
 		add(period);
 
@@ -148,17 +112,11 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		availabilityValue.setBounds(430, 200, 350, 40);
 		add(availabilityValue);
 
-		JButton btnAdd = new JButton("Add Asset");
-		btnAdd.setBackground(SystemColor.activeCaption);
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0)
-			{				
-				behavior.saveAsset();
-			}
-		});
-		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnAdd.setBounds(583, 406, 179, 37);
-		add(btnAdd);
+		formButton = new JButton("Add Asset");
+		formButton.setBackground(SystemColor.activeCaption);
+		formButton.setFont(new Font("Calibri", Font.PLAIN, 16));
+		formButton.setBounds(583, 406, 179, 37);
+		add(formButton);
 	}
 	
 	public void refresh(){
@@ -188,6 +146,10 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	}
 	public void addStorageNewButtonActionListener(ActionListener al){
 		storage.addNewButtonActionListener(al);
+	}
+	
+	public void addFormButtonActionListener(ActionListener al){
+		formButton.addActionListener(al);
 	}
 	
 	public String getAssetName(){
@@ -228,5 +190,27 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	}
 	public int getAvailabilityValue(){
 		return Integer.parseInt(availabilityValue.getInput());
+	}
+	
+	public void fillClassificationComboBox(ArrayList arr){
+		classification.insertList(arr);
+	}
+	public void fillOwnerComboBox(ArrayList arr){
+		owner.insertList(arr);
+	}
+	public void fillCustodianComboBox(ArrayList arr){
+		custodian.insertList(arr);
+	}
+	public void fillTypeComboBox(ArrayList arr){
+		type.insertList(arr);
+	}
+	public void fillStorageComboBox(ArrayList arr){
+		storage.insertList(arr);
+	}
+	public void fillPeriodComboBox(ArrayList arr){
+		period.insertList(arr);
+	}
+	public void fillMaintenanceComboBox(ArrayList arr){
+		maintenance.insertList(arr);
 	}
 }

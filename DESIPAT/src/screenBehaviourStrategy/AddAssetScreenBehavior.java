@@ -1,8 +1,16 @@
 package screenBehaviourStrategy;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import dataObjects.Classification;
+import dataObjects.ClassificationLookUpTable;
+import dataObjects.Maintenance;
+import dataObjects.MaintenanceLookUpTable;
 import dataObjects.PersonTable;
 import dataObjects.Person;
+import dataObjects.RetentionPeriod;
+import dataObjects.RetentionPeriodLookUpTable;
 import dataObjects.TypeLookUpTable;
 import dataObjects.Type;
 import dataObjects.StorageTable;
@@ -24,7 +32,45 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	public AddAssetScreenBehavior()
 	{
 		addAssetScreen = new AddAssetScreen(this);
+		fillComboBoxes();
+		
+		addAssetScreen.addFormButtonActionListener(new formButtonActionListener());
 	}
+	private void fillComboBoxes(){
+		ArrayList arr;
+		
+		arr = new ArrayList();
+		for(Classification classification : ClassificationLookUpTable.getInstance().getAllEntries())
+			arr.add(classification);
+		addAssetScreen.fillClassificationComboBox(arr);
+		
+		arr = new ArrayList();
+		for(Person person : PersonTable.getInstance().getAllEntries())
+			arr.add(person);
+		addAssetScreen.fillOwnerComboBox(arr);
+		addAssetScreen.fillCustodianComboBox(arr);
+		
+		arr = new ArrayList();
+		for(Type type : TypeLookUpTable.getInstance().getAllEntries())
+			arr.add(type);
+		addAssetScreen.fillTypeComboBox(arr);
+		
+		arr = new ArrayList();
+		for(Storage storage : StorageTable.getInstance().getAllEntries())
+			arr.add(storage);
+		addAssetScreen.fillStorageComboBox(arr);
+		
+		arr = new ArrayList();
+		for(RetentionPeriod retentionPeriod : RetentionPeriodLookUpTable.getInstance().getAllEntries())
+			arr.add(retentionPeriod);
+		addAssetScreen.fillPeriodComboBox(arr);
+		
+		arr = new ArrayList();
+		for(Maintenance maintenance : MaintenanceLookUpTable.getInstance().getAllEntries())
+			arr.add(maintenance);
+		addAssetScreen.fillMaintenanceComboBox(arr);
+	}
+	
 	public void saveAsset() {
 		Asset asset = null;
 		
@@ -53,5 +99,11 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	
 	public AddAssetScreen getView(){
 		return addAssetScreen;
+	}
+	
+	class formButtonActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			saveAsset();
+		}
 	}
 }
