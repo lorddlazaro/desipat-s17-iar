@@ -19,82 +19,39 @@ import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-
 	private AddAssetScreen addAssetScreen;
+
 	public AddAssetScreenBehavior()
 	{
-		//table = table.getInstance();
 		addAssetScreen = new AddAssetScreen(this);
-		fillBoxes();
-		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
 	}
-	public void saveAsset(Asset a) {
-		//System.out.println("Behavior Asset type: "+a.getTypeID());
-		AssetTable.getInstance().addEntry(a);
+	public void saveAsset() {
+		Asset asset = null;
 		
-		// TODO Auto-generated method stub
-		/*are these lookups even necessary?*/
-		//AssetTable.getInstance().addEntry(a);
-		//table.addEntry(a);
-		/*SelectLookUpStrategy lookUp;
-		lookUp=new LookUpMaintenance(a.getMaintenanceSchedule());
-		lookUp=new lookUpType();
-		lookUp=new LookUpClassification();*/
-	}
-	public void cancel(){
-		
-	}
-	@Override
-	public void saveItem() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setNewItemPanel(int itemType) {
-		// TODO Auto-generated method stub
-		switch(itemType)
-		{
-		case 0: //owner
-			break;
-		case 1: //custodian
-			break;
-		case 2: //type
-			break;
-		case 3: //storage
-			break;
+		try {
+			asset = new Asset(	addAssetScreen.getAssetName(),
+								addAssetScreen.getOwnerID(),
+								addAssetScreen.getCustodianID(),
+								addAssetScreen.getTypeID(),
+								addAssetScreen.getMaintenanceID(),
+								addAssetScreen.getClassificationID(),
+								addAssetScreen.getStorageID(),
+								addAssetScreen.getPeriodID(),
+								addAssetScreen.getDateAcquired(),
+								addAssetScreen.getFinancialValue(),
+								addAssetScreen.getConfidentialityValue(),
+								addAssetScreen.getIntegrityValue(),
+								addAssetScreen.getAvailabilityValue()
+								);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		AssetTable.getInstance().addEntry(asset);
 	}
 	
-	public void fillBoxes()
-	{
-		ArrayList<Person>personList=PersonTable.getInstance().getAllEntries();
-		ArrayList<Type>typeList=TypeLookUpTable.getInstance().getAllEntries();
-		ArrayList<Storage>storageList=StorageTable.getInstance().getAllEntries();
-		ArrayList<String>personNameList=new ArrayList<String>();
-		ArrayList<String>typeNameList=new ArrayList<String>();
-		ArrayList<String>storageNameList=new ArrayList<String>();
-		for(Type t : typeList)
-		{
-			typeNameList.add(t.getType());
-		}
-		for(Storage s: storageList)
-		{
-			storageNameList.add(s.getStorageLocation());
-		}
-		for(Person p: personList)
-		{
-			personNameList.add(p.getName());
-		}/*
-		addAssetScreen.setCbxCustodianContents(personNameList);
-		addAssetScreen.setCbxOwnerContents(personNameList);
-		addAssetScreen.setCbxTypeContents(typeNameList);
-		addAssetScreen.setCbxStorageContents(storageNameList);
-	*/
-	}
 	public AddAssetScreen getView(){
 		return addAssetScreen;
 	}
-
-	
-
 }
