@@ -1,0 +1,186 @@
+CREATE DATABASE desipat;
+
+USE desipat;
+
+CREATE TABLE Asset (
+identifier int AUTO_INCREMENT, 
+name varchar(50),
+ownerID int,
+custodianID int, 
+typeID int,
+maintID int,
+classID int,
+storageID int,
+periodID int,
+dateAcquired date, 
+financialValue double,
+confidentialValue int,
+integrityValue int,
+availabilityValue int,
+
+PRIMARY KEY(identifier)
+);
+
+CREATE TABLE TypeLookUp (
+typeID int AUTO_INCREMENT,
+type varchar(50),
+
+PRIMARY KEY(typeID)
+);
+
+CREATE TABLE ClassificationLookUp (
+classID int AUTO_INCREMENT,
+classification varchar(50),
+
+PRIMARY KEY(classID)
+);
+
+CREATE TABLE MaintenanceLookUp (
+maintID int AUTO_INCREMENT,
+maintSched varchar(50),
+
+PRIMARY KEY(maintID)
+);
+
+CREATE TABLE RetentionPeriodLookUp (
+periodID int AUTO_INCREMENT,
+periodName varchar(50),
+periodValue int,
+
+PRIMARY KEY(periodID)
+);
+
+CREATE TABLE Person(
+personID int AUTO_INCREMENT,
+firstName varchar(50),
+middleInitial char,
+lastName varchar(50),
+
+PRIMARY KEY(personID)
+);
+
+CREATE TABLE Storage (
+storageID int AUTO_INCREMENT,
+storageLocation varchar(100),
+
+PRIMARY KEY(storageID)
+);
+
+CREATE TABLE UserAccount (
+userID int AUTO_INCREMENT,
+username varchar(50),
+password varchar(50),
+clearanceID int,
+personID int,
+
+isActive boolean,
+
+PRIMARY KEY(userID)
+);
+
+CREATE TABLE ClearanceLookUp (
+clearanceID int AUTO_INCREMENT,
+clearanceLevel varchar(50),
+
+PRIMARY KEY(clearanceID)
+);
+
+CREATE TABLE ActionLog (
+actionID int AUTO_INCREMENT,
+userID int,
+actionDate date,
+actionTime time,
+actionHeaderID int,
+actionDesc varchar(500),
+
+PRIMARY KEY(actionID)
+);
+
+CREATE TABLE ActionHeaderLookUp (
+actionHeaderID int AUTO_INCREMENT,
+actionHeader varchar(50),
+
+PRIMARY KEY(actionHeaderID)
+);
+
+CREATE TABLE AssetChangeLog (
+changeID int AUTO_INCREMENT,
+actionID int,
+assetID int,
+assetField varchar(50),
+oldValue varchar(100),
+newValue varchar(100),
+
+PRIMARY KEY(changeID)
+);
+
+ALTER TABLE Asset ADD FOREIGN KEY(ownerID) REFERENCES Person(personID);
+ALTER TABLE Asset ADD FOREIGN KEY(custodianID) REFERENCES Person(personID);
+ALTER TABLE Asset ADD FOREIGN KEY(storageID) REFERENCES Storage(storageID);
+ALTER TABLE Asset ADD FOREIGN KEY(typeID) REFERENCES TypeLookUp(typeID);
+ALTER TABLE Asset ADD FOREIGN KEY(classID) REFERENCES ClassificationLookUp(classID);
+ALTER TABLE Asset ADD FOREIGN KEY(maintID) REFERENCES MaintenanceLookUp(maintID);
+ALTER TABLE Asset ADD FOREIGN KEY(periodID) REFERENCES RetentionPeriodLookUp(periodID);
+
+ALTER TABLE UserAccount ADD FOREIGN KEY(personID) REFERENCES Person(personID);
+ALTER TABLE UserAccount ADD FOREIGN KEY(clearanceID) REFERENCES ClearanceLookUp(clearanceID);
+
+ALTER TABLE ActionLog ADD FOREIGN KEY(userID) REFERENCES UserAccount(userID);
+ALTER TABLE ActionLog ADD FOREIGN KEY(actionHeaderID) REFERENCES ActionHeaderLookUp(actionHeaderID);
+ALTER TABLE AssetChangeLog ADD FOREIGN KEY(actionID) REFERENCES ActionLog(actionID);
+
+INSERT INTO TypeLookUp(type) VALUES('Document');
+INSERT INTO TypeLookUp(type) VALUES('Equipment');
+INSERT INTO TypeLookUp(type) VALUES('Product');
+
+INSERT INTO ClassificationLookUp(classification) VALUES('Sensitive');
+INSERT INTO ClassificationLookUp(classification) VALUES('Confidential');
+INSERT INTO ClassificationLookUp(classification) VALUES('Internal');
+INSERT INTO ClassificationLookUp(classification) VALUES('Public');
+
+INSERT INTO MaintenanceLookUp(maintSched) VALUES('Daily');
+INSERT INTO MaintenanceLookUp(maintSched) VALUES('Weekly');
+INSERT INTO MaintenanceLookUp(maintSched) VALUES('Monthly');
+INSERT INTO MaintenanceLookUp(maintSched) VALUES('Yearly');
+
+INSERT INTO ClearanceLookUp(clearanceLevel) VALUES('Admin');
+INSERT INTO ClearanceLookUp(clearanceLevel) VALUES('Executive');
+INSERT INTO ClearanceLookUp(clearanceLevel) VALUES('User');
+INSERT INTO ClearanceLookUp(clearanceLevel) VALUES('Auditor');
+
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Log In');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Log Out');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Edite Account');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Delete Account');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Create Account');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Add Asset');
+INSERT INTO ActionHeaderLookUp(actionHeader) VALUES('Update Account');
+
+
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('1 month', '1');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('3 months','3');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('6 months','6');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('1 year','12');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('2 years','24');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('4 years','48');
+INSERT INTO RetentionPeriodLookUp(periodName,periodValue) VALUES('10 years','120');
+
+INSERT INTO Person(lastName,middleInitial,firstName) VALUES('Macatangay','A','Matthew');
+INSERT INTO UserAccount(username,password,clearanceID,personID,isActive) VALUES('admin','password','1','1','1');
+
+INSERT INTO Person(lastName,middleInitial,firstName)  VALUES('Laron','B','Andrew');
+INSERT INTO UserAccount(username,password,clearanceID,personID,isActive) VALUES('executive','password','2','2','1');
+
+INSERT INTO Person(lastName,middleInitial,firstName)  VALUES('Lazaro','C','Lordd');
+INSERT INTO UserAccount(username,password,clearanceID,personID,isActive) VALUES('user','password','3','3','1');
+
+INSERT INTO Person(lastName,middleInitial,firstName)  VALUES('Tan','D','Duke');
+INSERT INTO UserAccount(username,password,clearanceID,personID,isActive) VALUES('auditor','password','4','4','1');
+
+INSERT INTO Storage(storageLocation) VALUES('Home');
+INSERT INTO Storage(storageLocation) VALUES('Office');
+INSERT INTO Storage(storageLocation) VALUES('Warehouse');
+
+INSERT INTO Asset(name, ownerID, custodianID, typeID, maintID, classID, storageID, periodID, dateAcquired, financialValue, confidentialValue, integrityValue, availabilityValue) VALUES('tomato','1','1','1','1','1','1','1','2002-1-2', '1','1','1','1');
+
+INSERT INTO ActionLog(userID, actionDate, actionTime, actionHeaderID, actionDesc) VALUES('1',Date(Now()),Time(Now()),'1','tomates');
