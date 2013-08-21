@@ -1,16 +1,14 @@
 package screens;
-import screenBehaviourStrategy.AddTypeScreenBehavior;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.SystemColor;
 
 import dataObjects.Asset;
@@ -32,21 +30,14 @@ import fields.ObjectInput;
 import fields.TextInput;
 import fields.SliderInput;
 
-import screenBehaviourStrategy.AddPersonScreenBehaviour;
-import screenBehaviourStrategy.AddStorageScreenBehavior;
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
 public class AddAssetScreen extends JPanel implements TableObserver {
 
-	private JButton btnNewOwner;
-	private JButton btnNewCustodian;
-	private JButton btnNewType;
-	private JButton btnNewStorage;
-	private JPanel panelNewItem;
 
 	protected JLabel formTitle;
 
-	AssetScreenBehaviorStrategy behaviour;
+	AssetScreenBehaviorStrategy behavior;
 	
 	protected TextInput assetName;
 	protected ComboBoxInput classification;
@@ -64,8 +55,8 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	
 	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public AddAssetScreen(AssetScreenBehaviorStrategy behaviour){
-		this.behaviour=behaviour;
+	public AddAssetScreen(AssetScreenBehaviorStrategy behavior){
+		this.behavior = behavior;
 		initialize();
 	}
 	
@@ -156,202 +147,86 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		availabilityValue = new SliderInput("Availability");
 		availabilityValue.setBounds(430, 200, 350, 40);
 		add(availabilityValue);
-		/*
-		btnNewOwner = new JButton("New");
-		btnNewOwner.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-			//behaviour.setNewItemPanel(0);
-				panelNewItem = new AddPersonScreenBehaviour().getView(); 
-				panelNewItem.setName("Add Owner");
-				//panelNewItem.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-				panelNewItem.setBounds(447, 248, 315, 137);
-				add(panelNewItem);
-			
-			}
-		}) ;
-		btnNewOwner.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewOwner.setBounds(367, 247, 70, 20);
-		add(btnNewOwner);
-		
-		btnNewCustodian = new JButton("New");
-		btnNewCustodian.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-			//behaviour.setNewItemPanel(1);
-			panelNewItem = new AddPersonScreenBehaviour().getView(); 
-			panelNewItem.setName("Add Custodian");
-			panelNewItem.setBounds(447, 248, 315, 137);
-			add(panelNewItem);
-			
-			
-			}
-		});
-		btnNewCustodian.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewCustodian.setBounds(367, 287, 70, 20);
-		add(btnNewCustodian);
-		
-		btnNewType = new JButton("New");
-		btnNewType.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-			//behaviour.setNewItemPanel(2);
-				panelNewItem = new AddTypeScreenBehavior().getView(); 
-				//panelNewItem.setName("Add Type");
-				panelNewItem.setBounds(447, 248, 315, 137);
-				add(panelNewItem);
-			}
-		});
-		btnNewType.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewType.setBounds(367, 326, 70, 20);
-		add(btnNewType);
-		
-		btnNewStorage = new JButton("New");
-		btnNewStorage.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-			//behaviour.setNewItemPanel(3);
-				panelNewItem = new AddStorageScreenBehavior().getView(); 
-				//panelNewItem.setName("Add Storage");
-				panelNewItem.setBounds(447, 248, 315, 137);
-				add(panelNewItem);
-			}
-		});
-		btnNewStorage.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewStorage.setBounds(367, 366, 70, 20);
-		add(btnNewStorage);
-		*/
+
 		JButton btnAdd = new JButton("Add Asset");
 		btnAdd.setBackground(SystemColor.activeCaption);
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0)
-			{
-				
-				Asset a =null;
-		
-				System.out.println("ZSKFJGASHGAJSHGKJAH");
-				try {
-					/*java.sql.Date sqlDate=new java.sql.Date(dateFormat.parse(dateAcquired).getTime());
-					System.out.println(sqlDate.getTime());*/
-					a =new Asset(assetName.getInput(), owner.getSelectedItem().getID(),custodian.getSelectedItem().getID(),type.getSelectedItem().getID(),maintenance.getSelectedItem().getID(),classification.getSelectedItem().getID(),storage.getSelectedItem().getID(),period.getSelectedItem().getID() , dateAcquired.getInput(), Double.parseDouble(financialValue.getInput()),Integer.parseInt(confidentialityValue.getInput()),Integer.parseInt(integrityValue.getInput()),Integer.parseInt(availabilityValue.getInput()));
-					//System.out.println("Asset maint: "+a.getMaintID());
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					System.out.println("Invalid number format!");
-			
-				//int periodID, Date dateAcquired,){
-				
-			}
-				behaviour.saveAsset(a);
+			{				
+				behavior.saveAsset();
 			}
 		});
 		btnAdd.setFont(new Font("Calibri", Font.PLAIN, 16));
 		btnAdd.setBounds(583, 406, 179, 37);
 		add(btnAdd);
-		
-		/*panelNewItem = new JPanel();
-		panelNewItem.setVisible(false);
-		panelNewItem.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panelNewItem.setBounds(447, 248, 315, 137);
-		add(panelNewItem);
-		panelNewItem.setLayout(null);*/
-		
-		/*textFieldNewItem1 = new JTextField();
-		textFieldNewItem1.setFont(new Font("Calibri", Font.PLAIN, 13));
-		textFieldNewItem1.setBounds(126, 8, 179, 20);
-		panelNewItem.add(textFieldNewItem1);
-		textFieldNewItem1.setColumns(10);
-		
-		textFieldNewItem2 = new JTextField();
-		textFieldNewItem2.setFont(new Font("Calibri", Font.PLAIN, 13));
-		textFieldNewItem2.setBounds(126, 39, 179, 20);
-		panelNewItem.add(textFieldNewItem2);
-		textFieldNewItem2.setColumns(10);
-		
-		textFieldNewItem3 = new JTextField();
-		textFieldNewItem3.setFont(new Font("Calibri", Font.PLAIN, 13));
-		textFieldNewItem3.setBounds(126, 70, 179, 20);
-		panelNewItem.add(textFieldNewItem3);
-		textFieldNewItem3.setColumns(10);*/
-		
-		/*btnNewItemCancel = new JButton("Cancel");
-		btnNewItemCancel.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-				behaviour.cancel();
-			}
-		});
-		btnNewItemCancel.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewItemCancel.setBounds(126, 106, 85, 20);
-		panelNewItem.add(btnNewItemCancel);
-		
-		btnNewItemSave = new JButton("Save");
-		btnNewItemSave.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-				
-				behaviour.saveItem();
-			}
-		});
-		btnNewItemSave.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnNewItemSave.setBounds(222, 106, 70, 20);
-		panelNewItem.add(btnNewItemSave);*/
-		
-		/*lblNewItem1 = new JLabel("Storage Location");
-		lblNewItem1.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNewItem1.setBounds(10, 8, 106, 14);
-		panelNewItem.add(lblNewItem1);
-		
-		lblNewItem2 = new JLabel("<label>");
-		lblNewItem2.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNewItem2.setBounds(10, 39, 93, 14);
-		panelNewItem.add(lblNewItem2);
-		
-		lblNewItem3 = new JLabel("<label>");
-		lblNewItem3.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNewItem3.setBounds(10, 70, 93, 14);
-		panelNewItem.add(lblNewItem3);*/
-		//refresh();
 	}
 	
 	public void refresh(){
-		behaviour.fillBoxes();
+		assetName.clearField();
+		classification.clearField();
+		dateAcquired.clearField();
+		owner.clearField();
+		custodian.clearField();
+		type.clearField();
+		storage.clearField();
+		period.clearField();
+		maintenance.clearField();
+		financialValue.clearField();
+		confidentialityValue.clearField();
+		integrityValue.clearField();
+		availabilityValue.clearField();
 	}
-/*
-	private JComboBox getCbxType() {
-		return cbxType;
+	
+	public void addOwnerNewButtonActionListener(ActionListener al){
+		owner.addNewButtonActionListener(al);
 	}
-
-	public void setCbxTypeContents(ArrayList<String>typeList) {
-		String[] types=typeList.toArray(new String[typeList.size()]);
-		cbxType.setModel(new DefaultComboBoxModel(types));
+	public void addCustodianNewButtonActionListener(ActionListener al){
+		custodian.addNewButtonActionListener(al);
 	}
-
-	private JComboBox getCbxStorage() {
-		return cbxStorage;
+	public void addTypeNewButtonActionListener(ActionListener al){
+		type.addNewButtonActionListener(al);
 	}
-
-	public void setCbxStorageContents(ArrayList<String>storageList) {
-		String[] storages=storageList.toArray(new String[storageList.size()]);
-		cbxStorage.setModel(new DefaultComboBoxModel(storages));
+	public void addStorageNewButtonActionListener(ActionListener al){
+		storage.addNewButtonActionListener(al);
 	}
-
-	private JComboBox getCbxOwner() {
-		return cbxOwner;
+	
+	public String getAssetName(){
+		return assetName.getInput();
 	}
-
-	public void setCbxOwnerContents(ArrayList<String>personList) {
-		String[] persons=personList.toArray(new String[personList.size()]);
-		cbxOwner.setModel(new DefaultComboBoxModel(persons));
+	public int getOwnerID(){
+		return owner.getSelectedItem().getID();
 	}
-
-	private JComboBox getCbxCustodian() {
-		return cbxCustodian;
+	public int getCustodianID(){
+		return custodian.getSelectedItem().getID();
 	}
-
-	public void setCbxCustodianContents(ArrayList<String>personList) {
-		String[] persons=personList.toArray(new String[personList.size()]);
-		cbxCustodian.setModel(new DefaultComboBoxModel(persons));
-	}*/
+	public int getTypeID(){
+		return type.getSelectedItem().getID();
+	}
+	public int getMaintenanceID(){
+		return maintenance.getSelectedItem().getID();
+	}
+	public int getClassificationID(){
+		return classification.getSelectedItem().getID();
+	}
+	public int getStorageID(){
+		return storage.getSelectedItem().getID();
+	}
+	public int getPeriodID(){
+		return period.getSelectedItem().getID();
+	}
+	public String getDateAcquired(){
+		return dateAcquired.getInput();
+	}
+	public Double getFinancialValue(){
+		return Double.parseDouble(financialValue.getInput());
+	}
+	public int getConfidentialityValue(){
+		return Integer.parseInt(confidentialityValue.getInput());
+	}
+	public int getIntegrityValue(){
+		return Integer.parseInt(integrityValue.getInput());
+	}
+	public int getAvailabilityValue(){
+		return Integer.parseInt(availabilityValue.getInput());
+	}
 }

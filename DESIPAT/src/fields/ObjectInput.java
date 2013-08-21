@@ -61,4 +61,16 @@ public class ObjectInput extends ComboBoxInput {
 	public String getNewItemInput(){
 		return textInput;
 	}
+	
+	public void addNewButtonActionListener(ActionListener al){
+		ActionListener[] list = newButton.getActionListeners();
+	
+		for(int i = 0; i < list.length; i++)
+			newButton.removeActionListener(list[i]);
+		
+		newButton.addActionListener(al);
+		
+		for(int i = list.length - 1; i >= 0; i--)
+			newButton.addActionListener(list[i]);
+	}
 }
