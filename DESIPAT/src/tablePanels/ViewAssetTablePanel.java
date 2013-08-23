@@ -58,6 +58,9 @@ public class ViewAssetTablePanel extends TablePanel{
 	}
 	
 	public int getSelectedAssetID(){
-		return (int)table.getModel().getValueAt(table.getSelectedRow(), 0);
+		if(table.getSelectedRow() != -1)
+			return (int)table.getModel().getValueAt(table.getSelectedRow(), 0);
+		else
+			return -1;
 	}
 }

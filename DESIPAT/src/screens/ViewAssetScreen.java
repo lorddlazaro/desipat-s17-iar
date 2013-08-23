@@ -189,7 +189,6 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		add(selectedAssetChangeLogTable);
 		
 		refresh();
-		
 	}
 	
 	public void updateChangeLogTable(int selectedAssetID){

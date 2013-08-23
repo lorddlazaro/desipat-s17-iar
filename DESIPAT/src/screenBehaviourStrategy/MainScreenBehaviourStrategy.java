@@ -8,4 +8,5 @@ public interface MainScreenBehaviourStrategy {
 	public void gotoAddAssetScreen();
 	public void gotoEditAssetScreen();
 	public void logout();
+	public void loadEntry(int ID);
 }
