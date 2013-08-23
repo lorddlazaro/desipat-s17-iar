@@ -41,20 +41,8 @@ public class ObjectInput extends ComboBoxInput {
 			{
 				textInput = JOptionPane.showInputDialog (newItemMessage); 
 			}
-			public String toString(){
-				return "base";
-			}
 		}) ;
-		newButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0)
-			{
-				textInput = JOptionPane.showInputDialog (newItemMessage+"Tomatoe"); 
-			}
-			public String toString(){
-				return "second";
-			}
-		}) ;
-		System.out.println(newButton.getActionListeners()[0]);
+		
 		this.add(newButton);
 	}
 	
