@@ -1,6 +1,6 @@
 package screenBehaviourStrategy;
 
-import screens.AddAssetScreen;
+import screens.FormAssetScreen;
 import screens.AddPersonScreen;
 import dataObjects.Person;
 import dataObjects.PersonTable;
@@ -29,7 +29,7 @@ public class AddPersonScreenBehaviour implements AddPersonScreenBehaviourStrateg
 
 	public void savePerson(Person p) {
 		PersonTable.getInstance().addEntry(p);
-		((AddAssetScreen)addPersonScreen.getParent()).refresh();
+		((FormAssetScreen)addPersonScreen.getParent()).refresh();
 		// TODO Auto-generated method stub
 		
 	}

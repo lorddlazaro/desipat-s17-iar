@@ -4,6 +4,10 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+
+import dataObjects.Asset;
+import dataObjects.AssetTable;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
@@ -19,12 +23,11 @@ import fields.SliderInput;
 
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
-public class AddAssetScreen extends JPanel implements TableObserver {
-
-
-	protected JLabel formTitle;
+public class FormAssetScreen extends JPanel implements TableObserver {
 
 	AssetScreenBehaviorStrategy behavior;
+
+	protected JLabel formTitle;
 	
 	protected TextInput assetName;
 	protected ComboBoxInput classification;
@@ -44,16 +47,19 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	
 	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public AddAssetScreen(AssetScreenBehaviorStrategy behavior){
+	public FormAssetScreen(AssetScreenBehaviorStrategy behavior, String title, String buttonText){
 		this.behavior = behavior;
 		initialize();
+		
+		formTitle.setText(title);
+		formButton.setText(buttonText);
 	}
 	
 	public void initialize() {
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(null);
 		
-		formTitle = new JLabel("Add New Asset");
+		formTitle = new JLabel();
 		formTitle.setFont(new Font("Segoe WP", Font.PLAIN, 23));
 		formTitle.setBounds(10, 11, 168, 29);
 		add(formTitle);
@@ -112,7 +118,7 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 		availabilityValue.setBounds(430, 200, 350, 40);
 		add(availabilityValue);
 
-		formButton = new JButton("Add Asset");
+		formButton = new JButton();
 		formButton.setBackground(SystemColor.activeCaption);
 		formButton.setFont(new Font("Calibri", Font.PLAIN, 16));
 		formButton.setBounds(583, 406, 179, 37);
@@ -212,5 +218,64 @@ public class AddAssetScreen extends JPanel implements TableObserver {
 	}
 	public void fillMaintenanceComboBox(ArrayList arr){
 		maintenance.insertList(arr);
+	}
+	
+	public void loadEntry(int ID)
+	{
+		Asset a = AssetTable.getInstance().getEntry(ID);
+
+		setAssetName(a.getName());
+		setOwner(a.toString());
+		setCustodian(a.toString());
+		setType(a.getType().getType());
+		setMaintenance(a.getMaintenance().getMaintenance());
+		setClassification(a.getClassification().getClassification());
+		setStorage(a.getStorage().getStorageLocation());
+		setPeriod(a.getRetentionPeriod().getPeriodName());
+		setDateAcquired(a.getDateAcquired());
+		setFinancialValue(Double.toString(a.getFinancialValue()));
+		setConfidentialityValue(Integer.toString(a.getConfidentialValue()));
+		setIntegrityValue(Integer.toString(a.getIntegrityValue()));
+		setAvailabilityValue(Integer.toString(a.getAvailabilityValue()));
+	}
+	
+	public void setAssetName(String toSet){
+		assetName.setInput(toSet);
+	}
+	public void setOwner(String toSet){
+		owner.setInput(toSet);
+	}
+	public void setCustodian(String toSet){
+		custodian.setInput(toSet);
+	}
+	public void setType(String toSet){
+		type.setInput(toSet);
+	}
+	public void setMaintenance(String toSet){
+		maintenance.setInput(toSet);
+	}
+	public void setClassification(String toSet){
+		classification.setInput(toSet);
+	}
+	public void setStorage(String toSet){
+		storage.setInput(toSet);
+	}
+	public void setPeriod(String toSet){
+		period.setInput(toSet);
+	}
+	public void setDateAcquired(String toSet){
+		dateAcquired.setInput(toSet);
+	}
+	public void setFinancialValue(String toSet){
+		financialValue.setInput(toSet);
+	}
+	public void setConfidentialityValue(String toSet){
+		confidentialityValue.setInput(toSet);
+	}
+	public void setIntegrityValue(String toSet){
+		integrityValue.setInput(toSet);
+	}
+	public void setAvailabilityValue(String toSet){
+		availabilityValue.setInput(toSet);
 	}
 }

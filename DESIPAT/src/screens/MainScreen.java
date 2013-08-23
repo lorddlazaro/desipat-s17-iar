@@ -49,8 +49,8 @@ public class MainScreen extends Screen{
 	private JPanel greetingCard;
 	private AccountSettingsScreen accountSettingsCard;
 	private ViewAssetScreen viewAssetCard;
-	private AddAssetScreen addAssetCard;
-	private EditAssetScreen editAssetCard;
+	private FormAssetScreen addAssetCard;
+	private FormAssetScreen editAssetCard;
 	private AdminScreen adminCard;
 	private LogScreen viewLogsCard;
 	
@@ -194,7 +194,7 @@ public class MainScreen extends Screen{
 		addAssetCard = new AddAssetScreenBehavior().getView();
 		cardPanel.add(addAssetCard, this.ADD_ASSET_SCREEN);
 		
-		editAssetCard = new EditAssetScreenBehavior(-1).getView();
+		editAssetCard = new EditAssetScreenBehavior().getView();
 		cardPanel.add(editAssetCard, this.EDIT_ASSET_SCREEN);
 		
 		adminCard = new AdminScreenBehavior().getView();
