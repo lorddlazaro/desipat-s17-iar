@@ -45,8 +45,8 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		main.gotoAddAssetScreen();
 	}
 	public void updateAsset() {
-		/*main.setSelectedAsset(view.)
-		main.gotoEditAssetScreen();*/
+		main.loadEntry(view.getAssetTableSelectedAssetID());
+		main.gotoEditAssetScreen();
 	}
 	
 

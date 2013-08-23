@@ -222,21 +222,23 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 	
 	public void loadEntry(int ID)
 	{
-		Asset a = AssetTable.getInstance().getEntry(ID);
-
-		setAssetName(a.getName());
-		setOwner(a.toString());
-		setCustodian(a.toString());
-		setType(a.getType().getType());
-		setMaintenance(a.getMaintenance().getMaintenance());
-		setClassification(a.getClassification().getClassification());
-		setStorage(a.getStorage().getStorageLocation());
-		setPeriod(a.getRetentionPeriod().getPeriodName());
-		setDateAcquired(a.getDateAcquired());
-		setFinancialValue(Double.toString(a.getFinancialValue()));
-		setConfidentialityValue(Integer.toString(a.getConfidentialValue()));
-		setIntegrityValue(Integer.toString(a.getIntegrityValue()));
-		setAvailabilityValue(Integer.toString(a.getAvailabilityValue()));
+		if(ID != -1){
+			Asset a = AssetTable.getInstance().getEntry(ID);
+	
+			setAssetName(a.getName());
+			setOwner(a.toString());
+			setCustodian(a.toString());
+			setType(a.getType().getType());
+			setMaintenance(a.getMaintenance().getMaintenance());
+			setClassification(a.getClassification().getClassification());
+			setStorage(a.getStorage().getStorageLocation());
+			setPeriod(a.getRetentionPeriod().getPeriodName());
+			setDateAcquired(a.getDateAcquired());
+			setFinancialValue(Double.toString(a.getFinancialValue()));
+			setConfidentialityValue(Integer.toString(a.getConfidentialValue()));
+			setIntegrityValue(Integer.toString(a.getIntegrityValue()));
+			setAvailabilityValue(Integer.toString(a.getAvailabilityValue()));
+		}
 	}
 	
 	public void setAssetName(String toSet){

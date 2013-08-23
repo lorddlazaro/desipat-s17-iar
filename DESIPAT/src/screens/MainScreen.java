@@ -230,4 +230,8 @@ public class MainScreen extends Screen{
 		CardLayout cl = (CardLayout) cardPanel.getLayout();
 		cl.show(cardPanel, this.EDIT_ASSET_SCREEN);		
 	}
+
+	public void loadEntry(int ID) {
+		editAssetCard.loadEntry(ID);
+	}
 }

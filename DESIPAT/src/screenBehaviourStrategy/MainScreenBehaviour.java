@@ -57,4 +57,8 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 	public void gotoEditAssetScreen() {
 		mainScreen.gotoEditAssetScreen();
 	}
+
+	public void loadEntry(int ID) {
+		mainScreen.loadEntry(ID);
+	}
 }
