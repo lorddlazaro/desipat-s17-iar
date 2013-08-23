@@ -24,19 +24,20 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		int selectedAssetIdentifier = view.getAssetTableSelectedAssetID();
 		
 		Asset asset = AssetTable.getInstance().getEntry(selectedAssetIdentifier);
-		view.getLblAvailabilityValue().setText(String.valueOf(asset.getAvailabilityValue()));
-		view.getLblClassification().setText(String.valueOf(asset.getClassification().getClassification()));
-		view.getLblConfidentialValue().setText(String.valueOf(asset.getConfidentialValue()));
-		view.getLblCustodian().setText(String.valueOf(asset.getCustodian().getName()));
-		view.getLblDateAcquired().setText(String.valueOf(asset.getDateAcquired()));
-		view.getLblFinancialValue().setText(String.valueOf(asset.getFinancialValue()));
-		view.getLblIdentifier().setText(String.valueOf(asset.getID()));
-		view.getLblIntegrityValue().setText(String.valueOf(asset.getIntegrityValue()));
-		view.getLblMaintenance().setText(String.valueOf(asset.getMaintenance().getMaintenance()));
-		view.getLblName().setText(String.valueOf(asset.getName()));
-		view.getLblOwner().setText(String.valueOf(asset.getOwner().getName()));
-		view.getLblStorageLocation().setText(String.valueOf(asset.getStorage().getStorageLocation()));
-		view.getLblType().setText(String.valueOf(asset.getType().getType()));
+		
+		view.setLblIdentifier(String.valueOf(asset.getID()));
+		view.setLblName(String.valueOf(asset.getName()));
+		view.setLblOwner(String.valueOf(asset.getOwner().getName()));
+		view.setLblCustodian(String.valueOf(asset.getCustodian().getName()));
+		view.setLblType(String.valueOf(asset.getType().getType()));
+		view.setLblDateAcquired(String.valueOf(asset.getDateAcquired()));
+		view.setLblMaintenance(String.valueOf(asset.getMaintenance().getMaintenance()));
+		view.setLblFinancialValue(String.valueOf(asset.getFinancialValue()));
+		view.setLblConfidentialValue(String.valueOf(asset.getConfidentialValue()));
+		view.setLblIntegrityValue(String.valueOf(asset.getIntegrityValue()));
+		view.setLblAvailabilityValue(String.valueOf(asset.getAvailabilityValue()));
+		view.setLblClassification(String.valueOf(asset.getClassification().getClassification()));
+		view.setLblStorageLocation(String.valueOf(asset.getStorage().getStorageLocation()));
 		
 		view.updateChangeLogTable(selectedAssetIdentifier);
 	}

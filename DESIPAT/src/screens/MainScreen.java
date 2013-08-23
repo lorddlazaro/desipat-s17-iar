@@ -35,7 +35,6 @@ public class MainScreen extends Screen{
 	
 	private JLabel lblGreeting;
 	private JLabel lblCurrentUser;
-	private JLabel lblLastLogin;
 	private JButton btnAccountSettings;
 	private JButton btnLogOut;
 	
@@ -89,13 +88,10 @@ public class MainScreen extends Screen{
 		add(btnAccountSettings);
 		
 		btnLogOut = new JButton("Log Out");
-		//btnLogOut.addActionListener(new ActionListener() {
 		btnLogOut.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				behaviour.logout();
-				
+				behaviour.logout();		
 			}});
 		btnLogOut.setBounds(693, 12, 89, 23);
 		btnLogOut.setForeground(new Color(139, 0, 0));
@@ -110,14 +106,6 @@ public class MainScreen extends Screen{
 		menuBar.setLayout(null);
 		add(menuBar);
 		
-		cardPanel = new JPanel();
-		cardPanel.setBounds(10, 109, 772, 454);
-		cardPanel.setBorder(UIManager.getBorder("ProgressBar.border"));
-		cardPanel.setBackground(Color.LIGHT_GRAY);
-		cardPanel.setLayout(new CardLayout());
-		add(cardPanel);
-		
-		
 		
 		// BUTTON BAR
 		JLabel lblTitle = new JLabel("Asset Management Registry");
@@ -129,14 +117,10 @@ public class MainScreen extends Screen{
 		
 		btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setForeground(new Color(25, 25, 112));
-		//btnViewAssets.addActionListener(new ActionListener();
 		btnViewAssets.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				behaviour.gotoViewAssetScreen();
-				
 			}});
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
@@ -145,14 +129,10 @@ public class MainScreen extends Screen{
 		
 		btnManageAccounts = new JButton("Manage Accounts");
 		btnManageAccounts.setForeground(new Color(0, 100, 0));
-		//btnManageAccounts.addActionListener(new ActionListener();
 		btnManageAccounts.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				behaviour.gotoAdminScreen();
-				
+				behaviour.gotoAdminScreen();	
 			}});
 		
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -162,15 +142,11 @@ public class MainScreen extends Screen{
 		
 		btnViewLogs = new JButton("View Logs");
 		btnViewLogs.setForeground(new Color(160, 82, 45));
-		//btnViewLogs.addActionListener(new ActionListener() ;
 		btnViewLogs.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				behaviour.gotoLogScreen();
 			}
-			
 		});
 		
 		btnViewLogs.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -179,9 +155,15 @@ public class MainScreen extends Screen{
 		menuBar.add(btnViewLogs);
 		
 		
-		
+
 		// CARDS PANEL
-		// TODO: this panel?
+		cardPanel = new JPanel();
+		cardPanel.setBounds(10, 109, 772, 454);
+		cardPanel.setBorder(UIManager.getBorder("ProgressBar.border"));
+		cardPanel.setBackground(Color.LIGHT_GRAY);
+		cardPanel.setLayout(new CardLayout());
+		add(cardPanel);
+		
 		greetingCard = new JPanel();
 		cardPanel.add(greetingCard, this.GREETING_SCREEN);
 		
@@ -203,15 +185,16 @@ public class MainScreen extends Screen{
 		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
-	
+
+
+	public static UserAccount getCurrentUser(){
+		return currentUser;
+	}
 	public static void setCurrentUser(UserAccount userAccount){
 		currentUser = userAccount;
 	}
 	public void changeCurrentUserLabel(){
 		this.lblCurrentUser.setText(currentUser.getUsername());
-	}
-	public static UserAccount getCurrentUser(){
-		return currentUser;
 	}
 	
 	public void refresh(){
@@ -219,7 +202,32 @@ public class MainScreen extends Screen{
 		accountSettingsCard.setCurrentUser();
 	}
 	
-	public JPanel getCardPanel(){
-		return cardPanel;
+	public void gotoGreetingScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.GREETING_SCREEN);
+	}
+	public void gotoViewAssetScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.VIEW_ASSET_SCREEN);
+	}
+	public void gotoAdminScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.ADMIN_SCREEN);
+	}
+	public void gotoAccountScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.ACCOUNT_SETTINGS_SCREEN);
+	}
+	public void gotoLogScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.VIEW_LOG_SCREEN);
+	}
+	public void gotoAddAssetScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.ADD_ASSET_SCREEN);
+	}
+	public void gotoEditAssetScreen() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, this.EDIT_ASSET_SCREEN);		
 	}
 }

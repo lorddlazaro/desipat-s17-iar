@@ -72,8 +72,7 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		btnAddAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				behavior.addAsset();
-			}
-			
+			}		
 		});
 		btnAddAsset.setBounds(10, 11, 205, 39);
 		add(btnAddAsset);
@@ -181,26 +180,9 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		btnUpdateAsset.setFont(new Font("Calibri", Font.PLAIN, 13));
 		btnUpdateAsset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int id=0; //should get the id of the selected asset in the table
-				behavior.updateAsset();//TODO: pass id
+				behavior.updateAsset();
 			}
 		});
-		/*
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(225, 228, 537, 215);
-		add(scrollPane_1);
-		
-		changeLogTable = new JTable();
-		changeLogTable.setFont(new Font("Calibri", Font.PLAIN, 13));
-		changeLogTable.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"User", "Date", "Time", "Field", "Old Value", "New Value"
-			}
-		));
-		scrollPane_1.setViewportView(changeLogTable);
-		*/
 		
 		selectedAssetChangeLogTable = new SelectedAssetChangeLogTablePanel();
 		selectedAssetChangeLogTable.setBounds(225, 228, 537, 215);
@@ -215,113 +197,48 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	}
 	
 	public void refresh(){
-		System.out.println("AssetTable size = "+AssetTable.getInstance().getAllEntries().size());
 		assetTable.refresh();
 		assetTable.updateUI();
 	}
 
-	public JLabel getLblIdentifier() {
-		return lblIdentifier;
+	public void setLblIdentifier(String toSet) {
+		lblIdentifier.setText(toSet);
 	}
-
-	public void setLblIdentifier(JLabel lblIdentifier) {
-		this.lblIdentifier = lblIdentifier;
+	public void setLblName(String toSet) {
+		lblName.setText(toSet);
 	}
-
-	public JLabel getLblName() {
-		return lblName;
+	public void setLblOwner(String toSet) {
+		lblOwner.setText(toSet);
 	}
-
-	public void setLblName(JLabel lblName) {
-		this.lblName = lblName;
+	public void setLblCustodian(String toSet) {
+		lblCustodian.setText(toSet);
 	}
-
-	public JLabel getLblOwner() {
-		return lblOwner;
+	public void setLblType(String toSet) {
+		lblType.setText(toSet);
 	}
-
-	public void setLblOwner(JLabel lblOwner) {
-		this.lblOwner = lblOwner;
+	public void setLblDateAcquired(String toSet) {
+		lblDateAcquired.setText(toSet);
 	}
-
-	public JLabel getLblCustodian() {
-		return lblCustodian;
+	public void setLblMaintenance(String toSet) {
+		lblMaintenance.setText(toSet);
 	}
-
-	public void setLblCustodian(JLabel lblCustodian) {
-		this.lblCustodian = lblCustodian;
+	public void setLblFinancialValue(String toSet) {
+		lblFinancialValue.setText(toSet);
 	}
-
-	public JLabel getLblType() {
-		return lblType;
+	public void setLblConfidentialValue(String toSet) {
+		lblConfidentialValue.setText(toSet);
 	}
-
-	public void setLblType(JLabel lblType) {
-		this.lblType = lblType;
+	public void setLblIntegrityValue(String toSet) {
+		lblIntegrityValue.setText(toSet);
 	}
-
-	public JLabel getLblDateAcquired() {
-		return lblDateAcquired;
+	public void setLblAvailabilityValue(String toSet) {
+		lblAvailabilityValue.setText(toSet);
 	}
-
-	public void setLblDateAcquired(JLabel lblDateAcquired) {
-		this.lblDateAcquired = lblDateAcquired;
+	public void setLblClassification(String toSet) {
+		lblClassification.setText(toSet);
 	}
-
-	public JLabel getLblMaintenance() {
-		return lblMaintenance;
-	}
-
-	public void setLblMaintenance(JLabel lblMaintenance) {
-		this.lblMaintenance = lblMaintenance;
-	}
-
-	public JLabel getLblFinancialValue() {
-		return lblFinancialValue;
-	}
-
-	public void setLblFinancialValue(JLabel lblFinancialValue) {
-		this.lblFinancialValue = lblFinancialValue;
-	}
-
-	public JLabel getLblConfidentialValue() {
-		return lblConfidentialValue;
-	}
-
-	public void setLblConfidentialValue(JLabel lblConfidentialValue) {
-		this.lblConfidentialValue = lblConfidentialValue;
-	}
-
-	public JLabel getLblIntegrityValue() {
-		return lblIntegrityValue;
-	}
-
-	public void setLblIntegrityValue(JLabel lblIntegrityValue) {
-		this.lblIntegrityValue = lblIntegrityValue;
-	}
-
-	public JLabel getLblAvailabilityValue() {
-		return lblAvailabilityValue;
-	}
-
-	public void setLblAvailabilityValue(JLabel lblAvailabilityValue) {
-		this.lblAvailabilityValue = lblAvailabilityValue;
-	}
-
-	public JLabel getLblClassification() {
-		return lblClassification;
-	}
-
-	public void setLblClassification(JLabel lblClassification) {
-		this.lblClassification = lblClassification;
-	}
-
-	public JLabel getLblStorageLocation() {
-		return lblStorageLocation;
-	}
-
-	public void setLblStorageLocation(JLabel lblStorageLocation) {
-		this.lblStorageLocation = lblStorageLocation;
+	public void setLblStorageLocation(String toSet) {
+		lblStorageLocation.setText(toSet);
 	}
 	
 	public int getAssetTableSelectedAssetID(){
