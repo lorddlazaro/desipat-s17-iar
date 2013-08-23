@@ -35,7 +35,7 @@ public class UserAccountTablePanel extends TablePanel implements TableObserver{
 		table = new JTable();
 		//table.addMouseListener(new MouseAdapter();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
-		setViewportView(table);
+		//setViewportView(table);
 	}
 	
 	public JTable getTable(){
@@ -63,5 +63,11 @@ public class UserAccountTablePanel extends TablePanel implements TableObserver{
 			
 			model.addRow(row);
 		}	
+	}
+
+	@Override
+	protected void fillTable() {
+		// TODO Auto-generated method stub
+		
 	}
 }

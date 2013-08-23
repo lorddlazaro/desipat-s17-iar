@@ -38,7 +38,7 @@ public class AddTypeScreenBehavior implements
 	@Override
 	public void saveType(Type s) {
 		// TODO Auto-generated method stub
-		TypeLookUpTable.getInstance().addEntry(s);
+		//TypeLookUpTable.getInstance().addEntry(s);
 	
 		((FormAssetScreen)addTypePanel.getParent()).refresh();
 	}
