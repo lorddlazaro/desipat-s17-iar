@@ -1,9 +1,11 @@
 package screenBehaviourStrategy;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import screens.AddAssetScreen;
-import screens.EditAssetScreen;
+import screenBehaviourStrategy.AddAssetScreenBehavior.formButtonActionListener;
+import screens.FormAssetScreen;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
 import dataObjects.Person;
@@ -14,76 +16,49 @@ import dataObjects.TableEntry;
 import dataObjects.Type;
 import dataObjects.TypeLookUpTable;
 
-public class EditAssetScreenBehavior implements AssetScreenBehaviorStrategy {
+public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 
-	
-	private EditAssetScreen editAssetScreen;
-	public EditAssetScreenBehavior(int ID)
+	public EditAssetScreenBehavior()
 	{
-		//table = table.getInstance();
-		editAssetScreen = new EditAssetScreen(this,ID);
-		//AssetTable.getInstance().registerObserver((TableObserver) addAssetScreen);
+		assetScreen = new FormAssetScreen(this, "Edit Existing Asset", "Edit Asset");
+		fillComboBoxes();
+
+		assetScreen.addFormButtonActionListener(new formButtonActionListener());
 	}
-	@Override
-	public void saveAsset(Asset a) {
-		AssetTable.getInstance().editEntry(a);
-
-		// TODO Auto-generated method stub
-
-	}
-
-
-
-	@Override
-	public void setNewItemPanel(int itemType) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void saveItem() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cancel() {
-		// TODO Auto-generated method stub
-		
-	}
-	public EditAssetScreen getView(){
-		return editAssetScreen;
-	}
-	@Override
-	public void fillBoxes() {
-		// TODO Auto-generated method stub
-		
-		/*
-		ArrayList<Person>personList=PersonTable.getInstance().getAllEntries();
-		ArrayList<Type>typeList=TypeLookUpTable.getInstance().getAllEntries();
-		ArrayList<Storage>storageList=StorageTable.getInstance().getAllEntries();
-		ArrayList<String>personNameList=new ArrayList<String>();
-		ArrayList<String>typeNameList=new ArrayList<String>();
-		ArrayList<String>storageNameList=new ArrayList<String>();
-		for(Type t : typeList)
-		{
-			typeNameList.add(t.getType());
-		}
-		for(Storage s: storageList)
-		{
-			storageNameList.add(s.getStorageLocation());
-		}
-		for(Person p: personList)
-		{
-			personNameList.add(p.getName());
-		}
-		editAssetScreen.setCbxCustodianContents(personNameList);
-		editAssetScreen.setCbxOwnerContents(personNameList);
-		editAssetScreen.setCbxTypeContents(typeNameList);
-		editAssetScreen.setCbxStorageContents(storageNameList);
 	
-	*/
-	}
-	//public void fillFields()
+	public void editAsset() {
+		Asset asset = null;
+		
+		try {
+			asset = new Asset(	assetScreen.getAssetName(),
+								assetScreen.getOwnerID(),
+								assetScreen.getCustodianID(),
+								assetScreen.getTypeID(),
+								assetScreen.getMaintenanceID(),
+								assetScreen.getClassificationID(),
+								assetScreen.getStorageID(),
+								assetScreen.getPeriodID(),
+								assetScreen.getDateAcquired(),
+								assetScreen.getFinancialValue(),
+								assetScreen.getConfidentialityValue(),
+								assetScreen.getIntegrityValue(),
+								assetScreen.getAvailabilityValue()
+								);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		AssetTable.getInstance().editEntry(asset);
+	}
+	
+	public FormAssetScreen getView(){
+		return assetScreen;
+	}
+	
+	class formButtonActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			editAsset();
+		}
+	}
 }

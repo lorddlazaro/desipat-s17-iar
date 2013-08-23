@@ -5,7 +5,7 @@ import dataObjects.PersonTable;
 import dataObjects.Type;
 import dataObjects.TypeLookUpTable;
 
-import screens.AddAssetScreen;
+import screens.FormAssetScreen;
 import screens.AddPersonScreen;
 import screens.AddTypePanel;
 
@@ -40,7 +40,7 @@ public class AddTypeScreenBehavior implements
 		// TODO Auto-generated method stub
 		TypeLookUpTable.getInstance().addEntry(s);
 	
-		((AddAssetScreen)addTypePanel.getParent()).refresh();
+		((FormAssetScreen)addTypePanel.getParent()).refresh();
 	}
 
 }
