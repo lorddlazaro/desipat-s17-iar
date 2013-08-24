@@ -42,7 +42,7 @@ public class ComboBoxInput extends AbstractInputField{
 		return comboBoxField.getSelectedItem().toString();
 	}
 	
-	public TableEntry getSelectedItem(){
-		return (TableEntry) comboBoxField.getSelectedItem();
+	public Object getSelectedItem(){
+		return comboBoxField.getSelectedItem();
 	}
 }
