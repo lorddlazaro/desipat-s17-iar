@@ -39,13 +39,11 @@ public class LoginScreen extends Screen implements TableObserver {
 		LoginButton.setBackground(new Color(192, 192, 192));
 		LoginButton.setFont(new Font("Calibri", Font.PLAIN, 18));
 		LoginButton.setBounds(300, 270, 180, 40);
-		LoginButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behavior.login();	
-			}
-		});		
 		add(LoginButton);	
+	}
+	
+	public void setLoginButtonListener(ActionListener listener){
+		LoginButton.addActionListener(listener);
 	}
 	
 	public String getUsernameInput(){
