@@ -17,6 +17,8 @@ import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
+import dataObjects.Asset;
+import dataObjects.AssetTable;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 
@@ -231,7 +233,7 @@ public class MainScreen extends Screen{
 		cl.show(cardPanel, this.EDIT_ASSET_SCREEN);		
 	}
 
-	public void loadEntry(int ID) {
-		editAssetCard.loadEntry(ID);
+	public void loadEntry(Asset a) {
+		editAssetCard.loadEntry(a);
 	}
 }
