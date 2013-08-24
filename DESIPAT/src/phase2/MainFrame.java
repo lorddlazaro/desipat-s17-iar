@@ -63,4 +63,7 @@ public class MainFrame extends JFrame {
 		CardLayout cl = (CardLayout) getContentPane().getLayout();
 		cl.show((JPanel)getContentPane(), MAIN_SCREEN);
 	}
+	public MainScreen getMainScreen(){
+		return mainScreen;
+	}
 }

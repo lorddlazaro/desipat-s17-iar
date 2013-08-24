@@ -179,19 +179,22 @@ public class MainScreen extends Screen{
 		btnViewLogs.addActionListener(listener);
 	}
 
-	public void setViewAssetsButtonLayout(boolean bool, int x, int y){
+	public void setViewAssetsButtonVisibility(boolean bool){
 		btnViewAssets.setVisible(bool);
-		btnViewAssets.setBounds(x, y, btnViewAssets.getWidth(), btnViewAssets.getHeight());
 	}
 
-	public void setManageAccountsButtonLayout(boolean bool, int x, int y){
+	public void setManageAccountsButtonVisibility(boolean bool){
 		btnManageAccounts.setVisible(bool);
-		btnManageAccounts.setBounds(x, y, btnManageAccounts.getWidth(), btnManageAccounts.getHeight());
 	}
 	
-	public void setViewLogsButtonLayout(boolean bool, int x, int y){
+	public void setViewLogsButtonVisibility(boolean bool){
 		btnViewLogs.setVisible(bool);
-		btnViewLogs.setBounds(x, y, btnViewLogs.getWidth(), btnViewLogs.getHeight());
+	}
+	
+	public void resetVisibility(){
+		btnViewAssets.setVisible(true);
+		btnManageAccounts.setVisible(true);
+		btnViewLogs.setVisible(true);
 	}
 	
 	public static UserAccount getCurrentUser(){

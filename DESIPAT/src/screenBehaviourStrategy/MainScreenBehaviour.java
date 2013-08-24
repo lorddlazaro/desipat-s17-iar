@@ -30,12 +30,6 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 		mainScreen.setViewAssetsButtonListener(new ViewAssetsButtonListener());
 		mainScreen.setManageAccountsButtonListener(new ManageAccountsButtonListener());
 		mainScreen.setViewLogsButtonListener(new ViewLogsButtonListener());
-		//setLayoutRestrictions();
-	}
-	
-	public void setLayoutRestrictions(){
-		int clearanceID = MainScreen.getCurrentUser().getClearanceID();
-		System.out.println(clearanceID);
 	}
 	
 	class AccountSettingsButtonListener implements ActionListener{
