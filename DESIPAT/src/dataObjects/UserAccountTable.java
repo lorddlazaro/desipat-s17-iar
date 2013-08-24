@@ -101,9 +101,20 @@ public class UserAccountTable extends TableSubject{
 	}
 	
 	public boolean checkForUser(Person p) {
-		for (UserAccount user:userList) 
-			if (user.getPersonID() == p.getID())
+		if (PersonTable.getInstance().getEntry(p.getFirstName(), p.getMiddleInitial() + "", p.getLastName()) == null)
+			return false;
+		
+		for (UserAccount user:userList)
+			if (user.getPersonID() == PersonTable.getInstance().getEntry(p.getFirstName(), p.getMiddleInitial()+"", p.getLastName()).getID())
 				return false;
+		return true;
+	}
+	
+	public boolean checkIfUsernameNotTaken(String s) {
+		for (UserAccount user:userList)
+			if (user.getUsername().equals(s))
+				return false;
+
 		return true;
 	}
 	
