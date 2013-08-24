@@ -2,8 +2,10 @@ package screenBehaviourStrategy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import actionLogger.ActionLogIn;
+import dataObjects.Clearance;
 import dataObjects.ClearanceLookUpTable;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
@@ -58,7 +60,17 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	}
 	
 	public void setMainScreenRestrictions(int id){
-		String clearance =  ClearanceLookUpTable.getInstance().getAllEntries().get(id).getClearanceLevel();
+		/*
+		 *		VER 1 - CHECKING 
+		 * String clearance =  "";
+		ArrayList<Clearance> c = ClearanceLookUpTable.getInstance().getAllEntries();
+		
+		for(int i = 0; i < c.size(); i++){
+			if(c.get(i).getClearanceID() == id)
+				clearance = c.get(i).getClearanceLevel();
+		}*/
+		
+		String clearance =  ClearanceLookUpTable.getInstance().getTableID(id);
 		
 		mainFrame.getMainScreen().resetVisibility();
 
