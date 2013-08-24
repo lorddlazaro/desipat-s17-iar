@@ -1,5 +1,7 @@
 package screenBehaviourStrategy;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import dataObjects.Asset;
@@ -14,6 +16,8 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 
 	public ViewAssetScreenBehaviour(MainScreenBehaviourStrategy main){
 		 view = new ViewAssetScreen(this);
+		 view.setBtnAddAssetListener(new AddAssetButtonListener());
+		 view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
 		 this.main = main;
 		 AssetTable.getInstance().registerObserver(view);
 	}
@@ -49,5 +53,18 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		main.gotoEditAssetScreen();
 	}
 	
-
+	
+	class AddAssetButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			addAsset();
+		}		
+	}
+	
+	class UpdateAssetButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			updateAsset();
+		}
+	}
+	
+	
 }
