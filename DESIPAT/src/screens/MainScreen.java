@@ -214,6 +214,7 @@ public class MainScreen extends Screen{
 	}
 	public void gotoAdminScreen() {
 		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		this.adminCard.refreshScreen();
 		cl.show(cardPanel, this.ADMIN_SCREEN);
 	}
 	public void gotoAccountScreen() {
