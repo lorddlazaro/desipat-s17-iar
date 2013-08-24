@@ -6,16 +6,19 @@ import java.util.ArrayList;
 import screens.TableObserver;
 import statements.DeleteStrategy;
 import statements.DeleteUser;
+import statements.SelectAssetID;
 import statements.getMax.GetMaxIDAsset;
 import statements.getMax.GetMaxIDPerson;
 import statements.insertNew.NewAsset;
 import statements.insertNew.NewUser;
+import statements.selectAll.SelectAllActionLogs;
 import statements.selectAll.SelectAllAssets;
 import statements.selectAll.SelectAllUsers;
 import statements.updateTable.UpdateAsset;
 
 import dbHandler.NonQuery;
 import dbHandler.Query;
+import dbHandler.QueryHandler;
 
 
 public class AssetTable extends TableSubject{
@@ -92,12 +95,11 @@ public class AssetTable extends TableSubject{
 		ArrayList<String> values = asset.getValues();
 		values.remove(Asset.ID_INDEX);
 		
-		Query getID = new GetMaxIDAsset();
-		getID.executeStatement();
+		Query queryStatement = new SelectAssetID(values.get(0));
+		queryStatement.executeStatement();
+		ArrayList assetID = queryStatement.getResultList();
 		
-		asset.setID((Integer)getID.getResultList().get(0));
-		
-		NonQuery statement = new UpdateAsset(values, asset.getID());
+		NonQuery statement = new UpdateAsset(values, Integer.parseInt(assetID.get(0).toString()));
 		statement.executeStatement();
 		
 		this.notifyObservers();
