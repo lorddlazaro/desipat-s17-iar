@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 import dataObjects.ActionLog;
 import dataObjects.ActionLogTable;
+import dataObjects.AssetChangeLog;
+import dataObjects.AssetChangeLogTable;
 import dbHandler.NonQueryHandler;
 
 public abstract class ActionLogger {

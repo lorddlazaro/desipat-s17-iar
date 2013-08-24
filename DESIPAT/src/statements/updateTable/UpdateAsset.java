@@ -7,7 +7,7 @@ import statements.UpdateStrategy;
 public class UpdateAsset extends UpdateStrategy{
 
 	public UpdateAsset(ArrayList<String> values, int toUpdate) {
-		super("Asset", values, "assetID = " + toUpdate);
+		super("Asset", values, "identifier = " + toUpdate);
 	}
 
 	public void populateColumns() {

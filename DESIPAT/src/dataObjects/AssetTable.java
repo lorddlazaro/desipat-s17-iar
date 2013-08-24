@@ -85,13 +85,17 @@ public class AssetTable extends TableSubject{
 		
 		asset.setID((Integer)getID.getResultList().get(0));
 		
-		
 		this.notifyObservers();
 	}
 	
 	public void editEntry(Asset asset) {
 		ArrayList<String> values = asset.getValues();
 		values.remove(Asset.ID_INDEX);
+		
+		Query getID = new GetMaxIDAsset();
+		getID.executeStatement();
+		
+		asset.setID((Integer)getID.getResultList().get(0));
 		
 		NonQuery statement = new UpdateAsset(values, asset.getID());
 		statement.executeStatement();
