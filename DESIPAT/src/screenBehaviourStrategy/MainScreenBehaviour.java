@@ -1,6 +1,8 @@
 package screenBehaviourStrategy;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
@@ -9,6 +11,7 @@ import actionLogger.ActionLogOut;
 
 import dataObjects.Asset;
 import dataObjects.AssetTable;
+import dataObjects.ClearanceLookUpTable;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 import screens.MainScreen;
@@ -22,6 +25,47 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 	public MainScreenBehaviour(MainFrame frame){
 		mainScreen = new MainScreen(this);
 		mainFrame = frame;
+		mainScreen.setAccountSettingsButtonListener(new AccountSettingsButtonListener());
+		mainScreen.setLogOutButtonListener(new LogOutButtonListener());
+		mainScreen.setViewAssetsButtonListener(new ViewAssetsButtonListener());
+		mainScreen.setManageAccountsButtonListener(new ManageAccountsButtonListener());
+		mainScreen.setViewLogsButtonListener(new ViewLogsButtonListener());
+		//setLayoutRestrictions();
+	}
+	
+	public void setLayoutRestrictions(){
+		int clearanceID = MainScreen.getCurrentUser().getClearanceID();
+		System.out.println(clearanceID);
+	}
+	
+	class AccountSettingsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			gotoAccountScreen();
+		}
+	}
+	
+	class LogOutButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			logout();		
+		}
+	}
+	
+	class ViewAssetsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			gotoViewAssetScreen();
+		}
+	}
+	
+	class ManageAccountsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			gotoAdminScreen();	
+		}
+	}
+	
+	class ViewLogsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			gotoLogScreen();
+		}
 	}
 	
 	public MainScreen getView(){
