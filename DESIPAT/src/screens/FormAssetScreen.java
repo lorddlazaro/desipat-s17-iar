@@ -163,25 +163,25 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 		return assetName.getInput();
 	}
 	public int getOwnerID(){
-		return owner.getSelectedItem().getID();
+		return ((Asset)owner.getSelectedItem()).getID();
 	}
 	public int getCustodianID(){
-		return custodian.getSelectedItem().getID();
+		return ((Asset)custodian.getSelectedItem()).getID();
 	}
 	public int getTypeID(){
-		return type.getSelectedItem().getID();
+		return ((Asset)type.getSelectedItem()).getID();
 	}
 	public int getMaintenanceID(){
-		return maintenance.getSelectedItem().getID();
+		return ((Asset)maintenance.getSelectedItem()).getID();
 	}
 	public int getClassificationID(){
-		return classification.getSelectedItem().getID();
+		return ((Asset)classification.getSelectedItem()).getID();
 	}
 	public int getStorageID(){
-		return storage.getSelectedItem().getID();
+		return ((Asset)storage.getSelectedItem()).getID();
 	}
 	public int getPeriodID(){
-		return period.getSelectedItem().getID();
+		return ((Asset)period.getSelectedItem()).getID();
 	}
 	public String getDateAcquired(){
 		return dateAcquired.getInput();
