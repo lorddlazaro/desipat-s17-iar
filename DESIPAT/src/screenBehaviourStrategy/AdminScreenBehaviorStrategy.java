@@ -8,4 +8,5 @@ public interface AdminScreenBehaviorStrategy {
 	public abstract void selectedChanged();
 	public abstract void fillTable();
 	public abstract void fillClearance();
+	public abstract void fillSelectExisting();
 }
