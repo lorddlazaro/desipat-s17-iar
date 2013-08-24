@@ -1,13 +1,13 @@
 package screens;
 
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 
-import dataObjects.Asset;
-import dataObjects.AssetTable;
+import dataObjects.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -163,31 +163,33 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 		return assetName.getInput();
 	}
 	public int getOwnerID(){
-		return ((Asset)owner.getSelectedItem()).getID();
+		return ((Person)owner.getSelectedItem()).getID();
 	}
 	public int getCustodianID(){
-		return ((Asset)custodian.getSelectedItem()).getID();
+		return ((Person)custodian.getSelectedItem()).getID();
 	}
 	public int getTypeID(){
-		return ((Asset)type.getSelectedItem()).getID();
+		return ((Type)type.getSelectedItem()).getID();
 	}
 	public int getMaintenanceID(){
-		return ((Asset)maintenance.getSelectedItem()).getID();
+		return ((Maintenance)maintenance.getSelectedItem()).getID();
 	}
 	public int getClassificationID(){
-		return ((Asset)classification.getSelectedItem()).getID();
+		return ((Classification)classification.getSelectedItem()).getID();
 	}
 	public int getStorageID(){
-		return ((Asset)storage.getSelectedItem()).getID();
+		return ((Storage)storage.getSelectedItem()).getID();
 	}
 	public int getPeriodID(){
-		return ((Asset)period.getSelectedItem()).getID();
+		return ((RetentionPeriod)period.getSelectedItem()).getID();
 	}
 	public String getDateAcquired(){
 		return dateAcquired.getInput();
 	}
 	public Double getFinancialValue(){
-		return Double.parseDouble(financialValue.getInput());
+		try{
+			return Double.parseDouble(financialValue.getInput());
+		}catch(Exception e){return null;}
 	}
 	public int getConfidentialityValue(){
 		return Integer.parseInt(confidentialityValue.getInput());
@@ -279,4 +281,9 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 	public void setAvailabilityValue(String toSet){
 		availabilityValue.setInput(toSet);
 	}
+
+	public void displayErrorMsg(String msg){
+		JOptionPane.showMessageDialog(null, msg, "Error!", JOptionPane.ERROR_MESSAGE);
+	}
+
 }
