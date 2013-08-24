@@ -1,5 +1,8 @@
 package screenBehaviourStrategy;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import actionLogger.ActionLogIn;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
@@ -18,12 +21,20 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 		userAccountTable = userAccountTable.getInstance();
 		loginScreen = new LoginScreen(this);
 		mainFrame = frame;
+		loginScreen.setLoginButtonListener(new LoginButtonListener());
 	}
 	
 	public LoginScreen getView(){
 		return loginScreen;
 	}
 	
+	class LoginButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) {
+			login();
+		}
+		
+	}
+
 	public void login() {
 		for(UserAccount userAccount:userAccountTable.getAllEntries()){
 			if(loginScreen.getUsernameInput().equals(userAccount.getUsername()))
@@ -42,7 +53,5 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 		}
 		loginScreen.clearErrorMessages();
 		loginScreen.setUsernameFieldErrorMessage("user not found");
-		
-		// TODO: Logging, account clearance
 	}
 }
