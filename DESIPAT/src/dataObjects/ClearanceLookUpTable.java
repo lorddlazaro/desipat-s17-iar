@@ -66,4 +66,13 @@ public class ClearanceLookUpTable{
 				return c;
 		return null;
 	}
+	
+	// Gets the ClearanceLevel of a specific ID from an ArrayList
+	public String getTableID(int ID){
+		for(int i = 0; i < clearanceLookUpList.size(); i++){
+			if(clearanceLookUpList.get(i).getClearanceID() == ID)
+				return clearanceLookUpList.get(i).getClearanceLevel();
+		}
+		return null;
+	}
 }

@@ -15,6 +15,11 @@ public class Clearance extends TableEntry{
 	public String getClearanceLevel() {
 		return clearanceLevel;
 	}
+	
+	public int getClearanceID() {
+		return ID;
+	}
+	
 	public void setClearanceLevel(String clearanceLevel) {
 		this.clearanceLevel = clearanceLevel;
 	}
