@@ -236,7 +236,9 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		assetSummary.add(lblMostValuableAssetList);
 	}
 	
-	public void refresh(){}
+	public void refresh(){ 
+		//this was meant to update networth etc i think
+	}
 
 	public void initSettings() {
 		usernameField.setText(currUser.getUsername());
@@ -279,7 +281,7 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 			JOptionPane.showMessageDialog(null, "Please input old password.", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		if (!currUser.getPassword().equals(passwordField.getText())) {
+		if (!currUser.getPassword().equals(new String(passwordField.getPassword()))) {
 			passwordField.setBackground(Color.PINK);
 			JOptionPane.showMessageDialog(null, "Wrong password.", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
