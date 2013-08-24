@@ -155,7 +155,9 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			if (makingNewUser) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 				
-				if (!UserAccountTable.getInstance().checkForUser(p)) {
+				System.out.println(p);
+				
+				if (p != null) {
 					myScreen.personAlreadyExists();
 					return;
 				}
