@@ -63,7 +63,8 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 	
 	class CancelChangesButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			myScreen.refreshScreen();
+			makingNewUser = false;
+			myScreen.refreshScreen();			
 		}
 	}
 	
@@ -154,13 +155,18 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 			
 			if (makingNewUser) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
-				if (p != null) {
-					myScreen.personAlreadyExists();
-					return;
+
+				if (p == null) { // new person
+					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
+					PersonTable.getInstance().addEntry(p);
 				}
-				p = new Person(-1, firstName, middleInit.charAt(0), lastName);
-				PersonTable.getInstance().addEntry(p);
-				
+				else { // existing person
+					if (UserAccountTable.getInstance().checkForUser(p)) {
+						myScreen.personAlreadyExists();
+						return;
+					}
+				}
+
 				UserAccount u = new UserAccount(-1, username, password, clearanceID, p.getID(), 1);
 				UserAccountTable.getInstance().addEntry(u);
 			}
@@ -201,6 +207,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 
 				UserAccountTable.getInstance().editEntry(u);
 			}
+
 			makingNewUser = false;
 			myScreen.refreshScreen();
 		}
