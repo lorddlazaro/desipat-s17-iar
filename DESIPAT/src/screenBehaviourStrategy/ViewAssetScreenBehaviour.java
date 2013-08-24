@@ -7,9 +7,10 @@ import java.awt.event.MouseEvent;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
 import screens.MainScreen;
+import screens.TableObserver;
 import screens.ViewAssetScreen;
 
-public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrategy {
+public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrategy,  TableObserver {
 	
 	private ViewAssetScreen view;
 	private MainScreenBehaviourStrategy main;
@@ -19,7 +20,7 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		 view.setBtnAddAssetListener(new AddAssetButtonListener());
 		 view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
 		 this.main = main;
-		 AssetTable.getInstance().registerObserver(view);
+		 AssetTable.getInstance().registerObserver(this);
 	}
 	public ViewAssetScreen getView(){ 
 		return view;
@@ -64,6 +65,11 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		public void actionPerformed(ActionEvent e) {
 			updateAsset();
 		}
+	}
+
+	@Override
+	public void refresh() {
+		view.refresh();
 	}
 	
 	
