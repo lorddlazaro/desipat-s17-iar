@@ -15,5 +15,6 @@ public class UpdateUser extends UpdateStrategy{
 		columns.add("password");
 		columns.add("clearanceID");
 		columns.add("personID");
+		columns.add("isActive");
 	}
 }

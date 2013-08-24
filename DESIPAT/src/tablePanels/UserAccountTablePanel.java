@@ -45,7 +45,7 @@ public class UserAccountTablePanel extends TablePanel implements TableObserver{
 	public void fillTable(UserAccountTable userAccountTable){
 		this.userAccountTable = userAccountTable;
 		userAccountTable.registerObserver(this);
-		ArrayList<UserAccount> userAccountList = userAccountTable.getAllEntries();
+		ArrayList<UserAccount> userAccountList = userAccountTable.getAllEntries(true);
 		
 		DefaultTableModel model = new DefaultTableModel();
 		
