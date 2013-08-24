@@ -87,7 +87,7 @@ public class AdminScreen extends JPanel {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, false, false, false, false, false, false
+				false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];

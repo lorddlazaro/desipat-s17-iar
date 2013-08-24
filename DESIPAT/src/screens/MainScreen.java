@@ -78,23 +78,12 @@ public class MainScreen extends Screen{
 		add(lblCurrentUser);
 		
 		btnAccountSettings = new JButton("Account Settings");
-		
-		btnAccountSettings.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behaviour.gotoAccountScreen();
-			}});
 		btnAccountSettings.setBounds(538, 12, 143, 23);
 		btnAccountSettings.setBackground(new Color(128, 128, 128));
 		btnAccountSettings.setFont(new Font("Calibri", Font.PLAIN, 14));
 		add(btnAccountSettings);
 		
 		btnLogOut = new JButton("Log Out");
-		btnLogOut.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behaviour.logout();		
-			}});
 		btnLogOut.setBounds(693, 12, 89, 23);
 		btnLogOut.setForeground(new Color(139, 0, 0));
 		btnLogOut.setBackground(new Color(255, 127, 80));
@@ -119,11 +108,6 @@ public class MainScreen extends Screen{
 		
 		btnViewAssets = new JButton("View Assets");
 		btnViewAssets.setForeground(new Color(25, 25, 112));
-		btnViewAssets.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behaviour.gotoViewAssetScreen();
-			}});
 		btnViewAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewAssets.setBackground(new Color(70, 130, 180));
 		btnViewAssets.setBounds(352, 0, 140, 50);
@@ -131,12 +115,6 @@ public class MainScreen extends Screen{
 		
 		btnManageAccounts = new JButton("Manage Accounts");
 		btnManageAccounts.setForeground(new Color(0, 100, 0));
-		btnManageAccounts.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behaviour.gotoAdminScreen();	
-			}});
-		
 		btnManageAccounts.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnManageAccounts.setBackground(new Color(60, 179, 113));
 		btnManageAccounts.setBounds(492, 0, 140, 50);
@@ -144,13 +122,6 @@ public class MainScreen extends Screen{
 		
 		btnViewLogs = new JButton("View Logs");
 		btnViewLogs.setForeground(new Color(160, 82, 45));
-		btnViewLogs.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				behaviour.gotoLogScreen();
-			}
-		});
-		
 		btnViewLogs.setFont(new Font("Calibri", Font.PLAIN, 14));
 		btnViewLogs.setBackground(new Color(238, 232, 170));
 		btnViewLogs.setBounds(632, 0, 140, 50);
@@ -187,8 +158,42 @@ public class MainScreen extends Screen{
 		viewLogsCard = new LogScreen();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
+	
+	public void setAccountSettingsButtonListener(ActionListener listener){
+		btnAccountSettings.addActionListener(listener);
+	}
+	
+	public void setLogOutButtonListener(ActionListener listener){
+		btnLogOut.addActionListener(listener);
+	}
+	
+	public void setViewAssetsButtonListener(ActionListener listener){
+		btnViewAssets.addActionListener(listener);
+	}
+	
+	public void setManageAccountsButtonListener(ActionListener listener){
+		btnManageAccounts.addActionListener(listener);
+	}
+	
+	public void setViewLogsButtonListener(ActionListener listener){
+		btnViewLogs.addActionListener(listener);
+	}
 
+	public void setViewAssetsButtonLayout(boolean bool, int x, int y){
+		btnViewAssets.setVisible(bool);
+		btnViewAssets.setBounds(x, y, btnViewAssets.getWidth(), btnViewAssets.getHeight());
+	}
 
+	public void setManageAccountsButtonLayout(boolean bool, int x, int y){
+		btnManageAccounts.setVisible(bool);
+		btnManageAccounts.setBounds(x, y, btnManageAccounts.getWidth(), btnManageAccounts.getHeight());
+	}
+	
+	public void setViewLogsButtonLayout(boolean bool, int x, int y){
+		btnViewLogs.setVisible(bool);
+		btnViewLogs.setBounds(x, y, btnViewLogs.getWidth(), btnViewLogs.getHeight());
+	}
+	
 	public static UserAccount getCurrentUser(){
 		return currentUser;
 	}
