@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import actionLogger.ActionLogIn;
 import actionLogger.ActionLogOut;
 
+import dataObjects.Asset;
+import dataObjects.AssetTable;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
 import screens.MainScreen;
@@ -58,7 +60,9 @@ public class MainScreenBehaviour implements MainScreenBehaviourStrategy {
 		mainScreen.gotoEditAssetScreen();
 	}
 
-	public void loadEntry(int ID) {
-		mainScreen.loadEntry(ID);
+	public void loadEntry(int id) {
+		Asset a = AssetTable.getInstance().getEntry(id);
+		if(a!=null)
+			mainScreen.loadEntry(a);
 	}
 }

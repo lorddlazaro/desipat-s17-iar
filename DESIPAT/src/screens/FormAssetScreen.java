@@ -221,11 +221,9 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 		maintenance.insertList(arr);
 	}
 	
-	public void loadEntry(int ID)
+	public void loadEntry(Asset a)
 	{
-		if(ID != -1){
-			Asset a = AssetTable.getInstance().getEntry(ID);
-	
+		if(a != null){
 			setAssetName(a.getName());
 			setOwner(a.getOwner().toString());
 			setCustodian(a.getCustodian().toString());
