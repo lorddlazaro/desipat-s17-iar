@@ -102,6 +102,7 @@ public class AssetTable extends TableSubject{
 		NonQuery statement = new UpdateAsset(values, Integer.parseInt(assetID.get(0).toString()));
 		statement.executeStatement();
 		
+		fillData();
 		this.notifyObservers();
 	}
 	
