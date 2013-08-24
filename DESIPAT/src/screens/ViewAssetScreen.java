@@ -30,7 +30,7 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 
 
-public class ViewAssetScreen extends Screen implements TableObserver{
+public class ViewAssetScreen extends Screen{
 
 	private Connection conn;
 	
