@@ -48,6 +48,10 @@ public class UserAccount extends TableEntry{
 			return true;
 		return false;
 	}
+	
+	public int getIsActive(){
+		return isActive;
+	}
 	public Clearance getClearance() {
 		return ClearanceLookUpTable.getInstance().getEntry(clearanceID);
 	}
