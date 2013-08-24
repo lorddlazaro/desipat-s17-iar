@@ -227,8 +227,8 @@ public class FormAssetScreen extends JPanel implements TableObserver {
 			Asset a = AssetTable.getInstance().getEntry(ID);
 	
 			setAssetName(a.getName());
-			setOwner(a.toString());
-			setCustodian(a.toString());
+			setOwner(a.getOwner().toString());
+			setCustodian(a.getCustodian().toString());
 			setType(a.getType().getType());
 			setMaintenance(a.getMaintenance().getMaintenance());
 			setClassification(a.getClassification().getClassification());
