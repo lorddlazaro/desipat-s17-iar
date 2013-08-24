@@ -78,12 +78,6 @@ public class AdminScreen extends JPanel {
 		tablePanel.add(scrollPane);
 		
 		userTable = new JTable();
-		getUserTable().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				myBehavior.selectedCellChanged();
-			}
-		});
 		scrollPane.setViewportView(getUserTable());
 		getUserTable().setModel(new DefaultTableModel(
 			new Object[][] {
@@ -177,48 +171,24 @@ public class AdminScreen extends JPanel {
 		
 		deleteUserButton = new JButton("Delete User");
 		deleteUserButton.setBackground(new Color(107, 142, 35));
-		deleteUserButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				myBehavior.deleteUserClicked();
-			}
-		});
 		deleteUserButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		deleteUserButton.setBounds(626, 105, 116, 23);
 		detailsPanel.add(deleteUserButton);
 		
 		setChangeDetailsButton(new JButton("Change Details"));
 		getChangeDetailsButton().setBackground(new Color(107, 142, 35));
-		getChangeDetailsButton().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				checkInputs();
-				myBehavior.changeDetailsClicked();
-			}
-		});
 		getChangeDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getChangeDetailsButton().setBounds(626, 75, 116, 23);
 		detailsPanel.add(getChangeDetailsButton());
 		
 		cancelChangesButton = new JButton("Cancel Changes");
 		cancelChangesButton.setBackground(new Color(107, 142, 35));
-		cancelChangesButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				refreshScreen();
-			}
-		});
 		cancelChangesButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		cancelChangesButton.setBounds(626, 47, 116, 23);
 		detailsPanel.add(cancelChangesButton);
 		
 		addUserButton = new JButton("Add User");
 		addUserButton.setBackground(new Color(107, 142, 35));
-		addUserButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myBehavior.addUserClicked();
-			}
-		});
 		addUserButton.setFont(new Font("Calibri", Font.PLAIN, 11));
 		addUserButton.setBounds(626, 13, 116, 23);
 		detailsPanel.add(addUserButton);
@@ -229,11 +199,6 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblExistingPersons);
 		
 		selectExistingComboBox = new JComboBox<String>();
-		getSelectExistingComboBox().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				myBehavior.selectedChanged();
-			}
-		});
 		getSelectExistingComboBox().setEnabled(false);
 		getSelectExistingComboBox().setBounds(421, 13, 157, 20);
 		detailsPanel.add(getSelectExistingComboBox());
@@ -384,4 +349,29 @@ public class AdminScreen extends JPanel {
 	public void showErrorNoSelectedUser() {
 		JOptionPane.showMessageDialog(null, "Please select a person on the table before editing.", "Error", JOptionPane.WARNING_MESSAGE);
 	}
+	
+	public void setDeleteUserButtonListener(ActionListener listener){
+		deleteUserButton.addActionListener(listener);
+	}
+	
+	public void setChangeDetailsButtonListener(ActionListener listener){
+		changeDetailsButton.addActionListener(listener);
+	}
+	
+	public void setCancelChangesButtonListener(ActionListener listener){
+		cancelChangesButton.addActionListener(listener);
+	}
+	
+	public void setAddUserButtonListener(ActionListener listener){
+		addUserButton.addActionListener(listener);
+	}
+	
+	public void setUserTableListener(MouseAdapter adapter){
+		userTable.addMouseListener(adapter);
+	}
+	
+	public void setSelectExistingComboBoxListener(ActionListener listener){
+		selectExistingComboBox.addActionListener(listener);
+	}
+	
 }

@@ -1,5 +1,9 @@
 package screenBehaviourStrategy;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +41,48 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		myScreen = new AdminScreen(this);
 		fillClearance();
 		myScreen.refreshScreen();
+		myScreen.setDeleteUserButtonListener(new DeleteUserButtonListener());
+		myScreen.setChangeDetailsButtonListener(new ChangeDetailsButtonListener());
+		myScreen.setCancelChangesButtonListener(new CancelChangesButtonListener());
+		myScreen.setAddUserButtonListener(new AddUserButtonListener());
+		myScreen.setUserTableListener(new UserTableListener());
+		myScreen.setSelectExistingComboBoxListener(new SelectExistingComboBoxListener());
+	}
+	
+	class DeleteUserButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			deleteUserClicked();
+		}
+	}
+	
+	class ChangeDetailsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			changeDetailsClicked();
+		}
+	}
+	
+	class CancelChangesButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			myScreen.refreshScreen();
+		}
+	}
+	
+	class AddUserButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			addUserClicked();
+		}
+	}
+	
+	class UserTableListener extends MouseAdapter{
+		public void mouseClicked(MouseEvent e) {
+			selectedCellChanged();
+		}
+	}
+	
+	class SelectExistingComboBoxListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			selectedChanged();
+		}
 	}
 	
 	public void selectedCellChanged() {
