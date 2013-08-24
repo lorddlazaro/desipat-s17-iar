@@ -32,7 +32,11 @@ public class ComboBoxInput extends AbstractInputField{
 		// TODO Auto-generated method stub
 	}
 	public void setInput(String toSet) {
-		comboBoxField.setSelectedItem(toSet);
+		for(int i = 0; i < comboBoxField.getItemCount(); i++)
+			if(comboBoxField.getItemAt(i).toString().equals(toSet)){
+				comboBoxField.setSelectedIndex(i);
+				break;
+			}
 	}
 	public String getInput() {
 		return comboBoxField.getSelectedItem().toString();
