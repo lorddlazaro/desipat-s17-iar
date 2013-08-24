@@ -36,7 +36,7 @@ public class LoginScreenBehaviour implements LoginScreenBehaviourStrategy{
 	}
 
 	public void login() {
-		for(UserAccount userAccount:userAccountTable.getAllEntries()){
+		for(UserAccount userAccount:userAccountTable.getAllEntries(true)){
 			if(loginScreen.getUsernameInput().equals(userAccount.getUsername()))
 				if(loginScreen.getPasswordInput().equals(userAccount.getPassword())){
 					MainScreen.setCurrentUser(userAccount);

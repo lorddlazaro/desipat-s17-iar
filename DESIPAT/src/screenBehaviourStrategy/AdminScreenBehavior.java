@@ -159,11 +159,12 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 					myScreen.personAlreadyExists();
 					return;
 				}
+				System.out.println("HAHAHAHAH");
 				
 				p = new Person(-1, firstName, middleInit.charAt(0), lastName);
 				PersonTable.getInstance().addEntry(p);
 				
-				UserAccount u = new UserAccount(-1, username, password, clearanceID, p.getID());
+				UserAccount u = new UserAccount(-1, username, password, clearanceID, p.getID(), 1);
 				UserAccountTable.getInstance().addEntry(u);
 			}
 			else {
@@ -215,7 +216,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		for (int i = 0; i < rowCount; i++)
 			model.removeRow(0);
 		
-		ArrayList<UserAccount> list = UserAccountTable.getInstance().getAllEntries();
+		ArrayList<UserAccount> list = UserAccountTable.getInstance().getAllEntries(true);
 		
 		for (int i = 0; i < list.size(); i++)
 			model.addRow(new Object[] {list.get(i).getID(), list.get(i).getUsername(), list.get(i).getPassword(), list.get(i).getClearance().getClearanceLevel(), list.get(i).getPersonFirstName(), list.get(i).getPersonMiddleName(), list.get(i).getPersonLastName()});

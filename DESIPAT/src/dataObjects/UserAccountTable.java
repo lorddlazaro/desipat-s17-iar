@@ -76,8 +76,9 @@ public class UserAccountTable extends TableSubject{
 	
 	public void editEntry(UserAccount userAccount) {
 		ArrayList<String> values = userAccount.getValues();
-		
 		values.remove(UserAccount.ID_INDEX);
+		values.add("1");
+		
 		System.out.println(values);
 		NonQuery statement = new UpdateUser(values, userAccount.getID());
 		statement.executeStatement();
@@ -85,10 +86,18 @@ public class UserAccountTable extends TableSubject{
 		this.notifyObservers();
 	}
 	
-	public void deleteEntry(UserAccount u){
-		userList.remove(u);
-		NonQuery statement = new DeleteUser(u.getID());
-		statement.executeStatement();	
+	public void deleteEntry(UserAccount userAccount){
+		userList.remove(userAccount);
+		ArrayList<String> values = userAccount.getValues();
+		values.remove(UserAccount.ID_INDEX);
+		values.add("0");
+		
+		System.out.println(values);
+		NonQuery statement = new UpdateUser(values, userAccount.getID());
+		statement.executeStatement();
+		
+		fillData();
+		this.notifyObservers();
 	}
 	
 	public boolean checkForUser(Person p) {
@@ -98,7 +107,16 @@ public class UserAccountTable extends TableSubject{
 		return true;
 	}
 	
-	public ArrayList<UserAccount> getAllEntries() {
+	public ArrayList<UserAccount> getAllEntries(boolean isActive) {
+		if(isActive){
+			ArrayList<UserAccount> active = new ArrayList<UserAccount>();
+			for(UserAccount account: userList){
+				if(account.isActive())
+					active.add(account);
+			}
+			return active;
+		}
+		
 		return userList;
 	}
 

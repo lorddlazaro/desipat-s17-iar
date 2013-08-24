@@ -109,7 +109,7 @@ public class PersonTable extends TableSubject{
 		for (int i = 0; i < personList.size(); i++)
 			person.add(personList.get(i));
 		
-		for(UserAccount u: UserAccountTable.getInstance().getAllEntries()) {
+		for(UserAccount u: UserAccountTable.getInstance().getAllEntries(true)) {
 			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getID() == u.getPersonID())
 					person.remove(i);

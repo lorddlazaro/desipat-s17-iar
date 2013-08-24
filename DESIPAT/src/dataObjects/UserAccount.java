@@ -12,13 +12,14 @@ public class UserAccount extends TableEntry{
 	private String password;
 	private int clearanceID;
 	private int personID;
-	
-	public UserAccount(int userID, String username, String password, int clearanceID, int personID){
+	private int isActive;
+	public UserAccount(int userID, String username, String password, int clearanceID, int personID, int isActive){
 		 setID(userID);
 		 setUsername(username);
 		 setPassword(password);
 		 setClearanceID(clearanceID);
 		 setPersonID(personID);
+		 setIsActive(isActive);
 	 }
 	
 	public String getUsername() {
@@ -38,6 +39,14 @@ public class UserAccount extends TableEntry{
 	}
 	public void setClearanceID(int clearanceID) {
 		this.clearanceID = clearanceID;
+	}
+	public void setIsActive(int isActive){
+		this.isActive = isActive;
+	}
+	public boolean isActive(){
+		if(isActive == 1)
+			return true;
+		return false;
 	}
 	public Clearance getClearance() {
 		return ClearanceLookUpTable.getInstance().getEntry(clearanceID);

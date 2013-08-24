@@ -28,8 +28,10 @@ public abstract class UpdateStrategy extends NonQuery{
 	public void setColsAndValues(){
 		for (int i=0;i<columns.size();i++)
 		{
-			columnsAndValues += columns.get(i)+"='"+values.get(i);
-			columnsAndValues += (i<columns.size()-1)? "'," : "";
+			if(!values.get(i).isEmpty()){
+				columnsAndValues += columns.get(i)+"='"+values.get(i);
+				columnsAndValues += (i<columns.size()-1)? "'," : "";
+			}
 		}
 		
 		nonQuery = "UPDATE " + tableName + " SET " + columnsAndValues + "' WHERE " + condition + ";";
