@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import actionLogger.ActionAddAsset;
+import actionLogger.ActionLogIn;
+
 import dataObjects.Classification;
 import dataObjects.ClassificationLookUpTable;
 import dataObjects.Maintenance;
@@ -96,6 +99,9 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		}
 
 		AssetTable.getInstance().addEntry(asset);
+		
+		ActionAddAsset action = new ActionAddAsset(assetScreen.getOwnerID(), assetScreen.getAssetName());
+		action.logAction();
 	}
 	
 	public FormAssetScreen getView(){
