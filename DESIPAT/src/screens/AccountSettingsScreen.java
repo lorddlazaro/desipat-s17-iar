@@ -276,7 +276,7 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	}
 
 	public boolean checkNewPassword() {
-		if (passwordField.getPassword().length == 0) {
+		if (new String(passwordField.getPassword()).trim().length() == 0) {
 			passwordField.setBackground(Color.PINK);
 			JOptionPane.showMessageDialog(null, "Please input old password.", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
