@@ -22,6 +22,11 @@ import dataObjects.AssetTable;
 import dataObjects.TableEntry;
 import dataObjects.UserAccountTable;
 import dataObjects.Asset;
+import errorChecker.AlphabetChecker;
+import errorChecker.BasicValidCharsChecker;
+import errorChecker.DotChecker;
+import errorChecker.NumericChecker;
+import errorChecker.ValidCharsChecker;
 import screens.FormAssetScreen;
 import screens.LoginScreen;
 import screens.TableObserver;
@@ -110,7 +115,31 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	
 	class formButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			saveAsset();
+			if(isInputValid())
+				saveAsset();
+			else
+				assetScreen.displayErrorMsg("Please fill up all fields.\nAsset name can only contain letters.\nEnter a number for financial value.");
+		}
+		
+		private boolean isInputValid(){
+			
+			if(assetScreen.getFinancialValue() == null)
+				return false;
+			
+			ValidCharsChecker checker = new BasicValidCharsChecker();
+			checker = new NumericChecker(checker);
+			checker = new DotChecker(checker);
+			
+			if(!checker.isInputValid(""+assetScreen.getFinancialValue()))
+				return false;
+			
+			checker = new BasicValidCharsChecker();
+			checker = new AlphabetChecker(checker);
+			
+			if(!checker.isInputValid(assetScreen.getAssetName()))
+				return false;
+			
+			return true;
 		}
 	}
 }
