@@ -46,30 +46,10 @@ public class AddStoragePanel extends JPanel{
 		txtStorageLocation = new JTextField();
 		add(txtStorageLocation);
 		
-
-		
 		cancelBtn = new JButton("Cancel");
-		cancelBtn.addActionListener( new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				behaviour.cancel();
-			}});
 		add(cancelBtn);
+		
 		saveBtn = new JButton("Save");
-		saveBtn.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				//NEED VALIDATION either on person constructor or here
-				Storage s =new Storage(-1,txtStorageLocation.getText());
-				behaviour.saveStorage(s);
-				txtStorageLocation.setText("");
-				
-			}});
 		add(saveBtn);
 		
 		this.setName("Add Storage Location");
@@ -77,6 +57,18 @@ public class AddStoragePanel extends JPanel{
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setBounds(447, 248, 315, 137);
 		this.setVisible(true);
+	}
+	
+	public JTextField getStorageLocationTF() {
+		return txtStorageLocation;
+	}
+	
+	public void addCancelButtonActionListener(ActionListener al){
+		cancelBtn.addActionListener(al);
+	}
+	
+	public void addSaveButtonActionListener(ActionListener al){
+		saveBtn.addActionListener(al);
 	}
 	
 
