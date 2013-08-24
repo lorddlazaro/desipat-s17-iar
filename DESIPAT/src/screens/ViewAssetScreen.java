@@ -51,6 +51,8 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 	private JLabel lblAvailabilityValue;
 	private JLabel lblClassification;
 	private JLabel lblStorageLocation;
+	private JButton btnAddAsset;
+	private JButton btnUpdateAsset;
 	
 	public ViewAssetScreen(ViewAssetScreenBehaviourStrategy behaviour) {
 		this.behavior = behaviour;
@@ -66,14 +68,9 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		assetTable.setBounds(10, 61, 205, 382);
 		add(assetTable);
 		
-		JButton btnAddAsset = new JButton("Add Asset");
+		btnAddAsset = new JButton("Add Asset");
 		btnAddAsset.setBackground(SystemColor.activeCaption);
 		btnAddAsset.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnAddAsset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				behavior.addAsset();
-			}		
-		});
 		btnAddAsset.setBounds(10, 11, 205, 39);
 		add(btnAddAsset);
 		
@@ -174,15 +171,10 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		lblStorageLocation = new JLabel("");
 		assetDetails.add(lblStorageLocation, "8, 14");
 		
-		JButton btnUpdateAsset = new JButton("Update Asset");
+		btnUpdateAsset = new JButton("Update Asset");
 		btnUpdateAsset.setBackground(SystemColor.activeCaption);
 		assetDetails.add(btnUpdateAsset, "8, 16");
 		btnUpdateAsset.setFont(new Font("Calibri", Font.PLAIN, 13));
-		btnUpdateAsset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				behavior.updateAsset();
-			}
-		});
 		
 		selectedAssetChangeLogTable = new SelectedAssetChangeLogTablePanel();
 		selectedAssetChangeLogTable.setBounds(225, 228, 537, 215);
@@ -200,6 +192,14 @@ public class ViewAssetScreen extends Screen implements TableObserver{
 		assetTable.updateUI();
 	}
 
+	public void setBtnAddAssetListener(ActionListener actionListener){
+		btnAddAsset.addActionListener(actionListener);
+	}
+	
+	public void setBtnUpdateAssetListener(ActionListener actionListener){
+		btnUpdateAsset.addActionListener(actionListener);
+	}
+	
 	public void setLblIdentifier(String toSet) {
 		lblIdentifier.setText(toSet);
 	}
