@@ -50,7 +50,6 @@ public class AddPersonScreen extends JPanel{
 		middleInitialLbl = new JLabel("Middle Initial: ");
 		add(middleInitialLbl);
 		middleInitialTxtFld = new JTextField();
-		
 		add(middleInitialTxtFld);
 		
 		lastNameLbl = new JLabel("Last Name:");
@@ -59,29 +58,8 @@ public class AddPersonScreen extends JPanel{
 		add(lastNameTxtFld);
 		
 		cancelBtn = new JButton("Cancel");
-		cancelBtn.addActionListener( new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				behaviour.cancel();
-			}});
 		add(cancelBtn);
 		saveBtn = new JButton("Save");
-		saveBtn.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				
-				//NEED VALIDATION either on person constructor or here
-				Person p = new Person(-1,firstNameTxtFld.getText(),middleInitialTxtFld.getText().charAt(0),lastNameTxtFld.getText());
-				behaviour.savePerson(p);
-				firstNameTxtFld.setText("");
-				middleInitialTxtFld.setText("");
-				lastNameTxtFld.setText("");
-				
-			}});
 		add(saveBtn);
 		
 		this.setName("Add Person");
@@ -89,6 +67,26 @@ public class AddPersonScreen extends JPanel{
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//this.setBounds(447, 248, 315, 137);
 		this.setVisible(true);
+	}
+	
+	public JTextField getFirstNameTF() {
+		return firstNameTxtFld;
+	}
+	
+	public JTextField getMiddleInitialTF() {
+		return middleInitialTxtFld;
+	}
+	
+	public JTextField getLastNameTF() {
+		return lastNameTxtFld;
+	}
+	
+	public void addCancelButtonActionListener(ActionListener al){
+		cancelBtn.addActionListener(al);
+	}
+	
+	public void addSaveButtonActionListener(ActionListener al){
+		saveBtn.addActionListener(al);
 	}
 	
 
