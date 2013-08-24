@@ -2,9 +2,9 @@ package errorChecker;
 
 import fields.AbstractInputField;
 
-public class IsInDBChecker extends ErrorCheckerDecorator {
+public class IsInDBChecker extends ValidCharsCheckerDecorator {
 	
-	public IsInDBChecker(ErrorChecker checker, AbstractInputField field) {
+	public IsInDBChecker(ValidCharsChecker checker, AbstractInputField field) {
 		super(checker, field);
 		// TODO Auto-generated constructor stub
 	}
