@@ -1,6 +1,8 @@
 package screenBehaviourStrategy;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
@@ -18,6 +20,27 @@ public class AccountSettingsScreenBehavior implements AccountSettingsScreenBehav
 	
 	public AccountSettingsScreenBehavior() {
 		myScreen = new AccountSettingsScreen(this);
+		myScreen.setChangeDetailsButtonListener(new ChangeDetailsButtonListener());
+		myScreen.setSaveDetailsButtonListener(new SaveDetailsButtonListener());
+		myScreen.setChangeNameButtonListener(new ChangeNameButtonListener());
+	}
+	
+	class ChangeDetailsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			changeDetails();
+		}
+	}
+	
+	class SaveDetailsButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			saveAcctDetails();
+		}
+	}
+	
+	class ChangeNameButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			updateName();
+		}
 	}
 
 	public void changeDetails() {

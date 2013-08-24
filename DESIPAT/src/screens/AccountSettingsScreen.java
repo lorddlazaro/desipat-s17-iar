@@ -113,14 +113,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		setChangeDetailsButton(new JButton("Change Details"));
 		getChangeDetailsButton().setBackground(new Color(220, 220, 220));
-		getChangeDetailsButton().addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				controller.changeDetails();
-				
-			}});
 		getChangeDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getChangeDetailsButton().setBounds(254, 80, 105, 23);
 		userSettingsPanel.add(getChangeDetailsButton());
@@ -137,11 +129,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		setSaveDetailsButton(new JButton("Save"));
 		getSaveDetailsButton().setBackground(new Color(220, 220, 220));
-		saveDetailsButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				controller.saveAcctDetails();
-			}
-		});
 		getSaveDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getSaveDetailsButton().setBounds(254, 107, 105, 23);
 		userSettingsPanel.add(getSaveDetailsButton());
@@ -200,13 +187,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		setChangeNameButton(new JButton("Update Name"));
 		getChangeNameButton().setBackground(new Color(220, 220, 220));
-		getChangeNameButton().addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				controller.updateName();
-			}} );
 		getChangeNameButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getChangeNameButton().setBounds(258, 64, 105, 23);
 		namePanel.add(getChangeNameButton());
@@ -462,4 +442,17 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	public void setNewPasswordField(JPasswordField newPasswordField) {
 		this.newPasswordField = newPasswordField;
 	}
+	
+	public void setChangeDetailsButtonListener(ActionListener listener){
+		changeDetailsButton.addActionListener(listener);
+	}
+	
+	public void setSaveDetailsButtonListener(ActionListener listener){
+		saveDetailsButton.addActionListener(listener);
+	}
+	
+	public void setChangeNameButtonListener(ActionListener listener){
+		changeNameButton.addActionListener(listener);
+	}
+	
 }
