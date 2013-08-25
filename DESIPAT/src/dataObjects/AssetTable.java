@@ -97,9 +97,8 @@ public class AssetTable extends TableSubject{
 		
 		Query queryStatement = new SelectAssetID(values.get(0));
 		queryStatement.executeStatement();
-		ArrayList assetID = queryStatement.getResultList();
 		
-		NonQuery statement = new UpdateAsset(values, Integer.parseInt(assetID.get(0).toString()));
+		NonQuery statement = new UpdateAsset(values,(Integer)queryStatement.getResultList().get(0));
 		statement.executeStatement();
 		
 		fillData();

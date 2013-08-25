@@ -8,7 +8,6 @@ public class NewAssetChangeLog extends InsertStrategy{
 	public NewAssetChangeLog(AssetChangeLog a) {
 		super("AssetChangeLog",
 				"actionID, assetID, assetField, oldValue, newValue",
-				a.getActionID()+ ", " + a.getAssetID() + ", " + a.getAssetField() + ", " + a.getOldValue() +", "+a.getNewValue()+
-				 "");
+				a.getActionID()+ ", " + a.getAssetID() + ", '" + a.getAssetField() + "' ,'" + a.getOldValue() +"' ,'"+a.getNewValue()+"'");
 	}
 }

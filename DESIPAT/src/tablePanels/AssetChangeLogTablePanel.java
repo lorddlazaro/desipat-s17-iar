@@ -28,8 +28,8 @@ public class AssetChangeLogTablePanel extends TablePanel{
 		model.addColumn("User");
 		model.addColumn("Asset");
 		model.addColumn("Field");
-		model.addColumn("New Value");
 		model.addColumn("Old Value");
+		model.addColumn("New Value");
 		
 		DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
 		DateFormat time = new SimpleDateFormat("hh:mm");
