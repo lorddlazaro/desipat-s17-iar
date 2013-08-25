@@ -40,7 +40,7 @@ public class AssetChangeLogTablePanel extends TablePanel{
 			row.add(date.format(assetChangeLog.getActionLog().getActionDate()));
 			row.add(time.format(assetChangeLog.getActionLog().getActionTime()));
 			row.add(assetChangeLog.getActionLog().getUser().getUsername());
-			row.add(assetChangeLog.getAsset());
+			row.add(assetChangeLog.getAsset().getName());
 			row.add(assetChangeLog.getAssetField());
 			row.add(assetChangeLog.getOldValue());
 			row.add(assetChangeLog.getNewValue());
