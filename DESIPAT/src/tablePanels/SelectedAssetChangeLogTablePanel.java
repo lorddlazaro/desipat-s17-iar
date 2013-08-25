@@ -45,7 +45,7 @@ public class SelectedAssetChangeLogTablePanel extends TablePanel{
 					row.add(assetChangeLog.getActionLog().getActionDate());
 					row.add(assetChangeLog.getActionLog().getActionTime());
 					row.add(assetChangeLog.getActionLog().getUser().getUsername());
-					row.add(assetChangeLog.getAsset());
+					row.add(assetChangeLog.getAsset().getName());
 					row.add(assetChangeLog.getAssetField());
 					row.add(assetChangeLog.getOldValue());
 					row.add(assetChangeLog.getNewValue());	
