@@ -1,5 +1,7 @@
 package dataObjects;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class AssetChangeLog extends TableEntry{
@@ -9,11 +11,17 @@ public class AssetChangeLog extends TableEntry{
 	public final static int OLDVALUE_INDEX = 4;
 	public final static int NEWVALUE_INDEX = 5;
 	
+	private Date actionDate;
+	private Time actionTime;
 	private int actionID;
 	private int assetID;
 	private String assetField;
 	private String oldValue;
 	private String newValue;
+	
+	public AssetChangeLog(){
+		
+	}
 	
 	public AssetChangeLog(int ID, int actionID, int assetID, String assetField, String oldValue, String newValue){
 		setID(ID);
@@ -24,6 +32,18 @@ public class AssetChangeLog extends TableEntry{
 		setNewValue(newValue);
 	}
 	
+	public Date getActionDate() {
+		return actionDate;
+	}
+	public void setActionDate(Date actionDate) {
+		this.actionDate = actionDate;
+	}
+	public Time getActionTime() {
+		return actionTime;
+	}
+	public void setActionTime(Time actionTime) {
+		this.actionTime = actionTime;
+	}
 	public int getActionID() {
 		return actionID;
 	}

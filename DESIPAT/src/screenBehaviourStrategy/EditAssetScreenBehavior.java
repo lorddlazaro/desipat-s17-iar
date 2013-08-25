@@ -1,20 +1,14 @@
 package screenBehaviourStrategy;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import actionLogger.ActionUpdateAsset;
+import assetLogger.AssetEdited;
 
-import screenBehaviourStrategy.AddAssetScreenBehavior.FormButtonActionListener;
 import screens.FormAssetScreen;
+import statements.getMax.GetMaxIDActionLog;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
-import dataObjects.Person;
-import dataObjects.PersonTable;
-import dataObjects.Storage;
-import dataObjects.StorageTable;
-import dataObjects.TableEntry;
-import dataObjects.Type;
-import dataObjects.TypeLookUpTable;
+import dbHandler.Query;
+
 
 public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 
@@ -49,6 +43,15 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 			e.printStackTrace();
 		}
 
+		ActionUpdateAsset action = new ActionUpdateAsset(assetScreen.getOwnerID(), assetScreen.getAssetName());
+		action.logAction();
+		
+		Query getID = new GetMaxIDActionLog();
+		getID.executeStatement();
+		
+		AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
+		editAction.logAction();
+		
 		AssetTable.getInstance().editEntry(asset);
 	}
 	

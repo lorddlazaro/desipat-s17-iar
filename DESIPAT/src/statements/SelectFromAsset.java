@@ -7,7 +7,7 @@ import dataObjects.Asset;
 
 public class SelectFromAsset extends SelectFromIDStrategy {
 	public SelectFromAsset(int assetID) {
-		super("Asset", "assetID = " + assetID);
+		super("Asset", "identifier = " + assetID);
 	}
 
 	public void fillResultList() {
