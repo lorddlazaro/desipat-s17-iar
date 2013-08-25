@@ -40,6 +40,7 @@ public class SelectedAssetChangeLogTablePanel extends TablePanel{
 			Vector<Object> row = new Vector<Object>();
 			ArrayList<AssetChangeLog> list = AssetChangeLogTable.getInstance().getAllEntries();
 			
+			System.out.println(list.size());
 			for(AssetChangeLog assetChangeLog: list)
 				if(assetChangeLog.getAssetID() == selectedAsset.getID()){
 					row.add(assetChangeLog.getActionLog().getActionDate());
@@ -49,9 +50,9 @@ public class SelectedAssetChangeLogTablePanel extends TablePanel{
 					row.add(assetChangeLog.getAssetField());
 					row.add(assetChangeLog.getOldValue());
 					row.add(assetChangeLog.getNewValue());	
+
+					model.addRow(row);
 				}
-			
-			model.addRow(row);
 		}
 		
 		table.setModel(model);
