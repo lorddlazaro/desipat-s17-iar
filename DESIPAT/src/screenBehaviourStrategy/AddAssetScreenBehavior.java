@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import actionLogger.ActionAddAsset;
-import actionLogger.ActionLogIn;
 
 import dataObjects.Classification;
 import dataObjects.ClassificationLookUpTable;
@@ -19,19 +18,9 @@ import dataObjects.Type;
 import dataObjects.StorageTable;
 import dataObjects.Storage;
 import dataObjects.AssetTable;
-import dataObjects.TableEntry;
-import dataObjects.UserAccountTable;
 import dataObjects.Asset;
-import errorChecker.AlphabetChecker;
-import errorChecker.BasicValidCharsChecker;
-import errorChecker.DotChecker;
-import errorChecker.NumericChecker;
-import errorChecker.ValidCharsChecker;
+import errorChecker.FormAssetValidator;
 import screens.FormAssetScreen;
-import screens.LoginScreen;
-import screens.TableObserver;
-import statements.SelectLookUpStrategy;
-import statements.lookUp.LookUpMaintenance;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
@@ -42,7 +31,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		assetScreen = new FormAssetScreen(this, "Add New Asset", "Add Asset");
 		fillComboBoxes();
 		
-		assetScreen.addFormButtonActionListener(new formButtonActionListener());
+		assetScreen.addFormButtonActionListener(new FormButtonActionListener());
 	}
 	
 	protected void fillComboBoxes(){
@@ -113,33 +102,16 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		return assetScreen;
 	}
 	
-	class formButtonActionListener implements ActionListener{
+	class FormButtonActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(isInputValid())
+			
+			FormAssetValidator formValidator = new FormAssetValidator();
+			String errorMsg = formValidator.getErrorWithAssetName(assetScreen.getAssetName())+formValidator.getErrorWithFinancialVal(assetScreen.getFinancialValue());
+			
+			if(errorMsg.isEmpty())
 				saveAsset();
 			else
-				assetScreen.displayErrorMsg("Please fill up all fields.\nAsset name can only contain letters.\nEnter a number for financial value.");
-		}
-		
-		private boolean isInputValid(){
-			
-			if(assetScreen.getFinancialValue() == null)
-				return false;
-			
-			ValidCharsChecker checker = new BasicValidCharsChecker();
-			checker = new NumericChecker(checker);
-			checker = new DotChecker(checker);
-			
-			if(!checker.isInputValid(""+assetScreen.getFinancialValue()))
-				return false;
-			
-			checker = new BasicValidCharsChecker();
-			checker = new AlphabetChecker(checker);
-			
-			if(!checker.isInputValid(assetScreen.getAssetName()))
-				return false;
-			
-			return true;
+				assetScreen.displayErrorMsg(errorMsg);
 		}
 	}
 }

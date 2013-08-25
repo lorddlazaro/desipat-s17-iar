@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import screenBehaviourStrategy.AddAssetScreenBehavior.formButtonActionListener;
+import screenBehaviourStrategy.AddAssetScreenBehavior.FormButtonActionListener;
 import screens.FormAssetScreen;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
@@ -23,10 +23,10 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 		assetScreen = new FormAssetScreen(this, "Edit Existing Asset", "Edit Asset");
 		fillComboBoxes();
 
-		assetScreen.addFormButtonActionListener(new formButtonActionListener());
+		assetScreen.addFormButtonActionListener(new FormButtonActionListener());
 	}
 	
-	public void editAsset() {
+	public void saveAsset() {
 		Asset asset = null;
 		
 		try {
@@ -54,11 +54,5 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 	
 	public FormAssetScreen getView(){
 		return assetScreen;
-	}
-	
-	class formButtonActionListener implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			editAsset();
-		}
 	}
 }
