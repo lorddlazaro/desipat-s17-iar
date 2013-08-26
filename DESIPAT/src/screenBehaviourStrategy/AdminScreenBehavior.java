@@ -18,7 +18,6 @@ import dataObjects.UserAccountTable;
 import screens.AdminScreen;
 import screens.TableObserver;
 
-
 public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableObserver{
 
 	AdminScreen myScreen;
@@ -170,7 +169,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 				UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
 				Person p = PersonTable.getInstance().getEntry(u.getPersonID());
 				
-				if (p == null) { // person not in list f persons, new person
+				if (p == null) { // person not in list of persons, new person
 					System.out.println("new person");
 					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
 					PersonTable.getInstance().addEntry(p);
