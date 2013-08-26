@@ -101,10 +101,17 @@ public class DateInput extends AbstractInputField{
 		int setMonth, setDay, setYear;
 		
 		setYear = (int) yearField.getSelectedItem();
-		setMonth = monthField.getSelectedIndex() + 1;
+		setMonth = monthField.getSelectedIndex();
 		setDay = (int) dayField.getSelectedItem();
 		
-		return String.valueOf(setYear + "-" + setMonth + "-" + setDay);
+		if(setMonth < 10 && setDay > 9)
+			return String.valueOf(setYear + "-0" + setMonth + "-" + setDay);
+		else if(setMonth > 9 && setDay < 10)
+			return String.valueOf(setYear + "-" + setMonth + "-0" + setDay);
+		else if(setMonth < 10 && setDay < 10)
+			return String.valueOf(setYear + "-0" + setMonth + "-0" + setDay);
+		else
+			return String.valueOf(setYear + "-" + setMonth + "-" + setDay);
 	}
 
 	
