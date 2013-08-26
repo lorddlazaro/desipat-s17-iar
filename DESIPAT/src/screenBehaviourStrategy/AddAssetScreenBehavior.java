@@ -20,6 +20,7 @@ import dataObjects.Storage;
 import dataObjects.AssetTable;
 import dataObjects.Asset;
 import errorChecker.FormAssetValidator;
+import errorChecker.ValidLengthAndCharChecker;
 import screens.FormAssetScreen;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
@@ -32,6 +33,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		fillComboBoxes();
 		
 		assetScreen.addFormButtonActionListener(new FormButtonActionListener());
+		assetScreen.addStorageNewButtonActionListener(new NewStorageActionListener());
 	}
 	
 	protected void fillComboBoxes(){
@@ -100,6 +102,28 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 	
 	public FormAssetScreen getView(){
 		return assetScreen;
+	}
+	
+	class NewStorageActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String selectedStorage= assetScreen.getSelectedStorage();
+			ValidLengthAndCharChecker checker = new ValidLengthAndCharChecker(ValidLengthAndCharChecker.NAME, 20);
+			
+			String errorMsg = checker.getErrorMsg(selectedStorage);
+			if(!errorMsg.isEmpty()){
+				assetScreen.displayErrorMsg(errorMsg);
+				return;
+			}
+		
+			if (StorageTable.getInstance().getEntry(selectedStorage) == null){
+				StorageTable.getInstance().addEntry(new Storage(selectedStorage));
+				fillComboBoxes();
+			}
+		}
+		
+		
 	}
 	
 	class FormButtonActionListener implements ActionListener{

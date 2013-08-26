@@ -19,6 +19,7 @@ public class ComboBoxInput extends AbstractInputField{
 		comboBoxField.setFont(new Font("Calibri", Font.PLAIN, 12));
 	}
 	public void insertList(ArrayList items){
+		comboBoxField.removeAllItems();
 		for(Object item : items){
 			comboBoxField.addItem(item);
 		}
@@ -39,7 +40,7 @@ public class ComboBoxInput extends AbstractInputField{
 			}
 	}
 	public String getInput() {
-		return comboBoxField.getSelectedItem().toString();
+		return comboBoxField.getSelectedItem().toString().trim();
 	}
 	
 	public Object getSelectedItem(){

@@ -77,11 +77,11 @@ public class FormAssetScreen extends JPanel {
 		dateAcquired.setBounds(60, 160, 350, 30);
 		add(dateAcquired);
 		
-		owner = new ObjectInput("Owner", "Please input name of new owner:",SystemColor.activeCaption);
+		owner = new ObjectInput("Owner");
 		owner.setBounds(60, 200, 350, 35);
 		add(owner);
 		
-		custodian = new ObjectInput("Custodian", "Please input name of new custodian:",SystemColor.activeCaption);
+		custodian = new ObjectInput("Custodian");
 		custodian.setBounds(60, 240, 350, 35);
 		add(custodian);
 		
@@ -89,7 +89,7 @@ public class FormAssetScreen extends JPanel {
 		type.setBounds(60, 280, 350, 35);
 		add(type);
 
-		storage = new ObjectInput("Storage", "Please input new storage location:",SystemColor.activeCaption);
+		storage = new ObjectInput("Storage");
 		storage.setBounds(60, 320, 350, 35);
 		add(storage);
 		
@@ -148,11 +148,9 @@ public class FormAssetScreen extends JPanel {
 	public void addCustodianNewButtonActionListener(ActionListener al){
 		custodian.addNewButtonActionListener(al);
 	}
-
 	public void addStorageNewButtonActionListener(ActionListener al){
 		storage.addNewButtonActionListener(al);
 	}
-	
 	public void addFormButtonActionListener(ActionListener al){
 		formButton.addActionListener(al);
 	}
@@ -197,6 +195,16 @@ public class FormAssetScreen extends JPanel {
 	}
 	public int getAvailabilityValue(){
 		return Integer.parseInt(availabilityValue.getInput());
+	}
+
+	public String getSelectedOwner(){
+		return owner.getInput();
+	}
+	public String getSelectedCustodian(){
+		return custodian.getInput();
+	}
+	public String getSelectedStorage(){
+		return storage.getInput();
 	}
 	
 	public void fillClassificationComboBox(ArrayList arr){
