@@ -7,6 +7,10 @@ public class Storage extends TableEntry{
 	
 	private String storageLocation;
 	
+	public Storage(String storageLocation){
+		setStorageLocation(storageLocation);
+	}
+	
 	public Storage(int ID, String storageLocation){
 		setID(ID);
 		setStorageLocation(storageLocation);

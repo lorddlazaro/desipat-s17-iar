@@ -42,7 +42,7 @@ public class AddStorageScreenBehavior implements
 
 	@Override
 	public void saveStorage(Storage s) {
-		// TODO Auto-generated method stub
+		System.out.println("NEW STORAGE");
 		StorageTable.getInstance().addEntry(s);
 		((FormAssetScreen)addStoragePanel.getParent()).refresh();
 		

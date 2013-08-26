@@ -90,4 +90,14 @@ public class StorageTable extends TableSubject{
 				return storage;
 		return null;
 	}
+
+	public Storage getEntry(String name){
+		for(Storage storage:storageList)
+			if(storage.getStorageLocation().equals(name))
+				return storage;
+		
+		return null;
+	}
+
+
 }
