@@ -22,44 +22,13 @@ public class SelectedAssetChangeLogTablePanel extends TablePanel{
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 	
-	protected void fillTable(){
-		DefaultTableModel model = new DefaultTableModel();
-		
-		model.addColumn("Date");
-		model.addColumn("Time");
-		model.addColumn("User");
-		model.addColumn("Asset");
-		model.addColumn("Field");
-		model.addColumn("New Value");
-		model.addColumn("Old Value");
-		
-		Asset selectedAsset = AssetTable.getInstance().getEntry(selectedAssetID);
-
-		if(selectedAsset != null){
-			 
-			Vector<Object> row = new Vector<Object>();
-			ArrayList<AssetChangeLog> list = AssetChangeLogTable.getInstance().getAllEntries();
-			
-			System.out.println(list.size());
-			for(AssetChangeLog assetChangeLog: list)
-				if(assetChangeLog.getAssetID() == selectedAsset.getID()){
-					row.add(assetChangeLog.getActionLog().getActionDate());
-					row.add(assetChangeLog.getActionLog().getActionTime());
-					row.add(assetChangeLog.getActionLog().getUser().getUsername());
-					row.add(assetChangeLog.getAsset().getName());
-					row.add(assetChangeLog.getAssetField());
-					row.add(assetChangeLog.getOldValue());
-					row.add(assetChangeLog.getNewValue());	
-
-					model.addRow(row);
-				}
-		}
-		
-		table.setModel(model);
-	}
-	
+	/*
 	public void changeSelectedAsset(int selectedAssetID){
 		this.selectedAssetID = selectedAssetID;
 		refresh();
+	}
+*/
+	public void fillTable(DefaultTableModel model) {
+		table.setModel(model);
 	}
 }

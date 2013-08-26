@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import dataObjects.Asset;
+import dataObjects.AssetChangeLogTable;
 import dataObjects.AssetTable;
 import screens.MainScreen;
 import screens.TableObserver;
@@ -24,12 +25,13 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
 		this.main = main;
 		AssetTable.getInstance().registerObserver(this);
-		view.refresh();
+		refresh();
 	}
 		
 	public ViewAssetScreen getView(){ 
 		return view;
 	}
+	
 	public void selectAsset() {
 		int selectedAssetIdentifier = view.getAssetTableSelectedAssetID();
 		
@@ -48,8 +50,8 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		view.setLblAvailabilityValue(String.valueOf(asset.getAvailabilityValue()));
 		view.setLblClassification(String.valueOf(asset.getClassification().getClassification()));
 		view.setLblStorageLocation(String.valueOf(asset.getStorage().getStorageLocation()));
-		
-		view.updateChangeLogTable(selectedAssetIdentifier);
+			
+		view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(selectedAssetIdentifier));
 	}
 	public void addAsset() {
 		main.gotoAddAssetScreen();
@@ -74,6 +76,6 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 
 	@Override
 	public void refresh() {
-		view.setTableModel(AssetTable.getInstance().createTableModel());
+		view.setViewAssetTableModel(AssetTable.getInstance().createTableModel());
 	} 
 }

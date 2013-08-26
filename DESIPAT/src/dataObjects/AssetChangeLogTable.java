@@ -2,6 +2,9 @@ package dataObjects;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 import screens.TableObserver;
 import statements.DeleteUser;
@@ -97,5 +100,40 @@ public class AssetChangeLogTable extends TableSubject{
 			if(assetChangeLog.getID() == ID)
 				return assetChangeLog;
 		return null;
+	}
+	
+	public DefaultTableModel createSelectedAssetChageLogTableModel(int selectedAssetID){
+		DefaultTableModel model = new DefaultTableModel();
+		
+		model.addColumn("Date");
+		model.addColumn("Time");
+		model.addColumn("User");
+		model.addColumn("Asset");
+		model.addColumn("Field");
+		model.addColumn("New Value");
+		model.addColumn("Old Value");
+		
+		Asset selectedAsset = AssetTable.getInstance().getEntry(selectedAssetID);
+
+		if(selectedAsset != null){
+			 
+			Vector<Object> row = new Vector<Object>();
+			ArrayList<AssetChangeLog> list = AssetChangeLogTable.getInstance().getAllEntries();
+			
+			System.out.println(list.size());
+			for(AssetChangeLog assetChangeLog: list)
+				if(assetChangeLog.getAssetID() == selectedAsset.getID()){
+					row.add(assetChangeLog.getActionLog().getActionDate());
+					row.add(assetChangeLog.getActionLog().getActionTime());
+					row.add(assetChangeLog.getActionLog().getUser().getUsername());
+					row.add(assetChangeLog.getAsset().getName());
+					row.add(assetChangeLog.getAssetField());
+					row.add(assetChangeLog.getOldValue());
+					row.add(assetChangeLog.getNewValue());	
+
+					model.addRow(row);
+				}
+		}
+		return model;
 	}
 }
