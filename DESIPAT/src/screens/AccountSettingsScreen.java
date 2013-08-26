@@ -190,50 +190,6 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		getChangeNameButton().setFont(new Font("Calibri", Font.PLAIN, 11));
 		getChangeNameButton().setBounds(258, 64, 105, 23);
 		namePanel.add(getChangeNameButton());
-		
-		assetSummary = new JPanel();
-		assetSummary.setBorder(new LineBorder(new Color(0, 0, 0)));
-		assetSummary.setBounds(10, 162, 752, 281);
-		assetSummary.setLayout(null);
-		add(assetSummary);
-		
-		lblSummaryTable = new JLabel("Summary");
-		lblSummaryTable.setBounds(10, 11, 269, 22);
-		lblSummaryTable.setFont(new Font("Calibri", Font.PLAIN, 18));
-		assetSummary.add(lblSummaryTable);
-		
-		JLabel lblNetWorth = new JLabel("Net worth");
-		lblNetWorth.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNetWorth.setBounds(10, 44, 76, 14);
-		assetSummary.add(lblNetWorth);
-		
-		lblNetWorthList = new JTextPane();
-		lblNetWorthList.setBackground(UIManager.getColor("Button.background"));
-		lblNetWorthList.setEditable(false);
-		lblNetWorthList.setBounds(10, 59, 139, 22);
-		assetSummary.add(lblNetWorthList);
-		
-		JLabel lblNewestAssets = new JLabel("Newest Assets");
-		lblNewestAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblNewestAssets.setBounds(10, 113, 99, 14);
-		assetSummary.add(lblNewestAssets);
-		
-		lblNewestAssetList = new JTextPane();
-		lblNewestAssetList.setBackground(UIManager.getColor("Button.background"));
-		lblNewestAssetList.setEditable(false);
-		lblNewestAssetList.setBounds(10, 127, 172, 55);
-		assetSummary.add(lblNewestAssetList);
-		
-		JLabel lblMostValuableAssets = new JLabel("Most Valuable Assets");
-		lblMostValuableAssets.setFont(new Font("Calibri", Font.PLAIN, 14));
-		lblMostValuableAssets.setBounds(10, 184, 139, 14);
-		assetSummary.add(lblMostValuableAssets);
-		
-		lblMostValuableAssetList = new JTextPane();
-		lblMostValuableAssetList.setBackground(UIManager.getColor("Button.background"));
-		lblMostValuableAssetList.setEditable(false);
-		lblMostValuableAssetList.setBounds(10, 209, 172, 55);
-		assetSummary.add(lblMostValuableAssetList);
 	}
 	
 	public void refresh(){ 
