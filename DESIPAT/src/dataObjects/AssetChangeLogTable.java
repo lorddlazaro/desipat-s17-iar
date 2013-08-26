@@ -119,12 +119,13 @@ public class AssetChangeLogTable extends TableSubject{
 
 		if(selectedAsset != null){
 			 
-			Vector<Object> row = new Vector<Object>();
+			
 			ArrayList<AssetChangeLog> list = AssetChangeLogTable.getInstance().getAllEntries();
 			
 			System.out.println(list.size());
 			for(AssetChangeLog assetChangeLog: list)
 				if(assetChangeLog.getAssetID() == selectedAsset.getID()){
+					Vector<Object> row = new Vector<Object>();
 					row.add(assetChangeLog.getActionLog().getActionDate());
 					row.add(assetChangeLog.getActionLog().getActionTime());
 					row.add(assetChangeLog.getActionLog().getUser().getUsername());
