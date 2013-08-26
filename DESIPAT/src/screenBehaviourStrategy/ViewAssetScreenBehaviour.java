@@ -2,6 +2,7 @@ package screenBehaviourStrategy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
@@ -23,7 +24,10 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		view = new ViewAssetScreen(this);
 		view.setBtnAddAssetListener(new AddAssetButtonListener());
 		view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
+		view.setAssetTableMouseAdapter(new AssetTableMouseAdapter());
+		
 		this.main = main;
+		
 		AssetTable.getInstance().registerObserver(this);
 		refresh();
 	}
@@ -74,9 +78,16 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 		}
 	}
 
+	class AssetTableMouseAdapter extends MouseAdapter{
+		public void mousePressed(MouseEvent arg0) {
+			selectAsset();
+			System.out.println("HERE");
+		}
+	}
+	
 	@Override
 	public void refresh() {
 		view.setViewAssetTableModel(AssetTable.getInstance().createTableModel());
-		view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(view.getAssetTableSelectedAssetID()));
+		//view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(view.getAssetTableSelectedAssetID()));
 	} 
 }
