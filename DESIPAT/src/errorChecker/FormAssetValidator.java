@@ -33,4 +33,11 @@ public class FormAssetValidator {
 		return "";
 	}
 	
+	public String getErrorWithNewStorage(String storage){
+		
+		ValidLengthAndCharChecker checker = new ValidLengthAndCharChecker(ValidLengthAndCharChecker.NAME, 50);
+		
+		return checker.getErrorMsg(storage);
+	}
+	
 }

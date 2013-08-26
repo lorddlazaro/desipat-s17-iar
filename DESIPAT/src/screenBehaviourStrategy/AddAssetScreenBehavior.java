@@ -28,8 +28,8 @@ import screens.FormAssetScreen;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
-	protected FormAssetScreen assetScreen;
-
+	protected FormAssetScreen assetScreen;	
+	
 	public AddAssetScreenBehavior()
 	{
 		assetScreen = new FormAssetScreen(this, "Add New Asset", "Add Asset");
@@ -143,9 +143,10 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		public void actionPerformed(ActionEvent e) {
 			String selectedStorage= assetScreen.getSelectedStorage();
 			if(selectedStorage != null){
-				ValidLengthAndCharChecker checker = new ValidLengthAndCharChecker(ValidLengthAndCharChecker.NAME, 20);
+			
+				FormAssetValidator validator = new FormAssetValidator();
+				String errorMsg = validator.getErrorWithNewStorage(selectedStorage);
 				
-				String errorMsg = checker.getErrorMsg(selectedStorage);
 				if(!errorMsg.isEmpty()){
 					assetScreen.displayErrorMsg(errorMsg);
 					return;
