@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 import screens.TableObserver;
+import screens.ViewAssetScreen;
 import statements.DeleteStrategy;
 import statements.DeleteUser;
 import statements.SelectAssetID;
@@ -98,10 +99,9 @@ public class AssetTable extends TableSubject{
 		ArrayList<String> values = asset.getValues();
 		values.remove(Asset.ID_INDEX);
 		
-		Query queryStatement = new SelectAssetID(values.get(0));
-		queryStatement.executeStatement();
+		int assetID = ViewAssetScreen.getAssetTableSelectedAssetID();
 		
-		NonQuery statement = new UpdateAsset(values,(Integer)queryStatement.getResultList().get(0));
+		NonQuery statement = new UpdateAsset(values,assetID);
 		statement.executeStatement();
 		
 		fillData();

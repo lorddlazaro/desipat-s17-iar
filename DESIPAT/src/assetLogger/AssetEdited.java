@@ -1,5 +1,6 @@
 package assetLogger;
 
+import screens.ViewAssetScreen;
 import statements.SelectAssetID;
 import statements.SelectFromAsset;
 import dataObjects.Asset;
@@ -13,9 +14,7 @@ public class AssetEdited extends AssetLogger {
 	public AssetEdited(int actionID, Asset newAsset) {
 		super(actionID, newAsset);
 		
-		Query getID = new SelectAssetID(newAsset.getName());
-		getID.executeStatement();
-		int assetID = (Integer)getID.getResultList().get(0);
+		int assetID = ViewAssetScreen.getAssetTableSelectedAssetID();
 		
 		SelectFromAsset selectAsset = new SelectFromAsset(assetID);
 		selectAsset.executeStatement();
@@ -35,6 +34,7 @@ public class AssetEdited extends AssetLogger {
 			newValues += newAsset.getClassification();
 			assetField += "Classification ";
 		}
+		
 		/*
 		if(!oldAsset.getDateAcquired().equals(newAsset.getDateAcquired()))
 		{

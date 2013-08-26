@@ -35,7 +35,7 @@ public class ViewAssetScreen extends Screen{
 	private Connection conn;
 	
 	ViewAssetScreenBehaviourStrategy behavior;
-	ViewAssetTablePanel assetTable;
+	static ViewAssetTablePanel assetTable;
 	SelectedAssetChangeLogTablePanel selectedAssetChangeLogTable;
 	
 	private JLabel lblIdentifier;
@@ -176,7 +176,7 @@ public class ViewAssetScreen extends Screen{
 		assetDetails.add(btnUpdateAsset, "8, 16");
 		btnUpdateAsset.setFont(new Font("Calibri", Font.PLAIN, 13));
 		
-		selectedAssetChangeLogTable = new SelectedAssetChangeLogTablePanel();
+		selectedAssetChangeLogTable = new SelectedAssetChangeLogTablePanel(behavior);
 		selectedAssetChangeLogTable.setBounds(225, 228, 537, 215);
 		add(selectedAssetChangeLogTable);
 		
@@ -185,7 +185,7 @@ public class ViewAssetScreen extends Screen{
 	
 	public void refresh(){
 		assetTable.updateUI();
-		//selectedAssetChangeLogTable.refresh();
+		selectedAssetChangeLogTable.updateUI();
 	}
 
 	public void setViewAssetTableModel(DefaultTableModel model){
@@ -244,7 +244,7 @@ public class ViewAssetScreen extends Screen{
 		lblStorageLocation.setText(toSet);
 	}
 	
-	public int getAssetTableSelectedAssetID(){
+	public static int getAssetTableSelectedAssetID(){
 		return assetTable.getSelectedAssetID();
 	}
 	

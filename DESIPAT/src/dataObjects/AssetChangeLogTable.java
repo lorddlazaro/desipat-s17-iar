@@ -112,8 +112,8 @@ public class AssetChangeLogTable extends TableSubject{
 		model.addColumn("User");
 		model.addColumn("Asset");
 		model.addColumn("Field");
-		model.addColumn("New Value");
 		model.addColumn("Old Value");
+		model.addColumn("New Value");
 		
 		Asset selectedAsset = AssetTable.getInstance().getEntry(selectedAssetID);
 
