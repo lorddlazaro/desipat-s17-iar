@@ -46,6 +46,8 @@ public class FormAssetScreen extends JPanel {
 	
 	protected JButton formButton;
 	
+	private int selectedAssetID;
+	
 	private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public FormAssetScreen(AssetScreenBehaviorStrategy behavior, String title, String buttonText){
@@ -54,6 +56,7 @@ public class FormAssetScreen extends JPanel {
 		
 		formTitle.setText(title);
 		formButton.setText(buttonText);
+		selectedAssetID = -1;
 	}
 	
 	public void initialize() {
@@ -158,6 +161,9 @@ public class FormAssetScreen extends JPanel {
 	public String getAssetName(){
 		return assetName.getInput();
 	}
+	public int getAssetID(){
+		return selectedAssetID;
+	}
 	public int getOwnerID(){
 		return ((Person)owner.getSelectedItem()).getID();
 	}
@@ -232,6 +238,7 @@ public class FormAssetScreen extends JPanel {
 	public void loadEntry(Asset a)
 	{
 		if(a != null){
+			selectedAssetID = a.getID();
 			setAssetName(a.getName());
 			setOwner(a.getOwner().toString());
 			setCustodian(a.getCustodian().toString());

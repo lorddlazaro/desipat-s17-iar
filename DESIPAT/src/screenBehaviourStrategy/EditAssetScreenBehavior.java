@@ -42,20 +42,23 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 								assetScreen.getAvailabilityValue()
 								);
 			
+			asset.setID(assetScreen.getAssetID());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	
-		ActionUpdateAsset action = new ActionUpdateAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
-		action.logAction();
+		//will be true if user made a change. else, don't edit and don't log.
+		if(AssetTable.getInstance().editEntry(asset)){
 		
-		Query getID = new GetMaxIDActionLog();
-		getID.executeStatement();
-		
-		AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
-		editAction.logAction();
-		
-		AssetTable.getInstance().editEntry(asset);
+			ActionUpdateAsset action = new ActionUpdateAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
+			action.logAction();
+			
+			Query getID = new GetMaxIDActionLog();
+			getID.executeStatement();
+			
+			AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
+			editAction.logAction();
+		}
 	}
 	
 	public FormAssetScreen getView(){

@@ -95,8 +95,14 @@ public class AssetTable extends TableSubject{
 		this.notifyObservers();
 	}
 	
-	public void editEntry(Asset asset) {
+	public boolean editEntry(Asset asset) {
 		ArrayList<String> values = asset.getValues();
+		
+		Asset dbVersion = getEntry(asset.getID());
+		
+		if(dbVersion.equals(asset))
+			return false;
+		
 		values.remove(Asset.ID_INDEX);
 		
 		int assetID = ViewAssetScreen.getAssetTableSelectedAssetID();
@@ -106,6 +112,7 @@ public class AssetTable extends TableSubject{
 		
 		fillData();
 		this.notifyObservers();
+		return true;
 	}
 	
 	/*
