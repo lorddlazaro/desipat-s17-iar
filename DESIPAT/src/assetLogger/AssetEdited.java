@@ -35,14 +35,13 @@ public class AssetEdited extends AssetLogger {
 			assetField += "Classification ";
 		}
 		
-		/*
 		if(!oldAsset.getDateAcquired().equals(newAsset.getDateAcquired()))
 		{
 			oldValues += oldAsset.getDateAcquired();
 			newValues += newAsset.getDateAcquired();
 			assetField += "Date Acquired ";
 		}
-		*/
+		
 		if(!oldAsset.getOwner().equals(newAsset.getOwner()))
 		{
 			oldValues += oldAsset.getOwner();
