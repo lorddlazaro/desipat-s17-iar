@@ -2,6 +2,9 @@ package dataObjects;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 import screens.TableObserver;
 import statements.DeleteStrategy;
@@ -112,7 +115,7 @@ public class AssetTable extends TableSubject{
 		NonQuery statement = new DeleteAsset(asset);
 		statement.executeStatement();	
 	}*/
-
+	
 	public ArrayList<Asset> getAllEntries() {
 		return assetList;
 	}
@@ -122,5 +125,27 @@ public class AssetTable extends TableSubject{
 			if(asset.getID() == ID)
 				return asset;
 		return null;
+	}
+
+	public DefaultTableModel createTableModel(){
+		DefaultTableModel model = new DefaultTableModel(){
+			public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			}};
+			
+			model.addColumn("ID");
+			model.addColumn("Name");
+			
+			for(Asset asset : getAllEntries()){
+				Vector<Object> row = new Vector<Object>();
+				
+				row.add(asset.getID());
+				row.add(asset.getName());
+				
+				model.addRow(row);
+		}
+			
+		return model;
 	}
 }

@@ -188,11 +188,14 @@ public class ViewAssetScreen extends Screen{
 	}
 	
 	public void refresh(){
-		assetTable.refresh();
 		assetTable.updateUI();
 		selectedAssetChangeLogTable.refresh();
 	}
 
+	public void setTableModel(DefaultTableModel model){
+		assetTable.fillTable(model);
+	}
+	
 	public void setBtnAddAssetListener(ActionListener actionListener){
 		btnAddAsset.addActionListener(actionListener);
 	}

@@ -3,6 +3,9 @@ package screenBehaviourStrategy;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
 
 import dataObjects.Asset;
 import dataObjects.AssetTable;
@@ -16,12 +19,14 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	private MainScreenBehaviourStrategy main;
 
 	public ViewAssetScreenBehaviour(MainScreenBehaviourStrategy main){
-		 view = new ViewAssetScreen(this);
-		 view.setBtnAddAssetListener(new AddAssetButtonListener());
-		 view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
-		 this.main = main;
-		 AssetTable.getInstance().registerObserver(this);
+		view = new ViewAssetScreen(this);
+		view.setBtnAddAssetListener(new AddAssetButtonListener());
+		view.setBtnUpdateAssetListener(new UpdateAssetButtonListener());
+		this.main = main;
+		AssetTable.getInstance().registerObserver(this);
+		view.refresh();
 	}
+		
 	public ViewAssetScreen getView(){ 
 		return view;
 	}
@@ -69,8 +74,6 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 
 	@Override
 	public void refresh() {
-		view.refresh();
-	}
-	
-	
+		view.setTableModel(AssetTable.getInstance().createTableModel());
+	} 
 }

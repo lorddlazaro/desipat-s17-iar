@@ -9,10 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import screens.TableObserver;
 
-public abstract class TablePanel extends JPanel implements TableObserver{
+public abstract class TablePanel extends JPanel{
 
 	protected JScrollPane scrollPane;
 	protected JLabel header;
@@ -42,15 +43,9 @@ public abstract class TablePanel extends JPanel implements TableObserver{
 		scrollPane.getViewport().setBackground(Color.LIGHT_GRAY);
 		table = new JTable();
 		table.setFont(new Font("Calibri", Font.PLAIN, 13));
-		fillTable();
 		scrollPane.setViewportView(table);
 		add(scrollPane, BorderLayout.CENTER);
 	}
-	
-	public void refresh(){
-		fillTable();
-		scrollPane.revalidate();
-	}
 
-	protected abstract void fillTable();
+	public abstract void fillTable(DefaultTableModel model);
 }
