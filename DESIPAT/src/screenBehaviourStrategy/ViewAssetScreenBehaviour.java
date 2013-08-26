@@ -77,5 +77,6 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	@Override
 	public void refresh() {
 		view.setViewAssetTableModel(AssetTable.getInstance().createTableModel());
+		view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(view.getAssetTableSelectedAssetID()));
 	} 
 }

@@ -6,6 +6,7 @@ import assetLogger.AssetEdited;
 import screens.FormAssetScreen;
 import screens.MainScreen;
 import screens.TableObserver;
+import screens.ViewAssetScreen;
 import statements.getMax.GetMaxIDActionLog;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
@@ -44,13 +45,12 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+	
 		ActionUpdateAsset action = new ActionUpdateAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
 		action.logAction();
 		
 		Query getID = new GetMaxIDActionLog();
 		getID.executeStatement();
-		//System.out.println(getID.getResultList().get(0));
 		
 		AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
 		editAction.logAction();
