@@ -22,9 +22,6 @@ public class ViewAssetTablePanel extends TablePanel{
 		super();
 		
 		this.controller = newController;
-		
-		AssetTable.getInstance().registerObserver(this);
-		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -35,25 +32,7 @@ public class ViewAssetTablePanel extends TablePanel{
 	}
 	
 	
-	protected void fillTable(){
-		DefaultTableModel model = new DefaultTableModel(){
-			public boolean isCellEditable(int row, int column) {
-		       //all cells false
-		       return false;
-		    }};
-		
-		model.addColumn("ID");
-		model.addColumn("Name");
-		
-		for(Asset asset : AssetTable.getInstance().getAllEntries()){
-			Vector<Object> row = new Vector<Object>();
-			
-			row.add(asset.getID());
-			row.add(asset.getName());
-			
-			model.addRow(row);
-		}
-		
+	public void fillTable(DefaultTableModel model){	
 		table.setModel(model);
 	}
 	

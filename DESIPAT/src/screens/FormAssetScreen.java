@@ -24,7 +24,7 @@ import fields.SliderInput;
 
 import screenBehaviourStrategy.AssetScreenBehaviorStrategy;
 
-public class FormAssetScreen extends JPanel implements TableObserver {
+public class FormAssetScreen extends JPanel {
 
 	AssetScreenBehaviorStrategy behavior;
 
