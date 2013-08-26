@@ -79,20 +79,6 @@ public class AdminScreen extends JPanel {
 		
 		userTable = new JTable();
 		scrollPane.setViewportView(getUserTable());
-		getUserTable().setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"UserID", "Username", "Password", "Clearance", "First Name", "Middle Initial", "Last Name"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
 		
 		lblAdminSettings = new JLabel("Admin Settings");
 		lblAdminSettings.setBounds(10, 11, 258, 34);
@@ -373,6 +359,10 @@ public class AdminScreen extends JPanel {
 	
 	public void setSelectExistingComboBoxListener(ActionListener listener){
 		selectExistingComboBox.addActionListener(listener);
+	}
+	
+	public void setUserTableModel(DefaultTableModel model){
+		userTable.setModel(model);
 	}
 	
 }
