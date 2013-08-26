@@ -4,12 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Vector;
 
-import javax.swing.JPanel;
+import java.util.ArrayList;
+
 import javax.swing.table.DefaultTableModel;
 
 import dataObjects.ClearanceLookUpTable;
@@ -17,20 +14,10 @@ import dataObjects.Person;
 import dataObjects.PersonTable;
 import dataObjects.UserAccount;
 import dataObjects.UserAccountTable;
-import dbHandler.NonQuery;
-import dbHandler.Query;
-import dbHandler.QueryHandler;
+
 import screens.AdminScreen;
 import screens.TableObserver;
-import statements.DeleteUser;
-import statements.InsertAndSelectPerson;
-import statements.InsertAndSelectUser;
-import statements.SelectRemainingPersons;
-import statements.SelectRowUserTable;
-import statements.SelectUserDetails;
-import statements.lookUp.LookUpClassification;
-import statements.lookUp.LookUpClearance;
-import statements.updateTable.UpdateUser;
+
 
 public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableObserver{
 
