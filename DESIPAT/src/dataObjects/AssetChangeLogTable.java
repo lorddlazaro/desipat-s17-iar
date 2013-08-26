@@ -1,6 +1,8 @@
 package dataObjects;
 
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -135,5 +137,36 @@ public class AssetChangeLogTable extends TableSubject{
 				}
 		}
 		return model;
+	}
+	
+	public DefaultTableModel createAssetChangeLogTableModel(){
+		DefaultTableModel model = new DefaultTableModel();
+		
+		model.addColumn("Date");
+		model.addColumn("Time");
+		model.addColumn("User");
+		model.addColumn("Asset");
+		model.addColumn("Field");
+		model.addColumn("Old Value");
+		model.addColumn("New Value");
+		
+		DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat time = new SimpleDateFormat("hh:mm");
+		
+		for(AssetChangeLog assetChangeLog : AssetChangeLogTable.getInstance().getAllEntries()){
+			Vector<Object> row = new Vector<Object>();
+			
+			row.add(date.format(assetChangeLog.getActionLog().getActionDate()));
+			row.add(time.format(assetChangeLog.getActionLog().getActionTime()));
+			row.add(assetChangeLog.getActionLog().getUser().getUsername());
+			row.add(assetChangeLog.getAsset().getName());
+			row.add(assetChangeLog.getAssetField());
+			row.add(assetChangeLog.getOldValue());
+			row.add(assetChangeLog.getNewValue());
+			
+			model.addRow(row);
+		}
+		return model;
+		
 	}
 }

@@ -15,6 +15,7 @@ import screenBehaviourStrategy.AccountSettingsScreenBehavior;
 import screenBehaviourStrategy.AddAssetScreenBehavior;
 import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.EditAssetScreenBehavior;
+import screenBehaviourStrategy.LogsScreenBehavior;
 import screenBehaviourStrategy.MainScreenBehaviourStrategy;
 import screenBehaviourStrategy.ViewAssetScreenBehaviour;
 import dataObjects.Asset;
@@ -155,7 +156,7 @@ public class MainScreen extends Screen{
 		adminCard = new AdminScreenBehavior().getView();
 		cardPanel.add(adminCard, this.ADMIN_SCREEN);	
 			
-		viewLogsCard = new LogScreen();
+		viewLogsCard = new LogsScreenBehavior(behaviour).getView();
 		cardPanel.add(viewLogsCard, this.VIEW_LOG_SCREEN);	
 	}
 	
