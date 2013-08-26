@@ -144,7 +144,7 @@ public class AssetTable extends TableSubject{
 				row.add(asset.getName());
 				
 				model.addRow(row);
-		}
+			}
 			
 		return model;
 	}
