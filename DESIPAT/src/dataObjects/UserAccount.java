@@ -77,22 +77,16 @@ public class UserAccount extends TableEntry{
 	}
 	
 	public ArrayList<String> getValues() {
-		if(values == null){
+		if(values == null)
 			values = new ArrayList<String>();
-			values.add(String.valueOf(ID));
-			values.add(username);
-			values.add(password);
-			values.add(String.valueOf(clearanceID));
-			values.add(String.valueOf(personID));
-		}
-		else if(values.size() != 5){
-			values = new ArrayList<String>();
-			values.add(String.valueOf(ID));
-			values.add(username);
-			values.add(password);
-			values.add(String.valueOf(clearanceID));
-			values.add(String.valueOf(personID));
-		}
+			
+		values.clear();
+		values.add(String.valueOf(ID));
+		values.add(username);
+		values.add(password);
+		values.add(String.valueOf(clearanceID));
+		values.add(String.valueOf(personID));
+		
 		return values;
 	}
 }
