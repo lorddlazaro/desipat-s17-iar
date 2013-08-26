@@ -67,6 +67,51 @@ public class Asset extends TableEntry{
 		 setAvailabilityValue(availabilityValue);
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		Asset other = (Asset)o;
+		
+		if(!name.equals(other.getName()))
+			return false;
+		if(ownerID != other.getOwnerID())
+			return false;
+		if(custodianID != other.getCustodianID())
+			return false;
+		if(typeID != other.getTypeID())
+			return false;
+		if(maintID != other.getMaintID())
+			return false;
+		if(classID != other.getClassID())
+			return false;
+		if(storageID != other.getStorageID())
+			return false;
+		if(periodID != other.getPeriodID())
+			return false;
+		
+		System.out.println("YO2");
+		
+		System.out.println(Date.valueOf(dateAcquired)+" vs "+(Date.valueOf(other.getDateAcquired())));
+		if(!Date.valueOf(dateAcquired).equals(Date.valueOf(other.getDateAcquired())))
+			return false;
+		
+		System.out.println("YO");
+		
+		if(financialValue != other.getFinancialValue())
+			return false;
+		
+		
+		
+		
+		if(confidentialValue != other.getConfidentialValue())
+			return false;
+		if(integrityValue != other.getIntegrityValue())
+			return false;
+		if(availabilityValue != other.getAvailabilityValue())
+			return false;
+		
+		return true;
+	}	
+	
 	public String getName() {
 		return name;
 	}
