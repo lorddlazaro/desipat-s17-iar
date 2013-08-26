@@ -48,7 +48,11 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 		}
 	
 		//will be true if user made a change. else, don't edit and don't log.
-		if(AssetTable.getInstance().editEntry(asset)){
+		
+		
+		Asset oldAsset = AssetTable.getInstance().getEntry(asset.getID());
+		
+		if(!oldAsset.equals(asset)){
 		
 			ActionUpdateAsset action = new ActionUpdateAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
 			action.logAction();
@@ -58,6 +62,8 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 			
 			AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
 			editAction.logAction();
+			
+			AssetTable.getInstance().editEntry(asset);
 		}
 	}
 	
