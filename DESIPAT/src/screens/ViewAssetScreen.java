@@ -183,17 +183,17 @@ public class ViewAssetScreen extends Screen{
 		refresh();
 	}
 	
-	public void updateChangeLogTable(int selectedAssetID){
-		selectedAssetChangeLogTable.changeSelectedAsset(selectedAssetID);
-	}
-	
 	public void refresh(){
 		assetTable.updateUI();
-		selectedAssetChangeLogTable.refresh();
+		//selectedAssetChangeLogTable.refresh();
 	}
 
-	public void setTableModel(DefaultTableModel model){
+	public void setViewAssetTableModel(DefaultTableModel model){
 		assetTable.fillTable(model);
+	}
+	
+	public void setSelectedAssetChangeLogTableModel(DefaultTableModel model){
+		selectedAssetChangeLogTable.fillTable(model);
 	}
 	
 	public void setBtnAddAssetListener(ActionListener actionListener){
