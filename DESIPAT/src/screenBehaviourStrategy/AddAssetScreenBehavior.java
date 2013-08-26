@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 import actionLogger.ActionAddAsset;
 
 import dataObjects.Classification;
@@ -21,6 +23,7 @@ import dataObjects.AssetTable;
 import dataObjects.Asset;
 import errorChecker.FormAssetValidator;
 import errorChecker.ValidLengthAndCharChecker;
+import fields.ObjectInput;
 import screens.FormAssetScreen;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
@@ -34,6 +37,8 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		
 		assetScreen.addFormButtonActionListener(new FormButtonActionListener());
 		assetScreen.addStorageNewButtonActionListener(new NewStorageActionListener());
+		assetScreen.addOwnerNewButtonActionListener(new NewPersonActionListener());
+		assetScreen.addCustodianNewButtonActionListener(new NewPersonActionListener());
 	}
 	
 	protected void fillComboBoxes(){
@@ -104,26 +109,54 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 		return assetScreen;
 	}
 	
+	class NewPersonActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JComboBox comboBox = (JComboBox) e.getSource();
+			if(comboBox.getSelectedItem()!=null){
+				String input = comboBox.getSelectedItem().toString();
+				
+				FormAssetValidator validator = new FormAssetValidator();
+				
+				String errorMsg = validator.getErrorWithNewPerson(input);
+				
+				if(!errorMsg.isEmpty()){
+					assetScreen.displayErrorMsg(errorMsg);
+					return;
+				}
+				
+				//Insert new Person
+				Person newPerson = new Person(input);
+				if(PersonTable.getInstance().getEntry(newPerson.getFirstName(), ""+newPerson.getMiddleInitial(), newPerson.getLastName()) == null){
+					PersonTable.getInstance().addEntry(newPerson);
+					fillComboBoxes();
+				}
+		
+			}
+		}
+	}
+	
 	class NewStorageActionListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String selectedStorage= assetScreen.getSelectedStorage();
-			ValidLengthAndCharChecker checker = new ValidLengthAndCharChecker(ValidLengthAndCharChecker.NAME, 20);
+			if(selectedStorage != null){
+				ValidLengthAndCharChecker checker = new ValidLengthAndCharChecker(ValidLengthAndCharChecker.NAME, 20);
+				
+				String errorMsg = checker.getErrorMsg(selectedStorage);
+				if(!errorMsg.isEmpty()){
+					assetScreen.displayErrorMsg(errorMsg);
+					return;
+				}
 			
-			String errorMsg = checker.getErrorMsg(selectedStorage);
-			if(!errorMsg.isEmpty()){
-				assetScreen.displayErrorMsg(errorMsg);
-				return;
-			}
-		
-			if (StorageTable.getInstance().getEntry(selectedStorage) == null){
-				StorageTable.getInstance().addEntry(new Storage(selectedStorage));
-				fillComboBoxes();
+				if (StorageTable.getInstance().getEntry(selectedStorage) == null){
+					StorageTable.getInstance().addEntry(new Storage(selectedStorage));
+					fillComboBoxes();
+				}
 			}
 		}
-		
-		
 	}
 	
 	class FormButtonActionListener implements ActionListener{

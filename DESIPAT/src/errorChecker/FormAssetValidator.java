@@ -1,5 +1,7 @@
 package errorChecker;
 
+import java.util.StringTokenizer;
+
 public class FormAssetValidator {
 
 	public String getErrorWithAssetName(String assetName){
@@ -18,6 +20,17 @@ public class FormAssetValidator {
 			return "";
 		
 		return "Financial Value should be a floating point number.";
+	}
+	
+	public String getErrorWithNewPerson(String name){
+		if(!name.matches("\\w+[ ]+\\w[.][ ]+\\w+"))
+			return "Please type the name in the format: <First Name> <Middle Initial>. <Last Name>. Use letters only for the names.";
+		
+		StringTokenizer tokenizer = new StringTokenizer(name, " .");
+		if(tokenizer.nextToken().length() > 50 || tokenizer.nextToken().length() > 1 || tokenizer.nextToken().length() > 50)
+			return "Max of 50 characters for first and last name. One character only for middle initial.";
+		
+		return "";
 	}
 	
 }
