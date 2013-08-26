@@ -129,9 +129,10 @@ ALTER TABLE ActionLog ADD FOREIGN KEY(userID) REFERENCES UserAccount(userID);
 ALTER TABLE ActionLog ADD FOREIGN KEY(actionHeaderID) REFERENCES ActionHeaderLookUp(actionHeaderID);
 ALTER TABLE AssetChangeLog ADD FOREIGN KEY(actionID) REFERENCES ActionLog(actionID);
 
-INSERT INTO TypeLookUp(type) VALUES('Document');
-INSERT INTO TypeLookUp(type) VALUES('Equipment');
-INSERT INTO TypeLookUp(type) VALUES('Product');
+INSERT INTO TypeLookUp(type) VALUES('Physical');
+INSERT INTO TypeLookUp(type) VALUES('Non-physical');
+INSERT INTO TypeLookUp(type) VALUES('Electronic');
+INSERT INTO TypeLookUp(type) VALUES('Paper');
 
 INSERT INTO ClassificationLookUp(classification) VALUES('Sensitive');
 INSERT INTO ClassificationLookUp(classification) VALUES('Confidential');
