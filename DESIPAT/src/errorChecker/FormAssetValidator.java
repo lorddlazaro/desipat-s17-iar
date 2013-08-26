@@ -23,7 +23,7 @@ public class FormAssetValidator {
 	}
 	
 	public String getErrorWithNewPerson(String name){
-		if(!name.matches("\\w+[ ]+\\w[.][ ]+\\w+"))
+		if(!name.matches("[a-zA-Z]+[ ]+[a-zA-Z][.][ ]+[a-zA-Z]+"))
 			return "Please type the name in the format: <First Name> <Middle Initial>. <Last Name>. Use letters only for the names.";
 		
 		StringTokenizer tokenizer = new StringTokenizer(name, " .");
