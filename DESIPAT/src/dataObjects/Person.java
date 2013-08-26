@@ -1,6 +1,7 @@
 package dataObjects;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Person extends TableEntry{
 	public final static int FIRSTNAME_INDEX = 1;
@@ -10,6 +11,14 @@ public class Person extends TableEntry{
 	private String firstName;
 	private char middleInitial;
 	private String lastName;
+	
+	public Person(String name){
+		StringTokenizer tokenizer = new StringTokenizer(name, " ");
+		
+		setFirstName(tokenizer.nextToken());
+		setMiddleInitial(tokenizer.nextToken().charAt(0));
+		setLastName(tokenizer.nextToken());	
+	}
 	
 	public Person(int ID, String firstName, char middleInitial, String lastName){
 		 setID(ID);
