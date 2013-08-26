@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 import phase1.DBConnection;
 import phase1.User;
 
@@ -137,4 +139,26 @@ public class UserAccountTable extends TableSubject{
 				return user;
 		return null;
 	}
+	
+	public DefaultTableModel createTableModel(){
+		DefaultTableModel model = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"UserID", "Username", "Password", "Clearance", "First Name", "Middle Initial", "Last Name"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+					false, false, false, false, false, false, false
+				};
+				public boolean isCellEditable(int row, int column) {
+					return columnEditables[column];
+				}
+			};
+		
+		
+		return model;
+		
+	}
+	
 }

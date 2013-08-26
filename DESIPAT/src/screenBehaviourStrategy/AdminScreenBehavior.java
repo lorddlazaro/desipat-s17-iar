@@ -21,6 +21,7 @@ import dbHandler.NonQuery;
 import dbHandler.Query;
 import dbHandler.QueryHandler;
 import screens.AdminScreen;
+import screens.TableObserver;
 import statements.DeleteUser;
 import statements.InsertAndSelectPerson;
 import statements.InsertAndSelectUser;
@@ -31,7 +32,7 @@ import statements.lookUp.LookUpClassification;
 import statements.lookUp.LookUpClearance;
 import statements.updateTable.UpdateUser;
 
-public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
+public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableObserver{
 
 	AdminScreen myScreen;
 	
@@ -47,6 +48,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		myScreen.setAddUserButtonListener(new AddUserButtonListener());
 		myScreen.setUserTableListener(new UserTableListener());
 		myScreen.setSelectExistingComboBoxListener(new SelectExistingComboBoxListener());
+		refresh();
 	}
 	
 	class DeleteUserButtonListener implements ActionListener{
@@ -274,5 +276,10 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy{
 		for (int i = 0; i < ClearanceLookUpTable.getInstance().getAllEntries().size(); i++) {
 			myScreen.getClearanceComboBox().addItem(ClearanceLookUpTable.getInstance().getAllEntries().get(i).getClearanceLevel());
 		}
+	}
+
+	@Override
+	public void refresh() {
+		myScreen.setUserTableModel(UserAccountTable.getInstance().createTableModel());
 	}
 }

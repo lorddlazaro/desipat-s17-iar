@@ -38,6 +38,7 @@ public class UserAccountTablePanel extends TablePanel implements TableObserver{
 		//setViewportView(table);
 	}
 	
+	
 	public JTable getTable(){
 		return table;
 	}
