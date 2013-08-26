@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class DBConnection {
     private String username = "root";
-    private String password = "1234";
+    private String password = "";
     private String url = "jdbc:mysql://localhost/DESIPAT";
     
     private Connection conn;
