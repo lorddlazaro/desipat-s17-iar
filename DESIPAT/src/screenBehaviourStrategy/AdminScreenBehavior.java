@@ -118,7 +118,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 
 	public void changeDetailsClicked() {
 		if (myScreen.getChangeDetailsButton().getText().equals("Change Details")) {
-			myScreen.getUsernameTextField().setEditable(true);
+			myScreen.getUsernameTextField().setEditable(false);
 			myScreen.getPasswordTextField().setEditable(true);
 			myScreen.getClearanceComboBox().setEnabled(true);
 			myScreen.getSelectExistingComboBox().setEnabled(true);
@@ -198,6 +198,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 			}
 
 			makingNewUser = false;
+			myScreen.getChangeDetailsButton().setText("Change Details");
 			myScreen.refreshScreen();
 		}
 	}

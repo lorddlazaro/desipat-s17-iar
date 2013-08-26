@@ -102,6 +102,7 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblUsername);
 		
 		usernameTextField = new JTextField();
+		getUsernameTextField().setEditable(false);
 		getUsernameTextField().setBounds(84, 49, 195, 20);
 		detailsPanel.add(getUsernameTextField());
 		getUsernameTextField().setColumns(10);
