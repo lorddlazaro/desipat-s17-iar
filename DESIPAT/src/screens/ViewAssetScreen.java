@@ -35,7 +35,7 @@ public class ViewAssetScreen extends Screen{
 	private Connection conn;
 	
 	ViewAssetScreenBehaviourStrategy behavior;
-	static ViewAssetTablePanel assetTable;
+	public static ViewAssetTablePanel assetTable;
 	SelectedAssetChangeLogTablePanel selectedAssetChangeLogTable;
 	
 	private JLabel lblIdentifier;
@@ -202,6 +202,10 @@ public class ViewAssetScreen extends Screen{
 	
 	public void setBtnUpdateAssetListener(ActionListener actionListener){
 		btnUpdateAsset.addActionListener(actionListener);
+	}
+	
+	public void setAssetTableMouseAdapter(MouseAdapter adapter){
+		assetTable.setTableMouseListener(adapter);
 	}
 	
 	public void setLblIdentifier(String toSet) {

@@ -23,14 +23,12 @@ public class ViewAssetTablePanel extends TablePanel{
 		
 		this.controller = newController;
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				controller.selectAsset();
-			}
-		});
 	}
 	
+	
+	public void setTableMouseListener(MouseAdapter adapter){
+		table.addMouseListener(adapter);
+	}
 	
 	public void fillTable(DefaultTableModel model){	
 		table.setModel(model);
