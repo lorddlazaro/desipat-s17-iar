@@ -35,7 +35,7 @@ public class FormAssetScreen extends JPanel {
 	protected DateInput dateAcquired;
 	protected ObjectInput owner;
 	protected ObjectInput custodian;
-	protected ObjectInput type;
+	protected ComboBoxInput type;
 	protected ObjectInput storage;
 	protected ComboBoxInput period;
 	protected ComboBoxInput maintenance;
@@ -85,7 +85,7 @@ public class FormAssetScreen extends JPanel {
 		custodian.setBounds(60, 240, 350, 35);
 		add(custodian);
 		
-		type = new ObjectInput("Type", "Please input new type:",SystemColor.activeCaption);
+		type = new ComboBoxInput("Type");
 		type.setBounds(60, 280, 350, 35);
 		add(type);
 
@@ -148,9 +148,7 @@ public class FormAssetScreen extends JPanel {
 	public void addCustodianNewButtonActionListener(ActionListener al){
 		custodian.addNewButtonActionListener(al);
 	}
-	public void addTypeNewButtonActionListener(ActionListener al){
-		type.addNewButtonActionListener(al);
-	}
+
 	public void addStorageNewButtonActionListener(ActionListener al){
 		storage.addNewButtonActionListener(al);
 	}
