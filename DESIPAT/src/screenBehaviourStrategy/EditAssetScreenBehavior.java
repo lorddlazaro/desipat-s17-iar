@@ -5,13 +5,14 @@ import assetLogger.AssetEdited;
 
 import screens.FormAssetScreen;
 import screens.MainScreen;
+import screens.TableObserver;
 import statements.getMax.GetMaxIDActionLog;
 import dataObjects.Asset;
 import dataObjects.AssetTable;
 import dbHandler.Query;
 
 
-public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
+public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 
 	public EditAssetScreenBehavior()
 	{
@@ -49,7 +50,7 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior {
 		
 		Query getID = new GetMaxIDActionLog();
 		getID.executeStatement();
-		System.out.println(getID.getResultList().get(0));
+		//System.out.println(getID.getResultList().get(0));
 		
 		AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
 		editAction.logAction();

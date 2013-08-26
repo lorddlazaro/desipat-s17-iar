@@ -1,22 +1,22 @@
-package screens;
+	package screens;
 
-import javax.swing.JPanel;
-import java.awt.Font;
+
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
-import dataObjects.ActionLogTable;
-import dataObjects.AssetChangeLogTable;
+import javax.swing.table.DefaultTableModel;
 
+import screenBehaviourStrategy.LogsScreenBehaviorStrategy;
 import tablePanels.ActionLogTablePanel;
 import tablePanels.AssetChangeLogTablePanel;
 
-public class LogScreen extends JPanel {
+public class LogScreen extends Screen implements TableObserver {
+	
+	LogsScreenBehaviorStrategy  behavior;
 	private ActionLogTablePanel actionLogTablePanel;
 	private AssetChangeLogTablePanel assetChangeLogTablePanel;
 
-	public LogScreen(){
+	public LogScreen(LogsScreenBehaviorStrategy  behavior){
+		this.behavior = behavior;
 		initialize();
 	}
 	
@@ -24,17 +24,25 @@ public class LogScreen extends JPanel {
 		setBackground(new Color(255, 250, 205));
 		setLayout(null);
 		
-		actionLogTablePanel = new ActionLogTablePanel("Action Log");
+		actionLogTablePanel = new ActionLogTablePanel(behavior);
 		actionLogTablePanel.setBounds(12, 12, 748, 200);
 		add(actionLogTablePanel);
 		
-		assetChangeLogTablePanel = new AssetChangeLogTablePanel("Asset Change Log");
+		assetChangeLogTablePanel = new AssetChangeLogTablePanel(behavior);
 		assetChangeLogTablePanel.setBounds(12, 235, 748, 200);
 		add(assetChangeLogTablePanel);
 	}
 	
+	public void setActionLogTableModel(DefaultTableModel model){
+		actionLogTablePanel.fillTable(model);
+	}
+	
+	public void setAssetChangeLogTableModel(DefaultTableModel model){
+		assetChangeLogTablePanel.fillTable(model);
+	}
+	
 	public void refresh(){
-		actionLogTablePanel.refresh();
-		assetChangeLogTablePanel.refresh();
+		actionLogTablePanel.updateUI();
+		assetChangeLogTablePanel.updateUI();
 	}
 }
