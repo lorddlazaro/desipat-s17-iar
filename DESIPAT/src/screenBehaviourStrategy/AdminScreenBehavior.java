@@ -27,7 +27,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 	public AdminScreenBehavior() {
 		myScreen = new AdminScreen(this);
 		fillClearance();
-		myScreen.refreshScreen();
+		myScreen.resetScreen();
 		myScreen.setDeleteUserButtonListener(new DeleteUserButtonListener());
 		myScreen.setChangeDetailsButtonListener(new ChangeDetailsButtonListener());
 		myScreen.setCancelChangesButtonListener(new CancelChangesButtonListener());
@@ -37,6 +37,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 		refresh();
 	}
 	
+	//Action Listeners
 	class DeleteUserButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			deleteUserClicked();
@@ -52,7 +53,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 	class CancelChangesButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			makingNewUser = false;
-			myScreen.refreshScreen();			
+			myScreen.resetScreen();			
 		}
 	}
 	
@@ -74,72 +75,48 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 		}
 	}
 	
+	
+	
+	//Methods called by the action listeners
 	public void selectedCellChanged() {
-		int selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
+		int selectedUserID = myScreen.getSelectedUserID();
 		UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
-		
-		myScreen.getUsernameTextField().setText(u.getUsername());
-		myScreen.getPasswordTextField().setText(u.getPassword());
-		myScreen.getClearanceComboBox().setSelectedItem(u.getClearance().getClearanceLevel());
-		myScreen.getFirstNameTextField().setText(u.getPersonFirstName());
-		myScreen.getMiddleInitTextField().setText(u.getPersonMiddleName());
-		myScreen.getLastNameTextField().setText(u.getPersonLastName());
-		
-		fillSelectExisting();
+		myScreen.displayUser(u);
 	}
 	
-	public void fillSelectExisting() {
-		myScreen.getSelectExistingComboBox().removeAllItems();
-		myScreen.getSelectExistingComboBox().addItem("");
-		
-		ArrayList<Person> list = PersonTable.getInstance().getPersonsWithNoAccount();
-		
-		for (int i = 0; i < list.size(); i++)
-			myScreen.getSelectExistingComboBox().addItem(list.get(i).getFirstName() + " " + list.get(i).getMiddleInitial() + ". " + list.get(i).getLastName());
+	public void fillSelectExisting(){
+		myScreen.setPersonsWithNoAccount(PersonTable.getInstance().getPersonsWithNoAccount());
 	}
-
+	
 	public void deleteUserClicked() {
-		if (myScreen.getUserTable().getSelectedRow() == -1)
-			return;
+		int selectedUserID = myScreen.getSelectedUserID();
 		
-		int selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
-		UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
-		UserAccountTable.getInstance().deleteEntry(u);
-		System.out.println("deleted user");
-		myScreen.refreshScreen();
-
-		myScreen.getUsernameTextField().setText("");
-		myScreen.getPasswordTextField().setText("");
-		myScreen.getFirstNameTextField().setText("");
-		myScreen.getMiddleInitTextField().setText("");
-		myScreen.getLastNameTextField().setText("");
+		if (selectedUserID != -1)
+		{
+			UserAccount u = UserAccountTable.getInstance().getEntry(selectedUserID);
+			UserAccountTable.getInstance().deleteEntry(u);
+			myScreen.resetScreen();
+			myScreen.clearUserDetails();
+		}
 	}
 
 	public void changeDetailsClicked() {
-		if (myScreen.getChangeDetailsButton().getText().equals("Change Details")) {
-			myScreen.getUsernameTextField().setEditable(false);
-			myScreen.getPasswordTextField().setEditable(true);
-			myScreen.getClearanceComboBox().setEnabled(true);
-			myScreen.getSelectExistingComboBox().setEnabled(true);
-			myScreen.getFirstNameTextField().setEditable(true);
-			myScreen.getMiddleInitTextField().setEditable(true);
-			myScreen.getLastNameTextField().setEditable(true);
-			
-			myScreen.getChangeDetailsButton().setText("Save Details");
+		if (!myScreen.isEditMode()) {
+			myScreen.setModeToChangeDetails();
 		}
-		else {
+		else { //save changes
 			if (!myScreen.checkInputs())
 				return;
 			int selectedUserID = -1;
 
-			String username = myScreen.getUsernameTextField().getText();
-			String password = myScreen.getPasswordTextField().getText();
+			String username = myScreen.getUsername();
+			String password = myScreen.getPassword();
 			
-			int clearanceID = ClearanceLookUpTable.getInstance().getEntry(myScreen.getClearanceComboBox().getSelectedItem().toString()).getID();
+			int clearanceID = ClearanceLookUpTable.getInstance().getEntry(myScreen.getSelectedClearance()).getID();
 			
-			String firstName = myScreen.getFirstNameTextField().getText();
-			String middleInit = myScreen.getMiddleInitTextField().getText();
-			String lastName = myScreen.getLastNameTextField().getText();
+			String firstName = myScreen.getFirstName();
+			String middleInit = myScreen.getMiddleInitial();
+			String lastName = myScreen.getLastName();
 			
 			if (makingNewUser) {
 				Person p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
@@ -150,7 +127,7 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 				}
 				else { // existing person
 					if (UserAccountTable.getInstance().checkForUser(p)) {
-						myScreen.personAlreadyExists();
+						myScreen.displayError("This person already has an account.");
 						return;
 					}
 				}
@@ -159,10 +136,10 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 				UserAccountTable.getInstance().addEntry(u);
 			}
 			else {
-				if (myScreen.getUserTable().getSelectedRow() != -1)
-					selectedUserID = Integer.parseInt(myScreen.getUserTable().getModel().getValueAt(myScreen.getUserTable().getSelectedRow(), 0) + "");
-				else {
-					myScreen.showErrorNoSelectedUser();
+				selectedUserID = myScreen.getSelectedUserID();
+				
+				if(selectedUserID == -1){
+					myScreen.displayError("Please select a person on the table before editing.");
 					return;
 				}
 				
@@ -170,13 +147,11 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 				Person p = PersonTable.getInstance().getEntry(u.getPersonID());
 				
 				if (p == null) { // person not in list of persons, new person
-					System.out.println("new person");
 					p = new Person(-1, firstName, middleInit.charAt(0), lastName);
 					PersonTable.getInstance().addEntry(p);
 				}
 				else if (PersonTable.getInstance().getEntry(firstName, middleInit, lastName) == null) {
 					// person in list of persons but name was changed
-					System.out.println("update person");
 					p.setFirstName(firstName);
 					p.setMiddleInitial(middleInit.charAt(0));
 					p.setLastName(lastName);
@@ -184,7 +159,6 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 					PersonTable.getInstance().editEntry(p);
 				}
 				else { // person not changed at all
-					System.out.println("nothing person");
 					p = PersonTable.getInstance().getEntry(firstName, middleInit, lastName);
 				}
 				
@@ -197,76 +171,52 @@ public class AdminScreenBehavior implements AdminScreenBehaviorStrategy, TableOb
 			}
 
 			makingNewUser = false;
-			myScreen.getChangeDetailsButton().setText("Change Details");
-			myScreen.refreshScreen();
+			myScreen.resetScreen();
 		}
 	}
 
 	public void fillTable() {
-		DefaultTableModel model = (DefaultTableModel)myScreen.getUserTable().getModel();
-		
-		int rowCount = model.getRowCount();
-		for (int i = 0; i < rowCount; i++)
-			model.removeRow(0);
-		
-		ArrayList<UserAccount> list = UserAccountTable.getInstance().getAllEntries(true);
-		
-		for (int i = 0; i < list.size(); i++)
-			model.addRow(new Object[] {list.get(i).getID(), list.get(i).getUsername(), list.get(i).getPassword(), list.get(i).getClearance().getClearanceLevel(), list.get(i).getPersonFirstName(), list.get(i).getPersonMiddleName(), list.get(i).getPersonLastName()});
+		myScreen.displayUserList(UserAccountTable.getInstance().createTableModel());	
 	}
 
 	public void addUserClicked() {
-		myScreen.refreshScreen();
+		myScreen.resetScreen();
 		makingNewUser = true;
-		
-		myScreen.getUsernameTextField().setEditable(true);
-		myScreen.getUsernameTextField().setText("");
-		myScreen.getPasswordTextField().setEditable(true);
-		myScreen.getPasswordTextField().setText("");
-		myScreen.getClearanceComboBox().setEnabled(true);
-		myScreen.getSelectExistingComboBox().setEnabled(true);
-		myScreen.getFirstNameTextField().setEditable(true);
-		myScreen.getFirstNameTextField().setText("");
-		myScreen.getMiddleInitTextField().setEditable(true);
-		myScreen.getMiddleInitTextField().setText("");
-		myScreen.getLastNameTextField().setEditable(true);
-		myScreen.getLastNameTextField().setText("");
-
-		myScreen.getChangeDetailsButton().setText("Save Details");
+		myScreen.setModeToAddUser();
 	}
 
 	public void selectedChanged() {
-		if (myScreen.getSelectExistingComboBox().getSelectedIndex() == -1) {
-			return;
-		}
-		if (myScreen.getSelectExistingComboBox().getSelectedItem().equals("")) {
-			return;
-		}
 		
-		String fullName = myScreen.getSelectExistingComboBox().getSelectedItem() + "";
+		String fullName = myScreen.getSelectedPerson();
+		
+		if(fullName == null || fullName.trim().isEmpty())
+			return;
+		
 		String[] nameArray = fullName.split("\\.");
 		
 		String lastName = nameArray[1].substring(1);
-		String middleInit = nameArray[0].charAt(nameArray[0].length()-1) + "";
+		char middleInit = nameArray[0].charAt(nameArray[0].length()-1);
 		String firstName = nameArray[0].substring(0, nameArray[0].length()-2);
 		
-		myScreen.getFirstNameTextField().setText(firstName);
-		myScreen.getMiddleInitTextField().setText(middleInit);
-		myScreen.getLastNameTextField().setText(lastName);
+		myScreen.setFirstName(firstName);
+		myScreen.setMiddleInitial(middleInit);
+		myScreen.setFirstName(lastName);
 	}
-	
+		
 	public AdminScreen getView() {
 		return myScreen;
 	}
 
 	public void fillClearance() {
-		for (int i = 0; i < ClearanceLookUpTable.getInstance().getAllEntries().size(); i++) {
-			myScreen.getClearanceComboBox().addItem(ClearanceLookUpTable.getInstance().getAllEntries().get(i).getClearanceLevel());
-		}
+		myScreen.setClearanceChoices(ClearanceLookUpTable.getInstance().getAllEntries());
 	}
 
+	
+	
+	
+	//Called by TableSubject when it is notifying observers.
 	@Override
 	public void refresh() {
-		myScreen.setUserTableModel(UserAccountTable.getInstance().createTableModel());
+		fillTable();
 	}
 }

@@ -105,7 +105,7 @@ public class AssetTable extends TableSubject{
 		
 		values.remove(Asset.ID_INDEX);
 		
-		int assetID = ViewAssetScreen.getAssetTableSelectedAssetID();
+		int assetID =asset.getID();
 		
 		NonQuery statement = new UpdateAsset(values,assetID);
 		statement.executeStatement();

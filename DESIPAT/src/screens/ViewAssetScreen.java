@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
+import dataObjects.Asset;
 import dataObjects.AssetTable;
 
 import screenBehaviourStrategy.ViewAssetScreenBehaviourStrategy;
@@ -31,8 +32,6 @@ import java.awt.SystemColor;
 
 
 public class ViewAssetScreen extends Screen{
-
-	private Connection conn;
 	
 	ViewAssetScreenBehaviourStrategy behavior;
 	public static ViewAssetTablePanel assetTable;
@@ -188,6 +187,13 @@ public class ViewAssetScreen extends Screen{
 		selectedAssetChangeLogTable.updateUI();
 	}
 
+	//Getter for data
+	public int getSelectedAssetID(){
+		return assetTable.getSelectedAssetID();
+	}
+	
+	
+	//Setters for data
 	public void setViewAssetTableModel(DefaultTableModel model){
 		assetTable.fillTable(model);
 	}
@@ -196,6 +202,63 @@ public class ViewAssetScreen extends Screen{
 		selectedAssetChangeLogTable.fillTable(model);
 	}
 	
+	public void displayAsset(Asset asset){
+		setLblIdentifier(String.valueOf(asset.getID()));
+		setLblName(String.valueOf(asset.getName()));
+		setLblOwner(String.valueOf(asset.getOwner().getName()));
+		setLblCustodian(String.valueOf(asset.getCustodian().getName()));
+		setLblType(String.valueOf(asset.getType().getType()));
+		setLblDateAcquired(String.valueOf(asset.getDateAcquired()));
+		setLblMaintenance(String.valueOf(asset.getMaintenance().getMaintenance()));
+		setLblFinancialValue(String.valueOf(asset.getFinancialValue()));
+		setLblConfidentialValue(String.valueOf(asset.getConfidentialValue()));
+		setLblIntegrityValue(String.valueOf(asset.getIntegrityValue()));
+		setLblAvailabilityValue(String.valueOf(asset.getAvailabilityValue()));
+		setLblClassification(String.valueOf(asset.getClassification().getClassification()));
+		setLblStorageLocation(String.valueOf(asset.getStorage().getStorageLocation()));
+	}
+	
+	private void setLblIdentifier(String toSet) {
+		lblIdentifier.setText(toSet);
+	}
+	private void setLblName(String toSet) {
+		lblName.setText(toSet);
+	}
+	private void setLblOwner(String toSet) {
+		lblOwner.setText(toSet);
+	}
+	private void setLblCustodian(String toSet) {
+		lblCustodian.setText(toSet);
+	}
+	private void setLblType(String toSet) {
+		lblType.setText(toSet);
+	}
+	private void setLblDateAcquired(String toSet) {
+		lblDateAcquired.setText(toSet);
+	}
+	private void setLblMaintenance(String toSet) {
+		lblMaintenance.setText(toSet);
+	}
+	private void setLblFinancialValue(String toSet) {
+		lblFinancialValue.setText(toSet);
+	}
+	private void setLblConfidentialValue(String toSet) {
+		lblConfidentialValue.setText(toSet);
+	}
+	private void setLblIntegrityValue(String toSet) {
+		lblIntegrityValue.setText(toSet);
+	}
+	private void setLblAvailabilityValue(String toSet) {
+		lblAvailabilityValue.setText(toSet);
+	}
+	private void setLblClassification(String toSet) {
+		lblClassification.setText(toSet);
+	}
+	private void setLblStorageLocation(String toSet) {
+		lblStorageLocation.setText(toSet);
+	}
+
+	//Setters for Action Listeners
 	public void setBtnAddAssetListener(ActionListener actionListener){
 		btnAddAsset.addActionListener(actionListener);
 	}
@@ -207,49 +270,7 @@ public class ViewAssetScreen extends Screen{
 	public void setAssetTableMouseAdapter(MouseAdapter adapter){
 		assetTable.setTableMouseListener(adapter);
 	}
-	
-	public void setLblIdentifier(String toSet) {
-		lblIdentifier.setText(toSet);
-	}
-	public void setLblName(String toSet) {
-		lblName.setText(toSet);
-	}
-	public void setLblOwner(String toSet) {
-		lblOwner.setText(toSet);
-	}
-	public void setLblCustodian(String toSet) {
-		lblCustodian.setText(toSet);
-	}
-	public void setLblType(String toSet) {
-		lblType.setText(toSet);
-	}
-	public void setLblDateAcquired(String toSet) {
-		lblDateAcquired.setText(toSet);
-	}
-	public void setLblMaintenance(String toSet) {
-		lblMaintenance.setText(toSet);
-	}
-	public void setLblFinancialValue(String toSet) {
-		lblFinancialValue.setText(toSet);
-	}
-	public void setLblConfidentialValue(String toSet) {
-		lblConfidentialValue.setText(toSet);
-	}
-	public void setLblIntegrityValue(String toSet) {
-		lblIntegrityValue.setText(toSet);
-	}
-	public void setLblAvailabilityValue(String toSet) {
-		lblAvailabilityValue.setText(toSet);
-	}
-	public void setLblClassification(String toSet) {
-		lblClassification.setText(toSet);
-	}
-	public void setLblStorageLocation(String toSet) {
-		lblStorageLocation.setText(toSet);
-	}
-	
-	public static int getAssetTableSelectedAssetID(){
-		return assetTable.getSelectedAssetID();
-	}
-	
+		
+
+
 }

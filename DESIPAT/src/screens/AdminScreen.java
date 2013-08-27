@@ -16,12 +16,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JComboBox;
 
+import dataObjects.Clearance;
+import dataObjects.ClearanceLookUpTable;
+import dataObjects.Person;
+import dataObjects.PersonTable;
+import dataObjects.UserAccount;
+
 import screenBehaviourStrategy.AdminScreenBehavior;
 import screenBehaviourStrategy.AdminScreenBehaviorStrategy;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -55,6 +62,10 @@ public class AdminScreen extends JPanel {
 	private JButton addUserButton;
 	private JComboBox <String> selectExistingComboBox;
 	private JLabel lblExistingPersons;
+		
+	public static final int EDIT_DETAILS_MODE = 1;
+	public static final int REGULAR_MODE = 0;
+	private int currMode;
 	
 	AdminScreenBehaviorStrategy myBehavior;
 	
@@ -78,7 +89,7 @@ public class AdminScreen extends JPanel {
 		tablePanel.add(scrollPane);
 		
 		userTable = new JTable();
-		scrollPane.setViewportView(getUserTable());
+		scrollPane.setViewportView(userTable);
 		
 		lblAdminSettings = new JLabel("Admin Settings");
 		lblAdminSettings.setBounds(10, 11, 258, 34);
@@ -102,15 +113,15 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblUsername);
 		
 		usernameTextField = new JTextField();
-		getUsernameTextField().setEditable(false);
-		getUsernameTextField().setBounds(84, 49, 195, 20);
-		detailsPanel.add(getUsernameTextField());
-		getUsernameTextField().setColumns(10);
+		usernameTextField.setEditable(false);
+		usernameTextField.setBounds(84, 49, 195, 20);
+		detailsPanel.add(usernameTextField);
+		usernameTextField.setColumns(10);
 		
 		passwordTextField = new JTextField();
-		getPasswordTextField().setColumns(10);
-		getPasswordTextField().setBounds(84, 77, 195, 20);
-		detailsPanel.add(getPasswordTextField());
+		passwordTextField.setColumns(10);
+		passwordTextField.setBounds(84, 77, 195, 20);
+		detailsPanel.add(passwordTextField);
 		
 		lblPassword = new JLabel("Password:");
 		lblPassword.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -123,8 +134,8 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblClearanceLevel);
 		
 		clearanceComboBox = new JComboBox<String>();
-		getClearanceComboBox().setBounds(84, 108, 195, 20);
-		detailsPanel.add(getClearanceComboBox());
+		clearanceComboBox.setBounds(84, 108, 195, 20);
+		detailsPanel.add(clearanceComboBox);
 		
 		lblFirstName = new JLabel("First Name:");
 		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -132,9 +143,9 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblFirstName);
 		
 		firstNameTextField = new JTextField();
-		getFirstNameTextField().setColumns(10);
-		getFirstNameTextField().setBounds(397, 49, 181, 20);
-		detailsPanel.add(getFirstNameTextField());
+		firstNameTextField.setColumns(10);
+		firstNameTextField.setBounds(397, 49, 181, 20);
+		detailsPanel.add(firstNameTextField);
 		
 		lblMiddleInitial = new JLabel("Middle Init:");
 		lblMiddleInitial.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -142,9 +153,9 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblMiddleInitial);
 		
 		middleInitTextField = new JTextField();
-		getMiddleInitTextField().setColumns(10);
-		getMiddleInitTextField().setBounds(397, 77, 181, 20);
-		detailsPanel.add(getMiddleInitTextField());
+		middleInitTextField.setColumns(10);
+		middleInitTextField.setBounds(397, 77, 181, 20);
+		detailsPanel.add(middleInitTextField);
 		
 		lblLastName = new JLabel("Last Name:");
 		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -152,9 +163,9 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblLastName);
 		
 		lastNameTextField = new JTextField();
-		getLastNameTextField().setColumns(10);
-		getLastNameTextField().setBounds(397, 108, 181, 20);
-		detailsPanel.add(getLastNameTextField());
+		lastNameTextField.setColumns(10);
+		lastNameTextField.setBounds(397, 108, 181, 20);
+		detailsPanel.add(lastNameTextField);
 		
 		deleteUserButton = new JButton("Delete User");
 		deleteUserButton.setBackground(new Color(107, 142, 35));
@@ -162,11 +173,11 @@ public class AdminScreen extends JPanel {
 		deleteUserButton.setBounds(626, 105, 116, 23);
 		detailsPanel.add(deleteUserButton);
 		
-		setChangeDetailsButton(new JButton("Change Details"));
-		getChangeDetailsButton().setBackground(new Color(107, 142, 35));
-		getChangeDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
-		getChangeDetailsButton().setBounds(626, 75, 116, 23);
-		detailsPanel.add(getChangeDetailsButton());
+		changeDetailsButton = new JButton("Change Details");
+		changeDetailsButton.setBackground(new Color(107, 142, 35));
+		changeDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		changeDetailsButton.setBounds(626, 75, 116, 23);
+		detailsPanel.add(changeDetailsButton);
 		
 		cancelChangesButton = new JButton("Cancel Changes");
 		cancelChangesButton.setBackground(new Color(107, 142, 35));
@@ -186,9 +197,9 @@ public class AdminScreen extends JPanel {
 		detailsPanel.add(lblExistingPersons);
 		
 		selectExistingComboBox = new JComboBox<String>();
-		getSelectExistingComboBox().setEnabled(false);
-		getSelectExistingComboBox().setBounds(421, 13, 157, 20);
-		detailsPanel.add(getSelectExistingComboBox());
+		selectExistingComboBox.setEnabled(false);
+		selectExistingComboBox.setBounds(421, 13, 157, 20);
+		detailsPanel.add(selectExistingComboBox);
 	}
 	
 	public boolean checkInputs() {
@@ -268,7 +279,8 @@ public class AdminScreen extends JPanel {
 		return true;
 	}
 
-	public void refreshScreen() {
+	//GUI Changers (Refreshers, Mode Changers)
+	public void resetScreen() {
 		myBehavior.fillTable();
 		myBehavior.fillSelectExisting();
 				
@@ -284,60 +296,154 @@ public class AdminScreen extends JPanel {
 		middleInitTextField.setBackground(Color.WHITE);
 		lastNameTextField.setEditable(false);
 		lastNameTextField.setBackground(Color.WHITE);
-			
-		changeDetailsButton.setText("Change Details");
+
+		clearUserDetails();
+		changeMode(REGULAR_MODE);
 		
 		this.validate();
 	}
 
-	public JTable getUserTable() {
-		return userTable;
-	}
-
-	public JComboBox <String> getSelectExistingComboBox() {
-		return selectExistingComboBox;
-	}
-
-	public JTextField getUsernameTextField() {
-		return usernameTextField;
-	}
-
-	public JTextField getPasswordTextField() {
-		return passwordTextField;
-	}
-
-	public JComboBox <String> getClearanceComboBox() {
-		return clearanceComboBox;
-	}
-
-	public JTextField getFirstNameTextField() {
-		return firstNameTextField;
-	}
-
-	public JTextField getMiddleInitTextField() {
-		return middleInitTextField;
-	}
-
-	public JTextField getLastNameTextField() {
-		return lastNameTextField;
-	}
-
-	public JButton getChangeDetailsButton() {
-		return changeDetailsButton;
-	}
-
-	public void setChangeDetailsButton(JButton changeDetailsButton) {
-		this.changeDetailsButton = changeDetailsButton;
-	}
-
-	public void personAlreadyExists() {
-		JOptionPane.showMessageDialog(null, "The person you tried to add to the account already exists.", "Error", JOptionPane.WARNING_MESSAGE);
-	}
-
-	public void showErrorNoSelectedUser() {
-		JOptionPane.showMessageDialog(null, "Please select a person on the table before editing.", "Error", JOptionPane.WARNING_MESSAGE);
+	public void clearUserDetails(){
+		usernameTextField.setText("");
+		passwordTextField.setText("");
+		firstNameTextField.setText("");
+		middleInitTextField.setText("");
+		lastNameTextField.setText("");
 	}
 	
+	private void changeMode(int mode){
+		if(mode == REGULAR_MODE){
+			changeDetailsButton.setText("Change Details");
+			currMode = REGULAR_MODE;
+		}
+		else if(mode == EDIT_DETAILS_MODE){
+			changeDetailsButton.setText("Save Details");
+			currMode = EDIT_DETAILS_MODE;
+		}
+	}
+	
+	public void setModeToChangeDetails(){
+		usernameTextField.setEditable(false);
+		passwordTextField.setEditable(true);
+		clearanceComboBox.setEnabled(true);
+		selectExistingComboBox.setEnabled(true);
+		firstNameTextField.setEditable(true);
+		middleInitTextField.setEditable(true);
+		lastNameTextField.setEditable(true);
+		changeMode(EDIT_DETAILS_MODE);
+	}
+	
+	public void setModeToAddUser(){
+		usernameTextField.setEditable(true);
+		passwordTextField.setEditable(true);
+		clearanceComboBox.setEnabled(true);
+		selectExistingComboBox.setEnabled(true);
+		firstNameTextField.setEditable(true);
+		middleInitTextField.setEditable(true);
+		lastNameTextField.setEditable(true);
+		
+		clearUserDetails();
+		changeMode(EDIT_DETAILS_MODE);
+	}
+	
+	
+	//Getters for the data
+	public String getUsername(){
+		return usernameTextField.getText();
+	}
+	
+	public String getPassword(){
+		return passwordTextField.getText();
+	}
+	
+	public String getFirstName(){
+		return firstNameTextField.getText();
+	}
+	
+	public String getMiddleInitial(){
+		return middleInitTextField.getText();
+	}
+	
+	public String getLastName(){
+		return lastNameTextField.getText();
+	}
+	
+	public String getSelectedPerson(){
+		if(selectExistingComboBox.getSelectedItem() == null)
+			return null;
+		
+		return selectExistingComboBox.getSelectedItem().toString();
+	}
+	
+	public int getSelectedUserID(){
+		try{
+		 return Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0) + "");
+		}
+		catch(Exception e){
+			return -1;
+		}
+	}
+	
+	public String getSelectedClearance(){
+		if(clearanceComboBox.getSelectedItem() != null)
+			return clearanceComboBox.getSelectedItem().toString();
+		
+		return null;
+	}
+		
+	public boolean isEditMode(){
+		return currMode == EDIT_DETAILS_MODE;
+	}
+	
+	//Setters/Display methods for the data
+	public void displayError(String errorMsg){
+		JOptionPane.showMessageDialog(null, errorMsg, "Error", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void displayUser(UserAccount u){
+		usernameTextField.setText(u.getUsername());
+		passwordTextField.setText(u.getPassword());
+		clearanceComboBox.setSelectedItem(u.getClearance().getClearanceLevel());
+		firstNameTextField.setText(u.getPersonFirstName());
+		middleInitTextField.setText(u.getPersonMiddleName());
+		lastNameTextField.setText(u.getPersonLastName());	
+	}
+	
+	public void displayUserList(DefaultTableModel model){
+		userTable.setModel(model);
+	}
+	
+	public void setClearanceChoices(ArrayList<Clearance> choices){
+		for (int i = 0; i < choices.size(); i++) {
+			clearanceComboBox.addItem(choices.get(i).getClearanceLevel());
+		}
+	}
+	
+	public void setPersonsWithNoAccount(ArrayList<Person> list){
+		selectExistingComboBox.removeAllItems();
+		selectExistingComboBox.addItem("");
+		
+		for (int i = 0; i < list.size(); i++)
+			selectExistingComboBox.addItem(list.get(i).getFirstName() + " " + list.get(i).getMiddleInitial() + ". " + list.get(i).getLastName());
+	}
+	
+	public void setFirstName(String firstName){
+		if(firstName != null)
+			firstNameTextField.setText(firstName);
+	}
+	
+	public void setMiddleInitial(char c){
+		middleInitTextField.setText(""+c);
+	}
+	
+	public void setLastName(String lastName){
+		if(lastName != null)
+			lastNameTextField.setText(lastName);
+	}
+	
+	
+	
+	//Setters for the listeners
 	public void setDeleteUserButtonListener(ActionListener listener){
 		deleteUserButton.addActionListener(listener);
 	}
@@ -362,8 +468,5 @@ public class AdminScreen extends JPanel {
 		selectExistingComboBox.addActionListener(listener);
 	}
 	
-	public void setUserTableModel(DefaultTableModel model){
-		userTable.setModel(model);
-	}
 	
 }
