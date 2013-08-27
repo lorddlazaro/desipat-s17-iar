@@ -1,11 +1,10 @@
 package screens;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,18 +14,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+
 import javax.swing.border.LineBorder;
 
-import phase1.Person;
 import screenBehaviourStrategy.AccountSettingsScreenBehavior;
-import screenBehaviourStrategy.AccountSettingsScreenBehaviourStrategy;
-import dataObjects.PersonTable;
+
 import dataObjects.UserAccount;
-import dataObjects.UserAccountTable;
 
 
-public class AccountSettingsScreen extends Screen implements TableObserver{
+
+public class AccountSettingsScreen extends Screen{
 	private JTextField usernameField;
 	private JLabel lblName;
 	private JLabel nameLabel;
@@ -46,16 +43,15 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	private JLabel firstNameLabel;
 	private JLabel lastNameLabel;
 	private JLabel middleInitLabel;
-	private JPanel assetSummary;
-	private JLabel lblSummaryTable;
-	private JTextPane lblNetWorthList;
-	private JTextPane lblNewestAssetList;
-	private JTextPane lblMostValuableAssetList;
 	
 	private AccountSettingsScreenBehavior controller;
 	
-	private UserAccount currUser;
-	private Connection conn;
+	public static final int REGULAR_MODE = 0;
+	public static final int EDIT_DETAILS_MODE = 1;
+	
+	private int currEditPasswordMode;
+	private int currEditNameMode;
+
 	private JButton changeNameButton;
 	
 	/**
@@ -66,10 +62,8 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		initialize();
 	}
 
-	public void setCurrentUser() {
-		currUser = MainScreen.getCurrentUser();
-		controller.setCurrUser(currUser);
-		initSettings();
+	public void setCurrentUser(UserAccount currUser) {
+		initSettings(currUser);
 	}
 
 	public void initialize() {
@@ -105,35 +99,33 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		passwordLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
 		userSettingsPanel.add(passwordLabel);
 		
-		setPasswordField(new JPasswordField());
-		getPasswordField().setBounds(112, 81, 138, 20);
-		getPasswordField().setColumns(10);
-		userSettingsPanel.add(getPasswordField());
+		passwordField = new JPasswordField();
+		passwordField.setBounds(112, 81, 138, 20);
+		passwordField.setColumns(10);
+		userSettingsPanel.add(passwordField);
 		
 		
-		setChangeDetailsButton(new JButton("Change Details"));
-		getChangeDetailsButton().setBackground(new Color(220, 220, 220));
-		getChangeDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
-		getChangeDetailsButton().setBounds(254, 80, 105, 23);
-		userSettingsPanel.add(getChangeDetailsButton());
+		changeDetailsButton = new JButton("Change Details");
+		changeDetailsButton.setBackground(new Color(220, 220, 220));
+		changeDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		changeDetailsButton.setBounds(254, 80, 105, 23);
+		userSettingsPanel.add(changeDetailsButton);
 		
-		setNewPasswordLabel(new JLabel("New Password:"));
-		getNewPasswordLabel().setFont(new Font("Calibri", Font.PLAIN, 16));
-		getNewPasswordLabel().setBounds(5, 108, 105, 19);
-		userSettingsPanel.add(getNewPasswordLabel());
+		newPasswordLabel = new JLabel("New Password:");
+		newPasswordLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
+		newPasswordLabel.setBounds(5, 108, 105, 19);
+		userSettingsPanel.add(newPasswordLabel);
 		
-		setNewPasswordField(new JPasswordField());
-		getNewPasswordField().setColumns(10);
-		getNewPasswordField().setBounds(112, 108, 138, 20);
-		userSettingsPanel.add(getNewPasswordField());
+		newPasswordField = new JPasswordField();
+		newPasswordField.setColumns(10);
+		newPasswordField.setBounds(112, 108, 138, 20);
+		userSettingsPanel.add(newPasswordField);
 		
-		setSaveDetailsButton(new JButton("Save"));
-		getSaveDetailsButton().setBackground(new Color(220, 220, 220));
-		getSaveDetailsButton().setFont(new Font("Calibri", Font.PLAIN, 11));
-		getSaveDetailsButton().setBounds(254, 107, 105, 23);
-		userSettingsPanel.add(getSaveDetailsButton());
-		
-		
+		saveDetailsButton = new JButton("Save");
+		saveDetailsButton.setBackground(new Color(220, 220, 220));
+		saveDetailsButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		saveDetailsButton.setBounds(254, 107, 105, 23);
+		userSettingsPanel.add(saveDetailsButton);
 		
 		namePanel = new JPanel();
 		namePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -152,51 +144,47 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		nameLabel.setFont(new Font("Calibri", Font.PLAIN, 16));
 		namePanel.add(nameLabel);
 		
-		setFirstNameLabel(new JLabel("First Name"));
-		getFirstNameLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
-		getFirstNameLabel().setHorizontalAlignment(SwingConstants.CENTER);
-		getFirstNameLabel().setBounds(20, 90, 141, 14);
-		namePanel.add(getFirstNameLabel());
+		firstNameLabel = new JLabel("First Name");
+		firstNameLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
+		firstNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		firstNameLabel.setBounds(20, 90, 141, 14);
+		namePanel.add(firstNameLabel);
 		
-		setFirstNameTextField(new JTextField());
-		getFirstNameTextField().setBounds(20, 109, 141, 20);
-		getFirstNameTextField().setColumns(10);
-		namePanel.add(getFirstNameTextField());
+		firstNameTextField = new JTextField();
+		firstNameTextField.setBounds(20, 109, 141, 20);
+		firstNameTextField.setColumns(10);
+		namePanel.add(firstNameTextField);
 		
-		setMiddleInitLabel(new JLabel("MI"));
-		getMiddleInitLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
-		getMiddleInitLabel().setHorizontalAlignment(SwingConstants.CENTER);
-		getMiddleInitLabel().setBounds(168, 90, 48, 14);
-		namePanel.add(getMiddleInitLabel());
+		middleInitLabel = new JLabel("MI");
+		middleInitLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
+		middleInitLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		middleInitLabel.setBounds(168, 90, 48, 14);
+		namePanel.add(middleInitLabel);
 		
-		setMiddleInitialTextField(new JTextField());
-		getMiddleInitialTextField().setBounds(168, 109, 48, 20);
-		getMiddleInitialTextField().setColumns(10);
-		namePanel.add(getMiddleInitialTextField());
+		middleInitialTextField = new JTextField();
+		middleInitialTextField.setBounds(168, 109, 48, 20);
+		middleInitialTextField.setColumns(10);
+		namePanel.add(middleInitialTextField);
 		
-		setLastNameLabel(new JLabel("Last Name"));
-		getLastNameLabel().setFont(new Font("Calibri", Font.PLAIN, 12));
-		getLastNameLabel().setHorizontalAlignment(SwingConstants.CENTER);
-		getLastNameLabel().setBounds(222, 90, 141, 14);
-		namePanel.add(getLastNameLabel());
+		lastNameLabel = new JLabel("Last Name");
+		lastNameLabel.setFont(new Font("Calibri", Font.PLAIN, 12));
+		lastNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lastNameLabel.setBounds(222, 90, 141, 14);
+		namePanel.add(lastNameLabel);
 		
-		setLastNameTextField(new JTextField());
-		getLastNameTextField().setBounds(222, 109, 141, 20);
-		getLastNameTextField().setColumns(10);
-		namePanel.add(getLastNameTextField());
+		lastNameTextField = new JTextField();
+		lastNameTextField.setBounds(222, 109, 141, 20);
+		lastNameTextField.setColumns(10);
+		namePanel.add(lastNameTextField);
 		
-		setChangeNameButton(new JButton("Update Name"));
-		getChangeNameButton().setBackground(new Color(220, 220, 220));
-		getChangeNameButton().setFont(new Font("Calibri", Font.PLAIN, 11));
-		getChangeNameButton().setBounds(258, 64, 105, 23);
-		namePanel.add(getChangeNameButton());
+		changeNameButton = new JButton("Update Name");
+		changeNameButton.setBackground(new Color(220, 220, 220));
+		changeNameButton.setFont(new Font("Calibri", Font.PLAIN, 11));
+		changeNameButton.setBounds(258, 64, 105, 23);
+		namePanel.add(changeNameButton);
 	}
 	
-	public void refresh(){ 
-		//this was meant to update networth etc i think
-	}
-
-	public void initSettings() {
+	public void initSettings(UserAccount currUser) {
 		usernameField.setText(currUser.getUsername());
 		passwordField.setText(currUser.getPassword());
 		
@@ -205,7 +193,7 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		
 		passwordField.setEditable(false);
 		passwordField.setBackground(Color.WHITE);
-		getNewPasswordField().setVisible(false);
+		newPasswordField.setVisible(false);
 		newPasswordField.setBackground(Color.WHITE);
 		newPasswordLabel.setVisible(false);
 		saveDetailsButton.setVisible(false);
@@ -225,13 +213,92 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		firstNameTextField.setVisible(false);
 		middleInitialTextField.setVisible(false);
 		lastNameTextField.setVisible(false);
-		//lookUpNetWorth();
-		//lookUpNewestAssets();
-		//lookUpMostValuableAssets();
+	
+		
+		changeEditPasswordMode(REGULAR_MODE);
+		changeEditNameMode(REGULAR_MODE);
+		
 		this.validate();
 	}
 
-	public boolean checkNewPassword() {
+	public void refresh() {
+		
+	}
+
+	private void changeEditPasswordMode(int mode){
+		if(mode == EDIT_DETAILS_MODE){
+			changeDetailsButton.setText("Cancel");
+			passwordField.setEditable(true);
+			passwordField.setText("");
+			newPasswordField.setText("");
+			newPasswordField.setVisible(true);
+			newPasswordLabel.setVisible(true);
+			saveDetailsButton.setVisible(true);
+			
+			currEditPasswordMode = EDIT_DETAILS_MODE;
+		}
+		else if(mode == REGULAR_MODE)
+		{
+			changeDetailsButton.setText("Change Details");
+			passwordField.setEditable(false);
+			passwordField.setBackground(Color.WHITE);
+			newPasswordField.setVisible(false);
+			newPasswordField.setBackground(Color.WHITE);
+			newPasswordLabel.setVisible(false);
+			saveDetailsButton.setVisible(false);
+			
+			currEditPasswordMode = REGULAR_MODE;
+		}
+	}
+	
+	private void changeEditNameMode(int mode){
+		if(mode == EDIT_DETAILS_MODE ){
+			changeNameButton.setText("Save");
+			firstNameLabel.setVisible(true);
+			middleInitLabel.setVisible(true);
+			lastNameLabel.setVisible(true);
+
+			firstNameTextField.setVisible(true);
+			middleInitialTextField.setVisible(true);
+			lastNameTextField.setVisible(true);
+			
+			currEditNameMode = EDIT_DETAILS_MODE;
+			
+		}
+		else{
+			changeNameButton.setText("Update Name");
+			
+			firstNameLabel.setVisible(false);
+			middleInitLabel.setVisible(false);
+			lastNameLabel.setVisible(false);
+
+			firstNameTextField.setVisible(false);
+			middleInitialTextField.setVisible(false);
+			lastNameTextField.setVisible(false);
+			
+			currEditNameMode = REGULAR_MODE;
+		}
+	}
+	
+	
+	public void changeToEditPasswordMode(){
+		changeEditPasswordMode(EDIT_DETAILS_MODE);
+	}
+	
+	public void changeToUpdateNameMode(){
+		changeEditNameMode(EDIT_DETAILS_MODE);
+	}
+	
+	
+	public boolean isEditPasswordMode(){
+		return currEditPasswordMode == EDIT_DETAILS_MODE;
+	}
+	
+	public boolean isEditNameMode(){
+		return currEditNameMode == EDIT_DETAILS_MODE;
+	}
+	
+	public boolean checkNewPassword(UserAccount currUser) {
 		if (new String(passwordField.getPassword()).trim().length() == 0) {
 			passwordField.setBackground(Color.PINK);
 			JOptionPane.showMessageDialog(null, "Please input old password.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -242,8 +309,8 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 			JOptionPane.showMessageDialog(null, "Wrong password.", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		if (getNewPasswordField().getPassword().length == 0) {
-			getNewPasswordField().setBackground(Color.PINK);
+		if (newPasswordField.getPassword().length == 0) {
+			newPasswordField.setBackground(Color.PINK);
 			JOptionPane.showMessageDialog(null, "New password cannot be blank.", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -305,98 +372,23 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 		return true;
 	}
 
-	public JButton getSaveDetailsButton() {
-		return saveDetailsButton;
+	
+	public String getFirstName(){
+		return firstNameTextField.getText();
 	}
-
-	public void setSaveDetailsButton(JButton saveDetailsButton) {
-		this.saveDetailsButton = saveDetailsButton;
+	
+	public String getMiddleInitial(){
+		return middleInitialTextField.getText();
 	}
-
-	public JLabel getNewPasswordLabel() {
-		return newPasswordLabel;
+	
+	public String getLastName(){
+		return lastNameTextField.getText();
 	}
-
-	public void setNewPasswordLabel(JLabel newPasswordLabel) {
-		this.newPasswordLabel = newPasswordLabel;
+	
+	public String getNewPassword(){
+		return new String(newPasswordField.getPassword());
 	}
-
-	public JPasswordField getPasswordField() {
-		return passwordField;
-	}
-
-	public void setPasswordField(JPasswordField passwordField) {
-		this.passwordField = passwordField;
-	}
-
-	public JButton getChangeDetailsButton() {
-		return changeDetailsButton;
-	}
-
-	public void setChangeDetailsButton(JButton changeDetailsButton) {
-		this.changeDetailsButton = changeDetailsButton;
-	}
-
-	public JButton getChangeNameButton() {
-		return changeNameButton;
-	}
-
-	public void setChangeNameButton(JButton changeNameButton) {
-		this.changeNameButton = changeNameButton;
-	}
-
-	public JLabel getFirstNameLabel() {
-		return firstNameLabel;
-	}
-
-	public void setFirstNameLabel(JLabel firstNameLabel) {
-		this.firstNameLabel = firstNameLabel;
-	}
-
-	public JLabel getMiddleInitLabel() {
-		return middleInitLabel;
-	}
-
-	public void setMiddleInitLabel(JLabel middleInitLabel) {
-		this.middleInitLabel = middleInitLabel;
-	}
-
-	public JLabel getLastNameLabel() {
-		return lastNameLabel;
-	}
-
-	public void setLastNameLabel(JLabel lastNameLabel) {
-		this.lastNameLabel = lastNameLabel;
-	}
-
-	public JTextField getFirstNameTextField() {
-		return firstNameTextField;
-	}
-
-	public void setFirstNameTextField(JTextField firstNameTextField) {
-		this.firstNameTextField = firstNameTextField;
-	}
-
-	public JTextField getMiddleInitialTextField() {
-		return middleInitialTextField;
-	}
-
-	public void setMiddleInitialTextField(JTextField middleInitialTextField) {
-		this.middleInitialTextField = middleInitialTextField;
-	}
-
-	public JTextField getLastNameTextField() {
-		return lastNameTextField;
-	}
-
-	public void setLastNameTextField(JTextField lastNameTextField) {
-		this.lastNameTextField = lastNameTextField;
-	}
-
-	public JPasswordField getNewPasswordField() {
-		return newPasswordField;
-	}
-
+	
 	public void setNewPasswordField(JPasswordField newPasswordField) {
 		this.newPasswordField = newPasswordField;
 	}
@@ -412,5 +404,9 @@ public class AccountSettingsScreen extends Screen implements TableObserver{
 	public void setChangeNameButtonListener(ActionListener listener){
 		changeNameButton.addActionListener(listener);
 	}
+
+	
+	
+
 	
 }

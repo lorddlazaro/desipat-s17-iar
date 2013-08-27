@@ -210,7 +210,7 @@ public class MainScreen extends Screen{
 	
 	public void refresh(){
 		changeCurrentUserLabel();
-		accountSettingsCard.setCurrentUser();
+		accountSettingsCard.setCurrentUser(currentUser);
 	}
 	
 	public void gotoGreetingScreen() {
