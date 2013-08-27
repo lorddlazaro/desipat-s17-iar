@@ -25,6 +25,7 @@ import errorChecker.FormAssetValidator;
 import errorChecker.ValidLengthAndCharChecker;
 import fields.ObjectInput;
 import screens.FormAssetScreen;
+import screens.MainScreen;
 
 public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
@@ -101,7 +102,7 @@ public class AddAssetScreenBehavior implements AssetScreenBehaviorStrategy {
 
 		AssetTable.getInstance().addEntry(asset);
 		
-		ActionAddAsset action = new ActionAddAsset(assetScreen.getOwnerID(), assetScreen.getAssetName());
+		ActionAddAsset action = new ActionAddAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
 		action.logAction();
 	}
 	

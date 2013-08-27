@@ -157,9 +157,12 @@ public class UserAccountTable extends TableSubject{
 				}
 			};
 		
-		
+			ArrayList<UserAccount> list = getAllEntries(true);
+			
+			for (int i = 0; i < list.size(); i++)
+				model.addRow(new Object[] {list.get(i).getID(), list.get(i).getUsername(), list.get(i).getPassword(), list.get(i).getClearance().getClearanceLevel(), list.get(i).getPersonFirstName(), list.get(i).getPersonMiddleName(), list.get(i).getPersonLastName()});
+			
 		return model;
-		
 	}
 	
 }

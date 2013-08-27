@@ -4,14 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
 
-import javax.swing.table.DefaultTableModel;
 
 import dataObjects.Asset;
 import dataObjects.AssetChangeLogTable;
 import dataObjects.AssetTable;
-import screens.MainScreen;
+
 import screens.TableObserver;
 import screens.ViewAssetScreen;
 
@@ -35,37 +33,8 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	public ViewAssetScreen getView(){ 
 		return view;
 	}
-	
-	public void selectAsset() {
-		int selectedAssetIdentifier = view.getAssetTableSelectedAssetID();
 		
-		Asset asset = AssetTable.getInstance().getEntry(selectedAssetIdentifier);
-		
-		view.setLblIdentifier(String.valueOf(asset.getID()));
-		view.setLblName(String.valueOf(asset.getName()));
-		view.setLblOwner(String.valueOf(asset.getOwner().getName()));
-		view.setLblCustodian(String.valueOf(asset.getCustodian().getName()));
-		view.setLblType(String.valueOf(asset.getType().getType()));
-		view.setLblDateAcquired(String.valueOf(asset.getDateAcquired()));
-		view.setLblMaintenance(String.valueOf(asset.getMaintenance().getMaintenance()));
-		view.setLblFinancialValue(String.valueOf(asset.getFinancialValue()));
-		view.setLblConfidentialValue(String.valueOf(asset.getConfidentialValue()));
-		view.setLblIntegrityValue(String.valueOf(asset.getIntegrityValue()));
-		view.setLblAvailabilityValue(String.valueOf(asset.getAvailabilityValue()));
-		view.setLblClassification(String.valueOf(asset.getClassification().getClassification()));
-		view.setLblStorageLocation(String.valueOf(asset.getStorage().getStorageLocation()));
-			
-		view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(selectedAssetIdentifier));
-	}
-	public void addAsset() {
-		main.gotoAddAssetScreen();
-	}
-	public void updateAsset() {
-		main.loadEntry(view.getAssetTableSelectedAssetID());
-		main.gotoEditAssetScreen();
-	}
-	
-	
+	//Action Listeners
 	class AddAssetButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			addAsset();
@@ -81,10 +50,31 @@ public class ViewAssetScreenBehaviour implements ViewAssetScreenBehaviourStrateg
 	class AssetTableMouseAdapter extends MouseAdapter{
 		public void mousePressed(MouseEvent arg0) {
 			selectAsset();
-			System.out.println("HERE");
 		}
 	}
 	
+	
+	//Methods called by the Action Listeners
+	public void selectAsset() {
+		int selectedAssetIdentifier = view.getSelectedAssetID();
+		
+		Asset asset = AssetTable.getInstance().getEntry(selectedAssetIdentifier);
+		view.displayAsset(asset);	
+		view.setSelectedAssetChangeLogTableModel(AssetChangeLogTable.getInstance().createSelectedAssetChageLogTableModel(selectedAssetIdentifier));
+	}
+	
+	public void addAsset() {
+		main.gotoAddAssetScreen();
+	}
+	
+	public void updateAsset() {
+		main.loadEntry(view.getSelectedAssetID());
+		main.gotoEditAssetScreen();
+	}
+	
+	
+	
+	//Called by TableSubject when notifying observers.
 	@Override
 	public void refresh() {
 		view.setViewAssetTableModel(AssetTable.getInstance().createTableModel());

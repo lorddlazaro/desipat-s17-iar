@@ -24,10 +24,11 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 	}
 	
 	public void saveAsset() {
-		Asset asset = null;
+		Asset editedAsset = null;
 		
 		try {
-			asset = new Asset(	assetScreen.getAssetName(),
+			editedAsset = new Asset(
+								assetScreen.getAssetName(),
 								assetScreen.getOwnerID(),
 								assetScreen.getCustodianID(),
 								assetScreen.getTypeID(),
@@ -42,7 +43,7 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 								assetScreen.getAvailabilityValue()
 								);
 			
-			asset.setID(assetScreen.getAssetID());
+			editedAsset.setID(assetScreen.getAssetID());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,9 +51,9 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 		//will be true if user made a change. else, don't edit and don't log.
 		
 		
-		Asset oldAsset = AssetTable.getInstance().getEntry(asset.getID());
+		Asset oldAsset = AssetTable.getInstance().getEntry(editedAsset.getID());
 		
-		if(!oldAsset.equals(asset)){
+		if(!oldAsset.equals(editedAsset)){
 		
 			ActionUpdateAsset action = new ActionUpdateAsset(MainScreen.getCurrentUser().getID(), assetScreen.getAssetName());
 			action.logAction();
@@ -60,10 +61,10 @@ public class EditAssetScreenBehavior extends AddAssetScreenBehavior{
 			Query getID = new GetMaxIDActionLog();
 			getID.executeStatement();
 			
-			AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), asset);
+			AssetEdited editAction = new AssetEdited((Integer)getID.getResultList().get(0), editedAsset);
 			editAction.logAction();
 			
-			AssetTable.getInstance().editEntry(asset);
+			AssetTable.getInstance().editEntry(editedAsset);
 		}
 	}
 	
