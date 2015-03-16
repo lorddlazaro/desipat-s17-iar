@@ -1,0 +1,1 @@
+a desktop windowing project that deals with providing an Information Asset Registry to a company considering the life cycle of an information asset as well as the requirements of an asset registry when looking at the information security of a company.
